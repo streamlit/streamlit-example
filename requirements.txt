@@ -1,0 +1,13 @@
+--find-links https://download.pytorch.org/whl/torch_stable.html
+streamlit
+pillow
+numpy
+pandas
+detectron2
+opencv_python
+scipy
+pyyaml
+pycocotools
+cython
+torch==1.7.0+cpu
+detectron2
