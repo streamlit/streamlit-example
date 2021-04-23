@@ -14,7 +14,6 @@ forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
-pip install streamlit
 streamlit hello
 
 with st.echo(code_location='below'):
