@@ -1,6 +1,5 @@
 import pandas as pd # used to load, manipulate the data and for one-hot encoding
 import numpy as np # data manipulation
-%matplotlib inline
 import seaborn as sns 
 import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
