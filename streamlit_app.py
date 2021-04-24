@@ -16,3 +16,4 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import confusion_matrix, precision_score, accuracy_score, recall_score, roc_curve, auc
 import seaborn as sns
+print("İlayda")
