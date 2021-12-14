@@ -1,0 +1,210 @@
+
+
+**********************************************************************************************
+**********************************************************************************************
+*                                                                                            *
+*                          server listening on tcp://nid00020:5555                           *
+*                            arkouda server version = v2021.10.07                            *
+*                                memory limit = 121565642342                                 *
+*                                  bytes of memory used = 0                                  *
+*                                                                                            *
+**********************************************************************************************
+**********************************************************************************************
+
+
+2021-12-13T14:51:14.400083 [arkouda_server] main Line 266 INFO [Chapel] >>> "connect" ""
+2021-12-13T14:51:14.400211 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"connected to arkouda server tcp://*:5555", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.400312 [arkouda_server] main Line 410 INFO [Chapel] <<< connect took 284 sec
+2021-12-13T14:51:14.400378 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 0
+2021-12-13T14:51:14.400684 [arkouda_server] main Line 266 INFO [Chapel] >>> "getconfig" ""
+2021-12-13T14:51:14.400838 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"{\"arkoudaVersion\":\"v2021.10.07\", \"ZMQVersion\":\"4.3.2\", \"HDF5Version\":\"1.12.0\", \"serverHostname\":\"nid00020\", \"ServerPort\":5555, \"numLocales\":2, \"numPUs\":44, \"maxTaskPar\":44, \"physicalMemory\":135072935936, \"distributionType\":\"BlockDom(1,int(64),false,unmanaged DefaultDist)\", \"LocaleConfigs\":[{\"id\":0, \"name\":\"nid00020\", \"numPUs\":44, \"maxTaskPar\":44, \"physicalMemory\":135072935936}, {\"id\":1, \"name\":\"nid00023\", \"numPUs\":44, \"maxTaskPar\":44, \"physicalMemory\":135072935936}], \"authenticate\":false, \"logLevel\":\"INFO\", \"byteorder\":\"little\"}", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.400953 [arkouda_server] main Line 410 INFO [Chapel] <<< getconfig took 288 sec
+2021-12-13T14:51:14.401017 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 0
+connected to arkouda server tcp://*:5555
+2021-12-13T14:51:14.401433 [arkouda_server] main Line 266 INFO [Chapel] >>> "arange" "1 200000000 1"
+2021-12-13T14:51:14.401497 [ServerConfig] overMemLimit Line 186 INFO [Chapel] memory high watermark = 1599999992 memory limit = 243131284684
+2021-12-13T14:51:14.441595 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_1 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.441783 [arkouda_server] main Line 410 INFO [Chapel] <<< arange took 40372 sec
+2021-12-13T14:51:14.441844 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 1600000000
+2021-12-13T14:51:14.442588 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumsum id_1"
+2021-12-13T14:51:14.442720 [ServerConfig] overMemLimit Line 186 INFO [Chapel] memory high watermark = 3199999992 memory limit = 243131284684
+2021-12-13T14:51:14.543740 [ServerConfig] overMemLimit Line 186 INFO [Chapel] memory high watermark = 6399999992 memory limit = 243131284684
+2021-12-13T14:51:14.552155 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_2 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.552294 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 109740 sec
+2021-12-13T14:51:14.552355 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.552909 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_2 199999998"
+2021-12-13T14:51:14.553057 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 19999999900000000", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.553150 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 284 sec
+2021-12-13T14:51:14.553209 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.553848 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumprod id_1"
+2021-12-13T14:51:14.662403 [ServerConfig] overMemLimit Line 186 INFO [Chapel] memory high watermark = 7999999992 memory limit = 243131284684
+2021-12-13T14:51:14.670936 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_3 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.671067 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 117232 sec
+2021-12-13T14:51:14.671125 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:14.671694 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_2"
+2021-12-13T14:51:14.680762 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_2", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.680842 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9189 sec
+2021-12-13T14:51:14.680889 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.681276 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_3 199999998"
+2021-12-13T14:51:14.681399 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 0", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.681474 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 217 sec
+2021-12-13T14:51:14.681555 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.682002 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumsum id_1"
+2021-12-13T14:51:14.793519 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_4 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.793695 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 111715 sec
+2021-12-13T14:51:14.793757 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:14.794272 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_3"
+2021-12-13T14:51:14.803218 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_3", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.803299 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9072 sec
+2021-12-13T14:51:14.803346 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.803771 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_4 199999998"
+2021-12-13T14:51:14.803892 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 19999999900000000", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.803968 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 215 sec
+2021-12-13T14:51:14.804031 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.804536 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumprod id_1"
+2021-12-13T14:51:14.935343 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_5 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.935527 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 131000 sec
+2021-12-13T14:51:14.935589 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:14.936119 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_4"
+2021-12-13T14:51:14.945252 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_4", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.945332 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9257 sec
+2021-12-13T14:51:14.945381 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.945796 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_5 199999998"
+2021-12-13T14:51:14.945922 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 0", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:14.946003 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 226 sec
+2021-12-13T14:51:14.946069 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:14.946509 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumsum id_1"
+2021-12-13T14:51:15.056989 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_6 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.057167 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 110663 sec
+2021-12-13T14:51:15.057230 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.057788 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_5"
+2021-12-13T14:51:15.067012 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_5", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.067102 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9359 sec
+2021-12-13T14:51:15.067149 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.067482 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_6 199999998"
+2021-12-13T14:51:15.067604 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 19999999900000000", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.067679 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 215 sec
+2021-12-13T14:51:15.067761 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.068194 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumprod id_1"
+2021-12-13T14:51:15.187600 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_7 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.187775 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 119605 sec
+2021-12-13T14:51:15.187839 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.188381 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_6"
+2021-12-13T14:51:15.197158 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_6", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.197256 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 8900 sec
+2021-12-13T14:51:15.197305 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.197661 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_7 199999998"
+2021-12-13T14:51:15.197783 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 0", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.197862 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 220 sec
+2021-12-13T14:51:15.197928 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.198484 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumsum id_1"
+2021-12-13T14:51:15.311016 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_8 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.311193 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 112733 sec
+2021-12-13T14:51:15.311255 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.311828 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_7"
+2021-12-13T14:51:15.320744 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_7", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.320859 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9056 sec
+2021-12-13T14:51:15.320910 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.321333 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_8 199999998"
+2021-12-13T14:51:15.321461 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 19999999900000000", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.321561 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 230 sec
+2021-12-13T14:51:15.321611 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.322137 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumprod id_1"
+2021-12-13T14:51:15.454118 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_9 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.454295 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 132184 sec
+2021-12-13T14:51:15.454357 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.454930 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_8"
+2021-12-13T14:51:15.464066 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.464172 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9268 sec
+2021-12-13T14:51:15.464226 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.464630 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_9 199999998"
+2021-12-13T14:51:15.464765 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 0", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.464882 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 259 sec
+2021-12-13T14:51:15.464967 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.465424 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumsum id_1"
+2021-12-13T14:51:15.578092 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_10 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.578270 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 112854 sec
+2021-12-13T14:51:15.578332 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.578936 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_9"
+2021-12-13T14:51:15.588024 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_9", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.588133 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9236 sec
+2021-12-13T14:51:15.588189 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.588589 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_10 199999998"
+2021-12-13T14:51:15.588726 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 19999999900000000", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.588823 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 255 sec
+2021-12-13T14:51:15.588878 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.589407 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumprod id_1"
+2021-12-13T14:51:15.711488 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_11 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.711670 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 122258 sec
+2021-12-13T14:51:15.711724 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.712258 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_10"
+2021-12-13T14:51:15.721294 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_10", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.721388 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9167 sec
+2021-12-13T14:51:15.721444 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.721854 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_11 199999998"
+2021-12-13T14:51:15.721989 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 0", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.722075 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 243 sec
+2021-12-13T14:51:15.722130 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.722620 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumsum id_1"
+2021-12-13T14:51:15.841000 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_12 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.841173 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 118563 sec
+2021-12-13T14:51:15.841234 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.841773 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_11"
+2021-12-13T14:51:15.850627 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_11", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.850723 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 8991 sec
+2021-12-13T14:51:15.850778 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.851160 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_12 199999998"
+2021-12-13T14:51:15.851297 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 19999999900000000", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.851383 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 245 sec
+2021-12-13T14:51:15.851438 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.851965 [arkouda_server] main Line 266 INFO [Chapel] >>> "efunc" "cumprod id_1"
+2021-12-13T14:51:15.968263 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"created id_13 int64 199999999 1 (199999999) 8", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.968437 [arkouda_server] main Line 410 INFO [Chapel] <<< efunc took 116481 sec
+2021-12-13T14:51:15.968506 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 4800000000
+2021-12-13T14:51:15.969005 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_12"
+2021-12-13T14:51:15.977737 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_12", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.977831 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 8867 sec
+2021-12-13T14:51:15.977887 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.978348 [arkouda_server] main Line 266 INFO [Chapel] >>> "[int]" "id_13 199999998"
+2021-12-13T14:51:15.978483 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"item int64 0", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.978570 [arkouda_server] main Line 410 INFO [Chapel] <<< [int] took 244 sec
+2021-12-13T14:51:15.978624 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 3200000000
+2021-12-13T14:51:15.979090 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_1"
+2021-12-13T14:51:15.988093 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_1", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:15.988185 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 9116 sec
+2021-12-13T14:51:15.988241 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 1600000000
+2021-12-13T14:51:15.988615 [arkouda_server] main Line 266 INFO [Chapel] >>> "delete" "id_13"
+2021-12-13T14:51:15.999879 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"deleted id_13", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+    _         _                   _       
+   / \   _ __| | _____  _   _  __| | __ _ 
+  / _ \ | '__| |/ / _ \| | | |/ _` |/ _` |
+ / ___ \| |  |   < (_) | |_| | (_| | (_| |
+/_/   \_\_|  |_|\_\___/ \__,_|\__,_|\__,_|
+                                          
+
+Client Version: v2021.10.07
+array size = 100,000,000
+number of trials =  6
+>>> arkouda int64 scan
+numLocales = 2, N = 200,000,000
+cumsum, final value = 19999999900000000
+  cumsum Average time = 0.1213 sec
+  cumsum Average rate = 24.57 GiB/sec
+cumprod, final value = 0
+  cumprod Average time = 0.1333 sec
+  cumprod Average rate = 22.36 GiB/sec
+2021-12-13T14:51:15.999972 [arkouda_server] main Line 410 INFO [Chapel] <<< delete took 11378 sec
+2021-12-13T14:51:16.000027 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 0
+2021-12-13T14:51:16.812973 [arkouda_server] main Line 266 INFO [Chapel] >>> "connect" ""
+2021-12-13T14:51:16.813059 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"connected to arkouda server tcp://*:5555", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+2021-12-13T14:51:16.813137 [arkouda_server] main Line 410 INFO [Chapel] <<< connect took 188 sec
+2021-12-13T14:51:16.813218 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 0
+2021-12-13T14:51:16.813425 [arkouda_server] main Line 266 INFO [Chapel] >>> "getconfig" ""
+2021-12-13T14:51:16.813587 [arkouda_server] sendRepMsg Line 168 INFO [Chapel] repMsg: {"msg":"{\"arkoudaVersion\":\"v2021.10.07\", \"ZMQVersion\":\"4.3.2\", \"HDF5Version\":\"1.12.0\", \"serverHostname\":\"nid00020\", \"ServerPort\":5555, \"numLocales\":2, \"numPUs\":44, \"maxTaskPar\":44, \"physicalMemory\":135072935936, \"distributionType\":\"BlockDom(1,int(64),false,unmanaged DefaultDist)\", \"LocaleConfigs\":[{\"id\":0, \"name\":\"nid00020\", \"numPUs\":44, \"maxTaskPar\":44, \"physicalMemory\":135072935936}, {\"id\":1, \"name\":\"nid00023\", \"numPUs\":44, \"maxTaskPar\":44, \"physicalMemory\":135072935936}], \"authenticate\":false, \"logLevel\":\"INFO\", \"byteorder\":\"little\"}", "msgType":"NORMAL", "msgFormat":"STRING", "user":"p02405"}
+connected to arkouda server tcp://*:5555
+2021-12-13T14:51:16.813669 [arkouda_server] main Line 410 INFO [Chapel] <<< getconfig took 260 sec
+2021-12-13T14:51:16.813717 [arkouda_server] main Line 414 INFO [Chapel] bytes of memory used after command 0
+2021-12-13T14:51:16.814049 [arkouda_server] main Line 266 INFO [Chapel] >>> "shutdown" ""
+2021-12-13T14:51:16.814140 [arkouda_server] main Line 281 INFO [Chapel] <<< shutdown initiated by p02405 took 109 sec
+2021-12-13T14:51:16.816209 [arkouda_server] main Line 447 INFO [Chapel] requests = 43 responseCount = 43 elapsed sec = 3506628
+Running "benchmarks/scan.py"
