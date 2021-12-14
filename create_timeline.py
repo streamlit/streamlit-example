@@ -52,18 +52,30 @@ for filename in os.listdir(datadir):
 
 import streamlit as st
 import plotly.express as px
+import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
+import datetime as dt
+from datetime import timedelta
 
+# Gather all names from timelineData
+names = []
+for filename in timelineData:
+    for key in timelineData[filename]:
+        if key not in names:
+            names.append(key)
+cmap = plt.get_cmap('tab20c')
+colors = cmap(np.linspace(0, 1, len(names)))
+colorMap = {k:str(px.colors.label_rgb(tuple(v)[0:3])) for k,v in zip(names, colors)}
 for plotName in timelineData.keys():
+    today = dt.datetime.now()
+
     df = pd.DataFrame(
-        [dict(Task=t, Start=s, Finish=f) for t, xs in timelineData[plotName].items() for (s,f) in xs]
+        [dict(Task='Workload', Start=str(today + timedelta(microseconds=s)), Finish=str(today + timedelta(microseconds=f)), Color=t) for t, xs in timelineData[plotName].items() for (s,f) in xs]
     )
-    df['delta'] = df['Finish'] - df['Start']
     df.sort_values(by=['Start'], inplace=True)
-    fig = px.timeline(df, x_start='Start', x_end='Finish', y='Task')
+    fig = px.timeline(df, x_start='Start', x_end='Finish', y='Task', color='Color', color_discrete_map=colorMap)
     fig.update_yaxes(autorange="reversed")
-    fig.layout.xaxis.type = 'linear'
-    fig.data[0].x = df.delta.tolist()
     f = fig.full_figure_for_development(warn=False)
     # Set name of plot to `plotName` as subheading
     st.subheader(plotName)
