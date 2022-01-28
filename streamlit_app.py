@@ -3,36 +3,59 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import random as rand
+
+
+st.set_page_config("Demo app", ":heart:")
+
+
+def get_stock(returns, std, start_price, n):
+    prices = [start_price]
+    for i in range(n):
+        prices.append(prices[-1] * (1 + returns + std * (rand.random() - 0.5) * 2))
+    return prices
+
+
+def get_temp():
+    if "old_temp" not in st.session_state:
+        st.session_state["temp"] = round(30 + (rand.random() - 0.5) * 10)
+        st.metric("Ithaca Temperature (ºF)", st.session_state["temp"])
+        st.session_state["old_temp"] = st.session_state["temp"]
+    else:
+        st.session_state["temp"] = round(30 + (rand.random() - 0.5) * 10)
+        st.metric(
+            "Ithaca Temperature (ºF)",
+            st.session_state["temp"],
+            st.session_state["temp"] - st.session_state["old_temp"],
+        )
+        st.session_state["old_temp"] = st.session_state["temp"]
+
 
 """
-# Welcome to Streamlit!
+# This is the first demo
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+We will use it to showcase some of streamlit functionalities
 """
 
+st.header("Let's start with some math")
+st.latex("e^{\pi i}+1=0")
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+st.header("What about today's weather?")
+temp_button = st.button("Get temperature", on_click=get_temp())
 
-    Point = namedtuple('Point', 'x y')
-    data = []
 
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+st.header("Now let's do some finance bro stuff")
+returns = 10
+std = 0.5
+initial_price = 1000
+n = 50
+with st.expander("Set the parameters"):
+    returns = st.slider("Annual returns (%)", -30, 30, 0)
+    std = st.slider("Standard deviation (%)", 0, 50, 0)
+    initial_price = st.number_input("Initial price", step=1, value=1000)
+    n = int(st.number_input("Number of periods", step=1, value=30))
+    returns /= 100
+    std /= 100
+    prices = get_stock(returns, std, initial_price, n)
+    st.subheader("Stock price evolution")
+    st.line_chart(prices)
