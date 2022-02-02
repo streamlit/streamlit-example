@@ -41,10 +41,11 @@ st.header("Let's start with some math")
 st.latex("e^{\pi i}+1=0")
 
 st.header("What about today's weather?")
+"Just joking, it is only a random number generator between 25 and 35..."
 temp_button = st.button("Get temperature", on_click=get_temp())
 
 
-st.header("Now let's do some finance bro stuff")
+st.header("Now let's do some finance stuff")
 returns = 10
 std = 0.5
 initial_price = 1000
