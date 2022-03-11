@@ -46,7 +46,7 @@ for i in range(7):
 
 
 pedro_rides_count = [None] * 7
-carlos_rides_count = [None] * 6
+carlos_rides_count = [None] * 7
 
 st.header("Gabriel")
 pedro_rides_count[0] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
