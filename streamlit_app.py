@@ -26,14 +26,29 @@ with st.expander("Fechar o mês"):
 #  )
     st.button('Zerar Caronas')
 
+
+df = pandas.read_csv('rides.csv')
+
+ridesPedro = []
+ridesCarlos = []
+pricesToPayPedro = []
+pricesToPayCarlos = []
+
+for i in range(6):
+  ridesPedro.append(df['ridesPedro'][i])
+  ridesCarlos.append(df['ridesCarlos'][i])
+  pricesToPayPedro.append(df['PricesToPayPedro'][i])
+  pricesToPayCarlos.append(df['PricesToPayCarlos'][i])
+
+
 pedro_rides_count = [None] * 6
 carlos_rides_count = [None] * 6
 
 st.header("Gabriel")
-pedro_rides_count[0] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="gabrielToPedro")
-carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos")
-st.write("Valor a pagar ao Pedro = ")
-st.write("Valor a pagar ao Carlos = ")
+pedro_rides_count[0] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
+carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
+st.write("Valor a pagar ao Pedro = ",pricesToPayPedro[0])
+st.write("Valor a pagar ao Carlos = ",pricesToPayCarlos[0])
 
 st.header("Lucas")
 pedro_rides_count[1] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="lucasToPedro")
