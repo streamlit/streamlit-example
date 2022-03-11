@@ -14,9 +14,6 @@ gas_price = st.number_input('Valor Combustível')
 pedro_rides_count = [None] * 6
 carlos_rides_count = [None] * 6
 
-
-
-
 st.header("Gabriel")
 pedro_rides_count[0] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="gabrielToPedro")
 carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos")
