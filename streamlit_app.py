@@ -32,7 +32,7 @@ with col1:
     st.write("Valor a pagar = ")
 
 with col2:
-    set.header("Caronas Carlos")
+    st.header("Caronas Carlos")
     carlos_rides_count[0] = st.number_input('GABRIEL', min_value=0, step=1)
     st.write("Valor a pagar = ")
     carlos_rides_count[1] = st.number_input('PEDRO', min_value=0, step=1)
