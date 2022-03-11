@@ -45,7 +45,7 @@ carlos_rides_count = [None] * 6
 
 st.header("Gabriel")
 with st.expander("Carona com Pedro"):
-    pedro_rides_count[0] = st.number_input(min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
+    pedro_rides_count[0] = st.number_input('',min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
 
     four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
     five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
