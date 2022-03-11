@@ -9,13 +9,17 @@ import csv
 # Valor Caronas
 
 """
+df_parameters = pd.read_csv('parameters.csv')
 
 with st.expander("Parâmetros Utilizados"):
-    gas_price = st.number_input('Preço Combustível', value = 4.29)
-    pedro_ride1 = st.number_input("Valor da Carona Pedro = ", value = 2)
-    pedro_ride2 = st.number_input("Valor da Carona Pedro Rota 2 = ", value = 2)
-    carlos_ride = st.number_input("Valor da Carona Carlos = ", value = 2)
-    st.button('Atualizar Parâmetros')
+    pedro_ride1 = st.number_input("Valor da Carona Pedro = ", value = df_parameters['pedroRide1'][0])
+    pedro_ride2 = st.number_input("Valor da Carona Pedro Rota 2 = ", value = df_parameters['pedroRide2'][0])
+    carlos_ride = st.number_input("Valor da Carona Carlos = ", value = df_parameters['carlosRide'][0])
+
+    if st.button('Atualizar Parâmetros'):
+        df['pedroRide1'] = df['pedroRide1'].replace([0], pedro_ride1)
+        df['pedroRide2'] = df['pedroRide2'].replace([0], pedro_ride2)
+        df['carlosRide'] = df['carlosRide'].replace([0], carlos_ride)
 
 with st.expander("Fechar o mês"):
 #     st.download_button(
@@ -78,4 +82,53 @@ pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1,
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 
 
-st.button('SALVAR E ATUALIZAR')
+if st.button('SALVAR E ATUALIZAR'):
+    #Gabriel
+    pricesToPayCarlos[0] = ridesCarlos[0] * carlos_ride
+    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([0],pricesToPayCarlos[0])
+    df['ridesCarlos'] = df['ridesCarlos'].replace([0],carlos_rides_count[0])
+
+
+    pricesToPayPedro[0] = ridesPedro[0] * pedro_ride1
+    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([0],pricesToPayPedro[0])
+    df['ridesPedro'] = df['ridesPedro'].replace([0],pedro_rides_count[0])
+
+    #Lucas
+    pricesToPayCarlos[1] = ridesCarlos[1] * carlos_ride
+    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([1],pricesToPayCarlos[1])
+    df['ridesCarlos'] = df['ridesCarlos'].replace([1],carlos_rides_count[1])
+
+    pricesToPayPedro[1] = ridesPedro[1] * pedro_ride1
+    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([1],pricesToPayPedro[1])
+    df['ridesPedro'] = df['ridesPedro'].replace([1],pedro_rides_count[1])
+
+    #Leo
+    pricesToPayCarlos[2] = ridesCarlos[2] * carlos_ride
+    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([2],pricesToPayCarlos[2])
+    df['ridesCarlos'] = df['ridesCarlos'].replace([2],carlos_rides_count[2])
+
+    pricesToPayPedro[2] = ridesPedro[2] * pedro_ride1
+    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([2],pricesToPayPedro[2])
+    df['ridesPedro'] = df['ridesPedro'].replace([2],pedro_rides_count[2])
+
+    #Pedro
+    pricesToPayCarlos[3] = ridesCarlos[3] * carlos_ride
+    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([3],pricesToPayCarlos[3])
+    df['ridesCarlos'] = df['ridesCarlos'].replace([3],carlos_rides_count[3])
+
+    #Carlos
+    pricesToPayPedro[4] = ridesPedro[4] * pedro_ride1
+    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([4],pricesToPayPedro[4])
+    df['ridesPedro'] = df['ridesPedro'].replace([4],pedro_rides_count[4])
+
+    #Giovanna
+    pricesToPayPedro[5] = ridesPedro[5] * pedro_ride2
+    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([5],pricesToPayPedro[5])
+    df['ridesPedro'] = df['ridesPedro'].replace([5],pedro_rides_count[5])
+
+    #Giovana
+    pricesToPayPedro[6] = ridesPedro[6] * pedro_ride2
+    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([6],pricesToPayPedro[6])
+    df['ridesPedro'] = df['ridesPedro'].replace([6],pedro_rides_count[6])
+
+
