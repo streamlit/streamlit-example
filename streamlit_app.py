@@ -47,18 +47,18 @@ st.header("Gabriel")
 with st.expander("Carona com Pedro"):
     pedro_rides_count[0] = st.number_input(min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
 
-    two = st.checkbox('4 pessoas')
-    five = st.checkbox('5 pessoas')
-    if two:
+    four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
+    five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
+    if four:
         st.write('Great!')
     if five:
         st.write('Great!')
 
 with st.expander("Carona com Carlos"):
     carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
-    two = st.checkbox('3 pessoas')
-    five = st.checkbox('5 pessoas')
-    if two:
+    three = st.checkbox('3 pessoas',key="check3GabrielToPedro")
+    five = st.checkbox('5 pessoas',key="check5GabrielToPedro")
+    if three:
         st.write('Great!')
     if five:
         st.write('Great!')
