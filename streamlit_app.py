@@ -27,7 +27,7 @@ with st.expander("Fechar o mês"):
     st.button('Zerar Caronas')
 
 
-df = pandas.read_csv('rides.csv')
+df = pd.read_csv('rides.csv')
 
 ridesPedro = []
 ridesCarlos = []
