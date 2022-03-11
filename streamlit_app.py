@@ -17,6 +17,15 @@ with st.expander("Parâmetros Utilizados"):
     carlos_ride = st.number_input("Valor da Carona Carlos = ", value = 2)
     st.button('Atualizar Parâmetros')
 
+with st.expander("Fechar o mês"):
+    st.download_button(
+     label="Download extrato de caronas",
+     data=csv,
+     file_name='large_df.csv',
+     mime='text/csv',
+ )
+    st.button('Zerar Caronas')
+
 pedro_rides_count = [None] * 6
 carlos_rides_count = [None] * 6
 
