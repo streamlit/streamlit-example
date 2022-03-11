@@ -131,4 +131,4 @@ if st.button('SALVAR E ATUALIZAR'):
     df['priceToPayPedro'] = df['priceToPayPedro'].replace([6],pricesToPayPedro[6])
     df['ridesPedro'] = df['ridesPedro'].replace([6],pedro_rides_count[6])
 
-
+    st.write('Valores Atualizados')
