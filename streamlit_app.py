@@ -41,7 +41,7 @@ for i in range(7):
   pricesToPayCarlos.append(df['priceToPayCarlos'][i])
 
 
-pedro_rides_count = [None] * 6
+pedro_rides_count = [None] * 7
 carlos_rides_count = [None] * 6
 
 st.header("Gabriel")
