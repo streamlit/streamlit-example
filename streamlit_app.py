@@ -9,7 +9,7 @@ import streamlit as st
 
 """
 
-gas_price = st.number_input('Valor Combustível', min_value=0, step=float)
+gas_price = st.number_input('Valor Combustível')
 
 pedro_rides_count = []
 carlos_rides_count = []
