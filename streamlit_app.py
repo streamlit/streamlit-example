@@ -42,4 +42,4 @@ with col2:
     carlos_rides_count[3] = st.number_input('LEO', min_value=0, step=1, key="leoToCarlos")
     st.write("Valor a pagar = ")
 
-st.button('SALVAR')
+st.button('SALVAR E ATUALIZAR')
