@@ -11,9 +11,9 @@ import streamlit as st
 
 with st.expander("Parâmetros Utilizados"):
     gas_price = st.number_input('Preço Combustível', value = 4.29)
-    pedro_ride1 = st.write("Valor da Carona Pedro = ", value = 2)
-    pedro_ride2 = st.write("Valor da Carona Pedro Rota 2 = ", value = 2)
-    carlso_ride2 = st.write("Valor da Carona Pedro = ", value = 2)
+    pedro_ride1 = st.number_input("Valor da Carona Pedro = ", value = 2)
+    pedro_ride2 = st.number_input("Valor da Carona Pedro Rota 2 = ", value = 2)
+    carlso_ride2 = st.number_input("Valor da Carona Pedro = ", value = 2)
     st.button('Atualizar Parâmetros')
 
 pedro_rides_count = [None] * 6
