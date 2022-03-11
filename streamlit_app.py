@@ -85,50 +85,50 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 if st.button('SALVAR E ATUALIZAR'):
     #Gabriel
     pricesToPayCarlos[0] = ridesCarlos[0] * carlos_ride
-    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([0],pricesToPayCarlos[0])
+    df['priceToPayCarlos'] = df['priceToPayCarlos'].replace([0],pricesToPayCarlos[0])
     df['ridesCarlos'] = df['ridesCarlos'].replace([0],carlos_rides_count[0])
 
 
     pricesToPayPedro[0] = ridesPedro[0] * pedro_ride1
-    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([0],pricesToPayPedro[0])
+    df['priceToPayPedro'] = df['priceToPayPedro'].replace([0],pricesToPayPedro[0])
     df['ridesPedro'] = df['ridesPedro'].replace([0],pedro_rides_count[0])
 
     #Lucas
     pricesToPayCarlos[1] = ridesCarlos[1] * carlos_ride
-    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([1],pricesToPayCarlos[1])
+    df['priceToPayCarlos'] = df['priceToPayCarlos'].replace([1],pricesToPayCarlos[1])
     df['ridesCarlos'] = df['ridesCarlos'].replace([1],carlos_rides_count[1])
 
     pricesToPayPedro[1] = ridesPedro[1] * pedro_ride1
-    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([1],pricesToPayPedro[1])
+    df['priceToPayPedro'] = df['priceToPayPedro'].replace([1],pricesToPayPedro[1])
     df['ridesPedro'] = df['ridesPedro'].replace([1],pedro_rides_count[1])
 
     #Leo
     pricesToPayCarlos[2] = ridesCarlos[2] * carlos_ride
-    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([2],pricesToPayCarlos[2])
+    df['priceToPayCarlos'] = df['priceToPayCarlos'].replace([2],pricesToPayCarlos[2])
     df['ridesCarlos'] = df['ridesCarlos'].replace([2],carlos_rides_count[2])
 
     pricesToPayPedro[2] = ridesPedro[2] * pedro_ride1
-    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([2],pricesToPayPedro[2])
+    df['priceToPayPedro'] = df['priceToPayPedro'].replace([2],pricesToPayPedro[2])
     df['ridesPedro'] = df['ridesPedro'].replace([2],pedro_rides_count[2])
 
     #Pedro
     pricesToPayCarlos[3] = ridesCarlos[3] * carlos_ride
-    df['pricesToPayCarlos'] = df['pricesToPayCarlos'].replace([3],pricesToPayCarlos[3])
+    df['priceToPayCarlos'] = df['priceToPayCarlos'].replace([3],pricesToPayCarlos[3])
     df['ridesCarlos'] = df['ridesCarlos'].replace([3],carlos_rides_count[3])
 
     #Carlos
     pricesToPayPedro[4] = ridesPedro[4] * pedro_ride1
-    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([4],pricesToPayPedro[4])
+    df['priceToPayPedro'] = df['priceToPayPedro'].replace([4],pricesToPayPedro[4])
     df['ridesPedro'] = df['ridesPedro'].replace([4],pedro_rides_count[4])
 
     #Giovanna
     pricesToPayPedro[5] = ridesPedro[5] * pedro_ride2
-    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([5],pricesToPayPedro[5])
+    df['priceToPayPedro'] = df['priceToPayPedro'].replace([5],pricesToPayPedro[5])
     df['ridesPedro'] = df['ridesPedro'].replace([5],pedro_rides_count[5])
 
     #Giovana
     pricesToPayPedro[6] = ridesPedro[6] * pedro_ride2
-    df['pricesToPayPedro'] = df['pricesToPayPedro'].replace([6],pricesToPayPedro[6])
+    df['priceToPayPedro'] = df['priceToPayPedro'].replace([6],pricesToPayPedro[6])
     df['ridesPedro'] = df['ridesPedro'].replace([6],pedro_rides_count[6])
 
 
