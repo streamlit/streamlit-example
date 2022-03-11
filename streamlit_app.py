@@ -37,8 +37,8 @@ pricesToPayCarlos = []
 for i in range(6):
   ridesPedro.append(df['ridesPedro'][i])
   ridesCarlos.append(df['ridesCarlos'][i])
-  pricesToPayPedro.append(df['PricesToPayPedro'][i])
-  pricesToPayCarlos.append(df['PricesToPayCarlos'][i])
+  pricesToPayPedro.append(df['priceToPayPedro'][i])
+  pricesToPayCarlos.append(df['priceToPayCarlos'][i])
 
 
 pedro_rides_count = [None] * 6
