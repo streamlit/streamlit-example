@@ -11,8 +11,8 @@ import streamlit as st
 
 gas_price = st.number_input('Valor Combustível')
 
-pedro_rides_count = []
-carlos_rides_count = []
+pedro_rides_count = [None] * 5
+carlos_rides_count = [None] * 5
 
 """
 ### Caronas Pedro
