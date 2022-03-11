@@ -85,13 +85,13 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 if st.button('SALVAR E ATUALIZAR'):
     #Gabriel
     pricesToPayCarlos[0] = ridesCarlos[0] * carlos_ride
-    df['priceToPayCarlos'] = df['priceToPayCarlos'].replace([0],pricesToPayCarlos[0])
-    df['ridesCarlos'] = df['ridesCarlos'].replace([0],carlos_rides_count[0])
+    df['priceToPayCarlos'].replace([0],pricesToPayCarlos[0])
+    df['ridesCarlos'].replace([0],carlos_rides_count[0])
 
 
     pricesToPayPedro[0] = ridesPedro[0] * pedro_ride1
-    df['priceToPayPedro'] = df['priceToPayPedro'].replace([0],pricesToPayPedro[0])
-    df['ridesPedro'] = df['ridesPedro'].replace([0],pedro_rides_count[0])
+    df['priceToPayPedro'].replace([0],pricesToPayPedro[0])
+    df['ridesPedro'].replace([0],pedro_rides_count[0])
 
     #Lucas
     pricesToPayCarlos[1] = ridesCarlos[1] * carlos_ride
