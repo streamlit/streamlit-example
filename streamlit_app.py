@@ -18,12 +18,12 @@ with st.expander("Parâmetros Utilizados"):
     st.button('Atualizar Parâmetros')
 
 with st.expander("Fechar o mês"):
-    st.download_button(
-     label="Download extrato de caronas",
-     data=csv,
-     file_name='rides.csv',
-     mime='text/csv',
- )
+#     st.download_button(
+#      label="Download extrato de caronas",
+#      data=csv,
+#      file_name='rides.csv',
+#      mime='text/csv',
+#  )
     st.button('Zerar Caronas')
 
 pedro_rides_count = [None] * 6
