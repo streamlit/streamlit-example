@@ -44,22 +44,24 @@ pedro_rides_count = [None] * 7
 carlos_rides_count = [None] * 6
 
 st.header("Gabriel")
-pedro_rides_count[0] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
+with st.expander("Carona com Pedro"):
+    pedro_rides_count[0] = st.number_input(min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
 
-two = st.checkbox('4 pessoas')
-five = st.checkbox('5 pessoas')
-if two:
-     st.write('Great!')
-if five:
-    st.write('Great!')
+    two = st.checkbox('4 pessoas')
+    five = st.checkbox('5 pessoas')
+    if two:
+        st.write('Great!')
+    if five:
+        st.write('Great!')
 
-carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
-two = st.checkbox('3 pessoas')
-five = st.checkbox('5 pessoas')
-if two:
-     st.write('Great!')
-if five:
-    st.write('Great!')
+with st.expander("Carona com Carlos"):
+    carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
+    two = st.checkbox('3 pessoas')
+    five = st.checkbox('5 pessoas')
+    if two:
+        st.write('Great!')
+    if five:
+        st.write('Great!')
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[0])
 st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[0])
