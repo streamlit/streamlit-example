@@ -55,9 +55,9 @@ with st.expander("Carona com Pedro"):
         st.write('Great!')
 
 with st.expander("Carona com Carlos"):
-    carlos_rides_count[0] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
-    three = st.checkbox('3 pessoas',key="check3GabrielToPedro")
-    five = st.checkbox('5 pessoas',key="check5GabrielToPedro")
+    carlos_rides_count[0] = st.number_input('', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
+    three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
+    five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
     if three:
         st.write('Great!')
     if five:
@@ -127,23 +127,23 @@ if st.button('SALVAR E ATUALIZAR'):
 
     #Pedro
     pricesToPayCarlos[3] = ridesCarlos[3] * carlos_ride
-    df['priceToPayCarlos'] = df['priceToPayCarlos'].replace([3],pricesToPayCarlos[3])
-    df['ridesCarlos'] = df['ridesCarlos'].replace([3],carlos_rides_count[3])
+    df['priceToPayCarlos'][3] = pricesToPayCarlos[3]
+    df['ridesCarlos'][3] = carlos_rides_count[3]
 
     # #Carlos
     pricesToPayPedro[4] = ridesPedro[4] * pedro_ride1
-    df['priceToPayPedro'] = df['priceToPayPedro'].replace([4],pricesToPayPedro[4])
-    df['ridesPedro'] = df['ridesPedro'].replace([4],pedro_rides_count[4])
+    df['priceToPayPedro'][4] = pricesToPayPedro[4]
+    df['ridesPedro'][4] = pedro_rides_count[4]
 
     # #Giovanna
     pricesToPayPedro[5] = ridesPedro[5] * pedro_ride2
-    df['priceToPayPedro'] = df['priceToPayPedro'].replace([5],pricesToPayPedro[5])
-    df['ridesPedro'] = df['ridesPedro'].replace([5],pedro_rides_count[5])
+    df['priceToPayPedro'][5] = pricesToPayPedro[5]
+    df['ridesPedro'][5] = pedro_rides_count[5]
 
     # #Giovana
     pricesToPayPedro[6] = ridesPedro[6] * pedro_ride2
-    df['priceToPayPedro'] = df['priceToPayPedro'].replace([6],pricesToPayPedro[6])
-    df['ridesPedro'] = df['ridesPedro'].replace([6],pedro_rides_count[6])
+    df['priceToPayPedro'][6] = pricesToPayPedro[6]
+    df['ridesPedro'][6] = pedro_rides_count[6]
 
     df.to_csv("rides.csv", index=False)
     st.write('Atualize a página')
