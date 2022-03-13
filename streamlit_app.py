@@ -12,14 +12,17 @@ import csv
 df_parameters = pd.read_csv('parameters.csv')
 
 with st.expander("Parâmetros Utilizados"):
-    pedro_ride1 = st.number_input("Valor da Carona Pedro = ", value = df_parameters['pedroRide1'][0])
-    pedro_ride2 = st.number_input("Valor da Carona Pedro Rota 2 = ", value = df_parameters['pedroRide2'][0])
-    carlos_ride = st.number_input("Valor da Carona Carlos = ", value = df_parameters['carlosRide'][0])
+    pedro_ride4 = st.number_input("Valor da Carona Pedro (4 pessoas)= ", value = df_parameters['pedroRide4'][0]) #rota casa da gi
+    pedro_ride5 = st.number_input("Valor da Carona Pedro (5 pessoas) = ", value = df_parameters['pedroRide5'][0])
+    carlos_ride3 = st.number_input("Valor da Carona Carlos (3 pessoas)= ", value = df_parameters['carlosRide3'][0])
+    carlos_ride5 = st.number_input("Valor da Carona Carlos (5 pessoas)= ", value = df_parameters['carlosRide5'][0])
 
     if st.button('Atualizar Parâmetros'):
-        df['pedroRide1'] = df['pedroRide1'].replace([0], pedro_ride1)
-        df['pedroRide2'] = df['pedroRide2'].replace([0], pedro_ride2)
-        df['carlosRide'] = df['carlosRide'].replace([0], carlos_ride)
+        df['pedroRide1'][0] = pedro_ride4
+        df['pedroRide2'][0] = pedro_ride5
+        df['carlosRide'][0] = carlos_ride3
+        df['carlosRide'][0] = carlos_ride5
+
 
 with st.expander("Fechar o mês"):
 
@@ -50,47 +53,115 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
     five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
     if four:
-        st.write('Great!')
+        pricesToPayPedro[0] += pedro_ride4
     if five:
-        st.write('Great!')
+        pricesToPayPedro[0] += pedro_ride5
 
 with st.expander("Carona com Carlos"):
     carlos_rides_count[0] = st.number_input('', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
     three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
     five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
     if three:
-        st.write('Great!')
+        pricesToPayCarlos[0] += carlos_ride3
     if five:
-        st.write('Great!')
+        pricesToPayCarlos[0] += carlos_ride5
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[0])
 st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[0])
 
+
 st.header("Lucas")
-pedro_rides_count[1] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="lucasToPedro", value = ridesPedro[1])
-carlos_rides_count[1] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="lucasToCarlos", value = ridesCarlos[1])
+with st.expander("Carona com Pedro"):
+    pedro_rides_count[1] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="lucasToPedro", value = ridesPedro[1])
+    four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
+    five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
+    if four:
+        pricesToPayPedro[1] += pedro_ride4
+    if five:
+        pricesToPayPedro[1] += pedro_ride5
+
+with st.expander("Carona com Carlos"):
+    carlos_rides_count[1] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="lucasToCarlos", value = ridesCarlos[1])
+    three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
+    five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
+    if three:
+        pricesToPayCarlos[1] += carlos_ride3
+    if five:
+        pricesToPayCarlos[1] += carlos_ride5
+
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[1])
 st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[1])
+
+
+
 st.header("Leo")
-pedro_rides_count[2] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="leoToPedro", value = ridesPedro[2])
-carlos_rides_count[2] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="leoToCarlos", value = ridesCarlos[2])
+with st.expander("Carona com Pedro"):
+    pedro_rides_count[2] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="leoToPedro", value = ridesPedro[2])
+    four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
+    five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
+    if four:
+        pricesToPayPedro[2] += pedro_ride4
+    if five:
+        pricesToPayPedro[2] += pedro_ride5
+
+with st.expander("Carona com Carlos"):       
+    carlos_rides_count[2] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="leoToCarlos", value = ridesCarlos[2])
+    three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
+    five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
+    if three:
+        pricesToPayCarlos[2] += carlos_ride3
+    if five:
+        pricesToPayCarlos[2] += carlos_ride5
+
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[2])
 st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[2])
 
 st.header("Pedro")
-carlos_rides_count[3] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="pedroToCarlos", value = ridesCarlos[3])
+with st.expander("Carona com Carlos"):
+    carlos_rides_count[3] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="pedroToCarlos", value = ridesCarlos[3])
+    three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
+    five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
+    if three:
+        pricesToPayCarlos[3] += carlos_ride3
+    if five:
+        pricesToPayCarlos[3] += carlos_ride5
+
 st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[3])
 
 st.header("Carlos")
-pedro_rides_count[4] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="carlosToPedro", value = ridesPedro[4])
+with st.expander("Carona com Pedro"):
+    pedro_rides_count[4] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="carlosToPedro", value = ridesPedro[4])
+    four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
+    five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
+    if four:
+        pricesToPayPedro[4] += pedro_ride4
+    if five:
+        pricesToPayPedro[4] += pedro_ride5
+
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[4])
 
 st.header("Giovanna")
-pedro_rides_count[5] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovannaToPedro", value = ridesPedro[5])
+with st.expander("Carona com Pedro"):
+    pedro_rides_count[5] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovannaToPedro", value = ridesPedro[5])
+    four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
+    five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
+    if four:
+        pricesToPayPedro[5] += pedro_ride4
+    if five:
+        pricesToPayPedro[5] += pedro_ride5
+
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[5])
 
 st.header("Giovana")
-pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovanaToPedro", value = ridesPedro[6])
+with st.expander("Carona com Pedro"):
+    pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovanaToPedro", value = ridesPedro[6])
+    four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
+    five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
+    if four:
+        pricesToPayPedro[6] += pedro_ride4
+    if five:
+        pricesToPayPedro[6] += pedro_ride5
+
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 
 
