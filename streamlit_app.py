@@ -143,10 +143,10 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[4])
 
 st.header("Giovanna")
 with st.expander("Carona com Pedro"):
-    lastValue = pedro_rides_count[5]
+    lastValue = int(pedro_rides_count[5])
     pedro_rides_count[5] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovannaToPedro", value = ridesPedro[5])
 
-    if pedro_rides_count[5] > float(lastValue):
+    if pedro_rides_count[5] > lastValue:
         pricesToPayPedro[5] += pedro_ride4
     
 
@@ -154,10 +154,10 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[5])
 
 st.header("Giovana")
 with st.expander("Carona com Pedro"):
-    lastValue = pedro_rides_count[6]
+    lastValue = int(pedro_rides_count[6])
     pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovanaToPedro", value = ridesPedro[6])
 
-    if pedro_rides_count[6] > float(lastValue):
+    if pedro_rides_count[6] > lastValue:
         pricesToPayPedro[6] += pedro_ride4
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
