@@ -35,7 +35,7 @@ ridesPedro = []
 ridesCarlos = []
 pricesToPayPedro = []
 pricesToPayCarlos = []
-lastValue = 0
+
 
 for i in range(7):
   ridesPedro.append(df['ridesPedro'][i])
