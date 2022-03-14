@@ -47,6 +47,7 @@ for i in range(7):
 pedro_rides_count = [None] * 7
 carlos_rides_count = [None] * 6
 
+
 st.header("Gabriel")
 with st.expander("Carona com Pedro"):
     pedro_rides_count[0] = st.number_input('',min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
@@ -143,22 +144,18 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[4])
 
 st.header("Giovanna")
 with st.expander("Carona com Pedro"):
-    lastValue = pedro_rides_count[5]
+   
     pedro_rides_count[5] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovannaToPedro", value = ridesPedro[5])
 
-    if pedro_rides_count[5] > lastValue:
-        pricesToPayPedro[5] += pedro_ride4
     
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[5])
 
 st.header("Giovana")
 with st.expander("Carona com Pedro"):
-    lastValue = pedro_rides_count[6]
     pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovanaToPedro", value = ridesPedro[6])
 
-    if pedro_rides_count[6] > lastValue:
-        pricesToPayPedro[6] += pedro_ride4
+
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 
@@ -166,42 +163,57 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 if st.button('SALVAR E ATUALIZAR'):
 
     #Gabriel
-    
-    df['priceToPayCarlos'][0] = pricesToPayCarlos[0]
-    df['ridesCarlos'][0] = carlos_rides_count[0]
+    if pedro_rides_count[0] > df['ridesPedro'][0]:
+        df['ridesPedro'][0] = pedro_rides_count[0]
+        df['priceToPayPedro'][0] = pricesToPayPedro[0]
 
-    df['priceToPayPedro'][0] = pricesToPayPedro[0]
-    df['ridesPedro'][0] = pedro_rides_count[0]
+    if carlos_rides_count[0] > df['ridesCarlos'][0]:
+        df['priceToPayCarlos'][0] = pricesToPayCarlos[0]
+        df['ridesCarlos'][0] = carlos_rides_count[0]
+
 
     #Lucas
-    df['priceToPayCarlos'][1] = pricesToPayCarlos[1]
-    df['ridesCarlos'][1] = carlos_rides_count[1]
+    if pedro_rides_count[1] > df['ridesPedro'][1]:
+        df['ridesPedro'][1] = pedro_rides_count[1]
+        df['priceToPayPedro'][1] = pricesToPayPedro[1]
 
-    df['priceToPayPedro'][1] = pricesToPayPedro[1]
-    df['ridesPedro'][1] = pedro_rides_count[1]
+    if carlos_rides_count[1] > df['ridesCarlos'][1]:
+        df['priceToPayCarlos'][1] = pricesToPayCarlos[1]
+        df['ridesCarlos'][1] = carlos_rides_count[1]
 
     #Leo
-    df['priceToPayCarlos'][2] = pricesToPayCarlos[2]
-    df['ridesCarlos'][2] = carlos_rides_count[2]
+    if pedro_rides_count[2] > df['ridesPedro'][2]:
+        df['ridesPedro'][2] = pedro_rides_count[2]
+        df['priceToPayPedro'][2] = pricesToPayPedro[2]
 
-    df['priceToPayPedro'][2] = pricesToPayPedro[2]
-    df['ridesPedro'][2] = pedro_rides_count[2]
+    if carlos_rides_count[2] > df['ridesCarlos'][2]:
+        df['priceToPayCarlos'][2] = pricesToPayCarlos[2]
+        df['ridesCarlos'][2] = carlos_rides_count[2]
 
     #Pedro
-    df['priceToPayCarlos'][3] = pricesToPayCarlos[3]
-    df['ridesCarlos'][3] = carlos_rides_count[3]
+    if carlos_rides_count[3] > df['ridesCarlos'][3]:
+        df['ridesCarlos'][3] = carlos_rides_count[3]
+        pricesToPayCarlos[3] += carlos_ride5
+        df['priceToPayCarlos'][3] = pricesToPayCarlos[3]
 
-    # #Carlos
-    df['priceToPayPedro'][4] = pricesToPayPedro[4]
-    df['ridesPedro'][4] = pedro_rides_count[4]
+    #Carlos
+    if pedro_rides_count[4] > df['ridesPedro'][4]:
+        df['ridesPedro'][4] = pedro_rides_count[4]
+        pricesToPayPedro[4] += pedro_ride5
+        df['priceToPayPedro'][4] = pricesToPayPedro[4]
 
-    # #Giovanna
-    df['priceToPayPedro'][5] = pricesToPayPedro[5]
-    df['ridesPedro'][5] = pedro_rides_count[5]
+    #Giovanna
+    if pedro_rides_count[5] > df['ridesPedro'][5]:
+        df['ridesPedro'][5] = pedro_rides_count[5]
+        pricesToPayPedro[5] += pedro_ride4
+        df['priceToPayPedro'][5] = pricesToPayPedro[5]
+        
 
-    # #Giovana
-    df['priceToPayPedro'][6] = pricesToPayPedro[6]
-    df['ridesPedro'][6] = pedro_rides_count[6]
+    #Giovana
+    if pedro_rides_count[6] > df['ridesPedro'][6]:
+        df['ridesPedro'][6] = pedro_rides_count[6]
+        pricesToPayPedro[6] += pedro_ride4
+        df['priceToPayPedro'][6] = pricesToPayPedro[6]
 
     df.to_csv("rides.csv", index=False)
     st.write('Atualize a página')
