@@ -35,6 +35,7 @@ ridesPedro = []
 ridesCarlos = []
 pricesToPayPedro = []
 pricesToPayCarlos = []
+lastValue = 0
 
 for i in range(7):
   ridesPedro.append(df['ridesPedro'][i])
@@ -142,25 +143,22 @@ st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[4])
 
 st.header("Giovanna")
 with st.expander("Carona com Pedro"):
+    lastValue = pedro_rides_count[5]
     pedro_rides_count[5] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovannaToPedro", value = ridesPedro[5])
-    four= st.checkbox('4 pessoas', key="check4GiovannaToPedro")
-    five = st.checkbox('5 pessoas', key="check5GiovannaToPedro")
-    if four:
+
+    if pedro_rides_count[5] > lastValue:
         pricesToPayPedro[5] += pedro_ride4
-    if five:
-        pricesToPayPedro[5] += pedro_ride5
+    
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[5])
 
 st.header("Giovana")
 with st.expander("Carona com Pedro"):
+    lastValue = pedro_rides_count[6]
     pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovanaToPedro", value = ridesPedro[6])
-    four= st.checkbox('4 pessoas', key="check4GiovanaToPedro")
-    five = st.checkbox('5 pessoas', key="check5GiovanaToPedro")
-    if four:
+
+    if pedro_rides_count[6] > lastValue:
         pricesToPayPedro[6] += pedro_ride4
-    if five:
-        pricesToPayPedro[6] += pedro_ride5
 
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
 
