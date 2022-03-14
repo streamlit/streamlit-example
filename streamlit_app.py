@@ -121,25 +121,13 @@ st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[2])
 st.header("Pedro")
 with st.expander("Carona com Carlos"):
     carlos_rides_count[3] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="pedroToCarlos", value = ridesCarlos[3])
-    three = st.checkbox('3 pessoas',key="check3PedroToCarlos")
-    five = st.checkbox('5 pessoas',key="check5PedroToCarlos")
-    if three:
-        pricesToPayCarlos[3] += carlos_ride3
-    if five:
-        pricesToPayCarlos[3] += carlos_ride5
 
 st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[3])
 
 st.header("Carlos")
 with st.expander("Carona com Pedro"):
     pedro_rides_count[4] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="carlosToPedro", value = ridesPedro[4])
-    four= st.checkbox('4 pessoas', key="check4CarlosToPedro")
-    five = st.checkbox('5 pessoas', key="check5CarlosToPedro")
-    if four:
-        pricesToPayPedro[4] += pedro_ride4
-    if five:
-        pricesToPayPedro[4] += pedro_ride5
-
+   
 st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[4])
 
 st.header("Giovanna")
