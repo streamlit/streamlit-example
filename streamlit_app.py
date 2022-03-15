@@ -26,7 +26,7 @@ with st.expander("Parâmetros Utilizados"):
 
 with st.expander("Fechar o mês"):
 
-    if st.download_button('Zerar Caronas e Gerar Extrato'):
+    if st.download_button('Zerar Caronas e Gerar Extrato', data='extrato.txt'):
         with open('extrato.txt', 'w') as f:
             f.write('---GABRIEL---\n')
             f.write('Caronas com Pedro = \n' + df['ridesPedro'][0])
