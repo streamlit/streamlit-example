@@ -62,14 +62,13 @@ with st.expander("Fechar o mês"):
     text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][6])
     text_contents += '\n\n'   
     dataExtrato = "extrato-" + str(date.today()) + ".txt"
-    st.download_button('Zerar Caronas e Gerar Extrato', text_contents, file_name=dataExtrato)
-        
-
-    for i in range(6):
-        df['ridesPedro'][i] = 0
-        df['ridesCarlos'][i] = 0
-        df['priceToPayPedro'][i] = 0
-        df['priceToPayCarlos'][i] = 0 
+    
+    if st.download_button('Zerar Caronas e Gerar Extrato', text_contents, file_name=dataExtrato):
+        for i in range(7):
+            df['ridesPedro'][i] = 0
+            df['ridesCarlos'][i] = 0
+            df['priceToPayPedro'][i] = 0
+            df['priceToPayCarlos'][i] = 0 
         
 
 ridesPedro = []
@@ -79,10 +78,10 @@ pricesToPayCarlos = []
 
 
 for i in range(7):
-  ridesPedro.append(df['ridesPedro'][i])
-  ridesCarlos.append(df['ridesCarlos'][i])
-  pricesToPayPedro.append(df['priceToPayPedro'][i])
-  pricesToPayCarlos.append(df['priceToPayCarlos'][i])
+    ridesPedro.append(df['ridesPedro'][i])
+    ridesCarlos.append(df['ridesCarlos'][i])
+    pricesToPayPedro.append(df['priceToPayPedro'][i])
+    pricesToPayCarlos.append(df['priceToPayCarlos'][i])
 
 
 pedro_rides_count = [None] * 7
