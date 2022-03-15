@@ -61,7 +61,7 @@ with st.expander("Fechar o mês"):
     text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][6])
     text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][6])
     text_contents += '\n\n'   
-    dataExtrato = "extrato-" + str(date.today())
+    dataExtrato = "extrato-" + str(date.today()) + ".txt"
     st.download_button('Zerar Caronas e Gerar Extrato', text_contents, file_name=dataExtrato)
         
 
