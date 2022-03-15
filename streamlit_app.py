@@ -69,6 +69,7 @@ with st.expander("Fechar o mês"):
             df['ridesCarlos'][i] = 0
             df['priceToPayPedro'][i] = 0
             df['priceToPayCarlos'][i] = 0 
+        df.to_csv("rides.csv", index=False)
         
 
 ridesPedro = []
