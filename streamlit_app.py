@@ -25,16 +25,16 @@ with st.expander("Parâmetros Utilizados"):
 
 text_contents = '' 
 with st.expander("Fechar o mês"):
-      
+    text_contents = text_contents + '---GABRIEL---\n'
+    text_contents = text_contents + '\nCaronas com Pedro = \n' + df['ridesPedro'][0]
+    text_contents = text_contents + '\nPreço para pagar ao Pedro = \n' + df['priceToPayPedro'][0]
+    text_contents = text_contents + '\nCaronas com Carlos = \n' + df['ridesPedro'][0]
+    text_contents = text_contents + '\nPreço para pagar ao Carlos = \n' + df['priceToPayCarlos'][0]
+    text_contents = text_contents + '\n\n' 
         
-            if st.download_button('Zerar Caronas e Gerar Extrato', data=f, file_name='extrato.txt'):
+    st.download_button('Zerar Caronas e Gerar Extrato', text_contents)
         
-                text_contents = text_contents + '---GABRIEL---\n'
-                text_contents = text_contents + '\nCaronas com Pedro = \n' + df['ridesPedro'][0]
-                text_contents = text_contents + '\nPreço para pagar ao Pedro = \n' + df['priceToPayPedro'][0]
-                text_contents = text_contents + '\nCaronas com Carlos = \n' + df['ridesPedro'][0]
-                text_contents = text_contents + '\nPreço para pagar ao Carlos = \n' + df['priceToPayCarlos'][0]
-                text_contents = text_contents + '\n\n'
+
                 # f.write('---LUCAS---\n')
                 # f.write('Caronas com Pedro = \n' + df['ridesPedro'][1])
                 # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][1])
@@ -63,10 +63,10 @@ with st.expander("Fechar o mês"):
                 # f.write('Caronas com Pedro = \n' + df['ridesPedro'][6])
                 # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][6])
 
-                df['ridesPedro'][i] = 0
-                df['ridesCarlos'][i] = 0
-                df['priceToPayPedro'][i] = 0
-                df['priceToPayCarlos'][i] = 0 
+    df['ridesPedro'][i] = 0
+    df['ridesCarlos'][i] = 0
+    df['priceToPayPedro'][i] = 0
+    df['priceToPayCarlos'][i] = 0 
         
 
 
