@@ -63,11 +63,11 @@ with st.expander("Fechar o mês"):
                 # f.write('---GIOVANA---\n')
                 # f.write('Caronas com Pedro = \n' + df['ridesPedro'][6])
                 # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][6])
-
-    df['ridesPedro'][i] = 0
-    df['ridesCarlos'][i] = 0
-    df['priceToPayPedro'][i] = 0
-    df['priceToPayCarlos'][i] = 0 
+    for i in range(6):
+        df['ridesPedro'][i] = 0
+        df['ridesCarlos'][i] = 0
+        df['priceToPayPedro'][i] = 0
+        df['priceToPayCarlos'][i] = 0 
         
 
 
