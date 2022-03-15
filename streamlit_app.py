@@ -27,51 +27,48 @@ with st.expander("Parâmetros Utilizados"):
 text_contents = '' 
 with st.expander("Fechar o mês"):
     text_contents += '---GABRIEL---\n'
-    text_contents += '\nCaronas com Pedro = \n' + str(df['ridesPedro'][0])
-    text_contents += '\nPreço para pagar ao Pedro = \n' + str(df['priceToPayPedro'][0])
-    text_contents += '\nCaronas com Carlos = \n' + str(df['ridesPedro'][0])
-    text_contents += '\nPreço para pagar ao Carlos = \n' + str(df['priceToPayCarlos'][0])
+    text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][0])
+    text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][0])
+    text_contents += '\nCaronas com Carlos = ' + str(df['ridesCarlos'][0])
+    text_contents += '\nPreço para pagar ao Carlos = ' + str(df['priceToPayCarlos'][0])
     text_contents += '\n\n' 
-        
+    text_contents += '---LUCAS---\n'
+    text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][1])
+    text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][1])
+    text_contents += '\nCaronas com Carlos = ' + str(df['ridesCarlos'][1])
+    text_contents += '\nPreço para pagar ao Carlos = ' + str(df['priceToPayCarlos'][1])
+    text_contents += '\n\n'    
+    text_contents += '---LEO---\n'
+    text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][2])
+    text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][2])
+    text_contents += '\nCaronas com Carlos = ' + str(df['ridesCarlos'][2])
+    text_contents += '\nPreço para pagar ao Carlos = ' + str(df['priceToPayCarlos'][2])
+    text_contents += '\n\n'  
+    text_contents += '---PEDRO---\n'
+    text_contents += '\nCaronas com Carlos = ' + str(df['ridesCarlos'][3])
+    text_contents += '\nPreço para pagar ao Carlos = ' + str(df['priceToPayCarlos'][3])
+    text_contents += '\n\n'  
+    text_contents += '---CARLOS---\n'
+    text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][4])
+    text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][4])
+    text_contents += '\n\n' 
+    text_contents += '---GIOVANNA---\n'
+    text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][5])
+    text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][5])
+    text_contents += '\n\n'  
+    text_contents += '---GIOVANA---\n'
+    text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][6])
+    text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][6])
+    text_contents += '\n\n'   
     st.download_button('Zerar Caronas e Gerar Extrato', text_contents)
         
 
-                # f.write('---LUCAS---\n')
-                # f.write('Caronas com Pedro = \n' + df['ridesPedro'][1])
-                # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][1])
-                # f.write('Caronas com Carlos = \n' + df['ridesPedro'][1])
-                # f.write('Preço para pagar ao Carlos = \n' + df['priceToPayCarlos'][1])
-                # f.write('\n\n')
-                # f.write('---LEO---\n')
-                # f.write('Caronas com Pedro = \n' + df['ridesPedro'][2])
-                # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][2])
-                # f.write('Caronas com Carlos = \n' + df['ridesPedro'][2])
-                # f.write('Preço para pagar ao Carlos = \n' + df['priceToPayCarlos'][2])
-                # f.write('\n\n')
-                # f.write('---PEDRO---\n')
-                # f.write('Caronas com Carlos = \n' + df['ridesPedro'][3])
-                # f.write('Preço para pagar ao Carlos = \n' + df['priceToPayCarlos'][3])
-                # f.write('\n\n')
-                # f.write('---CARLOS---\n')
-                # f.write('Caronas com Pedro = \n' + df['ridesPedro'][4])
-                # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][4])
-                # f.write('\n\n')
-                # f.write('---GIOVANNA---\n')
-                # f.write('Caronas com Pedro = \n' + df['ridesPedro'][5])
-                # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][5])
-                # f.write('\n\n')
-                # f.write('---GIOVANA---\n')
-                # f.write('Caronas com Pedro = \n' + df['ridesPedro'][6])
-                # f.write('Preço para pagar ao Pedro = \n' + df['priceToPayPedro'][6])
     for i in range(6):
         df['ridesPedro'][i] = 0
         df['ridesCarlos'][i] = 0
         df['priceToPayPedro'][i] = 0
         df['priceToPayCarlos'][i] = 0 
         
-
-
-df = pd.read_csv('rides.csv')
 
 ridesPedro = []
 ridesCarlos = []
