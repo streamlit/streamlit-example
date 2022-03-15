@@ -25,12 +25,12 @@ with st.expander("Parâmetros Utilizados"):
 
 text_contents = '' 
 with st.expander("Fechar o mês"):
-    text_contents = text_contents + '---GABRIEL---\n'
-    text_contents = text_contents + '\nCaronas com Pedro = \n' + df['ridesPedro'][0]
-    text_contents = text_contents + '\nPreço para pagar ao Pedro = \n' + df['priceToPayPedro'][0]
-    text_contents = text_contents + '\nCaronas com Carlos = \n' + df['ridesPedro'][0]
-    text_contents = text_contents + '\nPreço para pagar ao Carlos = \n' + df['priceToPayCarlos'][0]
-    text_contents = text_contents + '\n\n' 
+    text_contents += '---GABRIEL---\n'
+    text_contents += '\nCaronas com Pedro = \n' + str(df['ridesPedro'][0])
+    text_contents += '\nPreço para pagar ao Pedro = \n' + str(df['priceToPayPedro'][0])
+    text_contents += '\nCaronas com Carlos = \n' + str(df['ridesPedro'][0])
+    text_contents += '\nPreço para pagar ao Carlos = \n' + str(df['priceToPayCarlos'][0])
+    text_contents += '\n\n' 
         
     st.download_button('Zerar Caronas e Gerar Extrato', text_contents)
         
