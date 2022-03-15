@@ -4,6 +4,7 @@ import math
 import pandas as pd
 import streamlit as st
 import csv
+from datetime import date
 
 """
 # Valor Caronas
@@ -60,7 +61,8 @@ with st.expander("Fechar o mês"):
     text_contents += '\nCaronas com Pedro = ' + str(df['ridesPedro'][6])
     text_contents += '\nPreço para pagar ao Pedro = ' + str(df['priceToPayPedro'][6])
     text_contents += '\n\n'   
-    st.download_button('Zerar Caronas e Gerar Extrato', text_contents)
+    dataExtrato = "extrato-" + date.today()
+    st.download_button('Zerar Caronas e Gerar Extrato', text_contents, file_name=dataExtrato)
         
 
     for i in range(6):
