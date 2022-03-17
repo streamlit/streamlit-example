@@ -24,6 +24,8 @@ with st.expander("Parâmetros Utilizados"):
         df_parameters['pedroRide5'][0] = pedro_ride5
         df_parameters['carlosRide3'][0] = carlos_ride3
         df_parameters['carlosRide5'][0] = carlos_ride5
+        df_parameters.to_csv("parameters.csv", index=False)
+        st.write("ATUALIZE A PÁGINA")
 
 text_contents = '' 
 with st.expander("Fechar o mês"):
