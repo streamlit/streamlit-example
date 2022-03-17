@@ -20,10 +20,10 @@ with st.expander("Parâmetros Utilizados"):
     carlos_ride5 = st.number_input("Valor da Carona Carlos (5 pessoas)= ", value = df_parameters['carlosRide5'][0])
 
     if st.button('Atualizar Parâmetros'):
-        df['pedroRide1'][0] = pedro_ride4
-        df['pedroRide2'][0] = pedro_ride5
-        df['carlosRide'][0] = carlos_ride3
-        df['carlosRide'][0] = carlos_ride5
+        df['pedroRide4'][0] = pedro_ride4
+        df['pedroRide5'][0] = pedro_ride5
+        df['carlosRide3'][0] = carlos_ride3
+        df['carlosRide5'][0] = carlos_ride5
 
 text_contents = '' 
 with st.expander("Fechar o mês"):
