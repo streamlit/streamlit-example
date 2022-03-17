@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 import csv
 from datetime import date
+from streamlit_autorefresh import st_autorefresh
 
 """
 # Valor Caronas
@@ -91,6 +92,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][0] += pedro_ride4
         if five:
             df['priceToPayPedro'][0] += pedro_ride5
+        st_autorefresh(interval=2000, limit=100, key="fizzbuzzcounter")
 
 with st.expander("Carona com Carlos"):
 
