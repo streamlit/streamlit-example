@@ -5,7 +5,6 @@ import pandas as pd
 import streamlit as st
 import csv
 from datetime import date
-from streamlit_autorefresh import st_autorefresh
 
 """
 # Valor Caronas
