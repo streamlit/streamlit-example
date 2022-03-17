@@ -88,9 +88,9 @@ with st.expander("Carona com Pedro"):
     if st.button('ADICIONAR CARONA', key="addGabrielPedro"):
         df['ridesPedro'][0] += pedro_rides_count[0]
         if four:
-            df['priceToPayPedro'][0] += pedro_ride4
+            df['priceToPayPedro'][0] += pedro_ride4 * pedro_rides_count[0]
         if five:
-            df['priceToPayPedro'][0] += pedro_ride5
+            df['priceToPayPedro'][0] += pedro_ride5 * pedro_rides_count[0]
         st.write("ATUALIZE A PÁGINA")
 
 with st.expander("Carona com Carlos"):
@@ -105,9 +105,9 @@ with st.expander("Carona com Carlos"):
     if st.button('ADICIONAR CARONA', key="addGabrielCarlos"):
         df['ridesCarlos'][0] += carlos_rides_count[0]
         if three:
-            df['priceToPayCarlos'][0] += carlos_ride3
+            df['priceToPayCarlos'][0] += carlos_ride3 * carlos_rides_count[0]
         if five:
-            pdf['priceToPayCarlos'][0] += carlos_ride5
+            pdf['priceToPayCarlos'][0] += carlos_ride5 * carlos_rides_count[0]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][0])
@@ -126,9 +126,9 @@ with st.expander("Carona com Pedro"):
     if st.button('ADICIONAR CARONA', key="addLucasPedro"):
         df['ridesPedro'][1] += pedro_rides_count[1]
         if four:
-            df['priceToPayPedro'][1] += pedro_ride4
+            df['priceToPayPedro'][1] += pedro_ride4 * pedro_rides_count[1]
         if five:
-            df['priceToPayPedro'][1] += pedro_ride5
+            df['priceToPayPedro'][1] += pedro_ride5 * pedro_rides_count[1]
         st.write("ATUALIZE A PÁGINA")
 
 with st.expander("Carona com Carlos"):
@@ -143,9 +143,9 @@ with st.expander("Carona com Carlos"):
     if st.button('ADICIONAR CARONA', key="addLucasCarlos"):
         df['ridesCarlos'][1] += carlos_rides_count[1]
         if three:
-            df['priceToPayCarlos'][1] += carlos_ride3
+            df['priceToPayCarlos'][1] += carlos_ride3 * carlos_rides_count[1]
         if five:
-            pdf['priceToPayCarlos'][1] += carlos_ride5
+            pdf['priceToPayCarlos'][1] += carlos_ride5 * carlos_rides_count[1]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][1])
@@ -164,9 +164,9 @@ with st.expander("Carona com Pedro"):
     if st.button('ADICIONAR CARONA', key="addLeoPedro"):
         df['ridesPedro'][2] += pedro_rides_count[2]
         if four:
-            df['priceToPayPedro'][2] += pedro_ride4
+            df['priceToPayPedro'][2] += pedro_ride4 * pedro_rides_count[2]
         if five:
-            df['priceToPayPedro'][2] += pedro_ride5
+            df['priceToPayPedro'][2] += pedro_ride5 * pedro_rides_count[2]
         st.write("ATUALIZE A PÁGINA")
 
 with st.expander("Carona com Carlos"):
@@ -181,9 +181,9 @@ with st.expander("Carona com Carlos"):
     if st.button('ADICIONAR CARONA', key="addLeoCarlos"):
         df['ridesCarlos'][2] += carlos_rides_count[2]
         if three:
-            df['priceToPayCarlos'][2] += carlos_ride3
+            df['priceToPayCarlos'][2] += carlos_ride3 * carlos_rides_count[2] 
         if five:
-            pdf['priceToPayCarlos'][2] += carlos_ride5
+            pdf['priceToPayCarlos'][2] += carlos_ride5 * carlos_rides_count[2] 
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][2])
@@ -203,9 +203,9 @@ with st.expander("Carona com Carlos"):
     if st.button('ADICIONAR CARONA', key="addPedro"):
         df['ridesCarlos'][3] += carlos_rides_count[3]
         if three:
-            df['priceToPayCarlos'][3] += carlos_ride3
+            df['priceToPayCarlos'][3] += carlos_ride3 * carlos_rides_count[3]
         if five:
-            pdf['priceToPayCarlos'][3] += carlos_ride5
+            pdf['priceToPayCarlos'][3] += carlos_ride5 * carlos_rides_count[3]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][3])
@@ -223,9 +223,9 @@ with st.expander("Carona com Pedro"):
     if st.button('ADICIONAR CARONA', key="addCarlos"):
         df['ridesPedro'][4] += pedro_rides_count[4]
         if four:
-            df['priceToPayPedro'][4] += pedro_ride4
+            df['priceToPayPedro'][4] += pedro_ride4 * pedro_rides_count[4]
         if five:
-            df['priceToPayPedro'][4] += pedro_ride5
+            df['priceToPayPedro'][4] += pedro_ride5 * pedro_rides_count[4]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][4])
@@ -237,15 +237,15 @@ with st.expander("Carona com Pedro"):
 
     pedro_rides_count[5] = st.number_input('Adicionar carona:',min_value=0, step=1, key="giovannaToPedro", value = 0)
 
-    four= st.checkbox('4 pessoas', key="giovanna4GiovannaToPedro")
-    five = st.checkbox('5 pessoas', key="giovanna5GiovannaToPedro")
+    four= st.checkbox('4 pessoas', key="giovanna4GiovannaToPedro") 
+    five = st.checkbox('5 pessoas', key="giovanna5GiovannaToPedro") 
 
     if st.button('ADICIONAR CARONA', key="addGiovanna"):
         df['ridesPedro'][5] += pedro_rides_count[5]
         if four:
-            df['priceToPayPedro'][5] += pedro_ride4
+            df['priceToPayPedro'][5] += pedro_ride4 * pedro_rides_count[5]
         if five:
-            df['priceToPayPedro'][5] += pedro_ride5
+            df['priceToPayPedro'][5] += pedro_ride5 * pedro_rides_count[5]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][5])
@@ -262,9 +262,9 @@ with st.expander("Carona com Pedro"):
     if st.button('ADICIONAR CARONA', key="addGiovana"):
         df['ridesPedro'][6] += pedro_rides_count[6]
         if four:
-            df['priceToPayPedro'][6] += pedro_ride4
+            df['priceToPayPedro'][6] += pedro_ride4 * pedro_rides_count[6]
         if five:
-            df['priceToPayPedro'][6] += pedro_ride5
+            df['priceToPayPedro'][6] += pedro_ride5 * pedro_rides_count[6]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][6])
