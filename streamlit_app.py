@@ -72,14 +72,6 @@ with st.expander("Fechar o mês"):
         df.to_csv("rides.csv", index=False)
         
 
-
-for i in range(7):
-    ridesPedro.append(df['ridesPedro'][i])
-    ridesCarlos.append(df['ridesCarlos'][i])
-    pricesToPayPedro.append(df['priceToPayPedro'][i])
-    pricesToPayCarlos.append(df['priceToPayCarlos'][i])
-
-
 pedro_rides_count = [None] * 7
 carlos_rides_count = [None] * 6
 
