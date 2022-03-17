@@ -85,7 +85,7 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
     five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addGabrielPedro"):
         df['ridesPedro'][0] += pedro_rides_count[0]
         if four:
             df['priceToPayPedro'][0] += pedro_ride4
@@ -101,7 +101,7 @@ with st.expander("Carona com Carlos"):
     three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
     five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addGabrielCarlos"):
         df['ridesCarlos'][0] += carlos_rides_count[0]
         if three:
             df['priceToPayCarlos'][0] += carlos_ride3
@@ -121,7 +121,7 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="check4LucasToPedro")
     five = st.checkbox('5 pessoas', key="check5LucasToPedro")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addLucasPedro"):
         df['ridesPedro'][1] += pedro_rides_count[1]
         if four:
             df['priceToPayPedro'][1] += pedro_ride4
@@ -137,7 +137,7 @@ with st.expander("Carona com Carlos"):
     three = st.checkbox('3 pessoas',key="check3LucasToCarlos")
     five = st.checkbox('5 pessoas',key="check5LucasToCarlos")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addLucasCarlos"):
         df['ridesCarlos'][1] += carlos_rides_count[1]
         if three:
             df['priceToPayCarlos'][1] += carlos_ride3
@@ -157,7 +157,7 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="check4LeoToPedro")
     five = st.checkbox('5 pessoas', key="check5LeoToPedro")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addLeoPedro"):
         df['ridesPedro'][2] += pedro_rides_count[2]
         if four:
             df['priceToPayPedro'][2] += pedro_ride4
@@ -173,7 +173,7 @@ with st.expander("Carona com Carlos"):
     three = st.checkbox('3 pessoas',key="check3LeoToCarlos")
     five = st.checkbox('5 pessoas',key="check5LeoToCarlos")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addLeoCarlos"):
         df['ridesCarlos'][2] += carlos_rides_count[2]
         if three:
             df['priceToPayCarlos'][2] += carlos_ride3
@@ -194,7 +194,7 @@ with st.expander("Carona com Carlos"):
     three = st.checkbox('3 pessoas',key="check3PedroToCarlos")
     five = st.checkbox('5 pessoas',key="check5PedroToCarlos")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addPedro"):
         df['ridesCarlos'][3] += carlos_rides_count[3]
         if three:
             df['priceToPayCarlos'][3] += carlos_ride3
@@ -213,7 +213,7 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="check4CarlosToPedro")
     five = st.checkbox('5 pessoas', key="check5CarlosToPedro")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addCarlos"):
         df['ridesPedro'][4] += pedro_rides_count[4]
         if four:
             df['priceToPayPedro'][4] += pedro_ride4
@@ -232,7 +232,7 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="giovanna4GiovannaToPedro")
     five = st.checkbox('5 pessoas', key="giovanna5GiovannaToPedro")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addGiovanna"):
         df['ridesPedro'][5] += pedro_rides_count[5]
         if four:
             df['priceToPayPedro'][5] += pedro_ride4
@@ -250,7 +250,7 @@ with st.expander("Carona com Pedro"):
     four= st.checkbox('4 pessoas', key="giovanna4GiovanaToPedro")
     five = st.checkbox('5 pessoas', key="giovanna5GiovanaToPedro")
 
-    if st.button('ADICIONAR CARONA'):
+    if st.button('ADICIONAR CARONA', key="addGiovana"):
         df['ridesPedro'][6] += pedro_rides_count[6]
         if four:
             df['priceToPayPedro'][6] += pedro_ride4
