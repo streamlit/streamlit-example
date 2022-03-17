@@ -72,11 +72,6 @@ with st.expander("Fechar o mês"):
         df.to_csv("rides.csv", index=False)
         
 
-ridesPedro = []
-ridesCarlos = []
-pricesToPayPedro = []
-pricesToPayCarlos = []
-
 
 for i in range(7):
     ridesPedro.append(df['ridesPedro'][i])
@@ -91,158 +86,186 @@ carlos_rides_count = [None] * 6
 
 st.header("Gabriel")
 with st.expander("Carona com Pedro"):
-    pedro_rides_count[0] = st.number_input('',min_value=0, step=1, key="gabrielToPedro", value = ridesPedro[0])
+    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][0])
+
+    pedro_rides_count[0] = st.number_input('Adicionar carona:',min_value=0, step=1, key="gabrielToPedro", value = 0)
 
     four= st.checkbox('4 pessoas', key="check4GabrielToPedro")
     five = st.checkbox('5 pessoas', key="check5GabrielToPedro")
-    if four:
-        pricesToPayPedro[0] += pedro_ride4
-    if five:
-        pricesToPayPedro[0] += pedro_ride5
+
+    if st.button('ADICIONAR CARONA'):
+        df['ridesPedro'][0] += pedro_rides_count[0]
+        if four:
+            df['priceToPayPedro'][0] += pedro_ride4
+        if five:
+            df['priceToPayPedro'][0] += pedro_ride5
 
 with st.expander("Carona com Carlos"):
-    carlos_rides_count[0] = st.number_input('', min_value=0, step=1, key="gabrielToCarlos", value = ridesCarlos[0])
+
+    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][0])
+
+    carlos_rides_count[0] = st.number_input('Adicionar carona:', min_value=0, step=1, key="gabrielToCarlos", value = 0)
+
     three = st.checkbox('3 pessoas',key="check3GabrielToCarlos")
     five = st.checkbox('5 pessoas',key="check5GabrielToCarlos")
-    if three:
-        pricesToPayCarlos[0] += carlos_ride3
-    if five:
-        pricesToPayCarlos[0] += carlos_ride5
 
-st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[0])
-st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[0])
+    if st.button('ADICIONAR CARONA'):
+        df['ridesCarlos'][0] += carlos_rides_count[0]
+        if three:
+            df['priceToPayCarlos'][0] += carlos_ride3
+        if five:
+            pdf['priceToPayCarlos'][0] += carlos_ride5
+
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][0])
+st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][0])
 
 
 st.header("Lucas")
 with st.expander("Carona com Pedro"):
-    pedro_rides_count[1] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="lucasToPedro", value = ridesPedro[1])
+    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][1])
+
+    pedro_rides_count[1] = st.number_input('Adicionar carona:',min_value=0, step=1, key="lucasToPedro", value = 0)
+
     four= st.checkbox('4 pessoas', key="check4LucasToPedro")
     five = st.checkbox('5 pessoas', key="check5LucasToPedro")
-    if four:
-        pricesToPayPedro[1] += pedro_ride4
-    if five:
-        pricesToPayPedro[1] += pedro_ride5
+
+    if st.button('ADICIONAR CARONA'):
+        df['ridesPedro'][1] += pedro_rides_count[1]
+        if four:
+            df['priceToPayPedro'][1] += pedro_ride4
+        if five:
+            df['priceToPayPedro'][1] += pedro_ride5
 
 with st.expander("Carona com Carlos"):
-    carlos_rides_count[1] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="lucasToCarlos", value = ridesCarlos[1])
+
+    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][1])
+
+    carlos_rides_count[1] = st.number_input('Adicionar carona:', min_value=0, step=1, key="lucasToCarlos", value = 0)
+
     three = st.checkbox('3 pessoas',key="check3LucasToCarlos")
     five = st.checkbox('5 pessoas',key="check5LucasToCarlos")
-    if three:
-        pricesToPayCarlos[1] += carlos_ride3
-    if five:
-        pricesToPayCarlos[1] += carlos_ride5
 
-st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[1])
-st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[1])
+    if st.button('ADICIONAR CARONA'):
+        df['ridesCarlos'][1] += carlos_rides_count[1]
+        if three:
+            df['priceToPayCarlos'][1] += carlos_ride3
+        if five:
+            pdf['priceToPayCarlos'][1] += carlos_ride5
 
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][1])
+st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][1])
 
 
 st.header("Leo")
 with st.expander("Carona com Pedro"):
-    pedro_rides_count[2] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="leoToPedro", value = ridesPedro[2])
+    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][2])
+
+    pedro_rides_count[2] = st.number_input('Adicionar carona:',min_value=0, step=1, key="leoToPedro", value = 0)
+
     four= st.checkbox('4 pessoas', key="check4LeoToPedro")
     five = st.checkbox('5 pessoas', key="check5LeoToPedro")
-    if four:
-        pricesToPayPedro[2] += pedro_ride4
-    if five:
-        pricesToPayPedro[2] += pedro_ride5
 
-with st.expander("Carona com Carlos"):       
-    carlos_rides_count[2] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="leoToCarlos", value = ridesCarlos[2])
+    if st.button('ADICIONAR CARONA'):
+        df['ridesPedro'][2] += pedro_rides_count[2]
+        if four:
+            df['priceToPayPedro'][2] += pedro_ride4
+        if five:
+            df['priceToPayPedro'][2] += pedro_ride5
+
+with st.expander("Carona com Carlos"):
+
+    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][2])
+
+    carlos_rides_count[2] = st.number_input('Adicionar carona:', min_value=0, step=1, key="leoToCarlos", value = 0)
+
     three = st.checkbox('3 pessoas',key="check3LeoToCarlos")
     five = st.checkbox('5 pessoas',key="check5LeoToCarlos")
-    if three:
-        pricesToPayCarlos[2] += carlos_ride3
-    if five:
-        pricesToPayCarlos[2] += carlos_ride5
 
-st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[2])
-st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[2])
+    if st.button('ADICIONAR CARONA'):
+        df['ridesCarlos'][2] += carlos_rides_count[2]
+        if three:
+            df['priceToPayCarlos'][2] += carlos_ride3
+        if five:
+            pdf['priceToPayCarlos'][2] += carlos_ride5
+
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][2])
+st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][2])
+
 
 st.header("Pedro")
 with st.expander("Carona com Carlos"):
-    carlos_rides_count[3] = st.number_input('Caronas com Carlos', min_value=0, step=1, key="pedroToCarlos", value = ridesCarlos[3])
 
-st.write("Valor a pagar ao Carlos = R$ ",pricesToPayCarlos[3])
+    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][3])
+
+    carlos_rides_count[3] = st.number_input('Adicionar carona:', min_value=0, step=1, key="pedroToCarlos", value = 0)
+
+    three = st.checkbox('3 pessoas',key="check3PedroToCarlos")
+    five = st.checkbox('5 pessoas',key="check5PedroToCarlos")
+
+    if st.button('ADICIONAR CARONA'):
+        df['ridesCarlos'][3] += carlos_rides_count[3]
+        if three:
+            df['priceToPayCarlos'][3] += carlos_ride3
+        if five:
+            pdf['priceToPayCarlos'][3] += carlos_ride5
+
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][3])
+st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][3])
 
 st.header("Carlos")
 with st.expander("Carona com Pedro"):
-    pedro_rides_count[4] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="carlosToPedro", value = ridesPedro[4])
-   
-st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[4])
+    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][4])
+
+    pedro_rides_count[4] = st.number_input('Adicionar carona:',min_value=0, step=1, key="carlosToPedro", value = 0)
+
+    four= st.checkbox('4 pessoas', key="check4CarlosToPedro")
+    five = st.checkbox('5 pessoas', key="check5CarlosToPedro")
+
+    if st.button('ADICIONAR CARONA'):
+        df['ridesPedro'][4] += pedro_rides_count[4]
+        if four:
+            df['priceToPayPedro'][4] += pedro_ride4
+        if five:
+            df['priceToPayPedro'][4] += pedro_ride5
+
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][4])
+
 
 st.header("Giovanna")
 with st.expander("Carona com Pedro"):
-   
-    pedro_rides_count[5] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovannaToPedro", value = ridesPedro[5])
+    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][5])
 
-    
+    pedro_rides_count[5] = st.number_input('Adicionar carona:',min_value=0, step=1, key="giovannaToPedro", value = 0)
 
-st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[5])
+    four= st.checkbox('4 pessoas', key="giovanna4GiovannaToPedro")
+    five = st.checkbox('5 pessoas', key="giovanna5GiovannaToPedro")
+
+    if st.button('ADICIONAR CARONA'):
+        df['ridesPedro'][5] += pedro_rides_count[5]
+        if four:
+            df['priceToPayPedro'][5] += pedro_ride4
+        if five:
+            df['priceToPayPedro'][5] += pedro_ride5
+
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][5])
 
 st.header("Giovana")
 with st.expander("Carona com Pedro"):
-    pedro_rides_count[6] = st.number_input('Caronas com Pedro', min_value=0, step=1, key="giovanaToPedro", value = ridesPedro[6])
+    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][6])
 
+    pedro_rides_count[6] = st.number_input('Adicionar carona:',min_value=0, step=1, key="giovanaToPedro", value = 0)
 
+    four= st.checkbox('4 pessoas', key="giovanna4GiovanaToPedro")
+    five = st.checkbox('5 pessoas', key="giovanna5GiovanaToPedro")
 
-st.write("Valor a pagar ao Pedro = R$ ",pricesToPayPedro[6])
+    if st.button('ADICIONAR CARONA'):
+        df['ridesPedro'][6] += pedro_rides_count[6]
+        if four:
+            df['priceToPayPedro'][6] += pedro_ride4
+        if five:
+            df['priceToPayPedro'][6] += pedro_ride5
 
+st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][6])
 
-if st.button('SALVAR E ATUALIZAR'):
+df.to_csv("rides.csv", index=False)
 
-    #Gabriel
-    if pedro_rides_count[0] > df['ridesPedro'][0]:
-        df['ridesPedro'][0] = pedro_rides_count[0]
-        df['priceToPayPedro'][0] = pricesToPayPedro[0]
-
-    if carlos_rides_count[0] > df['ridesCarlos'][0]:
-        df['priceToPayCarlos'][0] = pricesToPayCarlos[0]
-        df['ridesCarlos'][0] = carlos_rides_count[0]
-
-
-    #Lucas
-    if pedro_rides_count[1] > df['ridesPedro'][1]:
-        df['ridesPedro'][1] = pedro_rides_count[1]
-        df['priceToPayPedro'][1] = pricesToPayPedro[1]
-
-    if carlos_rides_count[1] > df['ridesCarlos'][1]:
-        df['priceToPayCarlos'][1] = pricesToPayCarlos[1]
-        df['ridesCarlos'][1] = carlos_rides_count[1]
-
-    #Leo
-    if pedro_rides_count[2] > df['ridesPedro'][2]:
-        df['ridesPedro'][2] = pedro_rides_count[2]
-        df['priceToPayPedro'][2] = pricesToPayPedro[2]
-
-    if carlos_rides_count[2] > df['ridesCarlos'][2]:
-        df['priceToPayCarlos'][2] = pricesToPayCarlos[2]
-        df['ridesCarlos'][2] = carlos_rides_count[2]
-
-    #Pedro
-    if carlos_rides_count[3] > df['ridesCarlos'][3]:
-        df['ridesCarlos'][3] = carlos_rides_count[3]
-        pricesToPayCarlos[3] += carlos_ride5
-        df['priceToPayCarlos'][3] = pricesToPayCarlos[3]
-
-    #Carlos
-    if pedro_rides_count[4] > df['ridesPedro'][4]:
-        df['ridesPedro'][4] = pedro_rides_count[4]
-        pricesToPayPedro[4] += pedro_ride5
-        df['priceToPayPedro'][4] = pricesToPayPedro[4]
-
-    #Giovanna
-    if pedro_rides_count[5] > df['ridesPedro'][5]:
-        df['ridesPedro'][5] = pedro_rides_count[5]
-        pricesToPayPedro[5] += pedro_ride4
-        df['priceToPayPedro'][5] = pricesToPayPedro[5]
-        
-
-    #Giovana
-    if pedro_rides_count[6] > df['ridesPedro'][6]:
-        df['ridesPedro'][6] = pedro_rides_count[6]
-        pricesToPayPedro[6] += pedro_ride4
-        df['priceToPayPedro'][6] = pricesToPayPedro[6]
-
-    df.to_csv("rides.csv", index=False)
-    st.write('Atualize a página')
