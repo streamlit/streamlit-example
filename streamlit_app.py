@@ -25,7 +25,6 @@ with st.expander("Parâmetros Utilizados"):
         df_parameters['carlosRide3'][0] = carlos_ride3
         df_parameters['carlosRide5'][0] = carlos_ride5
         df_parameters.to_csv("parameters.csv", index=False)
-        pyautogui.hotkey('f5')
         st.write("ATUALIZE A PÁGINA")
 
 text_contents = '' 
