@@ -78,7 +78,7 @@ carlos_rides_count = [None] * 6
 
 st.header("Gabriel")
 with st.expander("Carona com Pedro"):
-    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][0])
+    st.write("Total de caronas com Pedro = ", df['ridesPedro'][0])
 
     pedro_rides_count[0] = st.number_input('Adicionar carona:',min_value=0, step=1, key="gabrielToPedro", value = 0)
 
@@ -94,7 +94,7 @@ with st.expander("Carona com Pedro"):
 
 with st.expander("Carona com Carlos"):
 
-    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][0])
+    st.write("Total de caronas com Carlos = ", df['ridesCarlos'][0])
 
     carlos_rides_count[0] = st.number_input('Adicionar carona:', min_value=0, step=1, key="gabrielToCarlos", value = 0)
 
@@ -114,7 +114,7 @@ st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][0])
 
 st.header("Lucas")
 with st.expander("Carona com Pedro"):
-    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][1])
+    st.write("Total de caronas com Pedro = ", df['ridesPedro'][1])
 
     pedro_rides_count[1] = st.number_input('Adicionar carona:',min_value=0, step=1, key="lucasToPedro", value = 0)
 
@@ -130,7 +130,7 @@ with st.expander("Carona com Pedro"):
 
 with st.expander("Carona com Carlos"):
 
-    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][1])
+    st.write("Total de caronas com Carlos = ", df['ridesCarlos'][1])
 
     carlos_rides_count[1] = st.number_input('Adicionar carona:', min_value=0, step=1, key="lucasToCarlos", value = 0)
 
@@ -150,7 +150,7 @@ st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][1])
 
 st.header("Leo")
 with st.expander("Carona com Pedro"):
-    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][2])
+    st.write("Total de caronas com Pedro = ", df['ridesPedro'][2])
 
     pedro_rides_count[2] = st.number_input('Adicionar carona:',min_value=0, step=1, key="leoToPedro", value = 0)
 
@@ -166,7 +166,7 @@ with st.expander("Carona com Pedro"):
 
 with st.expander("Carona com Carlos"):
 
-    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][2])
+    st.write("Total de caronas com Carlos = ", df['ridesCarlos'][2])
 
     carlos_rides_count[2] = st.number_input('Adicionar carona:', min_value=0, step=1, key="leoToCarlos", value = 0)
 
@@ -187,7 +187,7 @@ st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][2])
 st.header("Pedro")
 with st.expander("Carona com Carlos"):
 
-    st.write("Total de caronas com Carlos = R$ ", df['ridesCarlos'][3])
+    st.write("Total de caronas com Carlos = ", df['ridesCarlos'][3])
 
     carlos_rides_count[3] = st.number_input('Adicionar carona:', min_value=0, step=1, key="pedroToCarlos", value = 0)
 
@@ -206,7 +206,7 @@ st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][3])
 
 st.header("Carlos")
 with st.expander("Carona com Pedro"):
-    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][4])
+    st.write("Total de caronas com Pedro = ", df['ridesPedro'][4])
 
     pedro_rides_count[4] = st.number_input('Adicionar carona:',min_value=0, step=1, key="carlosToPedro", value = 0)
 
@@ -225,7 +225,7 @@ st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][4])
 
 st.header("Giovanna")
 with st.expander("Carona com Pedro"):
-    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][5])
+    st.write("Total de caronas com Pedro = ", df['ridesPedro'][5])
 
     pedro_rides_count[5] = st.number_input('Adicionar carona:',min_value=0, step=1, key="giovannaToPedro", value = 0)
 
@@ -243,7 +243,7 @@ st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][5])
 
 st.header("Giovana")
 with st.expander("Carona com Pedro"):
-    st.write("Total de caronas com Pedro = R$ ", df['ridesPedro'][6])
+    st.write("Total de caronas com Pedro = ", df['ridesPedro'][6])
 
     pedro_rides_count[6] = st.number_input('Adicionar carona:',min_value=0, step=1, key="giovanaToPedro", value = 0)
 
