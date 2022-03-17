@@ -92,7 +92,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][0] += pedro_ride4
         if five:
             df['priceToPayPedro'][0] += pedro_ride5
-        st_autorefresh(interval=2000, limit=100, key="fizzbuzzcounter")
+        st.write("ATUALIZE A PÁGINA")
 
 with st.expander("Carona com Carlos"):
 
@@ -109,6 +109,7 @@ with st.expander("Carona com Carlos"):
             df['priceToPayCarlos'][0] += carlos_ride3
         if five:
             pdf['priceToPayCarlos'][0] += carlos_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][0])
 st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][0])
@@ -129,6 +130,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][1] += pedro_ride4
         if five:
             df['priceToPayPedro'][1] += pedro_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 with st.expander("Carona com Carlos"):
 
@@ -145,6 +147,7 @@ with st.expander("Carona com Carlos"):
             df['priceToPayCarlos'][1] += carlos_ride3
         if five:
             pdf['priceToPayCarlos'][1] += carlos_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][1])
 st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][1])
@@ -165,6 +168,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][2] += pedro_ride4
         if five:
             df['priceToPayPedro'][2] += pedro_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 with st.expander("Carona com Carlos"):
 
@@ -181,6 +185,7 @@ with st.expander("Carona com Carlos"):
             df['priceToPayCarlos'][2] += carlos_ride3
         if five:
             pdf['priceToPayCarlos'][2] += carlos_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][2])
 st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][2])
@@ -202,6 +207,7 @@ with st.expander("Carona com Carlos"):
             df['priceToPayCarlos'][3] += carlos_ride3
         if five:
             pdf['priceToPayCarlos'][3] += carlos_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][3])
 st.write("Valor a pagar ao Carlos = R$ ", df['priceToPayCarlos'][3])
@@ -221,6 +227,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][4] += pedro_ride4
         if five:
             df['priceToPayPedro'][4] += pedro_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][4])
 
@@ -240,6 +247,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][5] += pedro_ride4
         if five:
             df['priceToPayPedro'][5] += pedro_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][5])
 
@@ -258,6 +266,7 @@ with st.expander("Carona com Pedro"):
             df['priceToPayPedro'][6] += pedro_ride4
         if five:
             df['priceToPayPedro'][6] += pedro_ride5
+        st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][6])
 
