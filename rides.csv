@@ -1,8 +1,8 @@
 name,ridesPedro,ridesCarlos,priceToPayPedro,priceToPayCarlos
-gabriel,5,11,5,10
-lucas,5,11,5,10
-leo,5,11,5,10
-pedro,0,11,5,10
-carlos,11,0,5,10
-giovanna,12,0,5,0
-giovana,9,0,10,0
+gabriel,5.0,11.0,5.0,10.0
+lucas,5.0,11.0,5.0,10.0
+leo,5.0,11.0,5.0,10.0
+pedro,0.0,11.0,5.0,10.0
+carlos,11.0,0.0,5.0,10.0
+giovanna,12.0,0.0,5.0,0.0
+giovana,9.0,0.0,10.0,0.0
