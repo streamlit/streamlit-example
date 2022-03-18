@@ -13,8 +13,6 @@ from datetime import date
 df_parameters = pd.read_csv('parameters.csv')
 df = pd.read_csv('rides.csv')
 
-st.write(df_parameters['pedroRide4'][0])
-
 with st.expander("Parâmetros Utilizados"):
     pedro_ride4 = st.number_input("Valor da Carona Pedro (4 pessoas)= ", value = df_parameters['pedroRide4'][0]) #rota casa da gi
     pedro_ride5 = st.number_input("Valor da Carona Pedro (5 pessoas) = ", value = df_parameters['pedroRide5'][0])
