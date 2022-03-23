@@ -113,7 +113,7 @@ with st.expander("Carona com Carlos"):
         if three:
             df['priceToPayCarlos'][0] += carlos_ride3 * carlos_rides_count[0]
         if five:
-            pdf['priceToPayCarlos'][0] += carlos_ride5 * carlos_rides_count[0]
+            df['priceToPayCarlos'][0] += carlos_ride5 * carlos_rides_count[0]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][0])
@@ -151,7 +151,7 @@ with st.expander("Carona com Carlos"):
         if three:
             df['priceToPayCarlos'][1] += carlos_ride3 * carlos_rides_count[1]
         if five:
-            pdf['priceToPayCarlos'][1] += carlos_ride5 * carlos_rides_count[1]
+            df['priceToPayCarlos'][1] += carlos_ride5 * carlos_rides_count[1]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][1])
@@ -189,7 +189,7 @@ with st.expander("Carona com Carlos"):
         if three:
             df['priceToPayCarlos'][2] += carlos_ride3 * carlos_rides_count[2] 
         if five:
-            pdf['priceToPayCarlos'][2] += carlos_ride5 * carlos_rides_count[2] 
+            df['priceToPayCarlos'][2] += carlos_ride5 * carlos_rides_count[2] 
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][2])
@@ -211,7 +211,7 @@ with st.expander("Carona com Carlos"):
         if three:
             df['priceToPayCarlos'][3] += carlos_ride3 * carlos_rides_count[3]
         if five:
-            pdf['priceToPayCarlos'][3] += carlos_ride5 * carlos_rides_count[3]
+            df['priceToPayCarlos'][3] += carlos_ride5 * carlos_rides_count[3]
         st.write("ATUALIZE A PÁGINA")
 
 st.write("Valor a pagar ao Pedro = R$ ", df['priceToPayPedro'][3])
