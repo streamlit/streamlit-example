@@ -12,7 +12,7 @@ from datetime import date
 """
 df_parameters = pd.read_csv('parameters.csv')
 df = pd.read_csv('rides.csv')
-
+st.write ("teste")
 with st.expander("Chaves Pix"):
     st.write("Pix Pedro: +5514998167179")
     st.write("Pix Carlos: 79105599-8e7c-47ec-9a0b-c192cced1791")
