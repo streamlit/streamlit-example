@@ -115,7 +115,7 @@ with st.expander("Giovana"):
         giovana[2] = st.number_input('4 passageiros', key='giovana4pedro', step = 1)
         giovana[3] = st.number_input('5 passageiros', key='giovana5pedro', step = 1)
 
-
+st.header('Pagamento')
 with st.expander("Total à pagar para o Pedro"):
         carlos[4] = (rides[0]*carlos[0])+(rides[1]*carlos[1])+(rides[2]*carlos[2])+(rides[3]*carlos[3])
         st.write('Carlos = ' + str(carlos[4]))
