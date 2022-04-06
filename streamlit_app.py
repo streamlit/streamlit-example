@@ -143,7 +143,7 @@ with st.expander("Total à pagar para o Pedro"):
         st.write('Giovana = ' +  str(giovana[8]))
 
 with st.expander("Total à pagar para o Pedro"):
-        pedro[4] = (rides[4]*pedros[0])+(rides[5]*pedro[1])+(rides[6]*pedro[2])+(rides[7]*pedro[3])
+        pedro[4] = (rides[4]*pedro[0])+(rides[5]*pedro[1])+(rides[6]*pedro[2])+(rides[7]*pedro[3])
         st.write('Pedro = ' + str(pedro[4]))
 
         lucas[9] = (rides[4]*lucas[4])+(rides[5]*lucas[5])+(rides[6]*lucas[6])+(rides[7]*lucas[7])
