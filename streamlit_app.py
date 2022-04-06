@@ -47,7 +47,7 @@ giovana = [None] * 10
 with st.expander("Pedro"):
     with st.container():
         st.header("Caronas com Carlos")
-        pedro[0] = st.number_input('2 passageiros')
+        pedro[0] = st.number_input('2 passageiros', step = 1)
         pedro[1] = st.number_input('3 passageiros')
         pedro[2] = st.number_input('4 passageiros')
         pedro[3] = st.number_input('5 passageiros')
