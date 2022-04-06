@@ -96,7 +96,7 @@ today_date = date.today()
 
 d = st.date_input(
      "Data",
-     datetime.date(today_date.year, today_date.month, today_date.day))
+     date(today_date.year, today_date.month, today_date.day))
 
 if st.button('Cadastrar Carona'):
 
