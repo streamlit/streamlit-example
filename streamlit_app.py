@@ -24,16 +24,16 @@ rides = [None] * 8
 with st.expander("Preço das Caronas"):
     with st.container():
         st.header('Pedro')
-        rides[0] = st.number_input('2 passageiros')
-        rides[1] = st.number_input('3 passageiros')
-        rides[2] = st.number_input('4 passageiros')
-        rides[3] = st.number_input('5 passageiros')    
+        rides[0] = st.number_input('2 passageiros', key='ridepedro2')
+        rides[1] = st.number_input('3 passageiros', key='ridepedro3')
+        rides[2] = st.number_input('4 passageiros', key='ridepedro4')
+        rides[3] = st.number_input('5 passageiros', key='ridepedro5')    
     with st.container():
         st.header('Carlos')
-        rides[4] = st.number_input('2 passageiros')
-        rides[5] = st.number_input('3 passageiros')
-        rides[6] = st.number_input('4 passageiros')
-        rides[7] = st.number_input('5 passageiros')  
+        rides[4] = st.number_input('2 passageiros', key='ridecarlos2')
+        rides[5] = st.number_input('3 passageiros', key='ridecarlos3')
+        rides[6] = st.number_input('4 passageiros', key='ridecarlos4')
+        rides[7] = st.number_input('5 passageiros', key='ridecarlos5')  
 
 
 pedro = [None] * 5
