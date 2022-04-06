@@ -124,8 +124,8 @@ with st.expander("Giovana"):
 
 
 with st.expander("Total à pagar para o Pedro"):
-        carlos[5] = (rides[0]*carlos[0])+(rides[1]*carlos[1])+(rides[2]*carlos[2])+(rides[3]*carlos[3])
-        st.write('Carlos = ' + carlos[5])
+        carlos[4] = (rides[0]*carlos[0])+(rides[1]*carlos[1])+(rides[2]*carlos[2])+(rides[3]*carlos[3])
+        st.write('Carlos = ' + carlos[4])
 
         lucas[8] = (rides[0]*lucas[0])+(rides[1]*lucas[1])+(rides[2]*lucas[2])+(rides[3]*lucas[3])
         st.write('Lucas = ' + lucas[8])
