@@ -11,12 +11,7 @@ from datetime import date
 
 """
 
-with st.expander("Chaves Pix"):
-    st.write("Pix Pedro: +5514998167179")
-    st.write("Pix Carlos: 79105599-8e7c-47ec-9a0b-c192cced1791")
 
-with st.expander("Fechar o mês"):
-    st.write("Valores Zerados")
 
 
 rides = [None] * 8
@@ -154,3 +149,25 @@ with st.expander("Total à pagar para o Pedro"):
 
         leo[9] = (rides[4]*leo[4])+(rides[5]*leo[5])+(rides[6]*leo[6])+(rides[7]*leo[7])
         st.write('Leo = '+ str(leo[9]))
+
+
+with st.expander("Chaves Pix"):
+    st.write("Pix Pedro: +5514998167179")
+    st.write("Pix Carlos: 79105599-8e7c-47ec-9a0b-c192cced1791")
+
+with st.expander("Fechar o mês"):
+    
+    if st.button("Zerar caronas"):
+        for i in range(8):
+            rides[i] = 0
+
+        for i in range(5):
+            pedro[i] = 0
+            carlos[i] = 0
+            giovanna[i] = 0
+            giovana[i] = 0
+
+        for i in range(10):
+            lucas[i] = 0
+            gabriel[i] = 0
+            leo[i] = 0
