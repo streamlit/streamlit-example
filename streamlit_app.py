@@ -44,38 +44,40 @@ leo = [None] * 10
 giovanna = [None] * 10
 giovana = [None] * 10
 
-# with st.expander("Cadastrar Carona"):
-#     with st.expander("Caronas com Pedro"):
-#         with st.expander("Carlos"):
-#             carlos[0] = st.number_input('2 passageiros')
-#             carlos[1] = st.number_input('3 passageiros')
-#             carlos[2] = st.number_input('4 passageiros')
-#             carlos[3] = st.number_input('5 passageiros')
-#         with st.expander("Lucas"):
-#             lucas[0] = st.number_input('2 passageiros')
-#             lucas[1] = st.number_input('3 passageiros')
-#             lucas[2] = st.number_input('4 passageiros')
-#             lucas[3] = st.number_input('5 passageiros')
-#         with st.expander("Gabriel"):
-#             gabriel[0] = st.number_input('2 passageiros')
-#             gabriel[1] = st.number_input('3 passageiros')
-#             gabriel[2] = st.number_input('4 passageiros')
-#             gabriel[3] = st.number_input('5 passageiros')
-#         with st.expander("Leo"):
-#             leo[0] = st.number_input('2 passageiros')
-#             leo[1] = st.number_input('3 passageiros')
-#             leo[2] = st.number_input('4 passageiros')
-#             leo[3] = st.number_input('5 passageiros')
-#         with st.expander("Giovanna"):
-#             giovanna[0] = st.number_input('2 passageiros')
-#             giovanna[1] = st.number_input('3 passageiros')
-#             giovanna[2] = st.number_input('4 passageiros')
-#             giovanna[3] = st.number_input('5 passageiros')
-#         with st.expander("Giovana"):
-#             giovana[0] = st.number_input('2 passageiros')
-#             giovana[1] = st.number_input('3 passageiros')
-#             giovana[2] = st.number_input('4 passageiros')
-#             giovana[3] = st.number_input('5 passageiros')
+with st.expander("Cadastrar Carona"):
+    with st.container():
+        st.header("Caronas com Pedro")
+        with st.container():
+            st.header("Carlos")
+            carlos[0] = st.number_input('2 passageiros')
+            carlos[1] = st.number_input('3 passageiros')
+            carlos[2] = st.number_input('4 passageiros')
+            carlos[3] = st.number_input('5 passageiros')
+        # with st.expander("Lucas"):
+        #     lucas[0] = st.number_input('2 passageiros')
+        #     lucas[1] = st.number_input('3 passageiros')
+        #     lucas[2] = st.number_input('4 passageiros')
+        #     lucas[3] = st.number_input('5 passageiros')
+        # with st.expander("Gabriel"):
+        #     gabriel[0] = st.number_input('2 passageiros')
+        #     gabriel[1] = st.number_input('3 passageiros')
+        #     gabriel[2] = st.number_input('4 passageiros')
+        #     gabriel[3] = st.number_input('5 passageiros')
+        # with st.expander("Leo"):
+        #     leo[0] = st.number_input('2 passageiros')
+        #     leo[1] = st.number_input('3 passageiros')
+        #     leo[2] = st.number_input('4 passageiros')
+        #     leo[3] = st.number_input('5 passageiros')
+        # with st.expander("Giovanna"):
+        #     giovanna[0] = st.number_input('2 passageiros')
+        #     giovanna[1] = st.number_input('3 passageiros')
+        #     giovanna[2] = st.number_input('4 passageiros')
+        #     giovanna[3] = st.number_input('5 passageiros')
+        # with st.expander("Giovana"):
+        #     giovana[0] = st.number_input('2 passageiros')
+        #     giovana[1] = st.number_input('3 passageiros')
+        #     giovana[2] = st.number_input('4 passageiros')
+        #     giovana[3] = st.number_input('5 passageiros')
 
 
 #     with st.expander("Caronas com Carlos"):
