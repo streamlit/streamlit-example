@@ -82,7 +82,20 @@ pedro_rides_count = [None] * 7
 carlos_rides_count = [None] * 6
 
 
-st.header("Gabriel")
+st.header("Caronas")
+
+driver = st.selectbox(
+     'Motorista',
+     ('Pedro', 'Carlos'))
+
+passenger = st.selectbox(
+     'Passageiro',
+     ('Pedro', 'Carlos', 'Lucas', 'Gabriel', 'Leo', 'Giovanna', 'Giovana'))
+
+passenger_num = st.slider('Quantidade passageiros', 1, 5, 1)
+
+
+
 with st.expander("Carona com Pedro"):
     st.write("Total de caronas com Pedro = ", df['ridesPedro'][0])
 
