@@ -7,12 +7,9 @@ import csv
 from datetime import date
 
 """
-# Valor Caronas
+# Controle de Caronas
 
 """
-
-
-
 
 rides = [None] * 8
 
@@ -39,6 +36,7 @@ leo = [None] * 10
 giovanna = [None] * 10
 giovana = [None] * 10
 
+st.header('Cadastrar Caronas')
 with st.expander("Pedro"):
     with st.container():
         st.header("Caronas com Carlos")
@@ -150,7 +148,7 @@ with st.expander("Total à pagar para o Pedro"):
         leo[9] = (rides[4]*leo[4])+(rides[5]*leo[5])+(rides[6]*leo[6])+(rides[7]*leo[7])
         st.write('Leo = '+ str(leo[9]))
 
-
+st.header('---------------------')
 with st.expander("Chaves Pix"):
     st.write("Pix Pedro: +5514998167179")
     st.write("Pix Carlos: 79105599-8e7c-47ec-9a0b-c192cced1791")
