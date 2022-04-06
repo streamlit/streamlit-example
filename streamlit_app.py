@@ -48,79 +48,79 @@ with st.expander("Pedro"):
     with st.container():
         st.header("Caronas com Carlos")
         pedro[0] = st.number_input('2 passageiros', step = 1)
-        pedro[1] = st.number_input('3 passageiros')
-        pedro[2] = st.number_input('4 passageiros')
-        pedro[3] = st.number_input('5 passageiros')
+        pedro[1] = st.number_input('3 passageiros', step = 1)
+        pedro[2] = st.number_input('4 passageiros', step = 1)
+        pedro[3] = st.number_input('5 passageiros', step = 1)
 
 with st.expander("Carlos"):
     with st.container():
         st.header("Caronas com Pedro")
-        carlos[0] = st.number_input('2 passageiros', key='carlos2')
-        carlos[1] = st.number_input('3 passageiros', key='carlos3')
-        carlos[2] = st.number_input('4 passageiros', key='carlos4')
-        carlos[3] = st.number_input('5 passageiros', key='carlos5')
+        carlos[0] = st.number_input('2 passageiros', key='carlos2', step = 1)
+        carlos[1] = st.number_input('3 passageiros', key='carlos3', step = 1)
+        carlos[2] = st.number_input('4 passageiros', key='carlos4', step = 1)
+        carlos[3] = st.number_input('5 passageiros', key='carlos5', step = 1)
 
 with st.expander("Lucas"):
     with st.container():
         st.header("Caronas com Pedro")
-        lucas[0] = st.number_input('2 passageiros', key='lucas2pedro')
-        lucas[1] = st.number_input('3 passageiros', key='lucas3pedro')
-        lucas[2] = st.number_input('4 passageiros', key='lucas4pedro')
-        lucas[3] = st.number_input('5 passageiros', key='lucas5pedro')
+        lucas[0] = st.number_input('2 passageiros', key='lucas2pedro', step = 1)
+        lucas[1] = st.number_input('3 passageiros', key='lucas3pedro', step = 1)
+        lucas[2] = st.number_input('4 passageiros', key='lucas4pedro', step = 1)
+        lucas[3] = st.number_input('5 passageiros', key='lucas5pedro', step = 1)
 
     with st.container():
         st.header("Caronas com Carlos")
-        lucas[4] = st.number_input('2 passageiros', key='lucas2carlos')
-        lucas[5] = st.number_input('3 passageiros', key='lucas2carlos')
-        lucas[6] = st.number_input('4 passageiros', key='lucas2carlos')
-        lucas[7] = st.number_input('5 passageiros', key='lucas2carlos')
+        lucas[4] = st.number_input('2 passageiros', key='lucas2carlos', step = 1)
+        lucas[5] = st.number_input('3 passageiros', key='lucas2carlos', step = 1)
+        lucas[6] = st.number_input('4 passageiros', key='lucas2carlos', step = 1)
+        lucas[7] = st.number_input('5 passageiros', key='lucas2carlos', step = 1)
 
 
 with st.expander("Gabriel"):
     with st.container():
         st.header("Caronas com Pedro")
-        gabriel[0] = st.number_input('2 passageiros', key='gabriel2pedro')
-        gabriel[1] = st.number_input('3 passageiros', key='gabriel3pedro')
-        gabriel[2] = st.number_input('4 passageiros', key='gabriel4pedro')
-        gabriel[3] = st.number_input('5 passageiros', key='gabriel5pedro')
+        gabriel[0] = st.number_input('2 passageiros', key='gabriel2pedro', step = 1)
+        gabriel[1] = st.number_input('3 passageiros', key='gabriel3pedro', step = 1)
+        gabriel[2] = st.number_input('4 passageiros', key='gabriel4pedro', step = 1)
+        gabriel[3] = st.number_input('5 passageiros', key='gabriel5pedro', step = 1)
 
     with st.container():
         st.header("Caronas com Carlos")  
-        gabriel[4] = st.number_input('2 passageiros', key='gabriel2carlos')
-        gabriel[5] = st.number_input('3 passageiros', key='gabriel2carlos')
-        gabriel[6] = st.number_input('4 passageiros', key='gabriel2carlos')
-        gabriel[7] = st.number_input('5 passageiros', key='gabriel2carlos')      
+        gabriel[4] = st.number_input('2 passageiros', key='gabriel2carlos', step = 1)
+        gabriel[5] = st.number_input('3 passageiros', key='gabriel2carlos', step = 1)
+        gabriel[6] = st.number_input('4 passageiros', key='gabriel2carlos', step = 1)
+        gabriel[7] = st.number_input('5 passageiros', key='gabriel2carlos', step = 1)      
 
 with st.expander("Leo"):
     with st.container():
         st.header("Caronas com Pedro")
-        leo[0] = st.number_input('2 passageiros', key='leo2pedro')
-        leo[1] = st.number_input('3 passageiros', key='leo3pedro')
-        leo[2] = st.number_input('4 passageiros', key='leo4pedro')
-        leo[3] = st.number_input('5 passageiros', key='leo5pedro')
+        leo[0] = st.number_input('2 passageiros', key='leo2pedro', step = 1)
+        leo[1] = st.number_input('3 passageiros', key='leo3pedro', step = 1)
+        leo[2] = st.number_input('4 passageiros', key='leo4pedro', step = 1)
+        leo[3] = st.number_input('5 passageiros', key='leo5pedro', step = 1)
 
     with st.container():
         st.header("Caronas com Carlos")    
-        leo[4] = st.number_input('2 passageiros', key='leo2carlos')
-        leo[5] = st.number_input('3 passageiros', key='leo2carlos')
-        leo[6] = st.number_input('4 passageiros', key='leo2carlos')
-        leo[7] = st.number_input('5 passageiros', key='leo2carlos')
+        leo[4] = st.number_input('2 passageiros', key='leo2carlos', step = 1)
+        leo[5] = st.number_input('3 passageiros', key='leo2carlos', step = 1)
+        leo[6] = st.number_input('4 passageiros', key='leo2carlos', step = 1)
+        leo[7] = st.number_input('5 passageiros', key='leo2carlos', step = 1)
 
 with st.expander("Giovanna"):
     with st.container():
         st.header("Caronas com Pedro")
-        giovanna[0] = st.number_input('2 passageiros', key='giovanna2pedro')
-        giovanna[1] = st.number_input('3 passageiros', key='giovanna3pedro')
-        giovanna[2] = st.number_input('4 passageiros', key='giovanna4pedro')
-        giovanna[3] = st.number_input('5 passageiros', key='giovanna5pedro')
+        giovanna[0] = st.number_input('2 passageiros', key='giovanna2pedro', step = 1)
+        giovanna[1] = st.number_input('3 passageiros', key='giovanna3pedro', step = 1)
+        giovanna[2] = st.number_input('4 passageiros', key='giovanna4pedro', step = 1)
+        giovanna[3] = st.number_input('5 passageiros', key='giovanna5pedro', step = 1)
 
 with st.expander("Giovana"):
     with st.container():
         st.header("Caronas com Pedro")
-        giovana[0] = st.number_input('2 passageiros', key='giovana2pedro')
-        giovana[1] = st.number_input('3 passageiros', key='giovana3pedro')
-        giovana[2] = st.number_input('4 passageiros', key='giovana4pedro')
-        giovana[3] = st.number_input('5 passageiros', key='giovana5pedro')
+        giovana[0] = st.number_input('2 passageiros', key='giovana2pedro', step = 1)
+        giovana[1] = st.number_input('3 passageiros', key='giovana3pedro', step = 1)
+        giovana[2] = st.number_input('4 passageiros', key='giovana4pedro', step = 1)
+        giovana[3] = st.number_input('5 passageiros', key='giovana5pedro', step = 1)
 
 
 with st.expander("Total à pagar para o Pedro"):
