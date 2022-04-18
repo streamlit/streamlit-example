@@ -66,10 +66,6 @@ if len(variables)==1:
 st.plotly_chart(fig)
 
 
-#Test
-
-
-
 # Colors
 st.subheader('Colors')
 X_best = st.slider('Best colors sold?', 0, 30, 10)
@@ -152,8 +148,32 @@ with row2_2:
 # Product recommendation
 st.header('Product recommendation')
 
-customer_id_input = st.text_input('Give us your Customer id', '00007d2de826758b65a93dd24ce629ed66842531df6699338c5570910a014cc2')
+customer_id_input = st.text_input('Give us your Customer id', '00aba6a94a52e7f0759dca976d3dc11040e5dcbf0b54a34b0854600683693846')
+
+# 51 : 8e0e166ba96a7d4e2fa83ebe7fed15d07c87011085831e4f221b5c2ce14faf93
+# 29 : 1bfde6cd02ea3321284a057dd05c9e6460ea855b217080b94c52cdceb32687ae
+
 N = st.slider('Number of items you want to be recommended', 0, 12, 12)
+
+
+# Items bought by the customer
+st.subheader('Items bought')
+transactions_agg_customer = pd.read_csv("data/transactions_agg_customer.csv")  
+items_bought=transactions_agg_customer[transactions_agg_customer['customer_id'] == customer_id_input]['articles'].reset_index(drop=True)[0]
+items_bought = items_bought.replace("[","").replace("]","").replace(" ","").rsplit(",")
+items_bought=['0' + x for x in items_bought]
+items_bought=items_bought[:N]
+
+st.text(items_bought)
+
+row3_1, row3_2, row3_3, row3_4, row3_5, row3_6, row3_7, row3_8, row3_9, row3_10, row3_11, row3_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+row3=[row3_1, row3_2, row3_3, row3_4, row3_5, row3_6, row3_7, row3_8, row3_9, row3_10, row3_11, row3_12]
+i=1
+for element in items_bought:
+    image = Image.open('data/articles/'+str(element)+'.jpg')
+    with row3[i-1] :
+        st.image(image)
+        i=i+1
 
 # Baseline Model
 st.subheader('Baseline Model')
@@ -163,24 +183,66 @@ best_from_customer = purchase_dict.get(customer_id_input, {})
 best_from_customer = sorted(best_from_customer.items(), key=lambda x: x[1], reverse=True)
 best_from_customer = [ar_id for ar_id, count in best_from_customer]
 n_bought = len(best_from_customer)
-lst = []
+pred_baseline = []
 if not n_bought:
-    lst = best_ever[:N]
+    pred_baseline = best_ever[:N]
 elif n_bought >= N:
-    lst = best_from_customer[:N]
+    pred_baseline = best_from_customer[:N]
 else:
-    lst = best_from_customer[:n_bought]+ best_ever[:N-n_bought]
-st.text(lst)
+    pred_baseline = best_from_customer[:n_bought]+ best_ever[:N-n_bought]
+pred_baseline=['0' + str(x) for x in pred_baseline]
+st.text(pred_baseline)
 
-row3_1, row3_2, row3_3, row3_4, row3_5, row3_6, row3_7, row3_8, row3_9, row3_10, row3_11, row3_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
-row3=[row3_1, row3_2, row3_3, row3_4, row3_5, row3_6, row3_7, row3_8, row3_9, row3_10, row3_11, row3_12]
+row4_1, row4_2, row4_3, row4_4, row4_5, row4_6, row4_7, row4_8, row4_9, row4_10, row4_11, row4_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+row4=[row4_1, row4_2, row4_3, row4_4, row4_5, row4_6, row4_7, row4_8, row4_9, row4_10, row4_11, row4_12]
 i=1
-for element in lst:
+for element in pred_baseline:
     image = Image.open('data/articles/'+str(element)+'.jpg')
-    with row3[i-1] :
+    with row4[i-1] :
+        st.image(image)
+    i=i+1
+
+# Content-Based Algorithm
+st.subheader('Content-Based Algorithm')
+
+content_df = pd.read_csv("data/content_df.csv")  
+df_pred=content_df[content_df['customer_id']==customer_id_input].reset_index(drop=True)
+l = df_pred['predicted_count'].nlargest(N).index.tolist()
+pred_content_based=list(df_pred.iloc[l]['article_id'])
+pred_content_based=['0' + str(x) for x in pred_content_based]
+st.text(pred_content_based)
+
+row5_1, row5_2, row5_3, row5_4, row5_5, row5_6, row5_7, row5_8, row5_9, row5_10, row5_11, row5_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+row5=[row5_1, row5_2, row5_3, row5_4, row5_5, row5_6, row5_7, row5_8, row5_9, row5_10, row5_11, row5_12]
+i=1
+for element in pred_content_based:
+    image = Image.open('data/articles/'+str(element)+'.jpg')
+    with row5[i-1] :
         st.image(image)
     i=i+1
 
 # Rule Based Algorithm
 st.subheader('Rule Based Algorithm')
 
+purchase_df = pd.read_csv("data/purchase_df.csv") 
+text_file = open("data/general_pred_str.txt", "r")
+general_pred_str = text_file.read()
+text_file.close()
+
+customer_id_input_16=int(customer_id_input[-16:], 16)
+pred_rule_based=purchase_df[purchase_df['customer_id']==customer_id_input_16]['prediction']
+pred_rule_based=list(purchase_df[purchase_df['customer_id']==customer_id_input_16]['prediction'])[0].split(" ")
+if len(pred_rule_based) < N:
+    for item in general_pred_str.split(" ")[:N-len(pred_rule_based)]:
+        pred_rule_based.append(item)
+pred_rule_based=pred_rule_based[:N]
+st.text(pred_rule_based)
+
+row6_1, row6_2, row6_3, row6_4, row6_5, row6_6, row6_7, row6_8, row6_9, row6_10, row6_11, row6_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+row6=[row6_1, row6_2, row6_3, row6_4, row6_5, row6_6, row6_7, row6_8, row6_9, row6_10, row6_11, row6_12]
+i=1
+for element in pred_rule_based:
+    image = Image.open('data/articles/'+str(element)+'.jpg')
+    with row6[i-1] :
+        st.image(image)
+    i=i+1
