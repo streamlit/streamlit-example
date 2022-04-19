@@ -15,9 +15,6 @@ import io
 
 
 
-"""
-# Data overview
-"""
 st.set_page_config(
     page_title="H&M Personalized Fashion Recommendations",
     page_icon=None,
@@ -36,8 +33,46 @@ transaction_aggr = pd.read_csv("data/transaction_aggr.csv",parse_dates = ['t_dat
 articles_transaction_color_aggr = pd.read_csv("data/articles_transaction_color_aggr.csv")
 transactions_season = pd.read_csv("data/transactions_season.csv")     
 customers_age = pd.read_csv("data/customers_age.csv")       
-colors_season = pd.read_csv("data/colors_season.csv")                           
+colors_season = pd.read_csv("data/colors_season.csv")  
 
+# Section about data overview
+st.header('Data overview')
+
+"""
+The data used to make recommendations for H&M products includes **three datasets: customers information, articles informations and transactions history**.
+"""
+no_customers_original = 1371980 
+no_articles_original = 105542 
+no_transactions_original = 31788324 
+transactions_data0 = "2018-09-20"
+transactions_datefinal = "2020-09-22"
+
+st.write("The original dataset contains information about a total of", no_transactions_original, "transactions, that correspond to", no_customers_original, 
+"customers and refer to a total of", no_articles_original, "articles.")
+
+st.write(
+        """    
+- **Customer data** includes demographic information such as the **age** or the **postal code**, as well as information about their **H&M club membership** and how active the customer is.
+- **Article data** includes detailed information about the article itself, including the **group of items** to which it belongs, the **colour**, the **graphical appearance** or the type of garment it is.
+- For **each transaction**, the **customer id** and **article id** are registered, as well as the **price** of the transaction and the **channel** where it took place (shop or online). 
+- The transactions registered go from **2018-09-20 to 2020-09-22.**
+        """
+)
+
+
+# st.write("The transactions registered go from", transactions_data0, "to", transactions_datefinal)
+st.write("One of the limitations found by the team was how big the datasets were. Therefore, only **one month worth of transactions** has been considered in the project. Additionally, only those transactions that involve the **top 5,000 customers** and the **top 5,000 articles** will be considered for the models.")
+         
+no_customers = 189510
+no_articles = 26252
+no_transactions = 727334
+
+st.write("The dataset considered for recommendation includes information about a total of", no_transactions, "transactions,", no_customers, "customers, and", no_articles, "articles.")
+
+st.write("Even after reducing the dataset, it is representative enough of the traits and habits of the customers and, hence, will be used to generate the recommendations of articles for the customers of H&M database.")
+
+
+# Section about data visualization
 st.header('Data visualization')
 
 # Number of articles, number of customers and total volume change over the time
@@ -72,87 +107,6 @@ if len(variables)==1:
     yaxis_title=variables[0]
 )
 st.plotly_chart(fig)
-
-customers = pd.read_csv('./customers.csv')
-articles = pd.read_csv('./articles.csv')
-transactions = pd.read_csv('./transactions_train.csv', parse_dates = ['t_dat'])
-transactions = transactions.sort_values("t_dat")
-
-"""
-The data used to make recommendations for H&M products includes **three datasets: customers information, articles informations and transactions history**.
-"""
-
-"""
-## Customers
-"""
-
-buffer = io.StringIO()
-customers.info(buf=buffer)
-s = buffer.getvalue()
-
-# st.text(s)
-
-st.write("The number of customers is", len(customers))
-
-"An overview of the customers dataset can be found below: "
-st.write(customers.head(10))
-
-"""
-## Articles
-"""
-
-buffer2 = io.StringIO()
-articles.info(buf=buffer2)
-s2 = buffer2.getvalue()
-
-# st.text(s2)
-
-st.write("The number of articles is", len(articles))
-"An overview of the articles dataset can be found below: "
-st.write(articles.head(10))
-
-"""
-## Transactions
-"""
-
-buffer3 = io.StringIO()
-transactions.info(buf=buffer3)
-s3 = buffer3.getvalue()
-
-# st.text(s3)
-
-st.write("The number of transactions registered is", len(transactions))
-"An overview of the transactions dataset can be found below: "
-st.write(transactions.head(10))
-
-st.write("The transactions registered go from", transactions['t_dat'][0], "to", transactions['t_dat'][31788323])
-st.write("One of the limitations found by the team was how big the datasets were. Therefore, we have worked with the most recent transactions, considering only one month worth of data.")
-
-st.write("Additionally, only those transactions that involve the top 5,000 customers and the top 5,000 articles will be considered for the models.")
-         
-# transactions_red = transactions[31060590:31788323]
-
-st.write("The transactions considered go from", transactions['t_dat'][31018179], "to", transactions['t_dat'][31788323])
-         
-#counts_df = transactions_red.groupby(['t_dat', 'customer_id', 'article_id', 'price', 'sales_channel_id']).size()
-#counts_df = counts_df.to_frame()
-#counts_df.reset_index(inplace=True)
-#small_counts = counts_df.rename(columns={0: 'count'})
-#small_counts = small_counts.sort_values('customer_id')
-         
-#no_transactions = len(small_counts)
-#no_articles = len(pd.unique(small_counts['article_id']))
-#no_customers = len(pd.unique(small_counts['customer_id']))
-no_customers = 189510
-no_articles = 26252
-no_transactions = 727334
-
-
-st.write("The dataset considered for recommendation includes a total of", no_customers, "customers, ", no_articles, "articles and ", no_transactions, "transactions.")
-
-st.write("Even after reducing the dataset, it is representative enough of the traits and habits of the customers and, hence, will be used to generate the recommendations of articles for the customers of H&M database.")
-#Test
-
 
 
 # Colors
@@ -237,7 +191,7 @@ with row2_2:
 # Product recommendation
 st.header('Product recommendation')
 
-customer_id_input = st.text_input('Give us your Customer id', '00aba6a94a52e7f0759dca976d3dc11040e5dcbf0b54a34b0854600683693846')
+customer_id_input = st.text_input('Give us your Customer id', '8e0e166ba96a7d4e2fa83ebe7fed15d07c87011085831e4f221b5c2ce14faf93')
 
 # 51 : 8e0e166ba96a7d4e2fa83ebe7fed15d07c87011085831e4f221b5c2ce14faf93
 # 29 : 1bfde6cd02ea3321284a057dd05c9e6460ea855b217080b94c52cdceb32687ae
@@ -247,6 +201,8 @@ N = st.slider('Number of items you want to be recommended', 0, 12, 12)
 
 # Items bought by the customer
 st.subheader('Items bought')
+st.write("These are the items that customer", customer_id_input, "bought in the past.")
+
 transactions_agg_customer = pd.read_csv("data/transactions_agg_customer.csv")  
 items_bought=transactions_agg_customer[transactions_agg_customer['customer_id'] == customer_id_input]['articles'].reset_index(drop=True)[0]
 items_bought = items_bought.replace("[","").replace("]","").replace(" ","").rsplit(",")
@@ -266,6 +222,7 @@ for element in items_bought:
 
 # Baseline Model
 st.subheader('Baseline Model')
+st.write("The first recommendation approach was to recommend to each users the items they have bought the most in the past. In the case the user had bought less than 12 items, we would recommend the client the top selling items overall.")
 purchase_dict = pickle.load(open("data/purchase_dict.pkl", 'rb'))
 best_ever = pickle.load(open("data/best_ever.pkl", 'rb'))
 best_from_customer = purchase_dict.get(customer_id_input, {})
@@ -293,6 +250,7 @@ for element in pred_baseline:
 
 # Content-Based Algorithm
 st.subheader('Content-Based Algorithm')
+st.write ("The second recommendation system is based on content filtering. The item recommendation to user A is based on the interests of a similar user B and on different features of the item. ")
 
 content_df = pd.read_csv("data/content_df.csv")  
 df_pred=content_df[content_df['customer_id']==customer_id_input].reset_index(drop=True)
@@ -312,6 +270,7 @@ for element in pred_content_based:
 
 # Rule Based Algorithm
 st.subheader('Rule Based Algorithm')
+st.write ("The third recommendation system combines two approaches: items previously purchased by the user and some of the most popular items.")
 
 purchase_df = pd.read_csv("data/purchase_df.csv") 
 text_file = open("data/general_pred_str.txt", "r")
