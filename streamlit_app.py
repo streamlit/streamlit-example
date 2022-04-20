@@ -16,16 +16,16 @@ import io
 
 
 st.set_page_config(
-    page_title="H&M Personalized Fashion Recommendations",
+    #page_title="H&M Personalized Fashion Recommendations",
     page_icon=None,
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-st.subheader('H&M Personalized Fashion Recommendations')
+#st.subheader('H&M Personalized Fashion Recommendations')
 
 # Put image on top
-image = Image.open('data/hm-store-728.jpeg')
+image = Image.open('data/header_image.png')
 st.image(image)
 
 # Read csv files
@@ -36,7 +36,8 @@ customers_age = pd.read_csv("data/customers_age.csv")
 colors_season = pd.read_csv("data/colors_season.csv")  
 
 # Section about data overview
-st.header('Data overview')
+st.header('H&M Personalized Fashion Recommendations')
+st.subheader('Data overview')
 
 """
 The data used to make recommendations for H&M products includes **three datasets: customers information, articles informations and transactions history**.
@@ -73,10 +74,12 @@ st.write("Even after reducing the dataset, it is representative enough of the tr
 
 
 # Section about data visualization
-st.header('Data visualization')
+st.subheader('Data visualization')
 
 # Number of articles, number of customers and total volume change over the time
-st.subheader('Change over time')
+"""
+#### Change over time
+"""
 
 all_variables = ['nr_customer','nr_article','total_volume']
 variables = st.multiselect(
@@ -110,7 +113,9 @@ st.plotly_chart(fig)
 
 
 # Colors
-st.subheader('Colors')
+"""
+#### Colors
+"""
 X_best = st.slider('Best colors sold?', 0, 30, 10)
 best_colours=articles_transaction_color_aggr.groupby('colour_group_name')['article_id'].sum().sort_values(ascending=False)
 best_colours=best_colours[:X_best]
@@ -130,7 +135,9 @@ fig = px.bar(articles_transaction_color_aggr,x="month_year", y="article_id",colo
 st.plotly_chart(fig)
 
 # Seasons
-st.subheader('Seasons')
+"""
+#### Seasons
+"""
 season_chosen = st.selectbox(
      'Pick a season',
      ('Spring', 'Summer', 'Autumn', 'Winter'))
@@ -188,7 +195,7 @@ with row2_2:
     st.plotly_chart(fig)
 
 # Customer segmentation
-st.header('Customer Segmentation')
+st.subheader('Customer Segmentation')
 df_agg = pd.read_csv("data/df_agg.csv") 
 df_cluster = pd.read_csv("data/df_cluster.csv")
 df_agg=df_agg.reset_index(drop=True)
@@ -217,7 +224,7 @@ transactions_agg_customer = pd.read_csv("data/transactions_agg_customer.csv")
 items_bought=transactions_agg_customer[transactions_agg_customer['customer_id'] == customer_id_input]['articles'].reset_index(drop=True)[0]
 items_bought = items_bought.replace("[","").replace("]","").replace(" ","").rsplit(",")
 items_bought=['0' + x for x in items_bought]
-items_bought=items_bought[:N]
+items_bought=items_bought[:N // 2] + items_bought[-(N//2):]
 
 st.text(items_bought)
 
@@ -304,3 +311,7 @@ for element in pred_rule_based:
     with row6[i-1] :
         st.image(image)
     i=i+1
+
+
+
+    
