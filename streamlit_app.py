@@ -37,6 +37,21 @@ colors_season = pd.read_csv("data/colors_season.csv")
 
 # Section about data overview
 st.header('H&M Personalized Fashion Recommendations')
+
+st.write(
+        """    
+In the last few years, **H&M has gathered data about customer purchases, both for retail and online shopping**. Some of the information stored includes articles that customers buy, when they buy them, and the features of those articles. 
+
+This data is very insightful for the company, and **several patterns can be quickly identified with simple data exploration**: seasonality of purchases, color trends… and, more interestingly, traits that identify different types of customers and their shopping habits.
+
+As a consequence, **we wonder whether this valuable information can be used to enable an innovative, proactive selling experience**. Can H&M anticipate the behavior of the customers and predict the articles they will buy in the future? 
+
+The answer is affirmative. By using state-of-the-art techniques, **we are able to generate recommendations of articles for H&M customers**. These recommendations can be shown in the online platform, or in the H&M mobile app. 
+
+By taking a proactive selling approach, **H&M can increase conversion rate (customers that purchase an article they are viewing) and, consequently, sales**. Furthermore,  the company may improve customer loyalty by showing their customers the articles they relate more to. 
+        """
+)
+
 st.subheader('Data overview')
 
 """
