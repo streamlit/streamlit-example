@@ -187,6 +187,16 @@ fig = px.bar(colors_season.loc[colors_season.season == season_chosen].sort_value
 with row2_2:
     st.plotly_chart(fig)
 
+# Customer segmentation
+st.header('Customer Segmentation')
+df_agg = pd.read_csv("data/df_agg.csv") 
+df_cluster = pd.read_csv("data/df_cluster.csv")
+df_agg=df_agg.reset_index(drop=True)
+df_agg=df_agg.head(5000)
+fig = px.scatter_3d(df_agg, x='Recency', y='Monetary', z='Frequency',
+              color='Cluster', title='Visualization of customer segments in 3 dimensions: Monetary, Recency and Frequency')
+st.plotly_chart(fig)
+
 
 # Product recommendation
 st.header('Product recommendation')
