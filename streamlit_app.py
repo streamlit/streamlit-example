@@ -202,16 +202,31 @@ df_agg = pd.read_csv("data/df_agg.csv")
 df_cluster = pd.read_csv("data/df_cluster.csv")
 df_agg=df_agg.reset_index(drop=True)
 df_agg=df_agg.head(5000)
+st.write(
+        """    
+        Visualization of customer segments in 3 dimensions: Monetary, Recency and Frequency
+        """
+)
 
-row_clust_1, row_clust_2 = st.columns((1, 1))
+row_clust_1, row_clust_2, row_clust_3 = st.columns((1,1,0.9))
 
 with row_clust_1:
     fig = px.scatter_3d(df_agg, x='Recency', y='Monetary', z='Frequency',
-                color='Cluster', title='Visualization of customer segments in 3 dimensions: Monetary, Recency and Frequency')
+                color='Cluster')
     st.plotly_chart(fig)
 
-with row_clust_2:
-    st.text("The explanation goes here")
+with row_clust_3:
+    st.write(
+        """    
+        We observe 5 different **clusters**:
+        - **Cluster 0**: Less recent but still frequent customers 
+        - **Cluster 1**: Very recent and very frequent customers who spent a large amount of money in total : the most interesting customers
+        - **Cluster 2**: Very frequent and recent customers 
+        - **Cluster 3**: Old and not frequent customers
+        - **Cluster 4**: The oldest customers
+        """
+    )
+
 # Product recommendation
 st.header('Product recommendation')
 
