@@ -263,7 +263,7 @@ items_bought = items_bought.replace("[","").replace("]","").replace(" ","").rspl
 items_bought=['0' + x for x in items_bought]
 items_bought=items_bought[:N // 2] + items_bought[-(N//2):]
 
-st.text(items_bought)
+#st.text(items_bought)
 
 row3_1, row3_2, row3_3, row3_4, row3_5, row3_6, row3_7, row3_8, row3_9, row3_10, row3_11, row3_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
 row3=[row3_1, row3_2, row3_3, row3_4, row3_5, row3_6, row3_7, row3_8, row3_9, row3_10, row3_11, row3_12]
@@ -291,7 +291,7 @@ elif n_bought >= N:
 else:
     pred_baseline = best_from_customer[:n_bought]+ best_ever[:N-n_bought]
 pred_baseline=['0' + str(x) for x in pred_baseline]
-st.text(pred_baseline)
+#st.text(pred_baseline)
 
 row4_1, row4_2, row4_3, row4_4, row4_5, row4_6, row4_7, row4_8, row4_9, row4_10, row4_11, row4_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
 row4=[row4_1, row4_2, row4_3, row4_4, row4_5, row4_6, row4_7, row4_8, row4_9, row4_10, row4_11, row4_12]
@@ -311,7 +311,7 @@ df_pred=content_df[content_df['customer_id']==customer_id_input].reset_index(dro
 l = df_pred['predicted_count'].nlargest(N).index.tolist()
 pred_content_based=list(df_pred.iloc[l]['article_id'])
 pred_content_based=['0' + str(x) for x in pred_content_based]
-st.text(pred_content_based)
+#st.text(pred_content_based)
 
 row5_1, row5_2, row5_3, row5_4, row5_5, row5_6, row5_7, row5_8, row5_9, row5_10, row5_11, row5_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
 row5=[row5_1, row5_2, row5_3, row5_4, row5_5, row5_6, row5_7, row5_8, row5_9, row5_10, row5_11, row5_12]
@@ -338,7 +338,7 @@ if len(pred_rule_based) < N:
     for item in general_pred_str.split(" ")[:N-len(pred_rule_based)]:
         pred_rule_based.append(item)
 pred_rule_based=pred_rule_based[:N]
-st.text(pred_rule_based)
+#st.text(pred_rule_based)
 
 row6_1, row6_2, row6_3, row6_4, row6_5, row6_6, row6_7, row6_8, row6_9, row6_10, row6_11, row6_12 = st.columns((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
 row6=[row6_1, row6_2, row6_3, row6_4, row6_5, row6_6, row6_7, row6_8, row6_9, row6_10, row6_11, row6_12]
@@ -349,6 +349,11 @@ for element in pred_rule_based:
         st.image(image)
     i=i+1
 
-
+st.subheader("Concept")
+"""
+**Create a personalized experience for each customer** by providing specific recommendations for each of them. These recommendations can be accessed from the H&M mobile app or H&M Club.
+"""
+image = Image.open('data/concept.png')
+st.image(image)
 
     
