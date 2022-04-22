@@ -7,6 +7,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objs as go
 import plotly.figure_factory as ff
+from plotly.subplots import make_subplots
 from PIL import Image
 import pickle
 
@@ -98,16 +99,27 @@ st.subheader('Data visualization')
 #### Change over time
 """
 
-all_variables = ['nr_customer', 'nr_article', 'total_volume']
+all_variables = ['number of customers', 'number of articles', 'total volume']
+#all_variables = ['nr_customer', 'nr_article', 'total_volume']
 variables = st.multiselect(
     "Select desired variables", options=all_variables, default=all_variables
 )
 
-fig = go.Figure()
+dic_variables={'number of customers':'nr_customer', 'number of articles':'nr_article', 'total volume':'total_volume'}
+
+#fig = go.Figure()
+# Create figure with secondary y-axis
+fig = make_subplots(specs=[[{"secondary_y": True}]])
 
 for v in variables:
-    fig.add_trace(go.Scatter(
-        mode="lines", x=transaction_aggr["t_dat"], y=transaction_aggr[v], name=v))
+    var=dic_variables[v]
+    if var=='total_volume':
+        fig.add_trace(go.Scatter(
+            mode="lines", x=transaction_aggr["t_dat"], y=transaction_aggr[var], name=v), secondary_y=True)
+    else:
+        fig.add_trace(go.Scatter(
+            mode="lines", x=transaction_aggr["t_dat"], y=transaction_aggr[var], name=v), secondary_y=False)
+    
     fig.update_xaxes(
         rangeslider_visible=True,
         rangeselector=dict(
@@ -123,6 +135,10 @@ for v in variables:
 fig.update_layout(
     title_text='Change over the time'  # title of plot
 )
+    # Set y-axes titles
+fig.update_yaxes(title_text="number", secondary_y=False)
+fig.update_yaxes(title_text="volume", secondary_y=True)
+
 if len(variables) == 1:
     fig.update_layout(
         yaxis_title=variables[0]
@@ -291,7 +307,10 @@ items_bought = transactions_agg_customer[transactions_agg_customer['customer_id'
 items_bought = items_bought.replace(
     "[", "").replace("]", "").replace(" ", "").rsplit(",")
 items_bought = ['0' + x for x in items_bought]
-items_bought = items_bought[:N // 2] + items_bought[-(N//2):]
+if N%2==0:
+    items_bought = items_bought[:N // 2] + items_bought[-(N//2):]
+else:
+    items_bought = items_bought[:N // 2] + items_bought[-(N//2)-1:]
 
 # st.text(items_bought)
 
