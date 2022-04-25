@@ -16,9 +16,13 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 
+
 with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+    chance_of_mold = st.slider("Chance of botrytis ", 1, 100, 1)
+    no_sugar = st.slider("Chance of no sugar", 1, 100, 1)
+    no_typical = st.slider("Chance of typical sugar", 1, no_sugar, 1)
+    
+
 
     Point = namedtuple('Point', 'x y')
     data = []
