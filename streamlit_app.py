@@ -1,8 +1,12 @@
 from collections import namedtuple
 import altair as alt
 import math
+
+import pandas
 import pandas as pd
 import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 """
 # Welcome to Streamlit!
@@ -17,22 +21,30 @@ In the meantime, below is an example of what you can do with just a few lines of
 
 
 with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+    # SQ1 --> Heat Map
+    df = pd.read_csv("dft-road-casualty-statistics-accident-2020.csv")
+    map = pd.DataFrame()
+    map['latitude'] = df['latitude'].dropna()
+    map['longitude'] = df['longitude'].dropna()
+    #print(max(map['longitude']), min(map['longitude']), max(map['latitude']), min(map['latitude']), map.dtypes)
+    st.map(map)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+    # SQ2 --> Pie Chart
+    df = pd.read_csv("dft-road-casualty-statistics-accident-2020.csv")
+    labels = 'Slight', 'Serious', 'Fatal'
 
-    points_per_turn = total_points / num_turns
+    #fig1, ax = plt.subplots()
+    #ax.pie(df[''].value_counts(), labels=labels)
+    #st.pyplot(fig1)
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+    # SQ3 --> Bar Chart
+    st.bar_chart(df['accident_severity'].value_counts())
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    # SQ4 --> Line Chart
+    guide = pd.read_csv("regions-labels.csv")
+    #guide['id'] = guide['id'].astype(int)
+    print(guide.dtypes)
+    st.selectbox("Which region do you want to view?", df.local_authority_district.unique())
+
+    # SQ5 --> Bar Chart
+    st.bar_chart(df['day_of_week'].value_counts())
