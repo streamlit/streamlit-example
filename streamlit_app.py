@@ -2,6 +2,7 @@ from collections import namedtuple
 import altair as alt
 import math
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -79,16 +80,17 @@ with st.echo(code_location='below'):
 
     datetime = pd.to_datetime(df_4['date'], infer_datetime_format=True)
     month = datetime.dt.month
-    print(month)
     month = month.value_counts().tolist()
-    print(month)
+
     month_count = pd.DataFrame(month,
                                   index=['01 = January', '02 = February', '03 = March', '04 = April', '05 = May', '06 = June', '07 = July', '08 = August', '09 = September', '10 = October', '11 = November', '12 = December'])
     st.line_chart(month_count)
 
     # SQ5 --> Bar Chart
     df_5 = df.loc[df['local_authority_district'] == option]
-    severity_count_setup = df_5['day_of_week'].value_counts().tolist()
-    print(severity_count_setup)
-    severity_count = pd.DataFrame(severity_count_setup, index=['1 = Monday', '2 = Tuesday', '3 = Wednesday', '4 = Thursday', '5 = Friday', '6 = Saturday', '7 = Sunday'])
+
+    week_count_setup = df_5['day_of_week'].value_counts().tolist()
+    week = np.divide(week_count_setup, 52)
+
+    severity_count = pd.DataFrame(week, index=['1 = Monday', '2 = Tuesday', '3 = Wednesday', '4 = Thursday', '5 = Friday', '6 = Saturday', '7 = Sunday'])
     st.bar_chart(severity_count)
