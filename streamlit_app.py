@@ -59,7 +59,8 @@ with st.echo(code_location='below'):
     fig1, ax1 = plt.subplots()
     labels = '0 = None', '1 = Skidded', '2 = Skidded and Overturned', '3 = Jackknifed', '4 = Jackknifed and Overturned', '5 = Overturned', '9 = Unknown'
     ax1.pie(turnover, labels=labels, autopct='%1.1f%%', startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax1.axis('equal')
+    fig1.legend()
 
     st.pyplot(fig1)
 
