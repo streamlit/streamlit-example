@@ -8,14 +8,12 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 """
-# Welcome to Streamlit!
+# Welcome to the Quick Recovery Tool!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+With this visualization, your breakdown service can be brought to the next level.
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+By selecting the region of your interest, you can get insights on the trends within these regions regarding car accidents.
+There is also a map provided to gain a geographical overview of where your employees will most likely be necessary during their work hours.
 """
 
 
