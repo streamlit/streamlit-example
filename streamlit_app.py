@@ -78,10 +78,12 @@ with st.echo(code_location='below'):
 
     datetime = pd.to_datetime(df_4['date'], infer_datetime_format=True)
     month = datetime.dt.month
+    print(month)
     month = month.value_counts().tolist()
+    print(month)
     month_count = pd.DataFrame(month,
                                   index=['01 = January', '02 = February', '03 = March', '04 = April', '05 = May', '06 = June', '07 = July', '08 = August', '09 = September', '10 = October', '11 = November', '12 = December'])
-    st.bar_chart(month_count)
+    st.line_chart(month_count)
 
     # SQ5 --> Bar Chart
     df_5 = df.loc[df['local_authority_district'] == option]
