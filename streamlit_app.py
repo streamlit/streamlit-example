@@ -9,7 +9,7 @@
 import pandas as pd
 import streamlit as st
 import snowflake.connector
-import plotly.express as px
+# import plotly.express as px
 import datetime
 # import numpy as np
 # import matplotlib.pyplot as plt
