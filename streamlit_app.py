@@ -109,15 +109,15 @@ if page == 'U.S. Open Pool Leaderboard':
 
     # st.pyplot(fig)
 
-if page == 'Golfer Leaderboard':
-    tourney_df = run_query("select * from GOLF.PUBLIC.scoreboard_master_vw;")
-    tourney_df = tourney_df.convert_dtypes(infer_objects=True)
-    st.dataframe(tourney_df[['POS','PLAYER','SCORE','THRU','TODAY']],)
+# if page == 'Golfer Leaderboard':
+#     tourney_df = run_query("select * from GOLF.PUBLIC.scoreboard_master_vw;")
+#     tourney_df = tourney_df.convert_dtypes(infer_objects=True)
+#     st.dataframe(tourney_df[['POS','PLAYER','SCORE','THRU','TODAY']],)
 
-    st.plotly_chart(
-        px.bar(tourney_df[tourney_df['SCORE'] != 'nan'],x='PLAYER',y='SCORE',),
-        use_container_width=True
-    )
+#     st.plotly_chart(
+#         px.bar(tourney_df[tourney_df['SCORE'] != 'nan'],x='PLAYER',y='SCORE',),
+#         use_container_width=True
+#     )
 
 
 
