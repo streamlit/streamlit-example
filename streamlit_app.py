@@ -121,10 +121,10 @@ if page == 'Golfer Leaderboard':
 
 
 
-if page == "Analysis":
+# if page == "Analysis":
     
-    unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
-    unique_df['PLAYER'] = unique_df.index
-    unique_df.rename(columns={"NICKNAME" : "Selections"},inplace=True)
-    st.write('#### Unique Selections')
-    st.write(unique_df[['PLAYER','Selections']])
+#     unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
+#     unique_df['PLAYER'] = unique_df.index
+#     unique_df.rename(columns={"NICKNAME" : "Selections"},inplace=True)
+#     st.write('#### Unique Selections')
+#     st.write(unique_df[['PLAYER','Selections']])
