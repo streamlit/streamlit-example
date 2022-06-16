@@ -46,24 +46,19 @@ def run_query(query):
         return pd.DataFrame(cur.fetch_pandas_all())
 
 
-# with st.sidebar:
-#     page = st.radio('',
-#         ("Pool Leaderboard","Golfer Leaderboard","Analysis")
-#     )
+with st.sidebar:
+    page = st.radio('',
+        ("Pool Leaderboard","Golfer Leaderboard","Analysis")
+    )
 
-page = 'U.S. Open Pool Leaderboard'
 
 pool_df = run_query('select * from GOLF.PUBLIC.pools_vw')
-# pool_leaderboard_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_vw')
-# pool_analytics_df = run_query('select * from GOLF.PUBLIC.pools_columnar_vw')
-# pool_leaderboard_analytics_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_analytics_vw;')
-# pool_leaderboard_analytics_df = pool_leaderboard_analytics_df.convert_dtypes(infer_objects=True)
+pool_leaderboard_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_vw')
+pool_analytics_df = run_query('select * from GOLF.PUBLIC.pools_columnar_vw')
+pool_leaderboard_analytics_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_analytics_vw;')
+pool_leaderboard_analytics_df = pool_leaderboard_analytics_df.convert_dtypes(infer_objects=True)
 tourney_df = run_query("select * from GOLF.PUBLIC.scoreboard_master_vw;")
 tourney_df = tourney_df.convert_dtypes(infer_objects=True)
-
-
-
-
 
 
 
@@ -73,18 +68,13 @@ Last Updated - {(tourney_df['UPDATED'].max()+datetime.timedelta(hours=-4)).strft
 
 """
 
-
-
-if page == 'U.S. Open Pool Leaderboard':
+if page == 'Pool Leaderboard':
     
+    st.write(pool_leaderboard_df)
+    st.write('### Entry Table')
     st.write(pool_df[["NICKNAME","GOLFER_1","GOLFER_2","GOLFER_3","GOLFER_4","GOLFER_5"]])
-    st.write()
         
 
-    # temp_df = tourney_df[['PLAYER','SCORE','UPDATED']]
-    # temp_df['PLAYER'] = temp_df['PLAYER'].astype('str')
-    # temp_df['SCORE'] = temp_df['SCORE'].astype('int',)
-    # # temp_df['PLAYER'] = temp_df['PLAYER'].astype('str')
 
     # fig2 = px.line(
     #     tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0),
@@ -109,7 +99,8 @@ if page == 'U.S. Open Pool Leaderboard':
 
     # st.pyplot(fig)
 
-# if page == 'Golfer Leaderboard':
+if page == 'Golfer Leaderboard':
+    st.write('## COMING SOON')
 #     tourney_df = run_query("select * from GOLF.PUBLIC.scoreboard_master_vw;")
 #     tourney_df = tourney_df.convert_dtypes(infer_objects=True)
 #     st.dataframe(tourney_df[['POS','PLAYER','SCORE','THRU','TODAY']],)
@@ -121,8 +112,8 @@ if page == 'U.S. Open Pool Leaderboard':
 
 
 
-# if page == "Analysis":
-    
+if page == "Analysis":
+    st.write('## COMING SOON')
 #     unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
 #     unique_df['PLAYER'] = unique_df.index
 #     unique_df.rename(columns={"NICKNAME" : "Selections"},inplace=True)
