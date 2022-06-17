@@ -1,3 +1,4 @@
+from typing import OrderedDict
 import pandas as pd
 import streamlit as st
 import snowflake.connector
@@ -29,7 +30,7 @@ def run_query(query):
 
 with st.sidebar:
     page = st.radio('',
-        ("Pool Leaderboard","Golfer Leaderboard","Analysis")
+        ("Leaderboard","Analysis")
     )
 
 
@@ -43,39 +44,36 @@ tourney_df = run_query("select * from GOLF.PUBLIC.SCOREBOARD_MASTER_FILTERED_VW;
 tourney_df = tourney_df.convert_dtypes(infer_objects=True)
 tourney_latest_df = tourney_df.loc[tourney_df['UPDATED'] == tourney_df["UPDATED"].max()]
 
+selection_dict = tourney_latest_df[['PLAYER','NICKNAME']].drop_duplicates().to_dict()
+
+# create selection lookup dictionary for styling
+def create_lookup():
+    res = []
+    [res.append(x) for x in list(selection_dict['NICKNAME'].values()) if x not in res]
+    selection_lookup_dict = {}
+    for i in res:
+        selection_lookup_dict[i] = []
+    for p in selection_dict['PLAYER']:
+        selection_lookup_dict[selection_dict['NICKNAME'][p]].append(selection_dict['PLAYER'][p])
+    return selection_lookup_dict    
+
+selection_lookup_dict = create_lookup()
+
+st.write(
 f"""
 # {page}
  Last Updated - {(tourney_df['UPDATED'].max()+datetime.timedelta(hours=-4)).strftime('%I:%M %p EST | %m-%d-%Y ')}
 
 """
+)
 
-if page == 'Pool Leaderboard':
-
-    st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']])
+if page == 'Leaderboard':
+    selected_nickname = st.selectbox('Select Nickname',options=['None']+pool_leaderboard_df["NICKNAME"].to_list())
+    st.write('#### Pool Standings')
+    st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.apply(lambda x: ["background: green" if v == selected_nickname else "" for v in x], axis = 1))
     # st.write('### Entry Table')
     # st.write(pool_df[["NICKNAME","GOLFER_1","GOLFER_2","GOLFER_3","GOLFER_4","GOLFER_5"]])
 
-    st.write('### Leaderboard Trends')
-    fig1 = px.line(
-        pool_trend_df,
-        x="UPDATED",
-        y="SCORE",
-        color="NICKNAME",
-        markers=False,
-        template='none',
-        hover_data=["NICKNAME","SCORE","UPDATED"]       
-    )
-
-    fig1.update_layout(
-        xaxis = dict(
-            tickmode = 'linear'
-        )
-    )
-    fig1.update_yaxes(autorange="reversed")
-    st.plotly_chart(fig1,use_container_width=True)
-
-
-if page == 'Golfer Leaderboard':
     # st.write('## COMING SOON')
 
     # st.write(tourney_latest_df[['POS','PLAYER','THRU','TODAY']])
@@ -84,8 +82,10 @@ if page == 'Golfer Leaderboard':
     unique_df['PLAYER'] = unique_df.index
     unique_df = unique_df.join(tourney_latest_df[['PLAYER','SCORE','THRU']].drop_duplicates().set_index('PLAYER'),how='right')
     unique_df.rename(columns={"NICKNAME" : "SELECTIONS"},inplace=True)
-    st.write('#### Unique Selections')
-    st.dataframe(unique_df[['SCORE','THRU','SELECTIONS']],height=800)
+    unique_df = unique_df[['SCORE','THRU','SELECTIONS']].reset_index()
+    st.write('#### Golfer Standings')
+    st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].style.apply(lambda x: ["background: green" if v in selection_lookup_dict[selected_nickname] else "" for v in x], axis = 1),height=800)
+
 
     # fig2 = px.line(
     #     tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= ['FALSE','FALSE']),
@@ -108,6 +108,27 @@ if page == 'Golfer Leaderboard':
 if page == "Analysis":
 
     player_trend_df = tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= ['FALSE','FALSE'])
+
+    st.write('### Pool Trend')
+    fig1 = px.line(
+        pool_trend_df,
+        x="UPDATED",
+        y="SCORE",
+        color="NICKNAME",
+        markers=False,
+        template='none',
+        hover_data=["NICKNAME","SCORE","UPDATED"]       
+    )
+
+    fig1.update_layout(
+        xaxis = dict(
+            tickmode = 'linear'
+        )
+    )
+    fig1.update_yaxes(autorange="reversed")
+    st.plotly_chart(fig1,use_container_width=True)
+
+    st.write('### Tournament Trend')
 
     fig2 = px.line(
         player_trend_df,
