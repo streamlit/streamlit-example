@@ -1,27 +1,8 @@
-# from collections import namedtuple
-# from re import T
-# from time import altzone
-# from tkinter import Scrollbar
-# from unicodedata import decimal
-# import altair as alt
-# import math
-# from numpy import NaN, column_stack
 import pandas as pd
 import streamlit as st
 import snowflake.connector
-# import plotly.express as px
+import plotly.express as px
 import datetime
-# import numpy as np
-# import matplotlib.pyplot as plt
-
-# hide_dataframe_row_index = """
-#             <style>
-#             .row_heading.level0 {display:none}
-#             .blank {display:none}
-#             </style>
-#             """
-            
-# st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
 
 
 @st.experimental_singleton # magic to cache db connection
@@ -57,27 +38,57 @@ pool_leaderboard_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_vw')
 pool_analytics_df = run_query('select * from GOLF.PUBLIC.pools_columnar_vw')
 pool_leaderboard_analytics_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_analytics_vw;')
 pool_leaderboard_analytics_df = pool_leaderboard_analytics_df.convert_dtypes(infer_objects=True)
-tourney_df = run_query("select * from GOLF.PUBLIC.scoreboard_master_vw;")
+pool_trend_df = run_query('select * from GOLF.PUBLIC.POOL_LEADERBOARD_TREND_VW;')
+tourney_df = run_query("select * from GOLF.PUBLIC.SCOREBOARD_MASTER_FILTERED_VW;")
 tourney_df = tourney_df.convert_dtypes(infer_objects=True)
-
-
+tourney_latest_df = tourney_df.loc[tourney_df['UPDATED'] == tourney_df["UPDATED"].max()]
 
 f"""
 # {page}
-Last Updated - {(tourney_df['UPDATED'].max()+datetime.timedelta(hours=-4)).strftime('%I:%M %p EST | %m-%d-%Y ')}
+ Last Updated - {(tourney_df['UPDATED'].max()+datetime.timedelta(hours=-4)).strftime('%I:%M %p EST | %m-%d-%Y ')}
 
 """
 
 if page == 'Pool Leaderboard':
-    
-    st.write(pool_leaderboard_df)
-    st.write('### Entry Table')
-    st.write(pool_df[["NICKNAME","GOLFER_1","GOLFER_2","GOLFER_3","GOLFER_4","GOLFER_5"]])
-        
 
+    st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']])
+    # st.write('### Entry Table')
+    # st.write(pool_df[["NICKNAME","GOLFER_1","GOLFER_2","GOLFER_3","GOLFER_4","GOLFER_5"]])
+
+    st.write('### Leaderboard Trends')
+    fig1 = px.line(
+        pool_trend_df,
+        x="UPDATED",
+        y="SCORE",
+        color="NICKNAME",
+        markers=False,
+        template='none',
+        hover_data=["NICKNAME","SCORE","UPDATED"]       
+    )
+
+    fig1.update_layout(
+        xaxis = dict(
+            tickmode = 'linear'
+        )
+    )
+    fig1.update_yaxes(autorange="reversed")
+    st.plotly_chart(fig1,use_container_width=True)
+
+
+if page == 'Golfer Leaderboard':
+    # st.write('## COMING SOON')
+
+    # st.write(tourney_latest_df[['POS','PLAYER','THRU','TODAY']])
+
+    unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
+    unique_df['PLAYER'] = unique_df.index
+    unique_df = unique_df.join(tourney_latest_df[['PLAYER','SCORE','THRU']].drop_duplicates().set_index('PLAYER'),how='right')
+    unique_df.rename(columns={"NICKNAME" : "SELECTIONS"},inplace=True)
+    st.write('#### Unique Selections')
+    st.dataframe(unique_df[['SCORE','THRU','SELECTIONS']],height=800)
 
     # fig2 = px.line(
-    #     tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0),
+    #     tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= ['FALSE','FALSE']),
     #     x="UPDATED",
     #     y="SCORE",
     #     color="PLAYER",
@@ -94,28 +105,24 @@ if page == 'Pool Leaderboard':
     # fig2.update_yaxes(autorange="reversed")
     # st.plotly_chart(fig2,use_container_width=True)
 
-    # fig, ax = plt.subplots()
-    # ax.scatter(x=pool_leaderboard_analytics_df['SCORE'],)
-
-    # st.pyplot(fig)
-
-if page == 'Golfer Leaderboard':
-    st.write('## COMING SOON')
-#     tourney_df = run_query("select * from GOLF.PUBLIC.scoreboard_master_vw;")
-#     tourney_df = tourney_df.convert_dtypes(infer_objects=True)
-#     st.dataframe(tourney_df[['POS','PLAYER','SCORE','THRU','TODAY']],)
-
-#     st.plotly_chart(
-#         px.bar(tourney_df[tourney_df['SCORE'] != 'nan'],x='PLAYER',y='SCORE',),
-#         use_container_width=True
-#     )
-
-
-
 if page == "Analysis":
-    st.write('## COMING SOON')
-#     unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
-#     unique_df['PLAYER'] = unique_df.index
-#     unique_df.rename(columns={"NICKNAME" : "Selections"},inplace=True)
-#     st.write('#### Unique Selections')
-#     st.write(unique_df[['PLAYER','Selections']])
+
+    player_trend_df = tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= ['FALSE','FALSE'])
+
+    fig2 = px.line(
+        player_trend_df,
+        x="UPDATED",
+        y="SCORE",
+        color="PLAYER",
+        markers=False,
+        template='none',
+        hover_data=["PLAYER","SCORE","UPDATED","THRU"]
+    )
+
+    fig2.update_layout(
+        xaxis = dict(
+            tickmode = 'linear'
+        )
+    )
+    fig2.update_yaxes(autorange="reversed")
+    st.plotly_chart(fig2,use_container_width=True)
