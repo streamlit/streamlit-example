@@ -58,6 +58,20 @@ def create_lookup():
 
 selection_lookup_dict = create_lookup()
 
+def highlight_cells_pool(val):
+    if val == selected_nickname:
+        color = 'green'
+    else:
+        color = ''
+    return 'background-color: {}'.format(color)
+
+def highlight_cells_golf(val):
+    if val in selection_lookup_dict[selected_nickname]:
+        color = 'green'
+    else:
+        color = ''
+    return 'background-color: {}'.format(color)
+
 st.write(
 f"""
 # {page}
@@ -69,8 +83,8 @@ f"""
 if page == 'Leaderboard':
     selected_nickname = st.selectbox('Select Nickname',options=pool_leaderboard_df["NICKNAME"].to_list())
     st.write('#### Pool Standings')
-    st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.apply(lambda x: ["background: green" if v == selected_nickname else "" for v in x], axis = 1))
-
+    # st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.apply(lambda x: ["background: green" if v == selected_nickname else "" for v in x], axis = 1))
+    st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.applymap(highlight_cells_pool))
 
     unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
     unique_df['PLAYER'] = unique_df.index
@@ -78,7 +92,8 @@ if page == 'Leaderboard':
     unique_df.rename(columns={"NICKNAME" : "SELECTIONS"},inplace=True)
     unique_df = unique_df[['SCORE','THRU','SELECTIONS']].reset_index()
     st.write('#### Golfer Standings')
-    st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].style.apply(lambda x: ["background: green" if v in selection_lookup_dict[selected_nickname] else "" for v in x], axis = 1),height=800)
+    # st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].style.apply(lambda x: ["background: green" if v in selection_lookup_dict[selected_nickname] else "" for v in x], axis = 1),height=800)
+    st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].style.applymap(highlight_cells_golf),height=800)
 
 if page == "Analysis":
 
