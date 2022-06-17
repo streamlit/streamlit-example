@@ -107,7 +107,7 @@ if page == 'Leaderboard':
 
 if page == "Analysis":
 
-    player_trend_df = tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= ['FALSE','FALSE'])
+    player_trend_df = tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= [0,0])
 
     st.write('### Pool Trend')
     fig1 = px.line(
