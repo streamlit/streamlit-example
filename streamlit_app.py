@@ -68,7 +68,7 @@ f"""
 )
 
 if page == 'Leaderboard':
-    selected_nickname = st.selectbox('Select Nickname',options=['None']+pool_leaderboard_df["NICKNAME"].to_list())
+    selected_nickname = st.selectbox('Select Nickname',options=pool_leaderboard_df["NICKNAME"].to_list())
     st.write('#### Pool Standings')
     st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.apply(lambda x: ["background: green" if v == selected_nickname else "" for v in x], axis = 1))
     # st.write('### Entry Table')
