@@ -1,4 +1,3 @@
-from typing import OrderedDict
 import pandas as pd
 import streamlit as st
 import snowflake.connector
@@ -71,12 +70,7 @@ if page == 'Leaderboard':
     selected_nickname = st.selectbox('Select Nickname',options=pool_leaderboard_df["NICKNAME"].to_list())
     st.write('#### Pool Standings')
     st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.apply(lambda x: ["background: green" if v == selected_nickname else "" for v in x], axis = 1))
-    # st.write('### Entry Table')
-    # st.write(pool_df[["NICKNAME","GOLFER_1","GOLFER_2","GOLFER_3","GOLFER_4","GOLFER_5"]])
 
-    # st.write('## COMING SOON')
-
-    # st.write(tourney_latest_df[['POS','PLAYER','THRU','TODAY']])
 
     unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
     unique_df['PLAYER'] = unique_df.index
@@ -85,25 +79,6 @@ if page == 'Leaderboard':
     unique_df = unique_df[['SCORE','THRU','SELECTIONS']].reset_index()
     st.write('#### Golfer Standings')
     st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].style.apply(lambda x: ["background: green" if v in selection_lookup_dict[selected_nickname] else "" for v in x], axis = 1),height=800)
-
-
-    # fig2 = px.line(
-    #     tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= ['FALSE','FALSE']),
-    #     x="UPDATED",
-    #     y="SCORE",
-    #     color="PLAYER",
-    #     markers=True,
-    #     template='none',
-    #     hover_data=["PLAYER","SCORE","UPDATED","THRU"]
-    # )
-
-    # fig2.update_layout(
-    #     xaxis = dict(
-    #         tickmode = 'linear'
-    #     )
-    # )
-    # fig2.update_yaxes(autorange="reversed")
-    # st.plotly_chart(fig2,use_container_width=True)
 
 if page == "Analysis":
 
