@@ -80,18 +80,23 @@ f"""
 """
 )
 
-if page == 'Leaderboard':
-    selected_nickname = st.selectbox('Select Nickname',options=pool_leaderboard_df["NICKNAME"].to_list())
-    st.write('#### Pool Standings')
-    st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.applymap(highlight_cells_pool))
 
-    unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
-    unique_df['PLAYER'] = unique_df.index
-    unique_df = unique_df.join(tourney_latest_df[['PLAYER','SCORE','THRU']].drop_duplicates().set_index('PLAYER'),how='right')
-    unique_df.rename(columns={"NICKNAME" : "SELECTIONS"},inplace=True)
-    unique_df = unique_df[['SCORE','THRU','SELECTIONS']].reset_index()
-    st.write('#### Golfer Standings')
-    st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].sort_values(by='SCORE').style.applymap(highlight_cells_golf),height=800)
+col1, col2 = st.columns(2)
+
+if page == 'Leaderboard':
+    with col1:
+        selected_nickname = st.selectbox('Select Nickname',options=pool_leaderboard_df["NICKNAME"].to_list())
+        st.write('#### Pool Standings')
+        st.dataframe(pool_leaderboard_df[['RANK','NICKNAME','SCORE']].style.applymap(highlight_cells_pool))
+
+    with col2:
+        unique_df = pd.DataFrame(pool_leaderboard_analytics_df.groupby(['PLAYER'])['NICKNAME'].count().sort_values(ascending=False))
+        unique_df['PLAYER'] = unique_df.index
+        unique_df = unique_df.join(tourney_latest_df[['PLAYER','SCORE','THRU']].drop_duplicates().set_index('PLAYER'),how='right')
+        unique_df.rename(columns={"NICKNAME" : "SELECTIONS"},inplace=True)
+        unique_df = unique_df[['SCORE','THRU','SELECTIONS']].reset_index()
+        st.write('#### Golfer Standings')
+        st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].sort_values(by='SCORE').style.applymap(highlight_cells_golf),height=800)
 
 if page == "Analysis":
 
