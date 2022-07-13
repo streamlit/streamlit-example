@@ -32,14 +32,15 @@ with st.sidebar:
         ("Leaderboard","Analysis")
     )
 
+current_event = st.secrets['current_event']
 
-pool_df = run_query('select * from GOLF.PUBLIC.pools_vw')
-pool_leaderboard_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_vw')
-pool_analytics_df = run_query('select * from GOLF.PUBLIC.pools_columnar_vw')
-pool_leaderboard_analytics_df = run_query('select * from GOLF.PUBLIC.pool_leaderboard_analytics_vw;')
+pool_df = run_query(f"select * from GOLF.PUBLIC.pools_vw where tournament='{current_event}'")
+pool_leaderboard_df = run_query(f"select * from GOLF.PUBLIC.pool_leaderboard_vw where tournament='{current_event}'")
+pool_analytics_df = run_query(f"select * from GOLF.PUBLIC.pools_columnar_vw where tournament='{current_event}'")
+pool_leaderboard_analytics_df = run_query(f"select * from GOLF.PUBLIC.pool_leaderboard_analytics_vw where tournament='{current_event}'")
 pool_leaderboard_analytics_df = pool_leaderboard_analytics_df.convert_dtypes(infer_objects=True)
-pool_trend_df = run_query('select * from GOLF.PUBLIC.POOL_LEADERBOARD_TREND_VW;')
-tourney_df = run_query("select * from GOLF.PUBLIC.SCOREBOARD_MASTER_FILTERED_VW;")
+pool_trend_df = run_query(f"select * from GOLF.PUBLIC.POOL_LEADERBOARD_TREND_VW where tournament='{current_event}';")
+tourney_df = run_query(f"select * from GOLF.PUBLIC.SCOREBOARD_MASTER_FILTERED_VW where tournament='{current_event}';")
 tourney_df = tourney_df.convert_dtypes(infer_objects=True)
 tourney_latest_df = tourney_df.loc[tourney_df['UPDATED'] == tourney_df["UPDATED"].max()]
 
