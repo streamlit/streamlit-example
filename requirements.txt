@@ -4,4 +4,4 @@ streamlit
 snowflake-connector-python
 plotly
 pyarrow==6.0.0
-cffi
+cffi==1.15.1
