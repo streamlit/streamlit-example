@@ -92,7 +92,7 @@ if page == 'Leaderboard':
     unique_df.rename(columns={"NICKNAME" : "SELECTIONS"},inplace=True)
     unique_df = unique_df[['SCORE','THRU','SELECTIONS']].reset_index()
     st.write('#### Golfer Standings')
-    st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].sort_values(by='SCORE').style.applymap(highlight_cells_golf),height=800)
+    st.dataframe(unique_df[['PLAYER','SCORE','THRU','SELECTIONS']].sort_values(by='SCORE').style.applymap(highlight_cells_golf),height=1000)
 
 if page == "Analysis":
 
