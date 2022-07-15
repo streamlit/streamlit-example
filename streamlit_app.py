@@ -11,6 +11,7 @@ def create_connection():
         user=st.secrets["user"],
         password=st.secrets["password"],
         account=st.secrets["account"],
+        client_session_keep_alive=st.secrets['client_session_keep_alive'],
         session_parameters={
             'QUERY_TAG': st.secrets["query_tag"],
             'ROLE':st.secrets["role"]
