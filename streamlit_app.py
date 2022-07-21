@@ -22,10 +22,10 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 # Configuration du site
 # ______________________________________________________________________________________________________
 
-st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='/content/Agence de Marketing.ico')
+st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico')
 
 st.sidebar.title("Sommaire")
-st.sidebar.image('/content/Agence de Marketing.ico')
+st.sidebar.image('https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico')
 
 pages = ["Introduction au jeu de données",
          "Analyse",
@@ -40,7 +40,7 @@ page = st.sidebar.radio("Aller vers", pages)
 # Import du jeu de données
 # ______________________________________________________________________________________________________
 
-df = pd.read_csv('/content/bank.csv', sep = ',')
+df = pd.read_csv('https://github.com/amelievert/streamlit-example/blob/862f21e357b88331e8f0d63567a5e76d95b6958c/bank.csv', sep = ',')
 
 
 # ______________________________________________________________________________________________________
