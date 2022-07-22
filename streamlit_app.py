@@ -270,11 +270,11 @@ if page==pages[1]:
 # ---------- Les observations -----------
 
   st.header("Observations")
-  st.markdown(
+  st.info(
            "On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente. \n"
            "Lorsque PREVIOUS = 0 alors PDAYS = -1")
-  st.markdown(
-           "Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target **_déposit_** sont \n"
+  st.info(
+           "Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target _[deposit]_ sont \n"
            "* **_duration_** = Durée du contact (en secondes) \n"
            "* **_contact_** = Type de contact \n"
            "* housing = Prêt immo \n"
