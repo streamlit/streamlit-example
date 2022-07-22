@@ -370,3 +370,206 @@ if page==pages[2]:
   st.write("On voit clairement que la feature [duration] impacte positivement la campagne dès lors que la valeur est élevée (temps de contact).")
   st.write("Egalement, les clients ayant répondu favorablement à la campagne précédente [poutcome] semblent être les plus susceptibles de renouveler leur action.")
   st.write("Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
+
+
+
+# ______________________________________________________________________________________________________
+# 4/ Challenge de modèles
+# ______________________________________________________________________________________________________
+
+
+if page==pages[3]: 
+
+  st.title("Modèles prédictifs")
+     
+
+# ---------- Initialisation des biblothèques utilisées -----------
+
+  from sklearn.metrics import accuracy_score, plot_confusion_matrix, roc_curve, roc_auc_score, auc, precision_score, recall_score, classification_report
+  from sklearn import linear_model, neighbors, svm, tree, ensemble
+  from sklearn.model_selection import GridSearchCV, train_test_split
+  import matplotlib.pyplot as plt
+
+  df3=df2.copy()
+
+
+# ---------- Split jeu entrainement et jeu de test -----------
+
+  # Isoler les features de la target
+  target = df3['deposit']
+  feats = df3.drop(['deposit'], axis=1)
+
+  # Séparation des données en jeu d'entraînement et de test
+  from sklearn.model_selection import train_test_split
+  X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25)
+
+  # Normaliser les données - MinMaxScaler
+  scaler = MinMaxScaler()
+  X_train = scaler.fit_transform(X_train)
+  X_test = scaler.transform(X_test)
+
+  # Sauvegarde des résulats de chacun des modèles
+  models=[]
+  scores =[]
+  precision=[]
+  rappel=[]
+  roc=[]
+
+# ---------- Les 3 modèles -----------
+
+  col1, col2, col3, col4 = st.columns(4)
+
+# Régression logistique -----------------------------------------------------------------------
+
+  with col1:
+    expander = st.expander("Modèle RLC")
+    rlc = linear_model.LogisticRegression(C=10)
+    rlc.fit(X_train, y_train)
+        
+    expander.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
+    expander.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
+    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rlc.predict(X_test))))
+
+    y_pred = rlc.predict(X_test)
+    expander.write("Matrice de confusion :")
+    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+
+    # Sauvegarde des résultats
+    models.append("Regression logistique")
+    scores.append(rlc.score(X_test, y_test))
+    precision.append(precision_score(y_test, rlc.predict(X_test)))
+    rappel.append(recall_score(y_test, rlc.predict(X_test)))
+    roc.append(roc_auc_score(y_test, rlc.predict(X_test)))
+    probs_rlc = rlc.predict_proba(X_test)
+
+# K plus proche voisins -----------------------------------------------------------------------
+
+  with col2:
+    expander = st.expander("Modèle KNN")
+
+    knn = neighbors.KNeighborsClassifier(n_neighbors=39)
+    knn.fit(X_train, y_train)
+      
+    expander.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
+    expander.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
+    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, knn.predict(X_test))))
+
+    y_pred = knn.predict(X_test)
+    expander.write("Matrice de confusion :")
+    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+
+    # Sauvegarde des résultats
+    models.append("K plus proches voisins")
+    scores.append(knn.score(X_test, y_test))
+    precision.append(precision_score(y_test, knn.predict(X_test)))
+    rappel.append(recall_score(y_test, knn.predict(X_test)))
+    roc.append(roc_auc_score(y_test, knn.predict(X_test)))
+    probs_knn = knn.predict_proba(X_test)
+
+# Arbre de décision -----------------------------------------------------------------------
+
+  with col3:
+    expander = st.expander("Modèle DTC")
+
+    dtc = tree.DecisionTreeClassifier(max_depth=9)
+    dtc.fit(X_train, y_train)  
+        
+    expander.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
+    expander.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
+    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
+
+    y_pred = dtc.predict(X_test)
+    expander.write("Matrice de confusion :")
+    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+
+    # Sauvegarde des résultats
+    models.append("Decision Tree")
+    scores.append(dtc.score(X_test, y_test))
+    precision.append(precision_score(y_test, dtc.predict(X_test)))
+    rappel.append(recall_score(y_test, dtc.predict(X_test)))
+    roc.append(roc_auc_score(y_test, dtc.predict(X_test)))
+    probs_dtc = dtc.predict_proba(X_test)
+
+# Random Forest -----------------------------------------------------------------------
+
+  with col4:
+    expander = st.expander("Modèle RFC")
+
+    rfc = ensemble.RandomForestClassifier(n_jobs=1) 
+    rfc.fit(X_train, y_train)
+    
+    expander.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
+    expander.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
+    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
+
+    y_pred = rfc.predict(X_test)
+    expander.write("Matrice de confusion :")
+    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+
+    # Sauvegarde des résultats
+    models.append("Random Forest")
+    scores.append(rfc.score(X_test, y_test))
+    precision.append(precision_score(y_test, rfc.predict(X_test)))
+    rappel.append(recall_score(y_test, rfc.predict(X_test)))
+    roc.append(roc_auc_score(y_test, rfc.predict(X_test)))
+    probs_rfc = rfc.predict_proba(X_test)
+
+
+# Comparaison des résultats -----------------------------------------------------------------------
+
+  expander = st.expander("Comparaison des 4 modèles")
+
+  # Recap des scores
+  compare = pd.DataFrame(models)
+  compare.columns = ['model']
+  compare["accuracy"]=scores
+  compare["precision"]=precision
+  compare["rappel"]=rappel
+  compare["roc"]=roc
+
+  #Graphique de comparaison des résultats
+  fig = plt.figure(figsize=(20,10))
+
+#  compare.plot.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'],stacked=False, rot=90)
+
+  plt.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'])
+
+  plt.ylim([0.5, 1])
+  plt.axhline(y=0.80, color='k', linewidth=2, linestyle='--')
+  plt.title("Compare Models")
+  expander.pyplot(fig)
+
+  # Comparaison avec l'indice des ROC
+  fig = plt.figure(figsize=(20,10))
+
+  # Regression logistique
+  fpr, tpr, seuils = roc_curve(y_test, probs_rlc[:,1])
+  roc_auc = auc(fpr, tpr)
+  plt.plot(fpr, tpr, color='green', lw=2, label='Modèle RLC (auc = %0.2f)' % roc_auc)
+
+  # K plus proches voisins
+  fpr, tpr, seuils = roc_curve(y_test, probs_knn[:,1])
+  roc_auc = auc(fpr, tpr)
+  plt.plot(fpr, tpr, color='blue', lw=2, label='Modèle KNN (auc = %0.2f)' % roc_auc)
+
+  # Decision Tree
+  fpr, tpr, seuils = roc_curve(y_test, probs_dtc[:,1])
+  roc_auc = auc(fpr, tpr)
+  plt.plot(fpr, tpr, color='orange', lw=2, label='Modèle DTC (auc = %0.2f)' % roc_auc)
+
+  # Random Forest
+  fpr, tpr, seuils = roc_curve(y_test, probs_rfc[:,1])
+  roc_auc = auc(fpr, tpr)
+  plt.plot(fpr, tpr, color='red', lw=2, label='Modèle RFC (auc = %0.2f)' % roc_auc)
+
+  plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--', label='Aléatoire (auc = 0.5)')
+  plt.xlim([0.0, 1.0])
+  plt.ylim([0.0, 1.05])
+  plt.xlabel('Taux faux positifs')
+  plt.ylabel('Taux vrais positifs')
+  plt.title('Courbe ROC pour modèle Random Forest')
+  plt.legend(loc="lower right")
+  expander.pyplot(fig)
+
+  expander = st.expander("Choix du modèle")
+  expander.write("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
