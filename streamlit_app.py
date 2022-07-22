@@ -128,7 +128,7 @@ if page==pages[0]:
   st.markdown(
            "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'.\n"
            "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.\n"
-           "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme." \n
+           "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.\n" 
            "Le jeu de données est téléchargeable au lien suivant :\n"
            "https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
          
@@ -157,14 +157,15 @@ if page==pages[0]:
 
 # ---------- Aperçu -----------
 
-  description = st.checkbox("Aperçu du jeu de données")
-  description.write(df)
+  voir = st.checkbox("Aperçu du jeu de données")
+  voir.write(df)
 
 # ---------- Ce qu'il faut comprendre -----------
 
   st.header("Ce qu'il faut retenir :")
-  st.markdown("On remarque que certaines variables sont la résultante de la campagne en cours : \n"
-              "\n*contact \n*day \n*month \n*duration \n*campaign \nLa variable **deposit** est notre variable cible.")
+  st.markdown(
+           "On remarque que certaines variables sont la résultante de la campagne en cours : \n"
+           "\n*contact \n*day \n*month \n*duration \n*campaign \nLa variable **deposit** est notre variable cible.")
          
 # ______________________________________________________________________________________________________
 # 2/ Analyse du jeu de données
