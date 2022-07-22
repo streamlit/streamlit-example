@@ -245,7 +245,7 @@ if page==pages[1]:
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
   
-  fig = plt.figure(figsize=(20,15))
+  fig = plt.figure(figsize=(15,10))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   col1.pyplot(fig)
   col2.write('')
@@ -273,6 +273,15 @@ if page==pages[1]:
   st.markdown(
            "On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente. \n"
            "Lorsque PREVIOUS = 0 alors PDAYS = -1")
+  st.markdown(
+           "Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target "déposit" sont \n"
+           "* **_duration_** = Durée du contact (en secondes) \n"
+           "* **_contact_** = Type de contact \n"
+           "* housing = Prêt immo \n"
+           "* previous = Nb contacts au cours de la campagne précédente \n"
+           "* housing = pdays = Nb jours écoulés depuis le dernier contact de la campagne précédente \n"
+           "* previous = balance = Solde compte bancaire \n"
+           "**Attention** , les **_deux variables_** correspondent à des données non connues à priori (avant lancement de la campagne)")
          
 # ______________________________________________________________________________________________________
 # 3/ Préprocessing
