@@ -126,10 +126,10 @@ if page==pages[0]:
   st.title("Description du jeu de données")
 
   st.markdown(
-           "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'. \n"
-           "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme. \n"
+           "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'.  \n"
+           "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.  \n"
            "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.  \n" 
-           "Le jeu de données est téléchargeable au lien suivant : \n"
+           "Le jeu de données est téléchargeable au lien suivant :"
            "https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
          
 # ---------- Les chiffres clés -----------
@@ -181,24 +181,21 @@ if page==pages[1]:
 
   st.title("Analyse du jeu de données")
 
-# ---------- Affichage de la description détaillée -----------
-
-  description = st.expander("Description détaillée des variables")
-  description.dataframe(describe_df(df).astype(str))
-
 # ---------- Les distributions par type de variables -----------
 
   st.subheader("Les distributions par type de variables")
          
   col1, col2 = st.columns(2)
+  col1.subheader("Variables numériques")
+  col2.subheader("Variables catégorielles")
   df2 = df.copy()
   numerics = df2.select_dtypes(include=['int16', 'int32', 'int64', 'float16', 'float32', 'float64']).columns
   categoricals= df2.select_dtypes(include=['object','category']).columns
 
 # variables numériques
 
-  tab1, tab2 = col1.tabs(["📈 Chart", "🗃 Describe"])
-
+  tab1, tab2 = col1.tabs(["📈 Chart", "📋 Describe"])
+         
   option = tab1.selectbox("Choix une variable numérique :",numerics)
   hist = px.histogram(df2,x=option,color="deposit",barmode="group")
   tab1.plotly_chart(hist)
@@ -229,7 +226,7 @@ if page==pages[1]:
 
   tab3, tab4 = col2.tabs(["📈 Chart", "🗃 Describe"])
 
-  option = tab3.selectbox("Choix une variable :", categoricals)
+  option = tab3.selectbox("Choix une variable catégorielle :", categoricals)
   hist = px.histogram(df2,x=option,color="deposit")
   tab3.plotly_chart(hist)
          
