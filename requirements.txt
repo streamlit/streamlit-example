@@ -4,3 +4,4 @@ streamlit
 seaborn
 matplotlib
 plotly
+sklearn
