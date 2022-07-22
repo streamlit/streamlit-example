@@ -17,6 +17,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
+from sklearn.metrics import accuracy_score, plot_confusion_matrix, roc_curve, roc_auc_score, auc, precision_score, recall_score, classification_report
+from sklearn import linear_model, neighbors, svm, tree, ensemble
+from sklearn.model_selection import GridSearchCV, train_test_split
+
 # ______________________________________________________________________________________________________
 # Configuration du site
 # ______________________________________________________________________________________________________
@@ -263,7 +267,6 @@ if page==pages[1]:
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
   fig = plt.figure(figsize=(10,5))
-  #sns.barplot(data=corr, y=corr.index, x="deposit")
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
 
@@ -297,32 +300,29 @@ if page==pages[2]:
 
   st.title("Préprocessing - Modèles prédictifs")
 
-# ---------- Remise à situation d'origine -----------
-
-  # Réimport du fichier
-  df2 = df.copy()
-
 
 # ---------- Le préprocessing, ça sert à quoi -----------
 
   expander1 = st.expander("Le préprocessing, ça sert à quoi ?")
 
-  st.markdown(
+  expander1.markdown(
            "Le préprocessing est une de composante essentielle de la data science. "
-           "Cette étape décrit toutes les transformations effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste. "
+           "Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste. "
            "Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème. "
-           "Les fonctions de préprocessing consistent à : \n"
+           "Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont : /n"
            "* la transformation des données, \n"
            "* la réduction des données, \n"
            "* la sélection des variables \n"
-           "* et à la mise à l'échelle \n"
-           "pour restructurer les données brutes sous une forme adaptée à des types particuliers d'algorithmes.")
+           "* et à la mise à l'échelle \n")
   
-  st.image('preprocessing.JPG', caption='Les étapes de préprocessing')     
+  expander1.image('preprocessing.JPG', caption='Les étapes de préprocessing')     
+
 
 # ---------- Les étapes de préprocessing -----------
 
   st.header("Les étapes de préprocessing appliquées :")
+
+# Variables numériques
 
   st.subheader("Le traitement des variables numériques")
   code = ''' 
@@ -356,6 +356,8 @@ if page==pages[2]:
     '''
   st.code(code, language='python')
 
+# Variables catégorielles
+
   st.subheader("Le traitement des variables catégorielles")
   code = ''' 
     # Création de dummies
@@ -374,45 +376,43 @@ if page==pages[2]:
     '''
   st.code(code, language='python')
 
+         
+# ---------- Jeu de données final -----------
+
+  st.header("Le jeu de données final :")
+  st.write(df2)
+         
 # ---------- Arbre de correlations après preprocessing -----------
 
   st.header("Arbre de correlations après preprocessing :")
 
   fig = plt.figure(figsize=(20,15))
-  plt.title(label="Correlation des features avec la variable cible deposit")
-  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='barh', cmap='RdBu_r')
+  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   st.pyplot(fig)
+         
 
 
 # ---------- Les enseignements -----------
 
-  st.header("Les enseignements :")
-
-  st.write("On voit clairement que la feature [duration] impacte positivement la campagne dès lors que la valeur est élevée (temps de contact).")
-  st.write("Egalement, les clients ayant répondu favorablement à la campagne précédente [poutcome] semblent être les plus susceptibles de renouveler leur action.")
-  st.write("Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
-
+  st.header("Les observations :")
+  st.info(
+           "On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact). \n"
+           "Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action. \n"
+           "Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
 
 
 # ______________________________________________________________________________________________________
 # 4/ Challenge de modèles
 # ______________________________________________________________________________________________________
 
-
 if page==pages[3]: 
 
   st.title("Modèles prédictifs")
      
 
-# ---------- Initialisation des biblothèques utilisées -----------
-
-  from sklearn.metrics import accuracy_score, plot_confusion_matrix, roc_curve, roc_auc_score, auc, precision_score, recall_score, classification_report
-  from sklearn import linear_model, neighbors, svm, tree, ensemble
-  from sklearn.model_selection import GridSearchCV, train_test_split
-  import matplotlib.pyplot as plt
+# ---------- Initialisation du jeu de données -----------
 
   df3=df2.copy()
-
 
 # ---------- Split jeu entrainement et jeu de test -----------
 
@@ -538,7 +538,7 @@ if page==pages[3]:
 
 # Comparaison des résultats -----------------------------------------------------------------------
 
-  expander = st.expander("Comparaison des 4 modèles")
+  st.header("Comparaison des 4 modèles")
 
   # Recap des scores
   compare = pd.DataFrame(models)
@@ -548,17 +548,13 @@ if page==pages[3]:
   compare["rappel"]=rappel
   compare["roc"]=roc
 
-  #Graphique de comparaison des résultats
+  #Graphique de comparaison des résultats         
   fig = plt.figure(figsize=(20,10))
-
-#  compare.plot.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'],stacked=False, rot=90)
-
-  plt.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'])
-
+  compare.plot.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'],stacked=False, rot=90)
   plt.ylim([0.5, 1])
   plt.axhline(y=0.80, color='k', linewidth=2, linestyle='--')
   plt.title("Compare Models")
-  expander.pyplot(fig)
+  st.pyplot(fig)
 
   # Comparaison avec l'indice des ROC
   fig = plt.figure(figsize=(20,10))
@@ -590,7 +586,6 @@ if page==pages[3]:
   plt.ylabel('Taux vrais positifs')
   plt.title('Courbe ROC pour modèle Random Forest')
   plt.legend(loc="lower right")
-  expander.pyplot(fig)
+  st.pyplot(fig)
 
-  expander = st.expander("Choix du modèle")
-  expander.write("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
+  st.write("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
