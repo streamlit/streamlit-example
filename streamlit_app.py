@@ -92,29 +92,29 @@ df2[var] = df2[var].replace(('yes', 'no'), (1, 0))
 
 # ---------- Fonction de description -----------
 
-  def describe_df(df):
-      """
-      Fonction améliorée de description des colonnes, elle permet d'identifier :
-      le type de la colonne , le nb de valeur vide (nan), le nb de valeurs uniques, le pourcentage de répartition des valeurs
-      INPUT : le dataframe
-      OUTPUT : tableau d'analyse
-      """
-      res = pd.DataFrame(index=["Name","Type", "Nan", "Unique","Min","Max","Values","Pourcentage"])
-      for col in df.columns:
-          df_col = df[col]
-          res[col] = [
-              df_col.name,
-              df_col.dtype,
-              df_col.isnull().sum(),
-              len(df_col.unique()),
-              df_col.min(),
-              df_col.max(),
-              df_col.unique(),
-              (df_col.value_counts(ascending=False, normalize=True) * 100)
-                  .apply(int)
-                  .to_json(),
-          ]
-      return res.T
+def describe_df(df):
+    """
+    Fonction améliorée de description des colonnes, elle permet d'identifier :
+    le type de la colonne , le nb de valeur vide (nan), le nb de valeurs uniques, le pourcentage de répartition des valeurs
+    INPUT : le dataframe
+    OUTPUT : tableau d'analyse
+    """
+    res = pd.DataFrame(index=["Name","Type", "Nan", "Unique","Min","Max","Values","Pourcentage"])
+    for col in df.columns:
+        df_col = df[col]
+        res[col] = [
+            df_col.name,
+            df_col.dtype,
+            df_col.isnull().sum(),
+            len(df_col.unique()),
+            df_col.min(),
+            df_col.max(),
+            df_col.unique(),
+            (df_col.value_counts(ascending=False, normalize=True) * 100)
+                .apply(int)
+                .to_json(),
+        ]
+    return res.T
 
 
 # ______________________________________________________________________________________________________
