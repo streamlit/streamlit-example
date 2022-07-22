@@ -125,12 +125,24 @@ if page==pages[0]:
 
   st.title("Description du jeu de données")
 
-  st.write("Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'.")
-  st.write("Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.")
-  st.write("En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.")
-  st.write("Le jeu de données est téléchargeable au lien suivant: ")
-  st.write("https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
+  col1, col2 = st.columns(2)
+  col1.write("Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'.")
+  col1.write("Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.")
+  col1.write("En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.")
+  col1.write("Le jeu de données est téléchargeable au lien suivant: ")
+  col1.write("https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
 
+# ---------- les variables  -----------
+
+  col2.write("Description des variables :")
+
+  var = pd.DataFrame({"Nom des variables": ["age","job","marital","education","default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","deposit"],
+    "Description": ["Age du client","Profession","Statut marital","Niveau d'études","Défaut de paiement","Solde du compte","Prêt immo","Prêt perso",
+    "Type de contact","Dernier jour de contact","Dernier mois de  contact","Durée du contact (secondes)","Nombre de contacts","Nb jours écoulés depuis le dernier contact","Nb de contacts",
+    "Résultat de la campagne précédente","Résultat de la campagne en cours"]
+    })
+
+  col2.write(var)
 
 # ---------- Les chiffres clés -----------
 
@@ -141,18 +153,6 @@ if page==pages[0]:
   col3.metric("Nombre de features", "17")
   col4.metric("Proportion des cibles", "47%")
   col5.write('')
-
-# ---------- les variables  -----------
-
-  st.header("Description des variables :")
-
-  var = pd.DataFrame({"Nom des variables": ["age","job","marital","education","default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","deposit"],
-    "Description": ["Age du client","Profession","Statut marital","Niveau d'études","Défaut de paiement","Solde du compte","Prêt immo","Prêt perso",
-    "Type de contact","Dernier jour de contact","Dernier mois de  contact","Durée du contact (secondes)","Nombre de contacts","Nb jours écoulés depuis le dernier contact","Nb de contacts",
-    "Résultat de la campagne précédente","Résultat de la campagne en cours"]
-    })
-
-  st.write(var)
 
 # ---------- Aperçu -----------
 
