@@ -157,8 +157,7 @@ if page==pages[0]:
 
 # ---------- Aperçu -----------
 
-  voir = st.checkbox("Aperçu du jeu de données")
-  voir.dataframe(df)
+  st.checkbox("Aperçu du jeu de données").write(df)
 
 # ---------- Ce qu'il faut comprendre -----------
 
