@@ -189,7 +189,7 @@ if page==pages[1]:
 # ---------- Les correlations -----------
 
   st.header("Analyse des corrélations")
-  tab1, tab2, tab3 = st.tabs(["▩ Matrice", "📈 Chart", "％ Coefficients"])
+  tab1, tab2 = st.tabs(["▩ Matrice", "📈 Chart"])
          
 # Matrice de correlation
 
@@ -216,13 +216,11 @@ if page==pages[1]:
   fig = plt.figure(figsize=(20,15))
   sns.barplot(data=corr, y=corr.index, x="deposit")
   col3.pyplot(fig)
-  col4.write('')
 
 # Corrélations coefficients
 
-  tab3.subheader("Coefficients de corrélation avec la variable cible")
   coef=df2.corr()["deposit"]
-  tab3.write(coef)
+  col4.write(coef)
 
 # ---------- Les distributions par type de variables -----------
 
