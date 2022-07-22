@@ -126,8 +126,10 @@ if page==pages[0]:
   st.title("Description du jeu de données")
 
   st.markdown(
-           "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'.  \n"
-           "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.  \n"
+           "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit "
+           "que l’on appelle un 'dépôt à terme'."
+           "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration "
+           "du terme."
            "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.  \n" 
            "Le jeu de données est téléchargeable au lien suivant :"
            "https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
@@ -218,16 +220,12 @@ if page==pages[1]:
   elif option=="previous":
     col1.write("RAS")
 
-  st.header("Observations")
-  st.write("On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente.")
-  st.write("Lorsque PREVIOUS = 0 alors PDAYS = -1")
-
 # variables catégorielles
 
-  tab3, tab4 = col2.tabs(["📈 Chart", "🗃 Describe"])
+  tab3, tab4 = col2.tabs(["📈 Chart", "📋 Describe"])
 
   option = tab3.selectbox("Choix une variable catégorielle :", categoricals)
-  hist = px.histogram(df2,x=option,color="deposit")
+  hist = px.histogram(df2,y=option,color="deposit",barmode="group")
   tab3.plotly_chart(hist)
          
   describe= df2[categoricals].describe().transpose()
@@ -259,8 +257,10 @@ if page==pages[1]:
 
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
+         
   fig = plt.figure(figsize=(10,8))
-  sns.barplot(data=corr, y=corr.index, x="deposit")
+  #sns.barplot(data=corr, y=corr.index, x="deposit")
+  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
 
 # Corrélations coefficients
@@ -268,7 +268,13 @@ if page==pages[1]:
   coef=df2.corr()["deposit"]
   col4.write(coef)
         
+# ---------- Les observations -----------
 
+  st.header("Observations")
+  st.markdown(
+           "On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente. \n"
+           "Lorsque PREVIOUS = 0 alors PDAYS = -1")
+         
 # ______________________________________________________________________________________________________
 # 3/ Préprocessing
 # ______________________________________________________________________________________________________
