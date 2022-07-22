@@ -41,7 +41,6 @@ page = st.sidebar.radio("Aller vers", pages)
 # ______________________________________________________________________________________________________
 
 df = pd.read_csv('bank.csv', sep = ',')
-#https://github.com/amelievert/streamlit-example/blob/862f21e357b88331e8f0d63567a5e76d95b6958c/bank.csv
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -131,7 +130,7 @@ if page==pages[0]:
            "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.\n"
            "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.\n"
            "Le jeu de données est téléchargeable au lien suivant :\n"
-           "https://www.kaggle.com/janiobachmann/bank-marketing-dataset\n")
+           "https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
          
 # ---------- Les chiffres clés -----------
 
@@ -146,7 +145,7 @@ if page==pages[0]:
 # ---------- les variables  -----------
 
   st.header("Description des variables :")         
-  st.image('Describe.png')
+  st.image("Describe.png")
 
   #var = pd.DataFrame({"Nom des variables": ["age","job","marital","education","default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","deposit"],
   #  "Description": ["Age du client","Profession","Statut marital","Niveau d'études","Défaut de paiement","Solde du compte","Prêt immo","Prêt perso",
@@ -164,17 +163,6 @@ if page==pages[0]:
 # ---------- Ce qu'il faut comprendre -----------
 
   st.header("Ce qu'il faut retenir :")
-         
-  st.markdown("On remarque que certaines variables sont la résultante de la campagne en cours : \n"
-              "\n*contact \n*day \n*month \n*duration \n*campaign \nLa variable **deposit** est notre variable cible.")   
-
-  st.write("* contact")
-  st.write("* day")
-  st.write("* month")
-  st.write("* duration")
-  st.write("* campaign")
-  st.write("La variable [deposit] est notre variable cible.")
-  st.write("47% des clients ont répondu favorablement à la campagne (deposit=yes)")
 
          
 # ______________________________________________________________________________________________________
