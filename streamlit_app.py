@@ -157,7 +157,7 @@ if page==pages[0]:
 # ---------- Aperçu -----------
 
   description = st.expander("Aperçu du jeu de données")
-  description.write(df))
+  description.write(df)
 
 
 # ---------- Ce qu'il faut comprendre -----------
