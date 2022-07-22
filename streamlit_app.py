@@ -1,4 +1,3 @@
-#cw1, cw2 = st.columns((2.5, 1.7))
 
 # ______________________________________________________________________________________________________
 # Import des bibliothèques
@@ -239,7 +238,7 @@ if page==pages[1]:
          
 # Matrice de correlation
 
-  col1, col2 = tab1.columns(2)
+  col1, col2 = tab1.columns((2.5, 1))
 
   le = LabelEncoder()
   df2=df.copy()
@@ -258,7 +257,7 @@ if page==pages[1]:
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
-  fig = plt.figure(figsize=(10,8))
+  fig = plt.figure(figsize=(15,8))
   #sns.barplot(data=corr, y=corr.index, x="deposit")
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
