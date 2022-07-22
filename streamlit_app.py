@@ -1,3 +1,4 @@
+#cw1, cw2 = st.columns((2.5, 1.7))
 
 # ______________________________________________________________________________________________________
 # Import des bibliothèques
@@ -159,12 +160,12 @@ if page==pages[0]:
   description = st.checkbox("Aperçu du jeu de données")
   description.write(df)
 
-
 # ---------- Ce qu'il faut comprendre -----------
 
   st.header("Ce qu'il faut retenir :")
-  st.markdown("On remarque que certaines variables sont la résultante de la campagne en cours : \n
-              \n*contact \n*day \n*month \n*duration \n*campaign \nLa variable [deposit] est notre variable cible.")
+         
+  st.info("On remarque que certaines variables sont la résultante de la campagne en cours : "
+          "\n*contact \n*day \n*month \n*duration \n*campaign \nLa variable **deposit** est notre variable cible.")   
 
   st.write("* contact")
   st.write("* day")
