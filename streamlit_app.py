@@ -142,15 +142,16 @@ if page==pages[0]:
          
 # ---------- les variables  -----------
 
-  st.write("Description des variables :")
+  st.write("Description des variables :")         
+  st.image('https://github.com/amelievert/streamlit-example/blob/master/Describe.png')
 
-  var = pd.DataFrame({"Nom des variables": ["age","job","marital","education","default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","deposit"],
-    "Description": ["Age du client","Profession","Statut marital","Niveau d'études","Défaut de paiement","Solde du compte","Prêt immo","Prêt perso",
-    "Type de contact","Dernier jour de contact","Dernier mois de  contact","Durée du contact (secondes)","Nombre de contacts","Nb jours écoulés depuis le dernier contact","Nb de contacts",
-    "Résultat de la campagne précédente","Résultat de la campagne en cours"]
-    })
+  #var = pd.DataFrame({"Nom des variables": ["age","job","marital","education","default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","deposit"],
+  #  "Description": ["Age du client","Profession","Statut marital","Niveau d'études","Défaut de paiement","Solde du compte","Prêt immo","Prêt perso",
+  #  "Type de contact","Dernier jour de contact","Dernier mois de  contact","Durée du contact (secondes)","Nombre de contacts","Nb jours écoulés depuis le dernier contact","Nb de contacts",
+  #  "Résultat de la campagne précédente","Résultat de la campagne en cours"]
+  #  })
 
-  st.write(var)
+  #st.write(var)
 
 
 # ---------- Aperçu -----------
