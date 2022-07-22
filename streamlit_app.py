@@ -219,67 +219,56 @@ if page==pages[1]:
   coef=df2.corr()["deposit"]
   tab3.write(coef)
 
-# ---------- Les observations -----------
-
-  st.header("Observations :")
-  st.write("Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target 'déposit' sont :")
-  st.write("* duration*** = Durée du contact (en secondes)")
-  st.write("* contact*** = Type de contact")
-  st.write("* housing = Prêt immo")
-  st.write("* previous = Nb contacts au cours de la campagne précédente")
-  st.write("* pdays = Nb jours écoulés depuis le dernier contact de la campagne précédente")
-  st.write("* balance = Solde compte bancaire")
-  st.write("*** : attention , deux variables correspondent à des données non connues à priori (avant lancement de la campagne")
-
-
 # ---------- Les distributions par type de variables -----------
 
-  st.subheader("Les distributions :")
-  col3, col4 = st.columns(2)
+  st.subheader("Les distributions par type de variables")
+         
+  col1, col2 = st.columns(2)
   df2 = df.copy()
   numerics = df2.select_dtypes(include=['int16', 'int32', 'int64', 'float16', 'float32', 'float64']).columns
   categoricals= df2.select_dtypes(include=['object','category']).columns
 
 # variables numériques
 
-  col3.subheader("Variables numériques")
-  tab3, tab4 = col3.tabs(["🗃 Describe", "📈 Chart"])
+  col1.write("Variables numériques")
+  tab1, tab2 = col1.tabs(["📈 Chart", "🗃 Describe"])
 
-  describe= df2[numerics].describe().transpose()
-  tab3.write(describe)
-
-  option = tab4.selectbox("Choix une variable numérique :",numerics)
+  option = tab1.selectbox("Choix une variable numérique :",numerics)
   hist = px.histogram(df2,x=option,color="deposit",barmode="group")
-  tab4.plotly_chart(hist)
+  tab1.plotly_chart(hist)
+         
+  describe= df2[numerics].describe().transpose()
+  tab2.write(describe)
 
   if option=="age":
-    tab4.write("Les âges extrêmes semblent avoir une plus forte adhérence avec la campagne.")
+    col1.write("Les âges extrêmes semblent avoir une plus forte adhérence avec la campagne.")
   elif option=="balance":
-    tab4.write("RAS")
+    col1.write("RAS")
   elif option=="day":
-    tab4.write("RAS")
+    col1.write("RAS")
   elif option=="duration":
-    tab4.write("On remarque que plus la durée de contact augmente et plus les clients semblent souscrire à la campagne.")
+    col1.write("On remarque que plus la durée de contact augmente et plus les clients semblent souscrire à la campagne.")
   elif option=="campaign":
-    tab4.write("RAS")
+    col1.write("RAS")
   elif option=="pdays":
-    tab4.write("RAS")
+    col1.write("RAS")
   elif option=="previous":
-    tab4.write("RAS")
+    col1.write("RAS")
 
-  col3.header("Observations")
-  col3.write("On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente.")
-  col3.write("Lorsque PREVIOUS = 0 alors PDAYS = -1")
+  st.header("Observations")
+  st.write("On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente.")
+  st.write("Lorsque PREVIOUS = 0 alors PDAYS = -1")
 
 # variables catégorielles
 
-  col4.subheader("Variables catégorielles")
-  tab5, tab6 = col3.tabs(["🗃 Describe", "📈 Chart"])
+  col2.write("Variables catégorielles")
+  tab3, tab4 = col2.tabs(["📈 Chart", "🗃 Describe"])
 
-  describe= df2[categoricals].describe().transpose()
-  tab5.write(describe)
-
-  option = tab6.selectbox("Choix une variable :", categoricals)
+  option = tab3.selectbox("Choix une variable :", categoricals)
   hist = px.histogram(df2,x=option,color="deposit")
-  tab6.plotly_chart(hist)
+  tab3.plotly_chart(hist)
+         
+  describe= df2[categoricals].describe().transpose()
+  tab4.write(describe)
+
          
