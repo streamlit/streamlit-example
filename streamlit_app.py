@@ -1,4 +1,6 @@
-
+pip install seaborn
+pip install matplotlib
+pip install plotly
 
 # ______________________________________________________________________________________________________
 # Import des bibliothèques
