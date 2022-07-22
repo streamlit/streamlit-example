@@ -163,7 +163,8 @@ if page==pages[0]:
 # ---------- Ce qu'il faut comprendre -----------
 
   st.header("Ce qu'il faut retenir :")
-
+  st.markdown("On remarque que certaines variables sont la résultante de la campagne en cours : \n"
+              "\n*contact \n*day \n*month \n*duration \n*campaign \nLa variable **deposit** est notre variable cible.")
          
 # ______________________________________________________________________________________________________
 # 2/ Analyse du jeu de données
