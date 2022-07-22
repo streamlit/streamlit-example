@@ -126,12 +126,13 @@ if page==pages[0]:
 
   st.title("Description du jeu de données")
 
-  st.write("Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'.")
-  st.write("Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme.")
-  st.write("En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.")
-  st.write("Le jeu de données est téléchargeable au lien suivant: ")
-  st.write("https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
-
+  st.markdown(
+           "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit que l’on appelle un 'dépôt à terme'."
+           "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration du terme."
+           "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme."
+           "Le jeu de données est téléchargeable au lien suivant :"
+           "https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
+         
 # ---------- Les chiffres clés -----------
 
   st.header("Les chiffres clés :")
