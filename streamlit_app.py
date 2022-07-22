@@ -199,7 +199,7 @@ if page==pages[1]:
     df2[col]= le.fit_transform(df2[col])
   
   tab1.subheader("Matrice de corrélation")
-  fig = plt.figure(figsize=(5,4))
+  fig = plt.figure(figsize=(20,15))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   tab1.pyplot(fig)
 
@@ -209,7 +209,7 @@ if page==pages[1]:
   tab2.subheader("Graphiques des corrélations directes")
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
-  fig = plt.figure(figsize=(5,4))
+  fig = plt.figure(figsize=(20,15))
   sns.barplot(data=corr, y=corr.index, x="deposit")
   tab2.pyplot(fig)
 
@@ -230,7 +230,6 @@ if page==pages[1]:
 
 # variables numériques
 
-  col1.write("Variables numériques")
   tab1, tab2 = col1.tabs(["📈 Chart", "🗃 Describe"])
 
   option = tab1.selectbox("Choix une variable numérique :",numerics)
@@ -261,7 +260,6 @@ if page==pages[1]:
 
 # variables catégorielles
 
-  col2.write("Variables catégorielles")
   tab3, tab4 = col2.tabs(["📈 Chart", "🗃 Describe"])
 
   option = tab3.selectbox("Choix une variable :", categoricals)
