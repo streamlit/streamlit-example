@@ -156,9 +156,8 @@ if page==pages[0]:
 
 # ---------- Aperçu -----------
  
-  clicked = st.button("Aperçu du jeu de données")
-  st.header("Aperçu du jeu de données :")
-  clicked.write(df)
+  if st.button("Aperçu du jeu de données"):
+    st.write(df)
 
 # ---------- Ce qu'il faut comprendre -----------
 
