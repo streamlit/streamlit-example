@@ -189,7 +189,7 @@ if page==pages[1]:
 # ---------- Les correlations -----------
 
   st.header("Analyse des corrélations")
-  tab1, tab2, tab3 = st.tabs(["▩ Corrélations", "📈 Chart", "🗃 Coefficients"])
+  tab1, tab2, tab3 = st.tabs(["▩ Matrice", "📈 Chart", "％ Coefficients"])
          
 # Matrice de correlation
 
@@ -199,7 +199,7 @@ if page==pages[1]:
     df2[col]= le.fit_transform(df2[col])
   
   tab1.subheader("Matrice de corrélation")
-  fig = plt.figure(figsize=(10,8))
+  fig = plt.figure(figsize=(5,4))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   tab1.pyplot(fig)
 
@@ -209,9 +209,9 @@ if page==pages[1]:
   tab2.subheader("Graphiques des corrélations directes")
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
-  fig = plt.figure(figsize=(10,7))
-  fig = px.bar(corr, x="Deposit", y=corr.index)
-  tab2.plotly_chart(fig, use_container_width=True) 
+  fig = plt.figure(figsize=(5,4))
+  sns.barplot(data=corr, y=corr.index, x="deposit")
+  tab2.pyplot(fig)
 
 # Corrélations coefficients
 
