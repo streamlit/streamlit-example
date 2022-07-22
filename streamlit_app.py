@@ -245,7 +245,7 @@ if page==pages[1]:
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
   
-  fig = plt.figure(figsize=(8,6))
+  fig = plt.figure(figsize=(20,15))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   col1.pyplot(fig)
   col2.write('')
@@ -257,7 +257,7 @@ if page==pages[1]:
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
-  fig = plt.figure(figsize=(15,8))
+  fig = plt.figure(figsize=(10,5))
   #sns.barplot(data=corr, y=corr.index, x="deposit")
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
