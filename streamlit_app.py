@@ -157,7 +157,8 @@ if page==pages[0]:
 
 # ---------- Aperçu -----------
 
-  st.checkbox("Aperçu du jeu de données").write(df)
+  st.checkbox("Aperçu du jeu de données")
+  st.write(df)
 
 # ---------- Ce qu'il faut comprendre -----------
 
