@@ -375,6 +375,7 @@ if page==pages[2]:
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='barh', cmap='RdBu_r')
   st.pyplot(fig)
 
+         
 
 # ---------- Les enseignements -----------
 
