@@ -312,7 +312,7 @@ if page==pages[2]:
   expander1.write("* et à la mise à l'échelle")
   expander1.write("pour restructurer les données brutes sous une forme adaptée à des types particuliers d'algorithmes.")
   
-  expander1.image('https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico',  caption='Les étapes de préprocessing')     
+  expander1.image('https://github.com/amelievert/streamlit-example/blob/master/preprocessing.JPG', caption='Les étapes de préprocessing')     
 
 # ---------- Les étapes de préprocessing -----------
 
