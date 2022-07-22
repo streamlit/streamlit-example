@@ -200,8 +200,7 @@ if page==pages[1]:
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
   
-  tab1.subheader("Matrice de corrélation")
-  fig = plt.figure(figsize=(20,15))
+  fig = plt.figure(figsize=(10,8))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   col1.pyplot(fig)
   col2.write('')
@@ -210,10 +209,9 @@ if page==pages[1]:
 
   col3, col4 = tab2.columns(2)
 
-  tab2.subheader("Graphiques des corrélations directes")
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
-  fig = plt.figure(figsize=(20,15))
+  fig = plt.figure(figsize=(10,15))
   sns.barplot(data=corr, y=corr.index, x="deposit")
   col3.pyplot(fig)
 
@@ -273,3 +271,115 @@ if page==pages[1]:
   tab4.write(describe)
 
          
+
+# ______________________________________________________________________________________________________
+# 3/ Préprocessing
+# ______________________________________________________________________________________________________
+
+
+if page==pages[2]: 
+
+  st.title("Préprocessing - Modèles prédictifs")
+
+# ---------- Remise à situation d'origine -----------
+
+  # Réimport du fichier
+  df2 = df.copy()
+
+# ---------- Temps de preprocessing -----------
+
+  st.write("Attendre le traitement des variables ...")
+
+  import time
+  my_bar = st.progress(0)
+  for percent_complete in range(100):
+      time.sleep(0.1)
+      my_bar.progress(percent_complete + 1)
+
+
+# ---------- Le préprocessing, ça sert à quoi -----------
+
+  expander1 = st.expander("Le préprocessing, ça sert à quoi ?")
+  expander1.dataframe(describe_df(df).astype(str))
+
+  expander1.write("Le préprocessing est une de composante essentielle de la data science.")
+  expander1.write("Cette étape décrit toutes les transformations effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste.")
+  expander1.write("Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème.")
+  expander1.write("Les fonctions de préprocessing consistent à : ")
+  expander1.write("* la transformation des données,")
+  expander1.write("* la réduction des données,")
+  expander1.write("* la sélection des variables")
+  expander1.write("* et à la mise à l'échelle")
+  expander1.write("pour restructurer les données brutes sous une forme adaptée à des types particuliers d'algorithmes.")
+
+  from PIL import Image
+  image = Image.open('preprocessing.JPG')
+  expander1.image(image, caption='Les étapes de préprocessing')
+
+# ---------- Les étapes de préprocessing -----------
+
+  st.header("Les étapes de préprocessing appliquées :")
+
+  code = ''' 
+    # Creation de tranches d'âges
+    df2['t_age'] = pd.cut(x = df2['age'], bins = [17, 30, 40, 50, 65, 96], labels = ['18-30', '30-40','40-50', '50-65','65-95'])
+
+    # Creation de tranches de solde compte bancaire = balance
+    df2['t_balance'] = pd.qcut(x=df2["balance"], q=4, labels=[1,2,3,4])
+
+    # Creation de tranches de durée de contact = duration
+    df2['t_duration'] = pd.qcut(df2["duration"], q=4, labels=[1,2,3,4])
+
+    # Creation de tranches de durée de contact = duration
+    df2['t_duration'] = pd.qcut(df2["duration"], q=4, labels=[1,2,3,4])
+
+    # Creation de tranches de nombre de contact = campaign > Corrige le problème de valeurs abbérantes et limite à 4 contacts
+    df2['t_campaign'] = pd.cut(x = df2['campaign'], bins = [0, 1, 2, 3, 99], labels = [1, 2, 3, 4])
+
+    # Création d'une catégorie pour contact campagne précédente oui/non
+    df2['contact_last_campaign'] = np.where(df2['pdays']>=0, 'yes', 'no')
+
+    # Création de tranches en fonction du délai écoulé
+    df2['t_pdays'] = pd.cut(x = df2['pdays'], bins = [-2, 0, 200, 999], labels = ['NON CONTACTE', 'MOINS DE 200J', 'PLUS DE 200J'])
+
+    # Creation de tranches de nombre de contact avant la campagne
+    df2['previous'] = pd.cut(x = df2['previous'], bins = [0, 1, 2, 3, 99], labels = [1, 2, 3, 4])
+
+    # Suppression des colonnes dummies"ées"
+    drop_cols=['age','balance','duration','campaign','pdays','previous']
+    df2 = df2.drop(drop_cols, axis=1)
+
+    # Création de dummies
+    var=['marital','education','poutcome','contact','t_age','t_balance','t_duration','t_campaign','t_pdays','month']
+    df2= df2.join(pd.get_dummies(df2[var], prefix=var))
+    df2 = df2.drop(df2[var], axis=1)
+
+    # Transformation en numérique
+    le = LabelEncoder()
+    df2['job2']= le.fit_transform(df2['job'])
+    df2 = df2.drop(['job'], axis=1)
+
+    # Remplace yes/no par 1/0
+    var = ["default", "housing","loan","deposit","contact_last_campaign"]
+    df2[var] = df2[var].replace(('yes', 'no'), (1, 0))
+    '''
+  st.code(code, language='python')
+
+
+# ---------- Arbre de correlations après preprocessing -----------
+
+  st.header("Arbre de correlations après preprocessing :")
+
+  fig = plt.figure(figsize=(20,15))
+  plt.title(label="Correlation des features avec la variable cible deposit")
+  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='barh', cmap='RdBu_r')
+  st.pyplot(fig)
+
+
+# ---------- Les enseignements -----------
+
+  st.header("Les enseignements :")
+
+  st.write("On voit clairement que la feature [duration] impacte positivement la campagne dès lors que la valeur est élevée (temps de contact).")
+  st.write("Egalement, les clients ayant répondu favorablement à la campagne précédente [poutcome] semblent être les plus susceptibles de renouveler leur action.")
+  st.write("Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
