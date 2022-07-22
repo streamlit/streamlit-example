@@ -238,21 +238,21 @@ if page==pages[1]:
          
 # Matrice de correlation
 
-  col1, col2 = tab1.columns((2.5, 1))
+  col1, col2 = tab1.columns((3, 1))
 
   le = LabelEncoder()
   df2=df.copy()
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
   
-  fig = plt.figure(figsize=(10,8))
+  fig = plt.figure(figsize=(8,6))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   col1.pyplot(fig)
   col2.write('')
 
 # Corrélations directes
 
-  col3, col4 = tab2.columns(2)
+  col3, col4 = tab2.columns((3, 1))
 
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
