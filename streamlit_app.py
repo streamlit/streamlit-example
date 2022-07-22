@@ -188,7 +188,7 @@ if page==pages[1]:
   st.markdown(
            "L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative "
            "afin que des **insights** en ressortent.\n"
-           "L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles.\n"
+           "L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles. \n"
            "Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.")
 
 # ---------- Les distributions par type de variables -----------
@@ -309,7 +309,8 @@ if page==pages[2]:
            "Le préprocessing est une de composante essentielle de la data science. "
            "Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste. "
            "Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème. "
-           "Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont : /n"
+           "Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont : "
+           "/n"
            "* la transformation des données, \n"
            "* la réduction des données, \n"
            "* la sélection des variables \n"
@@ -386,7 +387,7 @@ if page==pages[2]:
 
   st.header("Arbre de correlations après preprocessing :")
 
-  fig = plt.figure(figsize=(20,15))
+  fig = plt.figure(figsize=(20,8))
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   st.pyplot(fig)
          
@@ -396,9 +397,9 @@ if page==pages[2]:
 
   st.header("Les observations :")
   st.info(
-           "On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact). \n"
-           "Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action. \n"
-           "Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
+           "On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact)."
+           "\n Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action."
+           "\n Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
 
 
 # ______________________________________________________________________________________________________
