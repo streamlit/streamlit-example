@@ -286,16 +286,6 @@ if page==pages[2]:
   # Réimport du fichier
   df2 = df.copy()
 
-# ---------- Temps de preprocessing -----------
-
-  st.write("Attendre le traitement des variables ...")
-
-  import time
-  my_bar = st.progress(0)
-  for percent_complete in range(100):
-      time.sleep(0.1)
-      my_bar.progress(percent_complete + 1)
-
 
 # ---------- Le préprocessing, ça sert à quoi -----------
 
