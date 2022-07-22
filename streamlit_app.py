@@ -558,7 +558,7 @@ if page==pages[3]:
   #st.pyplot(fig)
 
   fig = plt.figure(figsize=(20,10))
-  bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'])
+  bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group'))
   st.plotly_chart(bar)     
 
   # Comparaison avec l'indice des ROC
