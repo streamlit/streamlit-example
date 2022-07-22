@@ -181,6 +181,11 @@ if page==pages[0]:
 if page==pages[1]: 
 
   st.title("Analyse du jeu de données")
+  st.markdown(
+           "L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative "
+           "afin que des **insights** en ressortent. \n"
+           "L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles."
+           "Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.")
 
 # ---------- Les distributions par type de variables -----------
 
@@ -238,7 +243,7 @@ if page==pages[1]:
          
 # Matrice de correlation
 
-  col1, col2 = tab1.columns((3, 1))
+  col1, col2 = tab1.columns((1, 1))
 
   le = LabelEncoder()
   df2=df.copy()
@@ -246,7 +251,7 @@ if page==pages[1]:
     df2[col]= le.fit_transform(df2[col])
   
   fig = plt.figure(figsize=(15,10))
-  sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
+  sns.heatmap(df2.corr(), annot=True, cmap='coolwarm', center=0)
   col1.pyplot(fig)
   col2.write('')
 
@@ -257,7 +262,7 @@ if page==pages[1]:
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
-  fig = plt.figure(figsize=(10,5))
+  fig = plt.figure(figsize=(10,2))
   #sns.barplot(data=corr, y=corr.index, x="deposit")
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
@@ -266,7 +271,14 @@ if page==pages[1]:
 
   coef=df2.corr()["deposit"]
   col4.write(coef)
-        
+
+
+# test
+
+  fig = plt.figure(figsize=(10,8))
+  sns.pairplot(df,hue='deposit',corner=True)
+  st.pyplot(fig)
+
 # ---------- Les observations -----------
 
   st.header("Observations")
