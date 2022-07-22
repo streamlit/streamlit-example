@@ -189,7 +189,7 @@ if page==pages[1]:
 # ---------- Les correlations -----------
 
   st.header("Analyse des corrélations")
-  tab1, tab2 = col2.tabs(["▩ Corrélations", "📈 Chart", "🗃 Coefficients"])
+  tab1, tab2, tab3 = st.tabs(["▩ Corrélations", "📈 Chart", "🗃 Coefficients"])
          
 # Matrice de correlation
 
