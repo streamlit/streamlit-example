@@ -243,7 +243,7 @@ if page==pages[1]:
          
 # Matrice de correlation
 
-  col1, col2 = tab1.columns((1, 1))
+  col1, col2 = tab1.columns((2, 1))
 
   le = LabelEncoder()
   df2=df.copy()
@@ -251,7 +251,7 @@ if page==pages[1]:
     df2[col]= le.fit_transform(df2[col])
   
   fig = plt.figure(figsize=(15,10))
-  sns.heatmap(df2.corr(), annot=True, cmap='coolwarm', center=0)
+  sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
   col1.pyplot(fig)
   col2.write('')
 
@@ -262,7 +262,7 @@ if page==pages[1]:
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
-  fig = plt.figure(figsize=(10,2))
+  fig = plt.figure(figsize=(10,5))
   #sns.barplot(data=corr, y=corr.index, x="deposit")
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
@@ -275,8 +275,8 @@ if page==pages[1]:
 
 # test
 
-  fig = plt.figure(figsize=(10,8))
-  sns.pairplot(df,hue='deposit',corner=True)
+  fig = plt.figure(figsize=(10,10))
+  sns.pairplot(df, hue='deposit')
   st.pyplot(fig)
 
 # ---------- Les observations -----------
