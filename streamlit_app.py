@@ -116,6 +116,7 @@ def describe_df(df):
         ]
     return res.T
 
+
 # ______________________________________________________________________________________________________
 # 1/ Introduction au jeu de données
 # ______________________________________________________________________________________________________
@@ -142,7 +143,7 @@ if page==pages[0]:
          
 # ---------- les variables  -----------
 
-  st.write("Description des variables :")         
+  st.header("Description des variables :")         
   st.image('Describe.png')
 
   #var = pd.DataFrame({"Nom des variables": ["age","job","marital","education","default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","deposit"],
@@ -153,11 +154,11 @@ if page==pages[0]:
 
   #st.write(var)
 
-
 # ---------- Aperçu -----------
- 
-  if st.button("Aperçu du jeu de données"):
-    st.write(df)
+
+  description = st.expander("Aperçu du jeu de données")
+  description.write(df))
+
 
 # ---------- Ce qu'il faut comprendre -----------
 
