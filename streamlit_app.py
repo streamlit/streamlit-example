@@ -290,7 +290,6 @@ if page==pages[2]:
 # ---------- Le préprocessing, ça sert à quoi -----------
 
   expander1 = st.expander("Le préprocessing, ça sert à quoi ?")
-  expander1.dataframe(describe_df(df).astype(str))
 
   expander1.write("Le préprocessing est une de composante essentielle de la data science.")
   expander1.write("Cette étape décrit toutes les transformations effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste.")
@@ -302,7 +301,7 @@ if page==pages[2]:
   expander1.write("* et à la mise à l'échelle")
   expander1.write("pour restructurer les données brutes sous une forme adaptée à des types particuliers d'algorithmes.")
   
-  expander1.image('https://github.com/amelievert/streamlit-example/blob/master/preprocessing.JPG', caption='Les étapes de préprocessing')     
+  expander1.image('preprocessing.JPG', caption='Les étapes de préprocessing')     
 
 # ---------- Les étapes de préprocessing -----------
 
@@ -363,7 +362,6 @@ if page==pages[2]:
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='barh', cmap='RdBu_r')
   st.pyplot(fig)
 
-         
 
 # ---------- Les enseignements -----------
 
