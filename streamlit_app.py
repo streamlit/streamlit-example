@@ -558,7 +558,7 @@ if page==pages[3]:
   #st.pyplot(fig)
 
   fig = plt.figure(figsize=(20,10))
-  hist = px.histogram(compare,x=model,color="deposit",barmode="group")
+  hist = px.histogram(compare,x="model",color="deposit",barmode="group")
   st.plotly_chart(hist)     
          
   # Comparaison avec l'indice des ROC
