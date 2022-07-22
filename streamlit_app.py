@@ -193,7 +193,7 @@ if page==pages[1]:
          
 # Matrice de correlation
 
-  col1, col2, col3 = tab1.columns(3)
+  col1, col2 = tab1.columns(2)
 
   le = LabelEncoder()
   df2=df.copy()
@@ -203,22 +203,20 @@ if page==pages[1]:
   tab1.subheader("Matrice de corrélation")
   fig = plt.figure(figsize=(20,15))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
-  col1.write('')
-  col2.pyplot(fig)
-  col1.write('')
+  col1.pyplot(fig)
+  col2.write('')
 
 # Corrélations directes
 
-  col4, col5, col6 = tab2.columns(3)
+  col3, col4 = tab2.columns(2)
 
   tab2.subheader("Graphiques des corrélations directes")
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
   fig = plt.figure(figsize=(20,15))
   sns.barplot(data=corr, y=corr.index, x="deposit")
+  col3.pyplot(fig)
   col4.write('')
-  col5.pyplot(fig)
-  col6.write('')
 
 # Corrélations coefficients
 
