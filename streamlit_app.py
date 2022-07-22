@@ -550,13 +550,17 @@ if page==pages[3]:
   compare["roc"]=roc
 
   #Graphique de comparaison des résultats         
-  fig = plt.figure(figsize=(20,10))
-  compare.plot.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'],stacked=False, rot=90)
-  plt.ylim([0.5, 1])
-  plt.axhline(y=0.80, color='k', linewidth=2, linestyle='--')
-  plt.title("Compare Models")
-  st.pyplot(fig)
+  #fig = plt.figure(figsize=(20,10))
+  #compare.plot.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'],stacked=False, rot=90)
+  #plt.ylim([0.5, 1])
+  #plt.axhline(y=0.80, color='k', linewidth=2, linestyle='--')
+  #plt.title("Compare Models")
+  #st.pyplot(fig)
 
+  fig = plt.figure(figsize=(20,10))
+  hist = px.histogram(compare,x=model,color="deposit",barmode="group")
+  st.plotly_chart(hist)     
+         
   # Comparaison avec l'indice des ROC
   fig = plt.figure(figsize=(20,10))
 
