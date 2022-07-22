@@ -126,7 +126,7 @@ if page==pages[0]:
 
   st.markdown(
            "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit "
-           "que l’on appelle un 'dépôt à terme'."
+           "que l’on appelle un 'dépôt à terme'. "
            "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration "
            "du terme."
            "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.  \n" 
@@ -183,8 +183,8 @@ if page==pages[1]:
   st.title("Analyse du jeu de données")
   st.markdown(
            "L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative "
-           "afin que des **insights** en ressortent. \n"
-           "L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles."
+           "afin que des **insights** en ressortent.\n"
+           "L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles.\n"
            "Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.")
 
 # ---------- Les distributions par type de variables -----------
@@ -273,12 +273,6 @@ if page==pages[1]:
   col4.write(coef)
 
 
-# test
-
-  fig = plt.figure(figsize=(10,10))
-  sns.pairplot(df, hue='deposit')
-  st.pyplot(fig)
-
 # ---------- Les observations -----------
 
   st.header("Observations")
@@ -299,7 +293,6 @@ if page==pages[1]:
 # 3/ Préprocessing
 # ______________________________________________________________________________________________________
 
-
 if page==pages[2]: 
 
   st.title("Préprocessing - Modèles prédictifs")
@@ -314,22 +307,24 @@ if page==pages[2]:
 
   expander1 = st.expander("Le préprocessing, ça sert à quoi ?")
 
-  expander1.write("Le préprocessing est une de composante essentielle de la data science.")
-  expander1.write("Cette étape décrit toutes les transformations effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste.")
-  expander1.write("Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème.")
-  expander1.write("Les fonctions de préprocessing consistent à : ")
-  expander1.write("* la transformation des données,")
-  expander1.write("* la réduction des données,")
-  expander1.write("* la sélection des variables")
-  expander1.write("* et à la mise à l'échelle")
-  expander1.write("pour restructurer les données brutes sous une forme adaptée à des types particuliers d'algorithmes.")
+  st.markdown(
+           "Le préprocessing est une de composante essentielle de la data science. "
+           "Cette étape décrit toutes les transformations effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste. "
+           "Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème. "
+           "Les fonctions de préprocessing consistent à : \n"
+           "* la transformation des données, \n"
+           "* la réduction des données, \n"
+           "* la sélection des variables \n"
+           "* et à la mise à l'échelle \n"
+           "pour restructurer les données brutes sous une forme adaptée à des types particuliers d'algorithmes.")
   
-  expander1.image('preprocessing.JPG', caption='Les étapes de préprocessing')     
+  st.image('preprocessing.JPG', caption='Les étapes de préprocessing')     
 
 # ---------- Les étapes de préprocessing -----------
 
   st.header("Les étapes de préprocessing appliquées :")
 
+  st.subheader("Le traitement des variables numériques")
   code = ''' 
     # Creation de tranches d'âges
     df2['t_age'] = pd.cut(x = df2['age'], bins = [17, 30, 40, 50, 65, 96], labels = ['18-30', '30-40','40-50', '50-65','65-95'])
@@ -358,7 +353,11 @@ if page==pages[2]:
     # Suppression des colonnes dummies"ées"
     drop_cols=['age','balance','duration','campaign','pdays','previous']
     df2 = df2.drop(drop_cols, axis=1)
+    '''
+  st.code(code, language='python')
 
+  st.subheader("Le traitement des variables catégorielles")
+  code = ''' 
     # Création de dummies
     var=['marital','education','poutcome','contact','t_age','t_balance','t_duration','t_campaign','t_pdays','month']
     df2= df2.join(pd.get_dummies(df2[var], prefix=var))
@@ -374,7 +373,6 @@ if page==pages[2]:
     df2[var] = df2[var].replace(('yes', 'no'), (1, 0))
     '''
   st.code(code, language='python')
-
 
 # ---------- Arbre de correlations après preprocessing -----------
 
