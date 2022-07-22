@@ -549,15 +549,8 @@ if page==pages[3]:
   compare["rappel"]=rappel
   compare["roc"]=roc
 
-  #Graphique de comparaison des résultats         
-  #fig = plt.figure(figsize=(20,10))
-  #compare.plot.bar(x = 'model', y=['accuracy', 'precision', 'rappel','roc'],stacked=False, rot=90)
-  #plt.ylim([0.5, 1])
-  #plt.axhline(y=0.80, color='k', linewidth=2, linestyle='--')
-  #plt.title("Compare Models")
-  #st.pyplot(fig)
-
-  fig = plt.figure(figsize=(20,10))
+  #Graphique de comparaison des résultats     
+  fig = plt.figure(figsize=(20,6))
   bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
   st.plotly_chart(bar)     
