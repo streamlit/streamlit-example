@@ -182,14 +182,15 @@ if page==pages[1]:
 
 # ---------- Affichage de la description détaillée -----------
 
-  description = st.expander("Afficher la description des colonnes")
-  description.dataframe(describe_df(df).astype(str))
+  st.header("Description détaillée des variables")
+  st.dataframe(describe_df(df).astype(str))
 
 
 # ---------- Les correlations -----------
 
-  col1, col2 = st.columns(2)
-
+  st.header("Analyse des corrélations")
+  tab1, tab2 = col2.tabs(["▩ Corrélations", "📈 Chart", "🗃 Coefficients"])
+         
 # Matrice de correlation
 
   le = LabelEncoder()
@@ -197,39 +198,30 @@ if page==pages[1]:
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
   
-  col1.subheader("Matrice de corrélation")
-
-  fig = plt.figure(figsize=(10,10))
+  tab1.subheader("Matrice de corrélation")
+  fig = plt.figure(figsize=(10,8))
   sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
-  col1.pyplot(fig)
+  tab1.pyplot(fig)
 
 
 # Corrélations directes
 
-  tab1, tab2 = col2.tabs(["📈 Chart", "🗃 Coefficients"])
-
-  tab1.subheader("Graphiques des corrélations directes")
-  
+  tab2.subheader("Graphiques des corrélations directes")
   corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
-
   fig = plt.figure(figsize=(10,7))
-  fig = px.bar(corr,
-                 x="Deposit",
-                 y=corr.index,
-                 template = 'seaborn')
-  tab1.plotly_chart(fig, use_container_width=True) 
+  fig = px.bar(corr, x="Deposit", y=corr.index)
+  tab2.plotly_chart(fig, use_container_width=True) 
 
+# Corrélations coefficients
 
-  tab2.subheader("Coefficients")
-
+  tab3.subheader("Coefficients de corrélation avec la variable cible")
   coef=df2.corr()["deposit"]
-  tab2.write(coef)
+  tab3.write(coef)
 
 # ---------- Les observations -----------
 
-  st.subheader("Observations :")
-
+  st.header("Observations :")
   st.write("Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target 'déposit' sont :")
   st.write("* duration*** = Durée du contact (en secondes)")
   st.write("* contact*** = Type de contact")
@@ -247,7 +239,6 @@ if page==pages[1]:
   df2 = df.copy()
   numerics = df2.select_dtypes(include=['int16', 'int32', 'int64', 'float16', 'float32', 'float64']).columns
   categoricals= df2.select_dtypes(include=['object','category']).columns
-
 
 # variables numériques
 
