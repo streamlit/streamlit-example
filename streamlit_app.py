@@ -229,7 +229,7 @@ if page==pages[1]:
   describe= df2[categoricals].describe().transpose()
   tab4.write(describe)
 
-  elif option=="marital":
+  if option=="marital":
     col1.info("Le statut marital 'single' semble rendre plus favorable la campagne.")
   elif option=="housing":
     col1.info("L'absence de prêt immo semble augmenter les chances de répondre favorablement à la campagne.")
