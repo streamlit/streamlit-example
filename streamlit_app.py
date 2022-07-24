@@ -581,16 +581,17 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='firebrick', width=4, dash='dot')))
-  fig.update_layout(title='Test affichage courbe de ROC', xaxis_title='X', yaxis_title='Y')
+  fig.update_layout(title='Test affichage courbe de ROC', xaxis_title='Taux de vrais positifs', yaxis_title='Taux de faux positifs')
   tab2.plotly_chart(fig) 
          
-  #plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--', label='Aléatoire (auc = 0.5)')
-  #plt.xlim([0.0, 1.0])
-  #plt.ylim([0.0, 1.05])
-  #plt.xlabel('Taux faux positifs')
-  #plt.ylabel('Taux vrais positifs')
-  #plt.title('Courbe ROC pour modèle Random Forest')
-  #plt.legend(loc="lower right")
-
+  with tab2.expander("Plus d'explication sur ce graphique :"):
+    st.write("""
+         La courbe ROC (pour **Receiver Operating Characteristic**) est une courbe qui représente le comportement de notre classifieur à deux classes pour tous les seuils de détection possibles. \n
+         Si nous utilisons les probabilités d’appartenance à la classe cible renvoyées par notre classifieur au lieu des prédictions,
+         nous pourrions choisir librement à partir de quelle probabilité nous considérons qu’un item est de cette classe. \n
+         En prenant des seuils de 0 à 1 (ou 100%), nous balayons **toutes les possibilités**. \n
+         A chaque seuil, nous pouvons calculer le taux de vrais positifs et le taux de faux positifs. \n
+         La courbe ROC représente ces résultats avec le taux de faux positifs sur l’axe x et le taux de vrais positifs sur l’axe y.
+     """)
 
   st.info("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
