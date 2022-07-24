@@ -214,19 +214,9 @@ if page==pages[1]:
   tab2.write(describe)
 
   if option=="age":
-    col1.write("Les âges extrêmes semblent avoir une plus forte adhérence avec la campagne.")
-  elif option=="balance":
-    col1.write("RAS")
-  elif option=="day":
-    col1.write("RAS")
+    col1.info("Les âges extrêmes semblent avoir une plus forte adhérence avec la campagne.")
   elif option=="duration":
-    col1.write("On remarque que plus la durée de contact augmente et plus les clients semblent souscrire à la campagne.")
-  elif option=="campaign":
-    col1.write("RAS")
-  elif option=="pdays":
-    col1.write("RAS")
-  elif option=="previous":
-    col1.write("RAS")
+    col1.info("On remarque que plus la durée de contact augmente et plus les clients semblent souscrire à la campagne.")
 
 # variables catégorielles
 
@@ -239,6 +229,15 @@ if page==pages[1]:
   describe= df2[categoricals].describe().transpose()
   tab4.write(describe)
 
+  elif option=="marital":
+    col1.info("Le statut marital 'single' semble rendre plus favorable la campagne.")
+  elif option=="housing":
+    col1.info("L'absence de prêt immo semble augmenter les chances de répondre favorablement à la campagne.")
+  elif option=="month":
+    col1.info("On observe que certains mois comme Mars, Septembre et Octobre semblent plus propices  la performance de la campagne."
+              "\n A l'inverse les mois de Mai à Aout semblent diminuer les chances de concrétisation. ")
+  elif option=="poutcome":
+    col1.info("Les clients ayant répondu positivement à la campagne précédente sont les plus susceptibles de renouveller un dépôt.")
 
 # ---------- Les correlations -----------
 
@@ -267,7 +266,7 @@ if page==pages[1]:
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
   fig = plt.figure(figsize=(10,5))
-  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
+  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis', color=['#5cb85c','#5bc0de','#d9534f'])
   col3.pyplot(fig)
 
 # Corrélations coefficients
