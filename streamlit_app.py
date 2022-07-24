@@ -266,7 +266,7 @@ if page==pages[1]:
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
   fig = plt.figure(figsize=(10,5))
-  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis', color=["deposit"])
+  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   col3.pyplot(fig)
 
 # Corrélations coefficients
@@ -309,7 +309,7 @@ if page==pages[2]:
            "Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste. "
            "Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème. "
            "Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont : "
-           "/n"
+           " /n "
            "* la transformation des données, \n"
            "* la réduction des données, \n"
            "* la sélection des variables \n"
@@ -443,17 +443,17 @@ if page==pages[3]:
 # Régression logistique -----------------------------------------------------------------------
 
   with col1:
-    expander = st.expander("Modèle RLC")
+    st.subheader("Modèle RLC")
     rlc = linear_model.LogisticRegression(C=10)
     rlc.fit(X_train, y_train)
         
-    expander.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
-    expander.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
-    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rlc.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rlc.predict(X_test))))
 
     y_pred = rlc.predict(X_test)
-    expander.write("Matrice de confusion :")
-    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
     # Sauvegarde des résultats
     models.append("Regression logistique")
@@ -466,18 +466,18 @@ if page==pages[3]:
 # K plus proche voisins -----------------------------------------------------------------------
 
   with col2:
-    expander = st.expander("Modèle KNN")
+    st.subheader("Modèle KNN")
 
     knn = neighbors.KNeighborsClassifier(n_neighbors=39)
     knn.fit(X_train, y_train)
       
-    expander.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
-    expander.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
-    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, knn.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, knn.predict(X_test))))
 
     y_pred = knn.predict(X_test)
-    expander.write("Matrice de confusion :")
-    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
     # Sauvegarde des résultats
     models.append("K plus proches voisins")
@@ -490,18 +490,18 @@ if page==pages[3]:
 # Arbre de décision -----------------------------------------------------------------------
 
   with col3:
-    expander = st.expander("Modèle DTC")
+    st.subheader("Modèle DTC")
 
     dtc = tree.DecisionTreeClassifier(max_depth=9)
     dtc.fit(X_train, y_train)  
         
-    expander.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
+    st.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
     expander.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
     expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
 
     y_pred = dtc.predict(X_test)
-    expander.write("Matrice de confusion :")
-    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
     # Sauvegarde des résultats
     models.append("Decision Tree")
@@ -514,7 +514,7 @@ if page==pages[3]:
 # Random Forest -----------------------------------------------------------------------
 
   with col4:
-    expander = st.expander("Modèle RFC")
+    st.subheader("Modèle RFC")
 
     rfc = ensemble.RandomForestClassifier(n_jobs=1) 
     rfc.fit(X_train, y_train)
@@ -524,8 +524,8 @@ if page==pages[3]:
     expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
 
     y_pred = rfc.predict(X_test)
-    expander.write("Matrice de confusion :")
-    expander.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
     # Sauvegarde des résultats
     models.append("Random Forest")
@@ -539,6 +539,8 @@ if page==pages[3]:
 # Comparaison des résultats -----------------------------------------------------------------------
 
   st.header("Comparaison des 4 modèles")
+         
+  tab1, tab2 = st.tabs(["📊 Chart", "📈 Courbe de ROC"])
 
   # Recap des scores
   compare = pd.DataFrame(models)
@@ -552,38 +554,43 @@ if page==pages[3]:
   fig = plt.figure(figsize=(20,6))
   bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
-  st.plotly_chart(bar)     
+  tab1.plotly_chart(bar)     
 
   # Comparaison avec l'indice des ROC
+  import plotly.graph_objects as go         
   fig = plt.figure(figsize=(20,10))
 
   # Regression logistique
   fpr, tpr, seuils = roc_curve(y_test, probs_rlc[:,1])
   roc_auc = auc(fpr, tpr)
-  plt.plot(fpr, tpr, color='green', lw=2, label='Modèle RLC (auc = %0.2f)' % roc_auc)
+  #plt.plot(fpr, tpr, color='green', lw=2, label='Modèle RLC (auc = %0.2f)' % roc_auc)
+  fig = go.Figure(data=go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc))
 
   # K plus proches voisins
   fpr, tpr, seuils = roc_curve(y_test, probs_knn[:,1])
   roc_auc = auc(fpr, tpr)
-  plt.plot(fpr, tpr, color='blue', lw=2, label='Modèle KNN (auc = %0.2f)' % roc_auc)
+  #plt.plot(fpr, tpr, color='blue', lw=2, label='Modèle KNN (auc = %0.2f)' % roc_auc)
+  fig.add_trace(go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc))
 
   # Decision Tree
   fpr, tpr, seuils = roc_curve(y_test, probs_dtc[:,1])
   roc_auc = auc(fpr, tpr)
-  plt.plot(fpr, tpr, color='orange', lw=2, label='Modèle DTC (auc = %0.2f)' % roc_auc)
+  #plt.plot(fpr, tpr, color='orange', lw=2, label='Modèle DTC (auc = %0.2f)' % roc_auc)
+  fig.add_trace(go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc))
 
   # Random Forest
   fpr, tpr, seuils = roc_curve(y_test, probs_rfc[:,1])
   roc_auc = auc(fpr, tpr)
-  plt.plot(fpr, tpr, color='red', lw=2, label='Modèle RFC (auc = %0.2f)' % roc_auc)
+  #plt.plot(fpr, tpr, color='red', lw=2, label='Modèle RFC (auc = %0.2f)' % roc_auc)
+  fig.add_trace(go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc))
 
-  plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--', label='Aléatoire (auc = 0.5)')
-  plt.xlim([0.0, 1.0])
-  plt.ylim([0.0, 1.05])
-  plt.xlabel('Taux faux positifs')
-  plt.ylabel('Taux vrais positifs')
-  plt.title('Courbe ROC pour modèle Random Forest')
-  plt.legend(loc="lower right")
-  st.pyplot(fig)
+  #plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--', label='Aléatoire (auc = 0.5)')
+  #plt.xlim([0.0, 1.0])
+  #plt.ylim([0.0, 1.05])
+  #plt.xlabel('Taux faux positifs')
+  #plt.ylabel('Taux vrais positifs')
+  #plt.title('Courbe ROC pour modèle Random Forest')
+  #plt.legend(loc="lower right")
+  #tab2.pyplot(fig)
 
   st.write("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
