@@ -496,8 +496,8 @@ if page==pages[3]:
     dtc.fit(X_train, y_train)  
         
     st.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
-    expander.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
-    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
+    st.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
 
     y_pred = dtc.predict(X_test)
     st.write("Matrice de confusion :")
@@ -519,9 +519,9 @@ if page==pages[3]:
     rfc = ensemble.RandomForestClassifier(n_jobs=1) 
     rfc.fit(X_train, y_train)
     
-    expander.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
-    expander.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
-    expander.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
 
     y_pred = rfc.predict(X_test)
     st.write("Matrice de confusion :")
