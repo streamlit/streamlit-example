@@ -230,14 +230,14 @@ if page==pages[1]:
   tab4.write(describe)
 
   if option=="marital":
-    col1.info("Le statut marital 'single' semble rendre plus favorable la campagne.")
+    col2.info("Le statut marital 'single' semble rendre plus favorable la campagne.")
   elif option=="housing":
-    col1.info("L'absence de prêt immo semble augmenter les chances de répondre favorablement à la campagne.")
+    col2.info("L'absence de prêt immo semble augmenter les chances de répondre favorablement à la campagne.")
   elif option=="month":
-    col1.info("On observe que certains mois comme Mars, Septembre et Octobre semblent plus propices  la performance de la campagne."
+    col2.info("On observe que certains mois comme Mars, Septembre et Octobre semblent plus propices  la performance de la campagne."
               "\n A l'inverse les mois de Mai à Aout semblent diminuer les chances de concrétisation. ")
   elif option=="poutcome":
-    col1.info("Les clients ayant répondu positivement à la campagne précédente sont les plus susceptibles de renouveller un dépôt.")
+    col2.info("Les clients ayant répondu positivement à la campagne précédente sont les plus susceptibles de renouveller un dépôt.")
 
 # ---------- Les correlations -----------
 
@@ -266,7 +266,7 @@ if page==pages[1]:
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
   fig = plt.figure(figsize=(10,5))
-  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis', color=['#5cb85c','#5bc0de','#d9534f'])
+  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis', color=["deposit"])
   col3.pyplot(fig)
 
 # Corrélations coefficients
