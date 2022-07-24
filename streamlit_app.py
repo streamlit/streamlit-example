@@ -389,8 +389,6 @@ if page==pages[2]:
   fig = plt.figure(figsize=(20,8))
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   st.pyplot(fig)
-         
-
 
 # ---------- Les enseignements -----------
 
@@ -591,6 +589,6 @@ if page==pages[3]:
   #plt.ylabel('Taux vrais positifs')
   #plt.title('Courbe ROC pour modèle Random Forest')
   #plt.legend(loc="lower right")
-  #tab2.pyplot(fig)
+  tab2.pyplot(fig)
 
-  st.write("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
+  st.info("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
