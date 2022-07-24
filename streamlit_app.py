@@ -557,33 +557,33 @@ if page==pages[3]:
 
   # Comparaison avec l'indice des ROC
   import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(20,10))
+  fig = plt.figure(figsize=(20,6))
 
   # Regression logistique
-  fpr, tpr, seuils = roc_curve(y_test, probs_rlc[:,1])
-  roc_auc = auc(fpr, tpr)
-  #plt.plot(fpr, tpr, color='green', lw=2, label='Modèle RLC (auc = %0.2f)' % roc_auc)
-  fig = go.Figure(data=go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc))
-  tab1.plotly_chart(fig) 
+  fpr_rlc, tpr_rlc, seuils = roc_curve(y_test, probs_rlc[:,1])
+  roc_auc_rlc = auc(fpr_rlc, tpr_rlc)
 
   # K plus proches voisins
-  fpr, tpr, seuils = roc_curve(y_test, probs_knn[:,1])
-  roc_auc = auc(fpr, tpr)
-  #plt.plot(fpr, tpr, color='blue', lw=2, label='Modèle KNN (auc = %0.2f)' % roc_auc)
-  fig.add_trace(go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc))
+  fpr_knn, tpr_knn, seuils = roc_curve(y_test, probs_knn[:,1])
+  roc_auc_knn = auc(fpr_knn, tpr_knn)
 
   # Decision Tree
-  fpr, tpr, seuils = roc_curve(y_test, probs_dtc[:,1])
-  roc_auc = auc(fpr, tpr)
-  #plt.plot(fpr, tpr, color='orange', lw=2, label='Modèle DTC (auc = %0.2f)' % roc_auc)
-  fig.add_trace(go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc))
+  fpr_dtc, tpr_dtc, seuils = roc_curve(y_test, probs_dtc[:,1])
+  roc_auc_dtc = auc(fpr_dtc, tpr_dtc)
 
   # Random Forest
-  fpr, tpr, seuils = roc_curve(y_test, probs_rfc[:,1])
-  roc_auc = auc(fpr, tpr)
-  #plt.plot(fpr, tpr, color='red', lw=2, label='Modèle RFC (auc = %0.2f)' % roc_auc)
-  fig.add_trace(go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc))
+  fpr_rfc, tpr_rfc, seuils = roc_curve(y_test, probs_rfc[:,1])
+  roc_auc_rfc = auc(fpr_rfc, tpr_rfc)
 
+  # Les courbes
+  fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
+  fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
+  fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
+  fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
+  fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='firebrick', width=4, dash='dot')))
+  fig.update_layout(title='Test affichage courbe de ROC', xaxis_title='X', yaxis_title='Y')
+  tab2.plotly_chart(fig) 
+         
   #plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--', label='Aléatoire (auc = 0.5)')
   #plt.xlim([0.0, 1.0])
   #plt.ylim([0.0, 1.05])
@@ -591,6 +591,6 @@ if page==pages[3]:
   #plt.ylabel('Taux vrais positifs')
   #plt.title('Courbe ROC pour modèle Random Forest')
   #plt.legend(loc="lower right")
-  tab2.pyplot(fig)
+
 
   st.info("Le modèle Random Forest semble le plus équilibré. Il permet de maximiser les positifs.")
