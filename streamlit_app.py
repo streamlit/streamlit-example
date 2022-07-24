@@ -34,6 +34,7 @@ pages = ["Introduction au jeu de données",
          "Analyse",
          "Preprocessing",
          "Challenge de modèles",
+         "Interprétabilité",
          "Pour aller plus loin"]
 
 page = st.sidebar.radio("Aller vers", pages) 
@@ -563,6 +564,7 @@ if page==pages[3]:
   roc_auc = auc(fpr, tpr)
   #plt.plot(fpr, tpr, color='green', lw=2, label='Modèle RLC (auc = %0.2f)' % roc_auc)
   fig = go.Figure(data=go.Scatter(x=fpr, y=tpr , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc))
+  tab1.plotly_chart(fig) 
 
   # K plus proches voisins
   fpr, tpr, seuils = roc_curve(y_test, probs_knn[:,1])
