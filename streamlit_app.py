@@ -417,7 +417,6 @@ if page==pages[2]:
 if page==pages[3]:
          
   st.title("Modèles prédictifs")
-  
   st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
               * La **régression logistique** ou RLC
@@ -425,7 +424,6 @@ if page==pages[3]:
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
               """)
-  my_bar.progress(percent_complete + 1)
 
 # ---------- Initialisation du jeu de données -----------
 
@@ -452,8 +450,6 @@ if page==pages[3]:
   precision=[]
   rappel=[]
   roc=[]
-
-  my_bar.progress(percent_complete + 1)
 
 # ---------- Les 3 modèles -----------
 
