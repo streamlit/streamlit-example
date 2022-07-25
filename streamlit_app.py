@@ -56,48 +56,50 @@ dtc = load('Decision Tree Classifier.joblib')
 # ______________________________________________________________________________________________________
 
 df2 = df.copy()
-
 # Creation de tranches d'âges
 df2['t_age'] = pd.cut(x = df2['age'], bins = [17, 30, 40, 50, 65, 96], labels = ['18-30', '30-40','40-50', '50-65','65-95'])
-
 # Creation de tranches de solde compte bancaire = balance
 df2['t_balance'] = pd.qcut(x=df2["balance"], q=4, labels=[1,2,3,4])
-
 # Creation de tranches de durée de contact = duration
 df2['t_duration'] = pd.qcut(df2["duration"], q=4, labels=[1,2,3,4])
-
 # Creation de tranches de durée de contact = duration
 df2['t_duration'] = pd.qcut(df2["duration"], q=4, labels=[1,2,3,4])
-
 # Creation de tranches de nombre de contact = campaign > Corrige le problème de valeurs abbérantes et limite à 4 contacts
 df2['t_campaign'] = pd.cut(x = df2['campaign'], bins = [0, 1, 2, 3, 99], labels = [1, 2, 3, 4])
-
 # Création d'une catégorie pour contact campagne précédente oui/non
 df2['contact_last_campaign'] = np.where(df2['pdays']>=0, 'yes', 'no')
-
 # Création de tranches en fonction du délai écoulé
 df2['t_pdays'] = pd.cut(x = df2['pdays'], bins = [-2, 0, 200, 999], labels = ['NON CONTACTE', 'MOINS DE 200J', 'PLUS DE 200J'])
-
 # Creation de tranches de nombre de contact avant la campagne
 df2['previous'] = pd.cut(x = df2['previous'], bins = [0, 1, 2, 3, 99], labels = [1, 2, 3, 4])
-
 # Suppression des colonnes dummies"ées"
 drop_cols=['age','balance','duration','campaign','pdays','previous']
 df2 = df2.drop(drop_cols, axis=1)
-
 # Création de dummies
 var=['marital','education','poutcome','contact','t_age','t_balance','t_duration','t_campaign','t_pdays','month']
 df2= df2.join(pd.get_dummies(df2[var], prefix=var))
 df2 = df2.drop(df2[var], axis=1)
-
 # Transformation en numérique
 le = LabelEncoder()
 df2['job2']= le.fit_transform(df2['job'])
 df2 = df2.drop(['job'], axis=1)
-
 # Remplace yes/no par 1/0
 var = ["default", "housing","loan","deposit","contact_last_campaign"]
 df2[var] = df2[var].replace(('yes', 'no'), (1, 0))
+
+# ---------- Split jeu entrainement et jeu de test -----------
+
+# Isoler les features de la target
+target = df2['deposit']
+feats = df2.drop(['deposit'], axis=1)
+
+# Séparation des données en jeu d'entraînement et de test
+X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25)
+
+# Normaliser les données - MinMaxScaler
+scaler = MinMaxScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 # ---------- Fonction de description -----------
 
@@ -429,36 +431,17 @@ if page==pages[3]:
               """)
   st.write("  ")
 
-# ---------- Initialisation du jeu de données -----------
+# ---------- Les 3 modèles -----------
 
-  df3=df2.copy()
-
-# ---------- Split jeu entrainement et jeu de test -----------
-
-  # Isoler les features de la target
-  target = df3['deposit']
-  feats = df3.drop(['deposit'], axis=1)
-
-  # Séparation des données en jeu d'entraînement et de test
-  from sklearn.model_selection import train_test_split
-  X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25)
-
-  # Normaliser les données - MinMaxScaler
-  scaler = MinMaxScaler()
-  X_train = scaler.fit_transform(X_train)
-  X_test = scaler.transform(X_test)
-
+  col1, col2, col3, col4 = st.columns(4)
+         
   # Sauvegarde des résulats de chacun des modèles
   models=[]
   scores =[]
   precision=[]
   rappel=[]
   roc=[]
-
-# ---------- Les 3 modèles -----------
-
-  col1, col2, col3, col4 = st.columns(4)
-
+         
 # Régression logistique -----------------------------------------------------------------------
 
   with col1:
@@ -634,6 +617,27 @@ if page==pages[4]:
 
   st.title("Personnaliser votre campagne")
 
-  age = st.slider('How old are you?', 0, 130, 25)
-  st.write("I'm ", age, 'years old')
+  month = st.select_slider(
+           "Choisir le mois de lancement de la campagne :",
+           options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec')]
+  st.info('Vous avez sélectionné le mois :', month)
          
+  feats_modif=feats.copy()
+  feats_modif["month_jan"]=0
+  feats_modif["month_feb"]=0
+  feats_modif["month_mar"]=0
+  feats_modif["month_apr"]=0
+  feats_modif["month_may"]=0
+  feats_modif["month_jun"]=0
+  feats_modif["month_jul"]=0
+  feats_modif["month_aug"]=0  
+  feats_modif["month_sep"]=0  
+  feats_modif["month_oct"]=0  
+  feats_modif["month_nov"]=0  
+  feats_modif["month_dec"]=0  
+  feats_modif[month]=1 
+         
+  # Ré-entraine le modèle
+  probs= rfc.predict(feats_modif)
+  st.metric("Nb_yes sur 11162 = ", sum(probs))
+  print("%_yes = ", sum(probs)/11162)
