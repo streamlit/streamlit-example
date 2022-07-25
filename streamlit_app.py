@@ -416,21 +416,26 @@ if page==pages[2]:
 
 if page==pages[3]: 
 
-  st.title("Modèles prédictifs")
+  import time
+  my_bar = st.progress(0)
+
+  for percent_complete in range(10):
+    time.sleep(0.1)
+         
+    st.title("Modèles prédictifs")
   
-  st.markdown("""
+    st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
               * La **régression logistique** ou RLC
               * Le modèle **K-plus proches voisins** ou KNN
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
-  """)
+              """)
+    my_bar.progress(percent_complete + 1)
 
 # ---------- Initialisation du jeu de données -----------
 
-  df3=df2.copy()
-
-  with st.spinner('Wait for it...'):
+    df3=df2.copy()
 
 # ---------- Split jeu entrainement et jeu de test -----------
 
@@ -453,6 +458,8 @@ if page==pages[3]:
     precision=[]
     rappel=[]
     roc=[]
+
+    my_bar.progress(percent_complete + 1)
 
 # ---------- Les 3 modèles -----------
 
@@ -483,6 +490,8 @@ if page==pages[3]:
       roc.append(roc_auc_score(y_test, rlc.predict(X_test)))
       probs_rlc = rlc.predict_proba(X_test)
 
+    my_bar.progress(percent_complete + 1)
+         
 # K plus proche voisins -----------------------------------------------------------------------
 
     with col2:
@@ -508,6 +517,8 @@ if page==pages[3]:
       roc.append(roc_auc_score(y_test, knn.predict(X_test)))
       probs_knn = knn.predict_proba(X_test)
 
+    my_bar.progress(percent_complete + 1)         
+ 
 # Arbre de décision -----------------------------------------------------------------------
 
     with col3:
@@ -532,6 +543,8 @@ if page==pages[3]:
       rappel.append(recall_score(y_test, dtc.predict(X_test)))
       roc.append(roc_auc_score(y_test, dtc.predict(X_test)))
       probs_dtc = dtc.predict_proba(X_test)
+
+    my_bar.progress(percent_complete + 1)   
 
 # Random Forest -----------------------------------------------------------------------
 
@@ -558,6 +571,7 @@ if page==pages[3]:
       roc.append(roc_auc_score(y_test, rfc.predict(X_test)))
       probs_rfc = rfc.predict_proba(X_test)
 
+    my_bar.progress(percent_complete + 1)   
 
 # Comparaison des résultats -----------------------------------------------------------------------
 
@@ -602,7 +616,7 @@ if page==pages[3]:
 
   # Les courbes
   import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(20,6))
+  fig = plt.figure(figsize=(20,10))
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
