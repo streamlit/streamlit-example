@@ -460,6 +460,9 @@ if page==pages[3]:
 
   with col1:
     st.subheader("Modèle RLC")
+    st.image("regression-lineaire.png")        
+
+  rlc_ico= 
     #rlc = linear_model.LogisticRegression(C=10)
     #rlc.fit(X_train, y_train)
         
@@ -483,6 +486,7 @@ if page==pages[3]:
 
   with col2:
     st.subheader("Modèle KNN")
+    st.image("networking.png")
 
     #knn = neighbors.KNeighborsClassifier(n_neighbors=39)
     #knn.fit(X_train, y_train)
@@ -507,6 +511,7 @@ if page==pages[3]:
 
   with col3:
     st.subheader("Modèle DTC")
+    st.image("arbre-de-decision.png")
 
     #dtc = tree.DecisionTreeClassifier(max_depth=9)
     #dtc.fit(X_train, y_train)  
@@ -531,6 +536,7 @@ if page==pages[3]:
 
   with col4:
     st.subheader("Modèle RFC")
+    st.image("foret.png")
 
     #rfc = ensemble.RandomForestClassifier(n_jobs=1) 
     #rfc.fit(X_train, y_train)
@@ -554,7 +560,7 @@ if page==pages[3]:
 
 # Comparaison des résultats -----------------------------------------------------------------------
 
-  st.header("Comparaison des 4 modèles")
+  #st.header("Comparaison des 4 modèles")
   
   tab1, tab2 = st.columns(2)
   #st.tabs(["📊 Chart", "📈 Courbe ROC"])
