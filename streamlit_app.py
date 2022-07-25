@@ -135,9 +135,9 @@ if page==pages[0]:
 
   st.markdown("""
            Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit
-           que l’on appelle un 'dépôt à terme'.
+           que l’on appelle un 'dépôt à terme'. \n
            Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration
-           du terme.
+           du terme. \n
            En échange, le client reçoit des intérêts de la part de la banque à la fin du terme. 
            Le jeu de données est téléchargeable au lien suivant :
            https://www.kaggle.com/janiobachmann/bank-marketing-dataset
@@ -194,8 +194,8 @@ if page==pages[1]:
   st.title("Analyse du jeu de données")
   st.markdown("""
            L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative
-           afin que des **insights** en ressortent.
-           L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles.
+           afin que des **insights** en ressortent. \n
+           L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles. \n
            Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.
            """)
 
@@ -404,8 +404,8 @@ if page==pages[2]:
 
   st.header("Les observations :")
   st.info("""
-           On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact).
-           Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action.
+           On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact). \n
+           Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action. \n
            Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.
            """)
 
@@ -454,7 +454,6 @@ if page==pages[3]:
 
 # ---------- Les 3 modèles -----------
 
-  st.header("Entrainements des 4 modèles")
   col1, col2, col3, col4 = st.columns(4)
 
 # Régression logistique -----------------------------------------------------------------------
@@ -556,8 +555,9 @@ if page==pages[3]:
 # Comparaison des résultats -----------------------------------------------------------------------
 
   st.header("Comparaison des 4 modèles")
-         
-  tab1, tab2 = st.tabs(["📊 Chart", "📈 Courbe ROC"])
+  
+  tab1, tab2 = st.columns(2)
+  #st.tabs(["📊 Chart", "📈 Courbe ROC"])
 
   # Recap des scores
   compare = pd.DataFrame(models)
@@ -567,13 +567,15 @@ if page==pages[3]:
   compare["rappel"]=rappel
   compare["roc"]=roc
 
-  #Graphique de comparaison des résultats     
+  #Graphique de comparaison des résultats
+  tab1.subheader("📊 Graphique de comparaison")
   fig = plt.figure(figsize=(20,6))
   bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
   tab1.plotly_chart(bar)     
 
   # Comparaison avec l'indice des ROC
+  tab2.subheader("📈 Courbe ROC")
 
   # Regression logistique
   fpr_rlc, tpr_rlc, seuils = roc_curve(y_test, probs_rlc[:,1])
@@ -593,13 +595,13 @@ if page==pages[3]:
 
   # Les courbes
   import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(10,6))
+  fig = plt.figure(figsize=(20,6))
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(xaxis_title='Taux de faux positifs', yaxis_title='Taux de vrais positifs')
+  #fig.update_layout(xaxis_title='Taux de faux positifs', yaxis_title='Taux de vrais positifs')
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
