@@ -414,164 +414,149 @@ if page==pages[2]:
 # 4/ Challenge de modèles
 # ______________________________________________________________________________________________________
 
-if page==pages[3]: 
-
-  import time
-  my_bar = st.progress(0)
-
-  for percent_complete in range(6):
-    time.sleep(0.1)
+if page==pages[3]:
          
-    st.title("Modèles prédictifs")
+  st.title("Modèles prédictifs")
   
-    st.markdown("""
+  st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
               * La **régression logistique** ou RLC
               * Le modèle **K-plus proches voisins** ou KNN
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
               """)
-    my_bar.progress(percent_complete + 1)
+  my_bar.progress(percent_complete + 1)
 
 # ---------- Initialisation du jeu de données -----------
 
-    df3=df2.copy()
+  df3=df2.copy()
 
 # ---------- Split jeu entrainement et jeu de test -----------
 
-    # Isoler les features de la target
-    target = df3['deposit']
-    feats = df3.drop(['deposit'], axis=1)
+  # Isoler les features de la target
+  target = df3['deposit']
+  feats = df3.drop(['deposit'], axis=1)
 
-    # Séparation des données en jeu d'entraînement et de test
-    from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25)
+  # Séparation des données en jeu d'entraînement et de test
+  from sklearn.model_selection import train_test_split
+  X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25)
 
-    # Normaliser les données - MinMaxScaler
-    scaler = MinMaxScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
+  # Normaliser les données - MinMaxScaler
+  scaler = MinMaxScaler()
+  X_train = scaler.fit_transform(X_train)
+  X_test = scaler.transform(X_test)
 
-    # Sauvegarde des résulats de chacun des modèles
-    models=[]
-    scores =[]
-    precision=[]
-    rappel=[]
-    roc=[]
+  # Sauvegarde des résulats de chacun des modèles
+  models=[]
+  scores =[]
+  precision=[]
+  rappel=[]
+  roc=[]
 
-    my_bar.progress(percent_complete + 1)
+  my_bar.progress(percent_complete + 1)
 
 # ---------- Les 3 modèles -----------
 
-    col1, col2, col3, col4 = st.columns(4)
+  col1, col2, col3, col4 = st.columns(4)
 
 # Régression logistique -----------------------------------------------------------------------
 
-    with col1:
-      st.subheader("Modèle RLC")
-      st.image("regression-lineaire.png")        
- 
-      #rlc = linear_model.LogisticRegression(C=10)
-      #rlc.fit(X_train, y_train)
+  with col1:
+    st.subheader("Modèle RLC")
+    st.image("regression-lineaire.png")        
+    #rlc = linear_model.LogisticRegression(C=10)
+    #rlc.fit(X_train, y_train)
         
-      st.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
-      st.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
-      st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rlc.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rlc.predict(X_test))))
 
-      y_pred = rlc.predict(X_test)
-      st.write("Matrice de confusion :")
-      st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    y_pred = rlc.predict(X_test)
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
-      # Sauvegarde des résultats
-      models.append("Regression logistique")
-      scores.append(rlc.score(X_test, y_test))
-      precision.append(precision_score(y_test, rlc.predict(X_test)))
-      rappel.append(recall_score(y_test, rlc.predict(X_test)))
-      roc.append(roc_auc_score(y_test, rlc.predict(X_test)))
-      probs_rlc = rlc.predict_proba(X_test)
-
-    my_bar.progress(percent_complete + 1)
+    # Sauvegarde des résultats
+    models.append("Regression logistique")
+    scores.append(rlc.score(X_test, y_test))
+    precision.append(precision_score(y_test, rlc.predict(X_test)))
+    rappel.append(recall_score(y_test, rlc.predict(X_test)))
+    roc.append(roc_auc_score(y_test, rlc.predict(X_test)))
+    probs_rlc = rlc.predict_proba(X_test)
          
 # K plus proche voisins -----------------------------------------------------------------------
 
-    with col2:
-      st.subheader("Modèle KNN")
-      st.image("networking.png")
+  with col2:
+    st.subheader("Modèle KNN")
+    st.image("networking.png")
 
-      #knn = neighbors.KNeighborsClassifier(n_neighbors=39)
-      #knn.fit(X_train, y_train)
+    #knn = neighbors.KNeighborsClassifier(n_neighbors=39)
+    #knn.fit(X_train, y_train)
       
-      st.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
-      st.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
-      st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, knn.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, knn.predict(X_test))))
 
-      y_pred = knn.predict(X_test)
-      st.write("Matrice de confusion :")
-      st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    y_pred = knn.predict(X_test)
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
-      # Sauvegarde des résultats
-      models.append("K plus proches voisins")
-      scores.append(knn.score(X_test, y_test))
-      precision.append(precision_score(y_test, knn.predict(X_test)))
-      rappel.append(recall_score(y_test, knn.predict(X_test)))
-      roc.append(roc_auc_score(y_test, knn.predict(X_test)))
-      probs_knn = knn.predict_proba(X_test)
-
-    my_bar.progress(percent_complete + 1)         
- 
+    # Sauvegarde des résultats
+    models.append("K plus proches voisins")
+    scores.append(knn.score(X_test, y_test))
+    precision.append(precision_score(y_test, knn.predict(X_test)))
+    rappel.append(recall_score(y_test, knn.predict(X_test)))
+    roc.append(roc_auc_score(y_test, knn.predict(X_test)))
+    probs_knn = knn.predict_proba(X_test)
+     
 # Arbre de décision -----------------------------------------------------------------------
 
-    with col3:
-      st.subheader("Modèle DTC")
-      st.image("arbre-de-decision.png")
+  with col3:
+    st.subheader("Modèle DTC")
+    st.image("arbre-de-decision.png")
 
-      #dtc = tree.DecisionTreeClassifier(max_depth=9)
-      #dtc.fit(X_train, y_train)  
+    #dtc = tree.DecisionTreeClassifier(max_depth=9)
+    #dtc.fit(X_train, y_train)  
         
-      st.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
-      st.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
-      st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
 
-      y_pred = dtc.predict(X_test)
-      st.write("Matrice de confusion :")
-      st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    y_pred = dtc.predict(X_test)
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
-      # Sauvegarde des résultats
-      models.append("Decision Tree")
-      scores.append(dtc.score(X_test, y_test))
-      precision.append(precision_score(y_test, dtc.predict(X_test)))
-      rappel.append(recall_score(y_test, dtc.predict(X_test)))
-      roc.append(roc_auc_score(y_test, dtc.predict(X_test)))
-      probs_dtc = dtc.predict_proba(X_test)
-
-    my_bar.progress(percent_complete + 1)   
+    # Sauvegarde des résultats
+    models.append("Decision Tree")
+    scores.append(dtc.score(X_test, y_test))
+    precision.append(precision_score(y_test, dtc.predict(X_test)))
+    rappel.append(recall_score(y_test, dtc.predict(X_test)))
+    roc.append(roc_auc_score(y_test, dtc.predict(X_test)))
+    probs_dtc = dtc.predict_proba(X_test)
 
 # Random Forest -----------------------------------------------------------------------
 
-    with col4:
-      st.subheader("Modèle RFC")
-      st.image("foret.png")
+  with col4:
+    st.subheader("Modèle RFC")
+    st.image("foret.png")
 
-      #rfc = ensemble.RandomForestClassifier(n_jobs=1) 
-      #rfc.fit(X_train, y_train)
+    #rfc = ensemble.RandomForestClassifier(n_jobs=1) 
+    #rfc.fit(X_train, y_train)
     
-      st.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
-      st.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
-      st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
+    st.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
+    st.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
+    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
 
-      y_pred = rfc.predict(X_test)
-      st.write("Matrice de confusion :")
-      st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    y_pred = rfc.predict(X_test)
+    st.write("Matrice de confusion :")
+    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
-      # Sauvegarde des résultats
-      models.append("Random Forest")
-      scores.append(rfc.score(X_test, y_test))
-      precision.append(precision_score(y_test, rfc.predict(X_test)))
-      rappel.append(recall_score(y_test, rfc.predict(X_test)))
-      roc.append(roc_auc_score(y_test, rfc.predict(X_test)))
-      probs_rfc = rfc.predict_proba(X_test)
-
-    my_bar.progress(percent_complete + 1)   
+    # Sauvegarde des résultats
+    models.append("Random Forest")
+    scores.append(rfc.score(X_test, y_test))
+    precision.append(precision_score(y_test, rfc.predict(X_test)))
+    rappel.append(recall_score(y_test, rfc.predict(X_test)))
+    roc.append(roc_auc_score(y_test, rfc.predict(X_test)))
+    probs_rfc = rfc.predict_proba(X_test)
 
 # Comparaison des résultats -----------------------------------------------------------------------
 
