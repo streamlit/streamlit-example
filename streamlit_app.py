@@ -17,6 +17,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from joblib import dump, load
+from datetime import datetime
 
 from sklearn.metrics import accuracy_score, plot_confusion_matrix, roc_curve, roc_auc_score, auc, precision_score, recall_score, classification_report
 from sklearn import linear_model, neighbors, svm, tree, ensemble
@@ -628,16 +629,11 @@ if page==pages[3]:
 # 5/ BONUS
 # ______________________________________________________________________________________________________
 
-from datetime import datetime
-         
+        
 if page==pages[4]: 
 
   st.title("Personnaliser votre campagne")
 
-  st.sidebar.title("Options")
-  st.sidebar.image('reglages.png')
-
-  d = st.date_input("A quelle date souhaitez-vous lancer la nouvelle campagne ?", datetime.date(2022, 1, 1))
-  t = st.time_input("A combien estimez-vous le temps d'un appel client ?", datetime.time(8, 45))
-
-  start_time = st.slider("When do you start?",value=d,format="MM/DD/YY")
+  d = st.date_input("When's your birthday",datetime.date(2019, 7, 6))
+  st.write('Your birthday is:', d)
+         
