@@ -18,7 +18,7 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 # Configuration du site
 # ______________________________________________________________________________________________________
 
-st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico')
+st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='Agence de Marketing.ico')
 # Import des bibliothèques
 # ______________________________________________________________________________________________________
 
@@ -30,7 +30,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 st.sidebar.title("Sommaire")
-st.sidebar.image('https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico')
+st.sidebar.image('Agence de Marketing.ico')
 
 pages = ["Introduction au jeu de données",
          "Analyse",
@@ -623,5 +623,3 @@ if page==pages[4]:
                     'month_sep','month_oct', 'month_nov','month_dec'])
   st.info('Vous avez sélectionné le mois :', month)
          
-  date = st.date_input("When's your birthday", datetime.datetime(2019, 7, 6))
-  st.write('Your birthday is:', date)
