@@ -199,7 +199,7 @@ if page==pages[1]:
            Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.
            """)
 
-   st.empty()
+  st.empty()
 
 # ---------- Les distributions par type de variables -----------
 
