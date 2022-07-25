@@ -561,8 +561,6 @@ if page==pages[3]:
   tab1.plotly_chart(bar)     
 
   # Comparaison avec l'indice des ROC
-  import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(20,6))
 
   # Regression logistique
   fpr_rlc, tpr_rlc, seuils = roc_curve(y_test, probs_rlc[:,1])
@@ -581,11 +579,13 @@ if page==pages[3]:
   roc_auc_rfc = auc(fpr_rfc, tpr_rfc)
 
   # Les courbes
+  import plotly.graph_objects as go         
+  fig = plt.figure(figsize=(15,6))
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
-  fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='firebrick', width=4, dash='dot')))
+  fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
   fig.update_layout(title='Test affichage courbe de ROC', xaxis_title='Taux de vrais positifs', yaxis_title='Taux de faux positifs')
   tab2.plotly_chart(fig) 
          
