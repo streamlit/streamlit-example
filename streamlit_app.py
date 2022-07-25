@@ -622,22 +622,3 @@ if page==pages[4]:
            options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec')]
   st.info('Vous avez sélectionné le mois :', month)
          
-  feats_modif=feats.copy()
-  feats_modif["month_jan"]=0
-  feats_modif["month_feb"]=0
-  feats_modif["month_mar"]=0
-  feats_modif["month_apr"]=0
-  feats_modif["month_may"]=0
-  feats_modif["month_jun"]=0
-  feats_modif["month_jul"]=0
-  feats_modif["month_aug"]=0  
-  feats_modif["month_sep"]=0  
-  feats_modif["month_oct"]=0  
-  feats_modif["month_nov"]=0  
-  feats_modif["month_dec"]=0  
-  feats_modif[month]=1 
-         
-  # Ré-entraine le modèle
-  probs= rfc.predict(feats_modif)
-  st.metric("Nb_yes sur 11162 = ", sum(probs))
-  print("%_yes = ", sum(probs)/11162)
