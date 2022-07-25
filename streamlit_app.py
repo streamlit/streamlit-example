@@ -419,7 +419,7 @@ if page==pages[3]:
   import time
   my_bar = st.progress(0)
 
-  for percent_complete in range(10):
+  for percent_complete in range(6):
     time.sleep(0.1)
          
     st.title("Modèles prédictifs")
