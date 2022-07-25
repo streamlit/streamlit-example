@@ -199,7 +199,7 @@ if page==pages[1]:
            Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.
            """)
 
-  st.empty()
+  st.write(" ")
 
 # ---------- Les distributions par type de variables -----------
 
@@ -426,7 +426,7 @@ if page==pages[3]:
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
               """)
-  st.empty()
+  st.write("  ")
 
 # ---------- Initialisation du jeu de données -----------
 
@@ -559,7 +559,7 @@ if page==pages[3]:
 
 # Comparaison des résultats -----------------------------------------------------------------------
 
-  st.empty()
+  st.write(" ")
   #st.header("Comparaison des 4 modèles")
   
   tab1, tab2 = st.columns(2)
