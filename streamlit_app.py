@@ -1,14 +1,5 @@
 
 # ______________________________________________________________________________________________________
-# Import des bibliothèques
-# ______________________________________________________________________________________________________
-
-import streamlit as st
-import pandas as pd
-import seaborn as sns
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 from sklearn.model_selection import train_test_split
@@ -28,6 +19,15 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 # ______________________________________________________________________________________________________
 
 st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico')
+# Import des bibliothèques
+# ______________________________________________________________________________________________________
+
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 st.sidebar.title("Sommaire")
 st.sidebar.image('https://raw.githubusercontent.com/amelievert/streamlit-example/master/Agence%20de%20Marketing.ico')
@@ -585,12 +585,12 @@ if page==pages[3]:
 
   # Les courbes
   import plotly.graph_objects as go         
-  layout = go.Layout(autosize=False, width=1000, height=1500)
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc, layout=layout))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
+  fig.update_layout(autosize=1)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -623,5 +623,5 @@ if page==pages[4]:
                     'month_sep','month_oct', 'month_nov','month_dec'])
   st.info('Vous avez sélectionné le mois :', month)
          
-  date = st.date_input("When's your birthday", datetime.date(2019, 7, 6))
+  date = st.date_input("When's your birthday", datetime.datetime(2019, 7, 6))
   st.write('Your birthday is:', date)
