@@ -35,7 +35,6 @@ pages = ["Introduction au jeu de données",
          "Analyse",
          "Preprocessing",
          "Challenge de modèles",
-         "Interprétabilité",
          "Pour aller plus loin"]
 
 page = st.sidebar.radio("Aller vers", pages) 
@@ -134,14 +133,15 @@ if page==pages[0]:
 
   st.title("Description du jeu de données")
 
-  st.markdown(
-           "Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit "
-           "que l’on appelle un 'dépôt à terme'. "
-           "Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration "
-           "du terme."
-           "En échange, le client reçoit des intérêts de la part de la banque à la fin du terme.  \n" 
-           "Le jeu de données est téléchargeable au lien suivant :"
-           "https://www.kaggle.com/janiobachmann/bank-marketing-dataset")
+  st.markdown("""
+           Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit
+           que l’on appelle un 'dépôt à terme'.
+           Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration
+           du terme.
+           En échange, le client reçoit des intérêts de la part de la banque à la fin du terme. 
+           Le jeu de données est téléchargeable au lien suivant :
+           https://www.kaggle.com/janiobachmann/bank-marketing-dataset
+           """)
          
 # ---------- Les chiffres clés -----------
 
@@ -175,14 +175,15 @@ if page==pages[0]:
 # ---------- Ce qu'il faut comprendre -----------
 
   st.header("Ce qu'il faut retenir :")
-  st.markdown(
-           "On remarque que certaines variables sont la résultante de la campagne en cours : \n"
-           "* contact \n"
-           "* day \n"
-           "* month \n"
-           "* duration \n"
-           "* campaign \n"
-           "La variable **deposit** est notre variable cible.")
+  st.markdown("""
+           On remarque que certaines variables sont la résultante de la campagne en cours : 
+           * contact
+           * day
+           * month
+           * duration
+           * campaign
+           La variable **deposit** est notre variable cible.
+           """)
          
 # ______________________________________________________________________________________________________
 # 2/ Analyse du jeu de données
@@ -191,11 +192,12 @@ if page==pages[0]:
 if page==pages[1]: 
 
   st.title("Analyse du jeu de données")
-  st.markdown(
-           "L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative "
-           "afin que des **insights** en ressortent.\n"
-           "L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles. \n"
-           "Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.")
+  st.markdown("""
+           L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative
+           afin que des **insights** en ressortent.
+           L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles.
+           Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.
+           """)
 
 # ---------- Les distributions par type de variables -----------
 
@@ -284,18 +286,20 @@ if page==pages[1]:
 # ---------- Les observations -----------
 
   st.header("Observations")
-  st.info(
-           "On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente. \n"
-           "Lorsque PREVIOUS = 0 alors PDAYS = -1")
-  st.info(
-           "Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target _[deposit]_ sont \n"
-           "* **_duration_** = Durée du contact (en secondes) \n"
-           "* **_contact_** = Type de contact \n"
-           "* housing = Prêt immo \n"
-           "* previous = Nb contacts au cours de la campagne précédente \n"
-           "* housing = pdays = Nb jours écoulés depuis le dernier contact de la campagne précédente \n"
-           "* previous = balance = Solde compte bancaire \n"
-           "**Attention** , les **_deux variables_** correspondent à des données non connues à priori (avant lancement de la campagne)")
+  st.info("""
+           On remarque que 8 324 clients n'ont pas été contactés lors de la campagne précédente.
+           Lorsque PREVIOUS = 0 alors PDAYS = -1
+           """)
+  st.info("""
+           Dans l'ordre, les variables les plus corrélées (valeur absolue) avec la target _[deposit]_ sont :
+           * **_duration_** = Durée du contact (en secondes)
+           * **_contact_** = Type de contact 
+           * housing = Prêt immo
+           * previous = Nb contacts au cours de la campagne précédente
+           * housing = pdays = Nb jours écoulés depuis le dernier contact de la campagne précédente
+           * previous = balance = Solde compte bancaire
+           **Attention** , les **_deux variables_** correspondent à des données non connues à priori (avant lancement de la campagne)
+           """)
          
 # ______________________________________________________________________________________________________
 # 3/ Préprocessing
@@ -310,16 +314,16 @@ if page==pages[2]:
 
   expander1 = st.expander("Le préprocessing, ça sert à quoi ?")
 
-  expander1.markdown(
-           "Le préprocessing est une de composante essentielle de la data science. "
-           "Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste. "
-           "Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème. "
-           "Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont : "
-           " /n "
-           "* la transformation des données, \n"
-           "* la réduction des données, \n"
-           "* la sélection des variables \n"
-           "* et à la mise à l'échelle \n")
+  expander1.markdown("""
+           Le préprocessing est une de composante essentielle de la data science.
+           Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste.
+           Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème.
+           Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont :
+           * la transformation des données,
+           * la réduction des données,
+           * la sélection des variables
+           * et à la mise à l'échelle.
+           """)
   
   expander1.image('preprocessing.JPG', caption='Les étapes de préprocessing')     
 
@@ -399,10 +403,11 @@ if page==pages[2]:
 # ---------- Les enseignements -----------
 
   st.header("Les observations :")
-  st.info(
-           "On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact)."
-           "\n Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action."
-           "\n Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.")
+  st.info("""
+           On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact).
+           Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action.
+           Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.
+           """)
 
 
 # ______________________________________________________________________________________________________
@@ -415,8 +420,8 @@ if page==pages[3]:
   
   st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
-              * La **régression logistique** ou RLC : modèle de classification linéaire
-              * Le modèle **K-plus proches voisins** ou KNN 
+              * La **régression logistique** ou RLC
+              * Le modèle **K-plus proches voisins** ou KNN
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
   """)
@@ -599,11 +604,11 @@ if page==pages[3]:
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
     st.write("""
-         La courbe ROC (pour **Receiver Operating Characteristic**) est une courbe qui représente le comportement de notre classifieur à deux classes pour tous les seuils de détection possibles. \n
+         La courbe ROC (pour **Receiver Operating Characteristic**) est une courbe qui représente le comportement de notre classifieur à deux classes pour tous les seuils de détection possibles.
          Si nous utilisons les probabilités d’appartenance à la classe cible renvoyées par notre classifieur au lieu des prédictions,
-         nous pourrions choisir librement à partir de quelle probabilité nous considérons qu’un item est de cette classe. \n
-         En prenant des seuils de 0 à 1 (ou 100%), nous balayons **toutes les possibilités**. \n
-         A chaque seuil, nous pouvons calculer le taux de vrais positifs et le taux de faux positifs. \n
+         nous pourrions choisir librement à partir de quelle probabilité nous considérons qu’un item est de cette classe.
+         En prenant des seuils de 0 à 1 (ou 100%), nous balayons **toutes les possibilités**.
+         A chaque seuil, nous pouvons calculer le taux de vrais positifs et le taux de faux positifs.
          La courbe ROC représente ces résultats avec le taux de faux positifs sur l’axe x et le taux de vrais positifs sur l’axe y.
      """)
 
