@@ -598,7 +598,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=2000, width=600)
+  fig.update_layout(height=800, width=600)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
