@@ -585,25 +585,25 @@ if page==pages[3]:
 
   # Les courbes
   import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(10,10))
-  fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
+  layout = go.Layout(autosize=False,width=1000, height=1000))
+  fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc, layout=layout)
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  #fig.update_layout(xaxis_title='Taux de faux positifs', yaxis_title='Taux de vrais positifs')
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
     st.write("""
          La courbe ROC (pour **Receiver Operating Characteristic**) est une courbe qui représente le comportement de notre classifieur à deux classes pour tous les seuils de détection possibles.
-         Si nous utilisons les probabilités d’appartenance à la classe cible renvoyées par notre classifieur au lieu des prédictions,
+         \n Si nous utilisons les probabilités d’appartenance à la classe cible renvoyées par notre classifieur au lieu des prédictions,
          nous pourrions choisir librement à partir de quelle probabilité nous considérons qu’un item est de cette classe.
-         En prenant des seuils de 0 à 1 (ou 100%), nous balayons **toutes les possibilités**.
-         A chaque seuil, nous pouvons calculer le taux de vrais positifs et le taux de faux positifs.
-         La courbe ROC représente ces résultats avec le taux de faux positifs sur l’axe x et le taux de vrais positifs sur l’axe y.
+         \n En prenant des seuils de 0 à 1 (ou 100%), nous balayons **toutes les possibilités**.
+         \n A chaque seuil, nous pouvons calculer le taux de vrais positifs et le taux de faux positifs.
+         \n La courbe ROC représente ces résultats avec le taux de faux positifs sur l’axe x et le taux de vrais positifs sur l’axe y.
      """)
 
+  st.subheader("🏆 Le modèle gagnant")
   st.success("Le modèle **Random Forest** obtient les meilleures performances et semble le plus équilibré. Il permet de maximiser les positifs.")
 
          
@@ -623,3 +623,5 @@ if page==pages[4]:
                     'month_sep','month_oct', 'month_nov','month_dec'])
   st.info('Vous avez sélectionné le mois :', month)
          
+  date = st.date_input("When's your birthday", datetime.date(2019, 7, 6))
+  st.write('Your birthday is:', date)
