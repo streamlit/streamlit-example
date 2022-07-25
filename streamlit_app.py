@@ -412,7 +412,14 @@ if page==pages[2]:
 if page==pages[3]: 
 
   st.title("Modèles prédictifs")
-     
+  
+  st.markdown("""
+              Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
+              * La **régression logistique** ou RLC : modèle de classification linéaire
+              * Le modèle **K-plus proches voisins** ou KNN 
+              * L'**arbre de décision** ou DTC
+              * Les **forêts aléatoires** ou RFC 
+  """)
 
 # ---------- Initialisation du jeu de données -----------
 
@@ -442,6 +449,7 @@ if page==pages[3]:
 
 # ---------- Les 3 modèles -----------
 
+  st.header("Entrainements des 4 modèles")
   col1, col2, col3, col4 = st.columns(4)
 
 # Régression logistique -----------------------------------------------------------------------
@@ -544,7 +552,7 @@ if page==pages[3]:
 
   st.header("Comparaison des 4 modèles")
          
-  tab1, tab2 = st.tabs(["📊 Chart", "📈 Courbe de ROC"])
+  tab1, tab2 = st.tabs(["📊 Chart", "📈 Courbe ROC"])
 
   # Recap des scores
   compare = pd.DataFrame(models)
@@ -580,13 +588,13 @@ if page==pages[3]:
 
   # Les courbes
   import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(15,6))
+  fig = plt.figure(figsize=(10,6))
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(title='Test affichage courbe de ROC', xaxis_title='Taux de vrais positifs', yaxis_title='Taux de faux positifs')
+  fig.update_layout(xaxis_title='Taux de faux positifs', yaxis_title='Taux de vrais positifs')
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
