@@ -16,6 +16,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+from joblib import dump, load
 
 from sklearn.metrics import accuracy_score, plot_confusion_matrix, roc_curve, roc_auc_score, auc, precision_score, recall_score, classification_report
 from sklearn import linear_model, neighbors, svm, tree, ensemble
@@ -41,10 +42,14 @@ page = st.sidebar.radio("Aller vers", pages)
 
 
 # ______________________________________________________________________________________________________
-# Import du jeu de données
+# Import du jeu de données et des modèles à utiliser
 # ______________________________________________________________________________________________________
 
 df = pd.read_csv('bank.csv', sep = ',')
+rlc = load('Regression logistique.joblib')
+rfc = load('Random Forest Classifier 2.joblib')
+knn = load('K plus proches voisins.joblib')
+dtc = load('Decision Tree Classifier.joblib')
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -443,8 +448,8 @@ if page==pages[3]:
 
   with col1:
     st.subheader("Modèle RLC")
-    rlc = linear_model.LogisticRegression(C=10)
-    rlc.fit(X_train, y_train)
+    #rlc = linear_model.LogisticRegression(C=10)
+    #rlc.fit(X_train, y_train)
         
     st.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
     st.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
@@ -467,8 +472,8 @@ if page==pages[3]:
   with col2:
     st.subheader("Modèle KNN")
 
-    knn = neighbors.KNeighborsClassifier(n_neighbors=39)
-    knn.fit(X_train, y_train)
+    #knn = neighbors.KNeighborsClassifier(n_neighbors=39)
+    #knn.fit(X_train, y_train)
       
     st.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
     st.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
@@ -491,8 +496,8 @@ if page==pages[3]:
   with col3:
     st.subheader("Modèle DTC")
 
-    dtc = tree.DecisionTreeClassifier(max_depth=9)
-    dtc.fit(X_train, y_train)  
+    #dtc = tree.DecisionTreeClassifier(max_depth=9)
+    #dtc.fit(X_train, y_train)  
         
     st.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
     st.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
@@ -515,8 +520,8 @@ if page==pages[3]:
   with col4:
     st.subheader("Modèle RFC")
 
-    rfc = ensemble.RandomForestClassifier(n_jobs=1) 
-    rfc.fit(X_train, y_train)
+    #rfc = ensemble.RandomForestClassifier(n_jobs=1) 
+    #rfc.fit(X_train, y_train)
     
     st.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
     st.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
