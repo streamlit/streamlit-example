@@ -619,6 +619,7 @@ if page==pages[4]:
 
   month = st.select_slider(
            "Choisir le mois de lancement de la campagne :",
-           options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec')]
+           options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug',
+                    'month_sep','month_oct', 'month_nov','month_dec'])
   st.info('Vous avez sélectionné le mois :', month)
          
