@@ -601,7 +601,7 @@ if page==pages[3]:
 
   # Les courbes
   import plotly.graph_objects as go         
-  fig = plt.figure(figsize=(20,15))
+  fig = plt.figure(figsize=(10,10))
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
@@ -621,3 +621,23 @@ if page==pages[3]:
      """)
 
   st.success("Le modèle **Random Forest** obtient les meilleures performances et semble le plus équilibré. Il permet de maximiser les positifs.")
+
+         
+         
+# ______________________________________________________________________________________________________
+# 5/ BONUS
+# ______________________________________________________________________________________________________
+
+from datetime import datetime
+         
+if page==pages[4]: 
+
+  st.title("Personnaliser votre campagne")
+
+  st.sidebar.title("Options")
+  st.sidebar.image('reglages.png')
+
+  d = st.date_input("A quelle date souhaitez-vous lancer la nouvelle campagne ?", datetime.date(2022, 1, 1))
+  t = st.time_input("A combien estimez-vous le temps d'un appel client ?", datetime.time(8, 45))
+
+  start_time = st.slider("When do you start?",value=d,format="MM/DD/YY")
