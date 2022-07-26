@@ -598,7 +598,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=800, width=600)
+  fig.update_layout(height=600, width=2000)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -626,16 +626,52 @@ if page==pages[4]:
   st.title("⚙️ Personnaliser votre campagne")
   #st.image("reglages.png")
   col1, col2, col3 = st.columns(3)
+  st.write(" ")
 
-  m = col1.select_slider(
-     '📅 Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
-     options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
-         
-  d = col1.select_slider(
-     "⌚ A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
-     options=["2:30","4:00", "8:00", "10:00"])
-        
+# Volet personnalisation de la campagne -----------------------------------------------------------------------
+
   model = col1.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
+
+  m = col2.select_slider(
+     '📅 Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
+     options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
+         
+  d = col3.select_slider(
+     "⌚ A combien estimez-vous le temps moyen d'un appel téléphonique pour cette campagne ?",
+     options=["0:00","1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
+   
+  st.write(" ")
+
+# Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
+
+  if st.button('Lancer la prédiction'): 
+     st.write('Why hello there')
+     for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
+       feats_modif=feats.copy()
+       feats_modif[month]=0 
+       if m="Janvier":
+         
+
+
+  else:
+     st.write(' ')
+
+# Téléchargement des résultats -----------------------------------------------------------------------
+
+  @st.cache
+    def convert_df(df):
+     # IMPORTANT: Cache the conversion to prevent computation on every rerun
+      return df.to_csv().encode('utf-8')
+
+  csv = convert_df(my_large_df)
+
+  st.download_button(
+     label="Télécharger les prédictions",
+     data=csv,
+     file_name='large_df.csv',
+     mime='text/csv',
+   )
+
 
