@@ -137,8 +137,8 @@ def describe_df(df):
 
 # ---------- Fonction d'export -----------
 
-  def convert_df(df):
-    return df.to_csv().encode('utf-8')
+def convert_df(df):
+  return df.to_csv().encode('utf-8')
 
 # ______________________________________________________________________________________________________
 # 1/ Introduction au jeu de données
