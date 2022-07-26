@@ -628,13 +628,9 @@ if page==pages[4]:
   m = st.select_slider(
      'Selectionner le mois prévisionnel de lancement de la nouvelle campagne :',
      options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul', 'month_aug', 'month_sep','month_oct', 'month_nov','month_dec'])
-
-  d = st.select_slider(
-     'Selectionner la durée prévue pour les appels téléphoniques :',
-     options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul', 'month_aug', 'month_sep','month_oct', 'month_nov','month_dec'])
-
-   d = st.slider(
+         
+  d = st.slider(
      "Combien de temps prévoyez-vous en moyenne par appel téléphonique ?",
      value=datetime(0, 3, 30),
      format="hh:mm:ss")
-   st.write("Start time:", d)
+  st.write("Start time:", d)
