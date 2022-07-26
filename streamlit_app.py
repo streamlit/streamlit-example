@@ -637,7 +637,7 @@ if page==pages[4]:
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
-  col.write(" ")
+  col1.write(" ")
   model = col1.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
