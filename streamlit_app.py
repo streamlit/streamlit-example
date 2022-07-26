@@ -626,11 +626,10 @@ if page==pages[4]:
   st.title("Personnaliser votre campagne")
 
   m = st.select_slider(
-     'Selectionner le mois prévisionnel de lancement de la nouvelle campagne :',
-     options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul', 'month_aug', 'month_sep','month_oct', 'month_nov','month_dec'])
+     'Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
+     options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
-  d = st.slider(
-     "Combien de temps prévoyez-vous en moyenne par appel téléphonique ?",
-     value=datetime(0, 3, 30),
-     format="hh:mm:ss")
-  st.write("Start time:", d)
+  d = st.select_slider(
+     "A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
+     options=["2:30","4:00", "8:00", "10:00"])
+        
