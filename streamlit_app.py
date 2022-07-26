@@ -710,7 +710,6 @@ if page==pages[4]:
     # Entrainement du modèle choisi -----------------------------------
     
     y_pred = classifieur.predict(feats_modif_x)
-    col3.metric("Nb_yes sur 11162", sum(probs))
 
     probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
     probas=probas.drop(probas['PROBA_NO'], axis=1)
