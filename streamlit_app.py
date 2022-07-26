@@ -27,15 +27,6 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 # ______________________________________________________________________________________________________
 
 st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='Agence de Marketing.ico')
-# Import des bibliothèques
-# ______________________________________________________________________________________________________
-
-import streamlit as st
-import pandas as pd
-import seaborn as sns
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
 st.sidebar.title("Sommaire")
 st.sidebar.image('Agence de Marketing.ico')
@@ -714,12 +705,11 @@ if page==pages[4]:
     col5.write(classifieur)
 
     y_pred = classifieur.predict(feats_modif_x)
-    #probas=pd.DataFrame(y_pred, columns=['Prédictions'], index=feats_modif_x.index)
-
-    probas = y_pred.value_counts()     
+    probas=pd.DataFrame(y_pred, columns=['Prédictions'], index=feats_modif_x.index)
+    probas = probas.value_counts()     
     probas = pd.DataFrame(probas,columns = ['Prédictions', 'Total']).reset_index()  
     col5.write(probas)
          
-    #pie = px.pie(probas, values="Total", names="Prédictions", hole=.3, title='Répartition des prédictions')
-    #col5.plotly_chart(pie)     
+    pie = px.pie(probas, values="Total", names="Prédictions", hole=.3, title='Répartition des prédictions')
+    col5.plotly_chart(pie)     
 
