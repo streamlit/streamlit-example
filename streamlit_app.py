@@ -659,37 +659,37 @@ if page==pages[4]:
     feats_modif_x=feats_modif.copy()
 
     # Choix du modèle -----------------------------------
-    if model = "Régression logistique":
+    if model == "Régression logistique":
       classifieur = rlc
-    elif model = "K-Plus proches voisins":
+    elif model == "K-Plus proches voisins":
       classifieur = knn
-    elif model = "Arbre de décisions":
+    elif model == "Arbre de décisions":
       classifieur = dtc
     else:
       classifieur = rfc
 
     # Choix du mois -----------------------------------
-    if m = "Janvier":
+    if m == "Janvier":
       feats_modif_x["month_jan"]=1
-    elif m = "Février":
+    elif m == "Février":
       feats_modif_x["month_feb"]=1
-    elif m = "Mars":
+    elif m == "Mars":
       feats_modif_x["month_mar"]=1
-    elif m = "Avril":
+    elif m == "Avril":
       feats_modif_x["month_apr"]=1
-    elif m = "Mai":
+    elif m == "Mai":
       feats_modif_x["month_may"]=1
     elif m = "Juin":
       feats_modif_x["month_jun"]=1
-    elif m = "Juillet":
+    elif m == "Juillet":
       feats_modif_x["month_jul"]=1
-    elif m = "Août":
+    elif m == "Août":
       feats_modif_x["month_aug"]=1
-    elif m = "Septembre":
+    elif m == "Septembre":
       feats_modif_x["month_sep"]=1
-    elif m = "Octobre":
+    elif m == "Octobre":
       feats_modif_x["month_oct"]=1
-    elif m = "Novembre":
+    elif m == "Novembre":
       feats_modif_x["month_nov"]=1
     else:
       feats_modif_x["month_dec"]=1
