@@ -623,19 +623,19 @@ if page==pages[3]:
         
 if page==pages[4]: 
 
-  st.title("Personnaliser votre campagne")
-  st.image("reglages.png")
-  col1, col2, col3  = st.columns(3)
+  st.title("⚙️ Personnaliser votre campagne")
+  #st.image("reglages.png")
+  col1, col2 = st.columns(2)
 
   m = col1.select_slider(
-     'Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
+     '📅 Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
   d = col1.select_slider(
-     "A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
+     "⌚ A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
      options=["2:30","4:00", "8:00", "10:00"])
         
-  model = col1.radio(
-     "Quel modèle prédictif souhaitez-vous privilégier ?",
+  model = col2.radio(
+     "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
 
