@@ -605,7 +605,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=500, width=1000)
+  fig.update_layout(height=400, width=800)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -696,13 +696,13 @@ if page==pages[4]:
 
     # Choix de la durée -----------------------------------
     if d in ["1:00","2:00"]:
-      feats_modif_x["duration_1"]=1
+      feats_modif_x["t_duration_1"]=1
     elif d in ["3:00","4:00"]:
-      feats_modif_x["duration_2"]=1    
+      feats_modif_x["t_duration_2"]=1    
     elif d in ["4:00","5:00","6:00","7:00"]:
-      feats_modif_x["duration_3"]=1                  
+      feats_modif_x["t_duration_3"]=1                  
     else:
-      feats_modif_x["duration_4"]=1    
+      feats_modif_x["t_duration_4"]=1    
 
     # Entrainement du modèle choisi -----------------------------------
     
