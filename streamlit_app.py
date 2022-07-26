@@ -633,3 +633,7 @@ if page==pages[4]:
      "A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
      options=["2:30","4:00", "8:00", "10:00"])
         
+  model = st.radio(
+     "Quel modèle prédictif souhaitez-vous privilégier ?",
+     ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
+
