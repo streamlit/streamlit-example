@@ -679,7 +679,7 @@ if page==pages[4]:
       feats_modif_x["month_apr"]=1
     elif m == "Mai":
       feats_modif_x["month_may"]=1
-    elif m = "Juin":
+    elif m == "Juin":
       feats_modif_x["month_jun"]=1
     elif m == "Juillet":
       feats_modif_x["month_jul"]=1
@@ -711,7 +711,6 @@ if page==pages[4]:
     col4.metric("Nb_yes sur 11162 = ", sum(probs))
     col4.metric("Performance de la campagne", "{:.2%}".format(sum(probs)/11162)))
 
-         
   else:
      col4.write(' ')
 
@@ -722,7 +721,7 @@ if page==pages[4]:
   # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode('utf-8')
 
-  csv = convert_df(feats_modif)
+  csv = convert_df(feats_modif_x)
   col5.download_button(
      label="Download data as CSV",
      data=csv,
