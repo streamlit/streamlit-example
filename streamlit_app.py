@@ -631,7 +631,7 @@ if page==pages[4]:
 
   st.title("⚙️ Personnaliser votre campagne")
   #st.image("reglages.png")
-  col1, col2, col3  = st.columns(3)
+  col1, col2, col3  = st.columns(2,1,2)
   st.write(" ")
   st.write(" ")
 
@@ -642,7 +642,7 @@ if page==pages[4]:
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
          
   seuil = col1.number_input(
-      "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9)         
+      "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
          
   m = col3.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
@@ -709,10 +709,11 @@ if page==pages[4]:
 
     # Entrainement du modèle choisi -----------------------------------
     
+    col5.write(classifieur)
     y_pred = classifieur.predict(feats_modif_x)
 
     probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
-    probas=probas.drop(probas['PROBA_NO'], axis=1)
+    #probas=probas.drop(probas['PROBA_NO'], axis=1)
     col5.write(probas)
          
 
