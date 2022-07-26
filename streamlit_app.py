@@ -655,17 +655,14 @@ if page==pages[4]:
     for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
       feats_modif[month]=0
 
-# Téléchargement des résultats -----------------------------------------------------------------------
-
-    @st.cache
-    col5.download_button(
-      label="Télécharger les prédictions",
-      data=feats_modif.to_csv().encode('utf-8'),
-      file_name='Mes prédictions.csv',
-      mime='text/csv')
-
   else:
      col4.write(' ')
 
+# Téléchargement des résultats -----------------------------------------------------------------------
 
-
+  @st.cache
+  col5.download_button(
+    label="Télécharger les prédictions",
+    data=feats_modif.to_csv().encode('utf-8'),
+    file_name='Mes prédictions.csv',
+    mime='text/csv')
