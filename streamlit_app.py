@@ -102,12 +102,20 @@ target = df2['deposit']
 feats = df2.drop(['deposit'], axis=1)
 
 # Séparation des données en jeu d'entraînement et de test
-X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25)
+X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25, random_state=123)
 
 # Normaliser les données - MinMaxScaler
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
+# ---------- Jeu de données modifié -----------
+
+feats_modif=feats.copy()
+for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
+  feats_modif[month]=0
+for duration in ["t_duration_1", "t_duration_2", "t_duration_3", "t_duration_4"]:
+  feats_modif[duration]=0
 
 # ---------- Fonction de description -----------
 
@@ -134,6 +142,7 @@ def describe_df(df):
                 .to_json(),
         ]
     return res.T
+
 
 # ______________________________________________________________________________________________________
 # 1/ Introduction au jeu de données
@@ -453,7 +462,8 @@ if page==pages[3]:
 
   with col1:
     st.subheader("Modèle RLC")
-    st.image("regression-lineaire.png")        
+    st.image("regression-lineaire.png")
+         
     #rlc = linear_model.LogisticRegression(C=10)
     #rlc.fit(X_train, y_train)
         
@@ -551,10 +561,8 @@ if page==pages[3]:
 # Comparaison des résultats -----------------------------------------------------------------------
 
   st.write(" ")
-  #st.header("Comparaison des 4 modèles")
   
   tab1, tab2 = st.columns(2)
-  #st.tabs(["📊 Chart", "📈 Courbe ROC"])
 
   # Recap des scores
   compare = pd.DataFrame(models)
@@ -619,7 +627,6 @@ if page==pages[3]:
 # 5/ BONUS
 # ______________________________________________________________________________________________________
 
-        
 if page==pages[4]: 
 
   st.title("⚙️ Personnaliser votre campagne")
@@ -635,12 +642,12 @@ if page==pages[4]:
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
 
   m = col2.select_slider(
-     '📅 Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
+     '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
   d = col3.select_slider(
-     "⌚ A combien estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
-     options=["0:00","1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
+     "⌚ A combien de minutes estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
+     options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
    
   st.write(" ")
 
@@ -648,13 +655,63 @@ if page==pages[4]:
 
   col4, col5 = st.columns(2)
 
-  if col4.button('Lancer la prédiction'):                   
-    col4.write('Why hello there')
+  if col4.button('Lancer la prédiction'): 
+    feats_modif_x=feats_modif.copy()
 
-    feats_modif=feats.copy()
-    for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
-      feats_modif[month]=0
+    # Choix du modèle -----------------------------------
+    if model = "Régression logistique":
+      classifieur = rlc
+    elif model = "K-Plus proches voisins":
+      classifieur = knn
+    elif model = "Arbre de décisions":
+      classifieur = dtc
+    else:
+      classifieur = rfc
 
+    # Choix du mois -----------------------------------
+    if m = "Janvier":
+      feats_modif_x["month_jan"]=1
+    elif m = "Février":
+      feats_modif_x["month_feb"]=1
+    elif m = "Mars":
+      feats_modif_x["month_mar"]=1
+    elif m = "Avril":
+      feats_modif_x["month_apr"]=1
+    elif m = "Mai":
+      feats_modif_x["month_may"]=1
+    elif m = "Juin":
+      feats_modif_x["month_jun"]=1
+    elif m = "Juillet":
+      feats_modif_x["month_jul"]=1
+    elif m = "Août":
+      feats_modif_x["month_aug"]=1
+    elif m = "Septembre":
+      feats_modif_x["month_sep"]=1
+    elif m = "Octobre":
+      feats_modif_x["month_oct"]=1
+    elif m = "Novembre":
+      feats_modif_x["month_nov"]=1
+    else:
+      feats_modif_x["month_dec"]=1
+
+    # Choix de la durée -----------------------------------
+    if d in ["1:00","2:00"]:
+      feats_modif_x["duration_1"]=1
+    elif d in ["3:00","4:00"]:
+      feats_modif_x["duration_2"]=1    
+    elif d in ["4:00","5:00","6:00","7:00"]:
+      feats_modif_x["duration_3"]=1                  
+    else:
+      feats_modif_x["duration_4"]=1    
+
+    # Entrainement du modèle choisi -----------------------------------
+    y_pred = classifieur.predict(feats_modif_x)
+    col4.write("Matrice de confusion :")
+    col4.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    col4.metric("Nb_yes sur 11162 = ", sum(probs))
+    col4.metric("Performance de la campagne", "{:.2%}".format(sum(probs)/11162)))
+
+         
   else:
      col4.write(' ')
 
@@ -666,7 +723,7 @@ if page==pages[4]:
     return df.to_csv().encode('utf-8')
 
   csv = convert_df(feats_modif)
-  st.download_button(
+  col5.download_button(
      label="Download data as CSV",
      data=csv,
      file_name="Mes prédictions.csv",
