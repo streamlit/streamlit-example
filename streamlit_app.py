@@ -661,8 +661,13 @@ if page==pages[4]:
 # Téléchargement des résultats -----------------------------------------------------------------------
 
   @st.cache
-  col5.download_button(
-    label="Télécharger les prédictions",
-    data=feats_modif.to_csv().encode('utf-8'),
-    file_name='Mes prédictions.csv',
-    mime='text/csv')
+  def convert_df(df):
+  # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+  csv = convert_df(feats_modif)
+  st.download_button(
+     label="Download data as CSV",
+     data=csv,
+     file_name="Mes prédictions.csv",
+     mime="text/csv",)
