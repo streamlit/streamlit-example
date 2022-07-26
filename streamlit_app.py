@@ -625,7 +625,7 @@ if page==pages[4]:
 
   st.title("⚙️ Personnaliser votre campagne")
   #st.image("reglages.png")
-  col1, col2 = st.columns(2)
+  col1, col2, col3 = st.columns(3)
 
   m = col1.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
@@ -635,7 +635,7 @@ if page==pages[4]:
      "⌚ A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
      options=["2:30","4:00", "8:00", "10:00"])
         
-  model = col2.radio(
+  model = col1.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
 
