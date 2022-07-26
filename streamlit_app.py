@@ -605,7 +605,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=600, width=2000)
+  fig.update_layout(height=500, width=1000)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -705,31 +705,5 @@ if page==pages[4]:
       feats_modif_x["duration_4"]=1    
 
     # Entrainement du modèle choisi -----------------------------------
-    y_pred = classifieur.predict(feats_modif_x)
-    col4.write("Matrice de confusion :")
-    col4.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    col4.metric("Nb_yes sur 11162 = ", sum(probs))
-    col4.metric("Performance de la campagne", "{:.2%}".format(sum(probs)/11162))
-
-    probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
-    probas = probas.drop(probas['PROBA_NO'], axis=1)
-
-    seuil = 0.5
-    probas['CLASS'] = np.where(probas['PROBA_YES']>seuil,1,0)   
-
-  else:
-     col4.write(' ')
-
-# Téléchargement des résultats -----------------------------------------------------------------------
-
-  @st.cache
-  def convert_df(df):
-  # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('utf-8')
-
-  csv = convert_df(feats_modif_x)
-  col5.download_button(
-     label="Download data as CSV",
-     data=csv,
-     file_name="Mes prédictions.csv",
-     mime="text/csv",)
+    
+    st.write(feats_modif_x)
