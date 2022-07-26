@@ -630,4 +630,7 @@ if page==pages[4]:
      options=['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'])
   st.write('My favorite color is', color)
 
-
+  d = st.date_input(
+     "When's your birthday",
+     datetime.date(2019, 7, 6))
+  st.write('Your birthday is:', d)
