@@ -657,7 +657,7 @@ if page==pages[4]:
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  col4, col5, col6  = st.columns(1,3,1)
+  col4, col5, col6  = st.columns((1,3,1))
 
   if col5.button('Lancer la prédiction'): 
     feats_modif_x=feats_modif.copy()
