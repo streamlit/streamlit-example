@@ -658,11 +658,9 @@ if page==pages[4]:
 # Téléchargement des résultats -----------------------------------------------------------------------
 
     @st.cache
-    csv= feats_modif.to_csv().encode('utf-8')
-
     col5.download_button(
       label="Télécharger les prédictions",
-      data=csv,
+      data=feats_modif.to_csv().encode('utf-8'),
       file_name='Mes prédictions.csv',
       mime='text/csv')
 
