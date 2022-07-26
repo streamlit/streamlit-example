@@ -711,10 +711,9 @@ if page==pages[4]:
     
     col5.write(classifieur)
     col5.write(seuil)
-    col5.write(m)
-    col5.write(d)
 
     y_pred = classifieur.predict(feats_modif_x)
+    col5.write(y_pred)
 
     #probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
     #probas=probas.drop(probas['PROBA_NO'], axis=1)
