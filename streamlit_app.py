@@ -135,11 +135,6 @@ def describe_df(df):
         ]
     return res.T
 
-# ---------- Fonction d'export -----------
-
-def convert_df(df):
-  return df.to_csv().encode('utf-8')
-
 # ______________________________________________________________________________________________________
 # 1/ Introduction au jeu de données
 # ______________________________________________________________________________________________________
@@ -663,7 +658,7 @@ if page==pages[4]:
 # Téléchargement des résultats -----------------------------------------------------------------------
 
     @st.cache
-    csv = convert_df(feats_modif)
+    csv= feats_modif.to_csv().encode('utf-8')
 
     col5.download_button(
       label="Télécharger les prédictions",
