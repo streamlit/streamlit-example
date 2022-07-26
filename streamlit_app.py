@@ -650,10 +650,7 @@ if page==pages[4]:
      st.write('Why hello there')
      for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
        feats_modif=feats.copy()
-       feats_modif[month]=0 
-       if m="Janvier":
-         
-
+       feats_modif[month]=0
 
   else:
      st.write(' ')
@@ -665,7 +662,7 @@ if page==pages[4]:
      # IMPORTANT: Cache the conversion to prevent computation on every rerun
       return df.to_csv().encode('utf-8')
 
-  csv = convert_df(my_large_df)
+  csv = convert_df(feats_modif)
 
   st.download_button(
      label="Télécharger les prédictions",
