@@ -709,7 +709,13 @@ if page==pages[4]:
     col4.write("Matrice de confusion :")
     col4.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
     col4.metric("Nb_yes sur 11162 = ", sum(probs))
-    col4.metric("Performance de la campagne", "{:.2%}".format(sum(probs)/11162)))
+    col4.metric("Performance de la campagne", "{:.2%}".format(sum(probs)/11162))
+
+    probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
+    probas = probas.drop(probas['PROBA_NO'], axis=1)
+
+    seuil = 0.5
+    probas['CLASS'] = np.where(probas['PROBA_YES']>seuil,1,0)   
 
   else:
      col4.write(' ')
