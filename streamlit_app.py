@@ -624,8 +624,8 @@ if page==pages[3]:
 if page==pages[4]: 
 
   st.title("Personnaliser votre campagne")
-
-  col1, col2, col3, col4, col5 = st.columns(5)
+  col1, col2, col3  = st.columns(5)
+  col1.image("reglages.png")
 
   m = col1.select_slider(
      'Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
