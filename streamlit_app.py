@@ -135,6 +135,10 @@ def describe_df(df):
         ]
     return res.T
 
+# ---------- Fonction d'export -----------
+
+  def convert_df(df):
+    return df.to_csv().encode('utf-8')
 
 # ______________________________________________________________________________________________________
 # 1/ Introduction au jeu de données
@@ -627,6 +631,7 @@ if page==pages[4]:
   #st.image("reglages.png")
   col1, col2, col3 = st.columns(3)
   st.write(" ")
+  st.write(" ")
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
@@ -639,36 +644,35 @@ if page==pages[4]:
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
   d = col3.select_slider(
-     "⌚ A combien estimez-vous le temps moyen d'un appel téléphonique pour cette campagne ?",
+     "⌚ A combien estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
      options=["0:00","1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
    
   st.write(" ")
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  if st.button('Lancer la prédiction'): 
-     st.write('Why hello there')
-     for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
-       feats_modif=feats.copy()
-       feats_modif[month]=0
+  col4, col5 = st.columns(2)
 
-  else:
-     st.write(' ')
+  if col4.button('Lancer la prédiction'):                   
+    col4.write('Why hello there')
+
+    feats_modif=feats.copy()
+    for month in ['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul','month_aug', 'month_sep','month_oct', 'month_nov','month_dec']:
+      feats_modif[month]=0
 
 # Téléchargement des résultats -----------------------------------------------------------------------
 
-  @st.cache
-  def convert_df(df):
-     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('utf-8')
+    @st.cache
+    csv = convert_df(feats_modif)
 
-  csv = convert_df(feats_modif)
+    col5.download_button(
+      label="Télécharger les prédictions",
+      data=csv,
+      file_name='Mes prédictions.csv',
+      mime='text/csv')
 
-  st.download_button(
-     label="Télécharger les prédictions",
-     data=csv,
-     file_name='large_df.csv',
-     mime='text/csv',
-   )
+  else:
+     col4.write(' ')
+
 
 
