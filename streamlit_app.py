@@ -658,9 +658,9 @@ if page==pages[4]:
 # Téléchargement des résultats -----------------------------------------------------------------------
 
   @st.cache
-    def convert_df(df):
+  def convert_df(df):
      # IMPORTANT: Cache the conversion to prevent computation on every rerun
-      return df.to_csv().encode('utf-8')
+    return df.to_csv().encode('utf-8')
 
   csv = convert_df(feats_modif)
 
