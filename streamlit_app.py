@@ -625,7 +625,7 @@ if page==pages[4]:
 
   st.title("Personnaliser votre campagne")
 
-  color = st.select_slider(
-     'Select a color of the rainbow',
-     options=['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'])
-  st.write('My favorite color is', color)
+  m = st.select_slider(
+     'Selectionner le mois prévisionnel de lancement de la nouvelle campagne :',
+     options=['month_jan', 'month_feb','month_mar', 'month_apr', 'month_may','month_jun', 'month_jul', 'month_aug', 'month_sep','month_oct', 'month_nov','month_dec'])
+  st.write('Le mois choisi est ', m)
