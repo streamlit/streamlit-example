@@ -633,16 +633,17 @@ if page==pages[4]:
   st.write(" ")
   st.write(" ")
 
-  col1, col2, col3  = st.columns((2,1,2))
+  col1, col2, col3  = st.columns((2,0.5,2))
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
+  col.write(" ")
   model = col1.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
          
-  seuil = col1.number_input(
-      "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
+  #seuil = col1.number_input(
+  #    "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
          
   m = col3.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
@@ -656,7 +657,7 @@ if page==pages[4]:
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  col4, col5, col6  = st.columns(3)
+  col4, col5, col6  = st.columns(1,3,1)
 
   if col5.button('Lancer la prédiction'): 
     feats_modif_x=feats_modif.copy()
@@ -713,10 +714,7 @@ if page==pages[4]:
     col5.write(seuil)
 
     y_pred = classifieur.predict(feats_modif_x)
-    col5.write(y_pred)
-
     probas=pd.DataFrame(y_pred, index=feats_modif_x.index)
-    #probas=probas.drop(probas['PROBA_NO'], axis=1)
     col5.write(probas)
          
 
