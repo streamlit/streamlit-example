@@ -605,7 +605,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=500, width=700)
+  fig.update_layout(height=400, width=500)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -631,7 +631,7 @@ if page==pages[4]:
 
   st.title("⚙️ Personnaliser votre campagne")
   #st.image("reglages.png")
-  col1, col2  = st.columns(2)
+  col1, col2, col3  = st.columns(3)
   st.write(" ")
   st.write(" ")
 
@@ -644,11 +644,11 @@ if page==pages[4]:
   seuil = col1.number_input(
       "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9)         
          
-  m = col2.select_slider(
+  m = col3.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
-  d = col2.select_slider(
+  d = col3.select_slider(
      "⌚ A combien de minutes estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
      options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
    
@@ -656,9 +656,9 @@ if page==pages[4]:
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  col3, col4 = st.columns(2)
+  col4, col5, col6  = st.columns(3)
 
-  if col3.button('Lancer la prédiction'): 
+  if col5.button('Lancer la prédiction'): 
     feats_modif_x=feats_modif.copy()
 
     # Choix du modèle -----------------------------------
@@ -713,6 +713,6 @@ if page==pages[4]:
 
     probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
     probas=probas.drop(probas['PROBA_NO'], axis=1)
-    col3.write(probas)
+    col5.write(probas)
          
 
