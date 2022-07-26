@@ -715,6 +715,6 @@ if page==pages[4]:
 
     y_pred = classifieur.predict(feats_modif_x)
     probas=pd.DataFrame(y_pred, index=feats_modif_x.index)
-    col5.write(probas)
-         
 
+    pie = px.pie(probas, values='0', names='Prédictions', title='Répartition des prédictions')
+    col5.plotly_chart(pie)     
