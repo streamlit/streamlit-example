@@ -625,15 +625,17 @@ if page==pages[4]:
 
   st.title("Personnaliser votre campagne")
 
-  m = st.select_slider(
+  col1, col2, col3, col4, col5 = st.columns(5)
+
+  m = col1.select_slider(
      'Quel est le mois prévisionnel de lancement de la nouvelle campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
-  d = st.select_slider(
+  d = col1.select_slider(
      "A combien estimez-vous le temps d'un appel téléphonique pour cette campagne ?",
      options=["2:30","4:00", "8:00", "10:00"])
         
-  model = st.radio(
+  model = col1.radio(
      "Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
 
