@@ -631,7 +631,7 @@ if page==pages[4]:
 
   st.title("⚙️ Personnaliser votre campagne")
   #st.image("reglages.png")
-  col1, col2, col3  = st.columns(2,1,2)
+  col1, col2, col3  = st.columns((2,1,2))
   st.write(" ")
   st.write(" ")
 
