@@ -630,10 +630,10 @@ if page==pages[3]:
 if page==pages[4]: 
 
   st.title("⚙️ Personnaliser votre campagne")
-  #st.image("reglages.png")
+  st.write(" ")
+  st.write(" ")
+
   col1, col2, col3  = st.columns((2,1,2))
-  st.write(" ")
-  st.write(" ")
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
@@ -710,10 +710,14 @@ if page==pages[4]:
     # Entrainement du modèle choisi -----------------------------------
     
     col5.write(classifieur)
+    col5.write(seuil)
+    col5.write(m)
+    col5.write(d)
+
     y_pred = classifieur.predict(feats_modif_x)
 
-    probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
+    #probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
     #probas=probas.drop(probas['PROBA_NO'], axis=1)
-    col5.write(probas)
+    #col5.write(probas)
          
 
