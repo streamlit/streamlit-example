@@ -605,7 +605,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=400, width=800)
+  fig.update_layout(height=500, width=700)
   tab2.plotly_chart(fig) 
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -631,7 +631,7 @@ if page==pages[4]:
 
   st.title("⚙️ Personnaliser votre campagne")
   #st.image("reglages.png")
-  col1, col2, col3 = st.columns(3)
+  col1, col2  = st.columns(2)
   st.write(" ")
   st.write(" ")
 
@@ -640,12 +640,15 @@ if page==pages[4]:
   model = col1.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
-
+         
+  seuil = col1.number_input(
+      "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9)         
+         
   m = col2.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
-  d = col3.select_slider(
+  d = col2.select_slider(
      "⌚ A combien de minutes estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
      options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
    
@@ -653,9 +656,9 @@ if page==pages[4]:
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  col4, col5 = st.columns(2)
+  col3, col4 = st.columns(2)
 
-  if col4.button('Lancer la prédiction'): 
+  if col3.button('Lancer la prédiction'): 
     feats_modif_x=feats_modif.copy()
 
     # Choix du modèle -----------------------------------
@@ -706,4 +709,11 @@ if page==pages[4]:
 
     # Entrainement du modèle choisi -----------------------------------
     
-    st.write(feats_modif_x)
+    y_pred = classifieur.predict(feats_modif_x)
+    col3.metric("Nb_yes sur 11162", sum(probs))
+
+    probas=pd.DataFrame(y_pred, columns=['PROBA_NO','PROBA_YES'], index=feats_modif_x.index)
+    probas=probas.drop(probas['PROBA_NO'], axis=1)
+    col3.write(probas)
+         
+
