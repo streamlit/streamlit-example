@@ -629,13 +629,12 @@ if page==pages[4]:
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
   col1.write(" ")
-  col1.write(" ")
   model = col1.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
-         
-  #seuil = col1.number_input(
-  #    "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
+  
+  seuil = col1.number_input(
+      "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
          
   m = col3.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
@@ -705,9 +704,11 @@ if page==pages[4]:
     col5.write(classifieur)
 
     y_pred = classifieur.predict(feats_modif_x)
-    probas = pd.DataFrame(y_pred.value_counts(), columns = ['Prédictions', 'Total'])
+    probas=classifieur.predict_proba(feats_modif_x)
+    probas=pd.DataFrame(probas, columns=['NO','Probabilités'], index=feats_modif_x.index)
+    probas = probas.drop(['NO'], axis=1)
+    probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)  
     col5.write(probas)
-    #probas=pd.DataFrame(y_pred, columns=['Prédictions'], index=feats_modif_x.index)     
 
     #pie = px.pie(probas, values=probas.value_counts(), names="Prédictions", hole=.3, title='Répartition des prédictions')
     #col5.plotly_chart(pie)     
