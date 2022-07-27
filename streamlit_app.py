@@ -641,7 +641,7 @@ if page==pages[4]:
          
   d = col4.select_slider(
      "⌚ A combien de minutes estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
-     options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
+     options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"], value=7)
    
   st.write(" ")
 
@@ -721,6 +721,6 @@ if page==pages[4]:
     col5.write(" ") 
     col5.write(" ") 
     col5.subheader("Répartition des prédictions")
-    pie = px.pie(probas, values="Classification", names="Classification", hole=.3)
+    pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
     col5.plotly_chart(pie)
          
