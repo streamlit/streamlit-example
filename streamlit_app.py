@@ -630,7 +630,7 @@ if page==pages[4]:
 
   model = col2.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
-     ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
+     ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'), index=3)
   
   seuil = col2.number_input(
       "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
