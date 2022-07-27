@@ -728,7 +728,13 @@ if page==pages[5]:
     pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
     col10.plotly_chart(pie)
-         
-    col11.metric("Temperature", "70 °F", "1.2 °F")
-    col11.metric("Wind", "9 mph", "-8%")
-    col11.metric("Humidity", "86%", "4%")
+
+    col11.write(" ")
+    col11.write(" ") 
+    col11.write(" ") 
+    col11.subheader("Chiffres clés")
+    col11.metric("Performance de la campagne *", "70 °F", "1.2 °F")
+    col11.metric("Nombre de clients scorés positifs", "9 mph", "-8%")
+    col11.metric("Précison de la prédiction", "86%", "4%")
+    col11.write(" ") 
+    col11.write("* Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.") 
