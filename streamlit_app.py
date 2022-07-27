@@ -705,8 +705,7 @@ if page==pages[4]:
     col5.write(classifieur)
 
     y_pred = classifieur.predict(feats_modif_x)
-    probas = y_pred.value_counts()     
-    probas = pd.DataFrame(probas,columns = ['Prédictions', 'Total']).reset_index()  
+    probas = pd.DataFrame(y_pred.value_counts(), columns = ['Prédictions', 'Total'])
     col5.write(probas)
     #probas=pd.DataFrame(y_pred, columns=['Prédictions'], index=feats_modif_x.index)     
 
