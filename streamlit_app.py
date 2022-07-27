@@ -702,7 +702,7 @@ if page==pages[5]:
     col11.write(" ") 
     col11.write(" ") 
     col11.subheader("Chiffres clés")
-    col11.metric("Performance présumée de la campagne *", classifieur & "accuracy", (classifieur & "accuracy" - rfc_accuracy))
+    col11.metric("Performance présumée de la campagne *", classifieur + "_accuracy", (classifieur + "_accuracy" - rfc_accuracy))
     col11.metric("Nombre de clients scorés positifs", "9 mph", "-8%")
     col11.metric("Score du modèle **", "86%", "4%")
          
