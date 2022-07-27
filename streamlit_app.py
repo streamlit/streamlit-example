@@ -707,9 +707,14 @@ if page==pages[4]:
     probas=classifieur.predict_proba(feats_modif_x)
     probas=pd.DataFrame(probas, columns=['NO','Probabilités'], index=feats_modif_x.index)
     probas = probas.drop(['NO'], axis=1)
-    probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)  
-    col5.write(probas)
-
+    probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)          
+    
+    col4.subheader("Distribution des probabilités")
+    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
+    fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
+    col4.plotly_chart(fig) 
+         
+         
     #pie = px.pie(probas, values=probas.value_counts(), names="Prédictions", hole=.3, title='Répartition des prédictions')
     #col5.plotly_chart(pie)     
 
