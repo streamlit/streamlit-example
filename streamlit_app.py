@@ -50,6 +50,7 @@ rlc = load('Regression logistique.joblib')
 rfc = load('Random Forest Classifier.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
+compare = pd.read_csv('compare_scores.csv', sep = ',')
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -428,6 +429,9 @@ if page==pages[2]:
 # ______________________________________________________________________________________________________
 
 if page==pages[3]:
+         
+  rlc_accuracy=compare.iloc[0]["Model"]
+  st.write(rlc_accuracy)
          
   st.title("Modèles prédictifs")
   st.markdown("""
