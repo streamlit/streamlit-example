@@ -531,8 +531,8 @@ if page==pages[3]:
     st.subheader("Modèle RFC")
     st.image("foret.png")
 
-    #rfc = ensemble.RandomForestClassifier(n_jobs=1) 
-    #rfc.fit(X_train, y_train)
+    rfc = ensemble.RandomForestClassifier(n_jobs=1) 
+    rfc.fit(X_train, y_train)
     
     st.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
     st.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
