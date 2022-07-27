@@ -721,6 +721,6 @@ if page==pages[4]:
     col5.write(" ") 
     col5.write(" ") 
     col5.subheader("Répartition des prédictions")
-    pie = px.pie(probas, values=probas["Classification"].value_counts().values, names=probas["Classification"].value_counts().index, hole=.3)
+    pie = px.pie(probas, values="Classification", names="Classification", hole=.3)
     col5.plotly_chart(pie)
          
