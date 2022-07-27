@@ -52,6 +52,22 @@ knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
+rlc_accuracy=compare.iloc[0]["accuracy"]
+rfc_accuracy=compare.iloc[1]["accuracy"]
+knn_accuracy=compare.iloc[2]["accuracy"]
+dtc_accuracy=compare.iloc[3]["accuracy"]
+
+rlc_precision=compare.iloc[0]["precision"]
+rfc_precision=compare.iloc[1]["precision"]
+knn_precision=compare.iloc[2]["precision"]
+dtc_precision=compare.iloc[3]["precision"]
+
+rlc_rappel=compare.iloc[0]["rappel"]
+rfc_rappel=compare.iloc[1]["rappel"]
+knn_rappel=compare.iloc[2]["rappel"]
+dtc_rappel=compare.iloc[3]["rappel"]
+
+
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
 # ______________________________________________________________________________________________________
@@ -101,6 +117,16 @@ X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.2
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
+# Sauvegarde des résultats
+rlc_y_pred = rlc.predict(X_test)
+probs_rlc = rlc.predict_proba(X_test)
+knn_y_pred = knn.predict(X_test)
+probs_knn = knn.predict_proba(X_test)
+dtc_y_pred = dtc.predict(X_test)
+probs_dtc = dtc.predict_proba(X_test)
+rfc_y_pred = rfc.predict(X_test)
+probs_rfc = rfc.predict_proba(X_test)
 
 # ---------- Jeu de données modifié -----------
 
@@ -429,10 +455,7 @@ if page==pages[2]:
 # ______________________________________________________________________________________________________
 
 if page==pages[3]:
-         
-  rlc_accuracy=compare.iloc[0]["Model"]
-  st.write(rlc_accuracy)
-         
+                 
   st.title("Modèles prédictifs")
   st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
@@ -459,25 +482,14 @@ if page==pages[3]:
   with col1:
     st.subheader("Modèle RLC")
     st.image("regression-lineaire.png")
-         
-    #rlc = linear_model.LogisticRegression(C=10)
-    #rlc.fit(X_train, y_train)
         
-    st.metric("Score train", "{:.2%}".format(rlc.score(X_train, y_train)))
-    st.metric("Score test", "{:.2%}".format(rlc.score(X_test, y_test)))
-    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rlc.predict(X_test))))
+    st.metric("Accuracy", "{:.2%}".format(rlc_accuracy))
+    st.metric("Precision", "{:.2%}".format(rlc_precision))
+    st.metric("Rappel", "{:.2%}".format(rlc_rappel))
 
-    y_pred = rlc.predict(X_test)
     st.write("Matrice de confusion :")
-    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    st.write(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
-    # Sauvegarde des résultats
-    models.append("Regression logistique")
-    scores.append(rlc.score(X_test, y_test))
-    precision.append(precision_score(y_test, rlc.predict(X_test)))
-    rappel.append(recall_score(y_test, rlc.predict(X_test)))
-    roc.append(roc_auc_score(y_test, rlc.predict(X_test)))
-    probs_rlc = rlc.predict_proba(X_test)
          
 # K plus proche voisins -----------------------------------------------------------------------
 
@@ -485,24 +497,12 @@ if page==pages[3]:
     st.subheader("Modèle KNN")
     st.image("networking.png")
 
-    #knn = neighbors.KNeighborsClassifier(n_neighbors=39)
-    #knn.fit(X_train, y_train)
-      
-    st.metric("Score train", "{:.2%}".format(knn.score(X_train, y_train)))
-    st.metric("Score test", "{:.2%}".format(knn.score(X_test, y_test)))
-    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, knn.predict(X_test))))
+    st.metric("Accuracy", "{:.2%}".format(knn_accuracy))
+    st.metric("Precision", "{:.2%}".format(knn_precision))
+    st.metric("Rappel", "{:.2%}".format(knn_rappel))
 
-    y_pred = knn.predict(X_test)
     st.write("Matrice de confusion :")
-    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-
-    # Sauvegarde des résultats
-    models.append("K plus proches voisins")
-    scores.append(knn.score(X_test, y_test))
-    precision.append(precision_score(y_test, knn.predict(X_test)))
-    rappel.append(recall_score(y_test, knn.predict(X_test)))
-    roc.append(roc_auc_score(y_test, knn.predict(X_test)))
-    probs_knn = knn.predict_proba(X_test)
+    st.write(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
      
 # Arbre de décision -----------------------------------------------------------------------
 
@@ -510,24 +510,12 @@ if page==pages[3]:
     st.subheader("Modèle DTC")
     st.image("arbre-de-decision.png")
 
-    #dtc = tree.DecisionTreeClassifier(max_depth=9)
-    #dtc.fit(X_train, y_train)  
-        
-    st.metric("Score train", "{:.2%}".format(dtc.score(X_train, y_train)))
-    st.metric("Score test", "{:.2%}".format(dtc.score(X_test, y_test)))
-    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, dtc.predict(X_test))))
+    st.metric("Accuracy", "{:.2%}".format(dtc_accuracy))
+    st.metric("Precision", "{:.2%}".format(dtc_precision))
+    st.metric("Rappel", "{:.2%}".format(dtc_rappel))
 
-    y_pred = dtc.predict(X_test)
     st.write("Matrice de confusion :")
-    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-
-    # Sauvegarde des résultats
-    models.append("Decision Tree")
-    scores.append(dtc.score(X_test, y_test))
-    precision.append(precision_score(y_test, dtc.predict(X_test)))
-    rappel.append(recall_score(y_test, dtc.predict(X_test)))
-    roc.append(roc_auc_score(y_test, dtc.predict(X_test)))
-    probs_dtc = dtc.predict_proba(X_test)
+    st.write(pd.crosstab(y_test, dtc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
 # Random Forest -----------------------------------------------------------------------
 
@@ -535,38 +523,18 @@ if page==pages[3]:
     st.subheader("Modèle RFC")
     st.image("foret.png")
 
-    #rfc = ensemble.RandomForestClassifier(n_jobs=1) 
-    #rfc.fit(X_train, y_train)
-    
-    st.metric("Score train", "{:.2%}".format(rfc.score(X_train, y_train)))
-    st.metric("Score test", "{:.2%}".format(rfc.score(X_test, y_test)))
-    st.metric("Precision Score", "{:.2%}".format(precision_score(y_test, rfc.predict(X_test))))
+    st.metric("Accuracy", "{:.2%}".format(rfc_accuracy))
+    st.metric("Precision", "{:.2%}".format(rfc_precision))
+    st.metric("Rappel", "{:.2%}".format(rfc_rappel))
 
-    y_pred = rfc.predict(X_test)
     st.write("Matrice de confusion :")
-    st.write(pd.crosstab(y_test, y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-
-    # Sauvegarde des résultats
-    models.append("Random Forest")
-    scores.append(rfc.score(X_test, y_test))
-    precision.append(precision_score(y_test, rfc.predict(X_test)))
-    rappel.append(recall_score(y_test, rfc.predict(X_test)))
-    roc.append(roc_auc_score(y_test, rfc.predict(X_test)))
-    probs_rfc = rfc.predict_proba(X_test)
+    st.write(pd.crosstab(y_test, rfc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
 # Comparaison des résultats -----------------------------------------------------------------------
 
   st.write(" ")
   
   tab1, tab2 = st.columns(2)
-
-  # Recap des scores
-  compare = pd.DataFrame(models)
-  compare.columns = ['model']
-  compare["accuracy"]=scores
-  compare["precision"]=precision
-  compare["rappel"]=rappel
-  compare["roc"]=roc
 
   #Graphique de comparaison des résultats
   tab1.subheader("📊 Graphique de comparaison")
