@@ -736,5 +736,6 @@ if page==pages[5]:
     col11.metric("Performance de la campagne *", "70 °F", "1.2 °F")
     col11.metric("Nombre de clients scorés positifs", "9 mph", "-8%")
     col11.metric("Précison de la prédiction", "86%", "4%")
-    col11.write(" ") 
-    col11.write("* Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.") 
+         
+    st.write(" ") 
+    st.write("* Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.") 
