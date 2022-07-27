@@ -597,7 +597,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
-  fig.update_layout(height=400, width=600, legend=dict(yanchor="top", y=0.4, xanchor="left", x=0.7))
+  fig.update_layout(height=450, width=700, legend=dict(yanchor="top", y=0.5, xanchor="left", x=0.65))
   tab2.plotly_chart(fig)          
          
   with tab2.expander("Plus d'explication sur ce graphique :"):
@@ -648,7 +648,7 @@ if page==pages[5]:
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  col4, col5, col6  = st.columns(3)
+  col4, col5, col6  = st.columns((2, 1, 2))
 
   if col5.button('Lancer la prédiction'): 
     feats_modif_x=feats_modif.copy()
@@ -716,7 +716,8 @@ if page==pages[5]:
     col4.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
-    fig.update_layout(height=400, width=600, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
+    fig.line_chart(probas["Probabilités"])
+    fig.update_layout(height=200, width=400, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
     col4.plotly_chart(fig) 
          
     col6.write(" ")
@@ -724,6 +725,6 @@ if page==pages[5]:
     col6.write(" ") 
     col6.subheader("Répartition des prédictions")
     pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
-    pie.update_layout(height=400, width=600, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
+    pie.update_layout(height=200, width=400, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
     col6.plotly_chart(pie)
          
