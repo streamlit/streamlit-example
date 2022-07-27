@@ -50,22 +50,22 @@ rlc = load('Regression logistique.joblib')
 rfc = load('Random Forest Classifier.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
-compare = pd.read_csv('compare_scores.csv', sep = ',')
+compare = pd.read_csv('compare_scores.csv', sep = ',').reset_index(inplace = True)
 
 rlc_accuracy=compare.iloc[0]["accuracy"]
-rfc_accuracy=compare.iloc[1]["accuracy"]
-knn_accuracy=compare.iloc[2]["accuracy"]
-dtc_accuracy=compare.iloc[3]["accuracy"]
+knn_accuracy=compare.iloc[1]["accuracy"]
+dtc_accuracy=compare.iloc[2]["accuracy"]
+rfc_accuracy=compare.iloc[3]["accuracy"]
 
 rlc_precision=compare.iloc[0]["precision"]
-rfc_precision=compare.iloc[1]["precision"]
-knn_precision=compare.iloc[2]["precision"]
-dtc_precision=compare.iloc[3]["precision"]
+knn_precision=compare.iloc[1]["precision"]
+dtc_precision=compare.iloc[2]["precision"]
+rfc_precision=compare.iloc[3]["precision"]
 
 rlc_rappel=compare.iloc[0]["rappel"]
-rfc_rappel=compare.iloc[1]["rappel"]
-knn_rappel=compare.iloc[2]["rappel"]
-dtc_rappel=compare.iloc[3]["rappel"]
+knn_rappel=compare.iloc[1]["rappel"]
+dtc_rappel=compare.iloc[2]["rappel"]
+rfc_rappel=compare.iloc[3]["rappel"]
 
 
 # ______________________________________________________________________________________________________
@@ -118,15 +118,30 @@ scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# Sauvegarde des résultats
+# Regression logistique
 rlc_y_pred = rlc.predict(X_test)
 probs_rlc = rlc.predict_proba(X_test)
+fpr_rlc, tpr_rlc, seuils = roc_curve(y_test, probs_rlc[:,1])
+roc_auc_rlc = auc(fpr_rlc, tpr_rlc)
+
+# K plus proches voisins
 knn_y_pred = knn.predict(X_test)
 probs_knn = knn.predict_proba(X_test)
+fpr_knn, tpr_knn, seuils = roc_curve(y_test, probs_knn[:,1])
+roc_auc_knn = auc(fpr_knn, tpr_knn)
+
+# Decision Tree
 dtc_y_pred = dtc.predict(X_test)
 probs_dtc = dtc.predict_proba(X_test)
+fpr_dtc, tpr_dtc, seuils = roc_curve(y_test, probs_dtc[:,1])
+roc_auc_dtc = auc(fpr_dtc, tpr_dtc)
+
+# Random Forest
 rfc_y_pred = rfc.predict(X_test)
 probs_rfc = rfc.predict_proba(X_test)
+fpr_rfc, tpr_rfc, seuils = roc_curve(y_test, probs_rfc[:,1])
+roc_auc_rfc = auc(fpr_rfc, tpr_rfc)
+
 
 # ---------- Jeu de données modifié -----------
 
@@ -545,24 +560,6 @@ if page==pages[3]:
 
   # Comparaison avec l'indice des ROC
   tab2.subheader("📈 Courbe ROC")
-
-  # Regression logistique
-  fpr_rlc, tpr_rlc, seuils = roc_curve(y_test, probs_rlc[:,1])
-  roc_auc_rlc = auc(fpr_rlc, tpr_rlc)
-
-  # K plus proches voisins
-  fpr_knn, tpr_knn, seuils = roc_curve(y_test, probs_knn[:,1])
-  roc_auc_knn = auc(fpr_knn, tpr_knn)
-
-  # Decision Tree
-  fpr_dtc, tpr_dtc, seuils = roc_curve(y_test, probs_dtc[:,1])
-  roc_auc_dtc = auc(fpr_dtc, tpr_dtc)
-
-  # Random Forest
-  fpr_rfc, tpr_rfc, seuils = roc_curve(y_test, probs_rfc[:,1])
-  roc_auc_rfc = auc(fpr_rfc, tpr_rfc)
-
-  # Les courbes
   import plotly.graph_objects as go         
   fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
