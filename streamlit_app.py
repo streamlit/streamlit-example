@@ -624,23 +624,22 @@ if page==pages[4]:
   st.write(" ")
   st.write(" ")
 
-  col1, col2, col3  = st.columns((2,0.5,2))
+  col1, col2, col3, col4, col5  = st.columns((0.5, 2 , 0.5, 2, 0.5))
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
-  col1.write(" ")
-  model = col1.radio(
+  model = col2.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'))
   
-  seuil = col1.number_input(
+  seuil = col2.number_input(
       "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
          
-  m = col3.select_slider(
+  m = col4.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
-  d = col3.select_slider(
+  d = col4.select_slider(
      "⌚ A combien de minutes estimez-vous la durée d'un appel téléphonique pour cette campagne ?",
      options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"])
    
@@ -701,14 +700,20 @@ if page==pages[4]:
 
     # Entrainement du modèle choisi -----------------------------------
     
+    col4.write(" ")    
+    col5.write(" ")      
+    col6.write(" ") 
+         
     col5.write(classifieur)
+    col5.write(" ")  
 
     y_pred = classifieur.predict(feats_modif_x)
     probas=classifieur.predict_proba(feats_modif_x)
     probas=pd.DataFrame(probas, columns=['NO','Probabilités'], index=feats_modif_x.index)
     probas = probas.drop(['NO'], axis=1)
-    probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)          
-    
+    probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)         
+
+    col4.write(" ")   
     col4.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
