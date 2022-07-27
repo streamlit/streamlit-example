@@ -554,7 +554,7 @@ if page==pages[3]:
   #Graphique de comparaison des résultats
   tab1.subheader("📊 Graphique de comparaison")
   fig = plt.figure(figsize=(20,6))
-  bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
+  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
   tab1.plotly_chart(bar)     
 
