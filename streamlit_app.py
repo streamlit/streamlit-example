@@ -648,9 +648,9 @@ if page==pages[5]:
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
-  col4, col5, col6  = st.columns(3)
+  col6, col7, col8  = st.columns(3)
 
-  if col5.button('Lancer la prédiction'): 
+  if col7.button('Lancer la prédiction'): 
     feats_modif_x=feats_modif.copy()
 
     # Choix du modèle -----------------------------------
@@ -701,8 +701,8 @@ if page==pages[5]:
 
     # Entrainement du modèle choisi -----------------------------------
          
-    col5.write(classifieur)
-    col5.write(" ")  
+    col7.write(classifieur)
+    col7.write(" ")  
          
     y_pred = classifieur.predict(feats_modif_x)
     probas=classifieur.predict_proba(feats_modif_x)
@@ -710,23 +710,23 @@ if page==pages[5]:
     probas = probas.drop(['NO'], axis=1)
     probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)         
 
-    col4.write(" ")
-    col4.write(" ") 
-    col4.write(" ") 
-    col4.subheader("Distribution des probabilités")
+    col6.write(" ")
+    col6.write(" ") 
+    col6.write(" ") 
+    col6.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
     fig.update_layout(height=400, width=500, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
-    col4.plotly_chart(fig) 
+    col6.plotly_chart(fig) 
          
-    col5.write(" ")
-    col5.write(" ") 
-    col5.write(" ") 
-    col5.subheader("Répartition des prédictions")
+    col7.write(" ")
+    col7.write(" ") 
+    col7.write(" ") 
+    col7.subheader("Répartition des prédictions")
     pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
     pie.update_layout(height=300, width=300, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
-    col5.plotly_chart(pie)
+    col7.plotly_chart(pie)
          
-    col6.metric("Temperature", "70 °F", "1.2 °F")
-    col6.metric("Wind", "9 mph", "-8%")
-    col6.metric("Humidity", "86%", "4%")
+    col8.metric("Temperature", "70 °F", "1.2 °F")
+    col8.metric("Wind", "9 mph", "-8%")
+    col8.metric("Humidity", "86%", "4%")
