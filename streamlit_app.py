@@ -35,7 +35,8 @@ pages = ["Introduction au jeu de données",
          "Analyse",
          "Preprocessing",
          "Challenge de modèles",
-         "Pour aller plus loin"]
+         "Interprétabilité",
+         "Personnaliser votre campagne"]
 
 page = st.sidebar.radio("Aller vers", pages) 
 
@@ -618,7 +619,7 @@ if page==pages[3]:
 # 5/ BONUS
 # ______________________________________________________________________________________________________
 
-if page==pages[4]: 
+if page==pages[5]: 
 
   st.title("⚙️ Personnaliser votre campagne")
   st.write(" ")
@@ -717,10 +718,10 @@ if page==pages[4]:
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
     col4.plotly_chart(fig) 
          
-    col5.write(" ")
-    col5.write(" ") 
-    col5.write(" ") 
-    col5.subheader("Répartition des prédictions")
+    col6.write(" ")
+    col6.write(" ") 
+    col6.write(" ") 
+    col6.subheader("Répartition des prédictions")
     pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
-    col5.plotly_chart(pie)
+    col6.plotly_chart(pie)
          
