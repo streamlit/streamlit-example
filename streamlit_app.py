@@ -47,7 +47,7 @@ page = st.sidebar.radio("Aller vers", pages)
 
 df = pd.read_csv('bank.csv', sep = ',')
 rlc = load('Regression logistique.joblib')
-rfc = load('Random Forest Classifier 2.joblib')
+rfc = load('Random Forest Classifier.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 
