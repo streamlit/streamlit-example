@@ -568,7 +568,6 @@ if page==pages[3]:
   fig = plt.figure(figsize=(20,6))
   bar = px.bar(compare, x="model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
-  bar.update_layout(height=450, width=700, legend=dict(yanchor="top", y=0.4, xanchor="left", x=0.7))
   tab1.plotly_chart(bar)     
 
   # Comparaison avec l'indice des ROC
@@ -706,14 +705,11 @@ if page==pages[4]:
     col5.write(classifieur)
 
     y_pred = classifieur.predict(feats_modif_x)
-    col5.write(y_pred)    
-    probas=pd.DataFrame(y_pred, columns=['Prédictions'], index=feats_modif_x.index)
-    col5.write(probas)         
-         
-    #probas = probas.value_counts()     
-    #probas = pd.DataFrame(probas,columns = ['Prédictions', 'Total']).reset_index()  
-    #col5.write(probas)
-         
+    probas = y_pred.value_counts()     
+    probas = pd.DataFrame(probas,columns = ['Prédictions', 'Total']).reset_index()  
+    col5.write(probas)
+    #probas=pd.DataFrame(y_pred, columns=['Prédictions'], index=feats_modif_x.index)     
+
     #pie = px.pie(probas, values=probas.value_counts(), names="Prédictions", hole=.3, title='Répartition des prédictions')
     #col5.plotly_chart(pie)     
 
