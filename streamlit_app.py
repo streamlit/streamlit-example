@@ -50,7 +50,7 @@ rlc = load('Regression logistique.joblib')
 rfc = load('Random Forest Classifier.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
-compare = pd.read_csv('compare_scores.csv', sep = ',').reset_index(inplace = True)
+compare = pd.read_csv('compare_scores.csv', sep = ',').reset_index
 
 rlc_accuracy=compare.iloc[0]["accuracy"]
 knn_accuracy=compare.iloc[1]["accuracy"]
