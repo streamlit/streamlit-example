@@ -624,7 +624,7 @@ if page==pages[4]:
   st.write(" ")
   st.write(" ")
 
-  col1, col2, col3, col4, col5  = st.columns((0.5, 2 , 0.5, 2, 0.5))
+  col1, col2, col3, col4, col5  = st.columns((1, 2 , 1, 2, 1))
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
@@ -699,21 +699,18 @@ if page==pages[4]:
       feats_modif_x["t_duration_4"]=1    
 
     # Entrainement du modèle choisi -----------------------------------
-    
-    col4.write(" ")    
-    col5.write(" ")      
-    col6.write(" ") 
          
     col5.write(classifieur)
     col5.write(" ")  
-
+         
     y_pred = classifieur.predict(feats_modif_x)
     probas=classifieur.predict_proba(feats_modif_x)
     probas=pd.DataFrame(probas, columns=['NO','Probabilités'], index=feats_modif_x.index)
     probas = probas.drop(['NO'], axis=1)
     probas['Classification'] = np.where(probas['Probabilités']>seuil,1,0)         
 
-    col4.write(" ")   
+    col4.write(" ")
+    col4.write(" ") 
     col4.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
