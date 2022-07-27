@@ -633,7 +633,7 @@ if page==pages[4]:
      ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'), index=3)
   
   seuil = col2.number_input(
-      "🎚️ Quel seuil pour les prédictions TRUE ?", min_value=0.1, max_value=0.9, value=0.5)         
+      "🎚️ Quel seuil pour les prédictions ?", min_value=0.1, max_value=0.9, value=0.5)         
          
   m = col4.select_slider(
      '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
@@ -711,12 +711,16 @@ if page==pages[4]:
 
     col4.write(" ")
     col4.write(" ") 
+    col4.write(" ") 
     col4.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
     col4.plotly_chart(fig) 
          
+    col5.write(" ")
+    col5.write(" ") 
+    col5.write(" ") 
+    col5.subheader("Répartition des prédictions")
+    pie = px.pie(probas, values=probas["Classification"].value_counts().values, names=probas["Classification"].value_counts().index, hole=.3)
+    col5.plotly_chart(pie)
          
-    #pie = px.pie(probas, values=probas.value_counts(), names="Prédictions", hole=.3, title='Répartition des prédictions')
-    #col5.plotly_chart(pie)     
-
