@@ -595,10 +595,10 @@ if page==pages[5]:
   st.write(" ")
   st.warning("""
         Cette partie va vous permettre de simuler la performance d'une future campagne en fonction de paramètres tels que le mois de lancement ou la durée
-        de l'appel téléphonique.
-        Ce concept repose sur le ré-entrainement du modèle prédictif avec un jeu de données modifié compte tenu des paramètres sélectionnés.
-        Les autres variables telles que le solde du compte bancaire ou présence d'un prêt immo par exemple restent inchangées.
-        Ce module permet d'observer _hypothétiquement_ quels auraient pû être les résultats de la campagne de référence si certains paramètres avaient été différents.
+        de l'appel téléphonique.  
+        Ce concept repose sur le ré-entrainement du modèle prédictif avec un jeu de données modifié compte tenu des paramètres sélectionnés.  
+        Les autres variables telles que le solde du compte bancaire ou présence d'un prêt immo par exemple restent inchangées.  
+        Ce module permet d'observer _hypothétiquement_ quels auraient pû être les résultats de la campagne de référence si certains paramètres avaient été différents.  
         Les résultats apportés sont indicatifs.
         """)
   st.write(" ")
