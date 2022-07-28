@@ -358,7 +358,7 @@ if page==pages[1]:
   corr=corr.sort_values("deposit",ascending=False)
   corr=corr.drop('deposit')
          
-  fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='RdBu_r')
+  fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_discrete_sequence=px.colors.qualitative.Plotly)
   heatmap.update_layout(height=400, width=700)
   col3.plotly_chart(fig)  
 
