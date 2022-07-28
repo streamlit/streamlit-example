@@ -1,12 +1,12 @@
 # ______________________________________________________________________________________________________
 # Import des bibliothèques
-# ______________________________________________________________________________________________________
-
-import streamlit as st
 import pandas as pd
 import seaborn as sns
 import numpy as np
 import pandas as pd
+# ______________________________________________________________________________________________________
+
+import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 
@@ -593,9 +593,17 @@ if page==pages[5]:
 
   st.title("⚙️ Personnaliser votre campagne")
   st.write(" ")
+  st.warning("""
+        Cette partie va vous permettre de simuler la performance d'une future campagne en fonction de paramètres tels que le mois de lancement ou la durée
+        de l'appel téléphonique. \n
+        Ce concept repose sur le ré-entrainement du modèle prédictif avec un jeu de données modifié compte tenu des paramètres sélectionnés. \n
+        Les autres variables telles que le solde du compte bancaire ou présence d'un prêt immo par exemple restent inchangées. \n
+        Ce module permet d'observer _hypothétiquement_ quels auraient pû être les résultats de la campagne de référence si certains paramètres avaient été différents. \n
+        Les résultats apportés sont indicatifs.
+        """)
   st.write(" ")
 
-  col1, col2, col3, col4, col5  = st.columns((0.5, 2 , 1, 2, 0.5))
+  col1, col2, col3, col4, col5  = st.columns((1, 2 , 1, 2, 1))
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
@@ -607,7 +615,7 @@ if page==pages[5]:
       "🎚️ Quel seuil pour les prédictions ?", min_value=0.1, max_value=0.9, value=0.5)         
          
   m = col4.select_slider(
-     '📅 Quel est le mois prévisionnel de lancement de cette nouvelle campagne ?',
+     '📅 Quel est le mois prévisionnel de lancement pour cette campagne ?',
      options=['Janvier', 'Février','Mars', 'Avril', 'Mai','Juin', 'Juillet', 'Août', 'Septembre','Octobre', 'Novembre','Décembre'])
          
   d = col4.select_slider(
@@ -712,6 +720,7 @@ if page==pages[5]:
         - **Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
         """)
 
+    st.write(" ")
     st.subheader("🏆 La combinaison gagnante")
     st.success("""
         La meilleure combinaison de paramètres semble être la suivante : \n
