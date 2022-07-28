@@ -359,7 +359,7 @@ if page==pages[1]:
   corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
-  heatmap.update_layout(height=700, width=1000)
+  fig.update_layout(height=700, width=1000)
   col3.plotly_chart(fig)  
 
 # Corrélations coefficients
@@ -485,7 +485,7 @@ if page==pages[2]:
   corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
-  heatmap.update_layout(height=700, width=1000)
+  fig.update_layout(height=700, width=1000).update_layout(height=700, width=1000)
   st.plotly_chart(fig)  
 
 
