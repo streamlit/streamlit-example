@@ -222,12 +222,7 @@ if page==pages[0]:
 
 # ---------- Aperçu -----------
 
-  col7, col8 = st.columns(2)
-  describe = col7.checkbox("Aperçu du jeu de données")
-  if describe:
-    col7.write(df)
-
-  code_view = col8.checkbox("Aperçu du code de la fonction de description")
+  code_view = st.checkbox("Aperçu du code de la fonction de description")
   if code_view:
     code = ''' 
          def describe_df(df):
@@ -254,8 +249,11 @@ if page==pages[0]:
                  ]
              return res.T
     '''
-    col8.code(code, language='python')
-  
+    st.code(code, language='python')
+         
+  describe = st.checkbox("Aperçu du jeu de données")
+  if describe:
+    st.write(df)
 
 # ---------- Ce qu'il faut comprendre -----------
 
@@ -348,20 +346,25 @@ if page==pages[1]:
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
   
-  fig = plt.figure(figsize=(15,10))
-  sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
-  col1.pyplot(fig)
-  col2.write('')
+  #fig = plt.figure(figsize=(15,10))
+  #sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
+  #col1.pyplot(fig)
+  #col2.write('')
+         
+  heatmap = px.imshow(df2.corr())
+  col1.plotly_chart(heatmap)    
 
 # Corrélations directes
 
   col3, col4 = tab2.columns((3, 1))
 
-  corr=pd.DataFrame(df2.corr()["deposit"])
+  corr=pd.DataFrame(df2.corr()["deposit"]).reset_index()
   corr=corr.sort_values("deposit",ascending=False, key=abs)
          
   fig = plt.figure(figsize=(10,5))
   df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
+  #fig = px.bar(corr, x='deposit', y='pop')
+  #col3.plotly_chart(fig)  
   col3.pyplot(fig)
 
 # Corrélations coefficients
