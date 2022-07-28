@@ -358,8 +358,8 @@ if page==pages[1]:
   corr=corr.sort_values("deposit",ascending=False)
   corr=corr.drop('deposit')
          
-  fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_discrete_sequence=px.colors.qualitative.Plotly)
-  heatmap.update_layout(height=400, width=700)
+  fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
+  heatmap.update_layout(height=700, width=1000)
   col3.plotly_chart(fig)  
 
 # Corrélations coefficients
@@ -480,9 +480,14 @@ if page==pages[2]:
 
   st.header("Arbre de correlations après preprocessing :")
 
-  fig = plt.figure(figsize=(20,8))
-  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
-  st.pyplot(fig)
+  corr=pd.DataFrame(df2.corr()["deposit"])
+  corr=corr.sort_values("deposit",ascending=False)
+  corr=corr.drop('deposit')
+         
+  fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
+  heatmap.update_layout(height=700, width=1000)
+  st.plotly_chart(fig)  
+
 
 # ---------- Les enseignements -----------
 
