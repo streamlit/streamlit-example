@@ -203,7 +203,7 @@ if page==pages[0]:
   col1.write('')
   col2.metric("Nombre de clients", "11 162")
   col3.metric("Nombre de features", "16")
-  col4.metric("Proportion des cibles", "47%")
+  col4.metric("Proportion de réponses positives", "47%")
   col5.write('')
          
 # ---------- les variables  -----------
@@ -270,7 +270,7 @@ if page==pages[1]:
   tab1, tab2 = col1.tabs(["📈 Chart", "📋 Describe"])
          
   option = tab1.selectbox("Choix une variable numérique :", numerics, index=3)
-  hist = px.histogram(df2,x=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Vivid)
+  hist = px.histogram(df2,x=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Set1)
   tab1.plotly_chart(hist)
          
   describe= df2[numerics].describe().transpose()
@@ -286,7 +286,7 @@ if page==pages[1]:
   tab3, tab4 = col2.tabs(["📈 Chart", "📋 Describe"])
 
   option = tab3.selectbox("Choix une variable catégorielle :", categoricals, index=7)
-  hist = px.histogram(df2,y=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Vivid)
+  hist = px.histogram(df2,y=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Set1)
   tab3.plotly_chart(hist)
          
   describe= df2[categoricals].describe().transpose()
@@ -297,7 +297,7 @@ if page==pages[1]:
   elif option=="housing":
     col2.info("L'absence de prêt immo semble augmenter les chances de répondre favorablement à la campagne.")
   elif option=="month":
-    col2.info("On observe que certains mois comme Mars, Septembre et Octobre semblent plus propices  la performance de la campagne."
+    col2.info("On observe que certains mois comme Mars, Septembre et Octobre semblent plus propices à la performance de la campagne."
               "\n A l'inverse les mois de Mai à Aout semblent diminuer les chances de concrétisation. ")
   elif option=="poutcome":
     col2.info("Les clients ayant répondu positivement à la campagne précédente sont les plus susceptibles de renouveller un dépôt.")
@@ -555,7 +555,7 @@ if page==pages[3]:
   #Graphique de comparaison des résultats
   tab1.subheader("📊 Graphique de comparaison")
   fig = plt.figure(figsize=(20,6))
-  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group', color_discrete_sequence=px.colors.qualitative.Vivid)
+  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group', color_discrete_sequence=px.colors.qualitative.Set1)
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
   tab1.plotly_chart(bar)     
 
@@ -689,14 +689,14 @@ if page==pages[5]:
 
     col9.write(" ") 
     col9.subheader("Distribution des probabilités")
-    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100, color_discrete_sequence=px.colors.qualitative.Vivid)
+    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100, color_discrete_sequence=px.colors.qualitative.Set1)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
     fig.update_layout(height=400, width=500, legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.99))
     col9.plotly_chart(fig) 
          
     col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4, color_discrete_sequence=px.colors.qualitative.Vivid)
+    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4, color_discrete_sequence=px.colors.qualitative.Set1)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.99))
     col10.plotly_chart(pie)
 
