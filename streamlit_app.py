@@ -355,9 +355,8 @@ if page==pages[1]:
   col3, col4 = tab2.columns((3, 1))
 
   corr=pd.DataFrame(df2.corr()["deposit"])
-  corr=corr.sort_values("deposit",ascending=False, key=abs)
-  corr.drop('deposit')
-  col3.write(corr)
+  corr=corr.sort_values("deposit",ascending=False)
+  corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color_discrete_sequence=px.colors.qualitative.Plotly)
   heatmap.update_layout(height=400, width=700)
@@ -365,8 +364,7 @@ if page==pages[1]:
 
 # Corrélations coefficients
 
-  coef=df2.corr()["deposit"]
-  col4.write(coef)
+  col4.write(corr)
 
 
 # ---------- Les observations -----------
