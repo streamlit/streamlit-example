@@ -31,12 +31,12 @@ st.set_page_config(page_title="JAD'Up",  layout='wide', page_icon='Agence de Mar
 st.sidebar.title("Sommaire")
 st.sidebar.image('Agence de Marketing.ico')
 
-pages = ["Introduction au jeu de données",
-         "Analyse",
-         "Preprocessing",
-         "Challenge de modèles",
-         "Interprétabilité",
-         "Personnaliser votre campagne"]
+pages = ["📋 Introduction au jeu de données",
+         "📊 Analyse",
+         "🧪 Preprocessing",
+         "🔮 Challenge de modèles",
+         "🔍 Interprétabilité",
+         "⚙️ Personnaliser votre campagne"]
 
 page = st.sidebar.radio("Aller vers", pages) 
 
@@ -184,7 +184,7 @@ def describe_df(df):
 
 if page==pages[0]: 
 
-  st.title("Description du jeu de données")
+  st.title("📋 Description du jeu de données")
 
   st.markdown("""
            Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit
@@ -244,7 +244,7 @@ if page==pages[0]:
 
 if page==pages[1]: 
 
-  st.title("Analyse du jeu de données")
+  st.title("📊 Analyse du jeu de données")
   st.markdown("""
            L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative
            afin que des **insights** en ressortent. \n
@@ -362,7 +362,7 @@ if page==pages[1]:
 
 if page==pages[2]: 
 
-  st.title("Préprocessing - Modèles prédictifs")
+  st.title("🧪 Préprocessing - Modèles prédictifs")
 
 
 # ---------- Le préprocessing, ça sert à quoi -----------
@@ -472,7 +472,7 @@ if page==pages[2]:
 
 if page==pages[3]:
                  
-  st.title("Modèles prédictifs")
+  st.title("🔮 Modèles prédictifs")
   st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
               * La **régression logistique** ou LRC
