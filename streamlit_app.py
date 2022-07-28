@@ -223,11 +223,11 @@ if page==pages[0]:
 # ---------- Aperçu -----------
 
   col7, col8 = st.columns(2)
-  describe = st.checkbox("Aperçu du jeu de données")
+  describe = col7.checkbox("Aperçu du jeu de données")
   if describe:
     col7.write(df)
 
-  code_view = st.checkbox("Aperçu du code de la fonction de description")
+  code_view = col8.checkbox("Aperçu du code de la fonction de description")
   if code_view:
     code = ''' 
          def describe_df(df):
