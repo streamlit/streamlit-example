@@ -70,10 +70,10 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 
 filename_expl = 'explainer.sav'
-load_explainer = pickle.load(open(filename_expl, 'rb'))
+#load_explainer = pickle.load(open(filename_expl, 'rb'))
 
 filename = 'shapvalues.sav'
-load_shap_values = pickle.load(open(filename, 'rb'))
+#load_shap_values = pickle.load(open(filename, 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
