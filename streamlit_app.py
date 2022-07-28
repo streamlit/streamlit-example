@@ -590,16 +590,15 @@ if page==pages[3]:
 
 if page==pages[4]: 
 
-  st.title("🔍 Interprétabilité du modèle **Random Forest**")
+  st.title("🔍 Interprétabilité du modèle Random Forest")
   st.markdown("""
-                
               L’interprétabilité et l'explicabilité d’un système de data science sont fondammentales.
               Il s'agit de chercher à rendre un modèle intelligible, à l’expliquer et à le commenter.  
-              L’**Interprétabilité** consiste à pouvoir comprendre comment le modèle fonctionne en fournissant des informations sur le modèle de Machine Learning
+              * L’**Interprétabilité** consiste à pouvoir comprendre comment le modèle fonctionne en fournissant des informations sur le modèle de Machine Learning
               ainsi que sur les données utilisées. L’interprétabilité est dédiée aux experts en ML ou des données.  
-              L’**Explicabilité** consiste à pouvoir expliquer pourquoi le modèle a donné telle prédiction en fournissant une information dans un format sémantique
+              * L’**Explicabilité** consiste à pouvoir expliquer pourquoi le modèle a donné telle prédiction en fournissant une information dans un format sémantique
               complet et accessible à un utilisateur néophyte ou technophile.  
-                
+              \n
               Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : SHAP !
            """) 
          
