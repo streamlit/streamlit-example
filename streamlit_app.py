@@ -356,7 +356,7 @@ if page==pages[1]:
 
   corr=pd.DataFrame(df2.corr()["deposit"]).reset_index()
   corr=corr.sort_values("deposit",ascending=False, key=abs)
-  corr= corr.drop(["deposit"], inplace = True) 
+  corr.drop(["deposit"], inplace = True) 
   col3.write(corr)
          
   #fig = plt.figure(figsize=(10,5))
