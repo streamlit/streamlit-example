@@ -707,9 +707,9 @@ if page==pages[5]:
     col11.write(" ") 
     col11.subheader("Chiffres clés")
 
-    col11.metric("Performance présumée de la campagne *", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-rfc_accuracy))       
-    col11.metric("Nombre de clients scorés positifs", sum(y_pred), sum(y_pred)-5289)
-    col11.metric("Score du modèle sélectionné **", "{:.2%}".format(sum(y_pred)/11162), "{:.2%}".format(sum(y_pred)/11162-0.47))
+    col11.metric("Nombre de clients scorés positifs", sum(probas['Classification']), sum(probas['Classification'])-5289)  
+    col11.metric("Performance présumée de la campagne *", "{:.2%}".format(sum(probas['Classification'])/11162), "{:.2%}".format(sum(probas['Classification'])/11162-0.47))  
+    col11.metric("Score du modèle sélectionné **", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-rfc_accuracy)) 
          
     st.write(" ") 
     st.write("*Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.") 
