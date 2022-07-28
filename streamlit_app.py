@@ -691,15 +691,15 @@ if page==pages[5]:
     col9.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
-    fig.update_layout(height=400, width=500, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
+    fig.update_layout(height=400, width=500, legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.8))
     col9.plotly_chart(fig) 
          
     col10.write(" ")
     col10.write(" ") 
     col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
-    pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.8, xanchor="left", x=0.8))
+    pie = px.pie(probas, values='Classification', names='Classification', hole=.3)
+    pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.8))
     col10.plotly_chart(pie)
 
     col11.write(" ")
