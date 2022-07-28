@@ -715,6 +715,5 @@ if page==pages[5]:
         *Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
         """)
 
-    st.write(count(probas['Classification']))
-         
+    st.write(probas['Classification'].value_counts())
          
