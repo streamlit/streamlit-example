@@ -270,7 +270,7 @@ if page==pages[1]:
   tab1, tab2 = col1.tabs(["📈 Chart", "📋 Describe"])
          
   option = tab1.selectbox("Choix une variable numérique :", numerics, index=3)
-  hist = px.histogram(df2,x=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Set1)
+  hist = px.histogram(df2,x=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Plotly)
   tab1.plotly_chart(hist)
          
   describe= df2[numerics].describe().transpose()
@@ -286,7 +286,7 @@ if page==pages[1]:
   tab3, tab4 = col2.tabs(["📈 Chart", "📋 Describe"])
 
   option = tab3.selectbox("Choix une variable catégorielle :", categoricals, index=7)
-  hist = px.histogram(df2,y=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Set1)
+  hist = px.histogram(df2,y=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Plotly)
   tab3.plotly_chart(hist)
          
   describe= df2[categoricals].describe().transpose()
@@ -555,7 +555,7 @@ if page==pages[3]:
   #Graphique de comparaison des résultats
   tab1.subheader("📊 Graphique de comparaison")
   fig = plt.figure(figsize=(20,6))
-  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group', color_discrete_sequence=px.colors.qualitative.Set1)
+  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group', color_discrete_sequence=px.colors.qualitative.Plotly)
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
   tab1.plotly_chart(bar)     
 
@@ -689,14 +689,14 @@ if page==pages[5]:
 
     col9.write(" ") 
     col9.subheader("Distribution des probabilités")
-    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100, color_discrete_sequence=px.colors.qualitative.Set1)
+    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100, color_discrete_sequence=px.colors.qualitative.Alphabet)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
     fig.update_layout(height=400, width=500, legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.99))
     col9.plotly_chart(fig) 
          
     col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4, color_discrete_sequence=px.colors.qualitative.Set1)
+    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4, color_discrete_sequence=px.colors.qualitative.Alphabet)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.99))
     col10.plotly_chart(pie)
 
