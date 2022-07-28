@@ -698,7 +698,7 @@ if page==pages[5]:
     col10.write(" ")
     col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas['Classification'].value_counts(), values='Classification'), names='Classification', hole=.4)
+    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.8))
     col10.plotly_chart(pie)
 
