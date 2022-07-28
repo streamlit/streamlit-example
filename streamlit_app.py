@@ -202,7 +202,7 @@ if page==pages[0]:
   col1, col2, col3, col4, col5 = st.columns(5)
   col1.write('')
   col2.metric("Nombre de clients", "11 162")
-  col3.metric("Nombre de features", "17")
+  col3.metric("Nombre de features", "16")
   col4.metric("Proportion des cibles", "47%")
   col5.write('')
          
@@ -460,6 +460,7 @@ if page==pages[2]:
   st.header("Les observations :")
   st.info("""
            On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact). \n
+           A l'inverse, une durée courte se traduit par une forte corrélation négative. \n
            Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action. \n
            Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.
            """)
@@ -474,7 +475,7 @@ if page==pages[3]:
   st.title("Modèles prédictifs")
   st.markdown("""
               Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
-              * La **régression logistique** ou RLC
+              * La **régression logistique** ou LRC
               * Le modèle **K-plus proches voisins** ou KNN
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
@@ -495,7 +496,7 @@ if page==pages[3]:
 # Régression logistique -----------------------------------------------------------------------
 
   with col1:
-    st.subheader("Modèle RLC")
+    st.subheader("Modèle LRC")
     st.image("regression-lineaire.png")
         
     st.metric("Accuracy", "{:.2%}".format(rlc_accuracy))
@@ -614,6 +615,7 @@ if page==pages[5]:
      options=["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"], value="5:00")
    
   st.write(" ")
+  st.write(" ")
 
 # Volet entrainement du modèle de la campagne -----------------------------------------------------------------------
 
@@ -687,7 +689,6 @@ if page==pages[5]:
 
     col9.write(" ")
     col9.write(" ") 
-    col9.write(" ") 
     col9.subheader("Distribution des probabilités")
     fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
@@ -696,14 +697,12 @@ if page==pages[5]:
          
     col10.write(" ")
     col10.write(" ") 
-    col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas, values='Classification', names='Classification', hole=.3)
+    pie = px.pie(probas, values='Probabilités', names='Classification', hole=.3)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.8))
     col10.plotly_chart(pie)
 
     col11.write(" ")
-    col11.write(" ") 
     col11.write(" ") 
     col11.subheader("Chiffres clés")
 
@@ -711,6 +710,7 @@ if page==pages[5]:
     col11.metric("Performance présumée de la campagne *", "{:.2%}".format(sum(probas['Classification'])/11162), "{:.2%}".format(sum(probas['Classification'])/11162-0.47))  
     col11.metric("Score du modèle sélectionné **", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-rfc_accuracy)) 
          
-    st.write(" ") 
-    st.write("*Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.") 
-    st.write("*Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.") 
+    st.info("""
+        *Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne. \n
+        *Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
+        """)
