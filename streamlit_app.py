@@ -715,5 +715,7 @@ if page==pages[5]:
         *Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
         """)
 
-    st.write(probas['Classification'].value_counts())
+         
+    pie = px.pie(probas['Classification'].value_counts(), values='Classification')
+    st.plotly_chart(pie)
          
