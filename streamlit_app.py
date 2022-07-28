@@ -347,7 +347,7 @@ if page==pages[1]:
     df2[col]= le.fit_transform(df2[col])
          
   heatmap = px.imshow(df2.corr(), color_continuous_scale='RdBu_r')
-  heatmap.update_layout(height=700, width=700)
+  heatmap.update_layout(height=600, width=700)
   col1.plotly_chart(heatmap)    
 
 # Corrélations directes
@@ -359,7 +359,7 @@ if page==pages[1]:
   corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
-  fig.update_layout(height=700, width=1000)
+  fig.update_layout(height=600, width=1000)
   col3.plotly_chart(fig)  
 
 # Corrélations coefficients
@@ -485,7 +485,7 @@ if page==pages[2]:
   corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
-  fig.update_layout(height=700, width=1000).update_layout(height=700, width=1000)
+  fig.update_layout(height=600, width=1000).update_layout(height=700, width=1000)
   st.plotly_chart(fig)  
 
 
