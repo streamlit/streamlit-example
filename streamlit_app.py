@@ -199,12 +199,13 @@ if page==pages[0]:
 # ---------- Les chiffres clés -----------
 
   st.header("Les chiffres clés :")
-  col1, col2, col3, col4, col5 = st.columns(5)
+  col1, col2, col3, col4, col5, col6 = st.columns(6)
   col1.write('')
   col2.metric("Nombre de clients", "11 162")
   col3.metric("Nombre de features", "16")
-  col4.metric("Proportion de réponses positives", "47%")
-  col5.write('')
+  col4.metric("Variable cible", "deposit")
+  col5.metric("Proportion de réponses positives", "47%")
+  col6.write('')
          
 # ---------- les variables  -----------
 
@@ -221,9 +222,40 @@ if page==pages[0]:
 
 # ---------- Aperçu -----------
 
+  col7, col8 = st.columns(2)
   describe = st.checkbox("Aperçu du jeu de données")
   if describe:
-    st.write(df)
+    col7.write(df)
+
+  code_view = st.checkbox("Aperçu du code de la fonction de description")
+  if code_view:
+    code = ''' 
+         def describe_df(df):
+             """
+             Fonction améliorée de description des colonnes, elle permet d'identifier :
+             le type de la colonne , le nb de valeur vide (nan), le nb de valeurs uniques, le pourcentage de répartition des valeurs
+             INPUT : le dataframe
+             OUTPUT : tableau d'analyse
+             """
+             res = pd.DataFrame(index=["Name","Type", "Nan", "Unique","Min","Max","Values","Pourcentage"])
+             for col in df.columns:
+                 df_col = df[col]
+                 res[col] = [
+                     df_col.name,
+                     df_col.dtype,
+                     df_col.isnull().sum(),
+                     len(df_col.unique()),
+                     df_col.min(),
+                     df_col.max(),
+                     df_col.unique(),
+                     (df_col.value_counts(ascending=False, normalize=True) * 100)
+                         .apply(int)
+                         .to_json(),
+                 ]
+             return res.T
+    '''
+    col8.code(code, language='python')
+  
 
 # ---------- Ce qu'il faut comprendre -----------
 
@@ -594,12 +626,12 @@ if page==pages[4]:
   st.markdown("""
               L’interprétabilité et l'explicabilité d’un système de data science sont fondammentales.
               Il s'agit de chercher à rendre un modèle intelligible, à l’expliquer et à le commenter.  
-              * L’**Interprétabilité** consiste à pouvoir comprendre comment le modèle fonctionne en fournissant des informations sur le modèle de Machine Learning
+              L’**Interprétabilité** consiste à pouvoir comprendre comment le modèle fonctionne en fournissant des informations sur le modèle de Machine Learning
               ainsi que sur les données utilisées. L’interprétabilité est dédiée aux experts en ML ou des données.  
-              * L’**Explicabilité** consiste à pouvoir expliquer pourquoi le modèle a donné telle prédiction en fournissant une information dans un format sémantique
+              L’**Explicabilité** consiste à pouvoir expliquer pourquoi le modèle a donné telle prédiction en fournissant une information dans un format sémantique
               complet et accessible à un utilisateur néophyte ou technophile.  
               \n
-              Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : SHAP !
+              Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
            """) 
          
 # ______________________________________________________________________________________________________
