@@ -354,11 +354,12 @@ if page==pages[1]:
 
   col3, col4 = tab2.columns((3, 1))
 
-  corr=pd.DataFrame(df2.corr()["deposit"]).reset_index()
+  corr=pd.DataFrame(df2.corr()["deposit"])
   corr=corr.sort_values("deposit",ascending=False, key=abs)
+  corr.drop('deposit')
   col3.write(corr)
          
-  fig = px.bar(corr.drop('deposit'), y='deposit', x='index', color_discrete_sequence=px.colors.qualitative.Plotly)
+  fig = px.bar(corr, y='deposit', x=corr.index, color_discrete_sequence=px.colors.qualitative.Plotly)
   heatmap.update_layout(height=400, width=700)
   col3.plotly_chart(fig)  
 
