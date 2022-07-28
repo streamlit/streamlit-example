@@ -356,14 +356,14 @@ if page==pages[1]:
 
   corr=pd.DataFrame(df2.corr()["deposit"]).reset_index()
   corr=corr.sort_values("deposit",ascending=False, key=abs)
-  corr.drop(["deposit"], inplace = True) 
+  #corr.drop(["deposit"], inplace = True) 
   col3.write(corr)
          
   #fig = plt.figure(figsize=(10,5))
   #df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
   #col3.pyplot(fig)
-  #fig = px.bar(corr, x='deposit', y='index', color_continuous_scale='RdBu_r')
-  #col3.plotly_chart(fig)  
+  fig = px.bar(corr, x='deposit', y='index', color_continuous_scale='RdBu_r')
+  col3.plotly_chart(fig)  
 
 # Corrélations coefficients
 
