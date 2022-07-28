@@ -47,9 +47,9 @@ page = st.sidebar.radio("Aller vers", pages)
 
 df = pd.read_csv('bank.csv', sep = ',')
 rlc = load('Regression logistique.joblib')
-rfc = load('Random Forest Classifier.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
+rfc = load('Random Forest Classifier.joblib')
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
 rlc_accuracy=compare.iloc[0]["accuracy"]
@@ -270,7 +270,7 @@ if page==pages[1]:
   tab1, tab2 = col1.tabs(["📈 Chart", "📋 Describe"])
          
   option = tab1.selectbox("Choix une variable numérique :", numerics, index=3)
-  hist = px.histogram(df2,x=option,color="deposit",barmode="group")
+  hist = px.histogram(df2,x=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Prism)
   tab1.plotly_chart(hist)
          
   describe= df2[numerics].describe().transpose()
@@ -286,7 +286,7 @@ if page==pages[1]:
   tab3, tab4 = col2.tabs(["📈 Chart", "📋 Describe"])
 
   option = tab3.selectbox("Choix une variable catégorielle :", categoricals, index=7)
-  hist = px.histogram(df2,y=option,color="deposit",barmode="group")
+  hist = px.histogram(df2,y=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Prism)
   tab3.plotly_chart(hist)
          
   describe= df2[categoricals].describe().transpose()
@@ -555,14 +555,14 @@ if page==pages[3]:
   #Graphique de comparaison des résultats
   tab1.subheader("📊 Graphique de comparaison")
   fig = plt.figure(figsize=(20,6))
-  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group')
+  bar = px.bar(compare, x="Model", y=['accuracy', 'precision', 'rappel','roc'], barmode='group', color_discrete_sequence=px.colors.qualitative.Prism)
   bar.add_hline(y=0.80, line_width=3, line_dash="dash", line_color="black")
   tab1.plotly_chart(bar)     
 
   # Comparaison avec l'indice des ROC
   tab2.subheader("📈 Courbe ROC")
   import plotly.graph_objects as go         
-  fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle RLC (auc = %0.2f)' % roc_auc_rlc))
+  fig = go.Figure(data=go.Scatter(x=fpr_rlc, y=tpr_rlc , mode='lines', name='Modèle LCR (auc = %0.2f)' % roc_auc_rlc))
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
@@ -687,23 +687,20 @@ if page==pages[5]:
 
     col9, col10, col11  = st.columns(3)
 
-    col9.write(" ")
     col9.write(" ") 
     col9.subheader("Distribution des probabilités")
-    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100)
+    fig = px.histogram(probas,x="Probabilités",color="Classification", nbins=100, color_discrete_sequence=px.colors.qualitative.Prism)
     fig.add_vline(x=seuil, line_width=3, line_dash="dash", line_color="black")
     fig.update_layout(height=400, width=500, legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.99))
     col9.plotly_chart(fig) 
          
-    col10.write(" ")
     col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4)
+    pie = px.pie(probas['Classification'].value_counts(), values='Classification', names='Classification', hole=.4,  color_discrete_sequence=px.colors.qualitative.Prism)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.99))
     col10.plotly_chart(pie)
 
     col11.write(" ")
-    col11.write(" ") 
     col11.subheader("Chiffres clés")
 
     col11.metric("Nombre de clients scorés positifs", sum(probas['Classification']), sum(probas['Classification'])-5289)  
@@ -711,8 +708,8 @@ if page==pages[5]:
     col11.metric("Score du modèle sélectionné **", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-rfc_accuracy)) 
          
     st.info("""
-        - Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.
-        - Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
+        - *Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.
+        - **Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
         """)
 
     st.subheader("🏆 La combinaison gagnante")
