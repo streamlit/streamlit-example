@@ -1,10 +1,12 @@
 # ______________________________________________________________________________________________________
 # Import des bibliothèques
+# ______________________________________________________________________________________________________
+
 import pandas as pd
 import seaborn as sns
 import numpy as np
 import pandas as pd
-# ______________________________________________________________________________________________________
+import pickle
 
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -67,6 +69,11 @@ knn_rappel=compare.iloc[1]["rappel"]
 dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 
+filename_expl = 'explainer.sav'
+load_explainer = pickle.load(open(filename_expl, 'rb'))
+
+filename = 'shapvalues.sav'
+load_shap_values = pickle.load(open(filename, 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -359,7 +366,7 @@ if page==pages[1]:
   corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
-  fig.update_layout(height=400, width=1000)
+  fig.update_layout(height=500, width=1000)
   col3.plotly_chart(fig)  
 
 # Corrélations coefficients
@@ -485,7 +492,7 @@ if page==pages[2]:
   corr=corr.drop('deposit')
          
   fig = px.bar(corr, y='deposit', x=corr.index, color="deposit", color_continuous_scale='Bluered_r')
-  fig.update_layout(height=400, width=1000).update_layout(height=700, width=1000)
+  fig.update_layout(height=500, width=1000).update_layout(height=700, width=1000)
   st.plotly_chart(fig)  
 
 
