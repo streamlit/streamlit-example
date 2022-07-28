@@ -188,9 +188,9 @@ if page==pages[0]:
 
   st.markdown("""
            Ce jeu de données est composé de données personnelles sur des clients d’une banque qui ont été “télémarketés” pour souscrire à un produit
-           que l’on appelle un 'dépôt à terme'. \n
+           que l’on appelle un 'dépôt à terme'.  
            Lorsqu’un client souscrit à ce produit, il place une quantité d’argent dans un compte spécifique et ne pourra pas toucher ces fonds avant l’expiration
-           du terme. \n
+           du terme.  
            En échange, le client reçoit des intérêts de la part de la banque à la fin du terme. 
            Le jeu de données est téléchargeable au lien suivant :
            https://www.kaggle.com/janiobachmann/bank-marketing-dataset
@@ -247,8 +247,8 @@ if page==pages[1]:
   st.title("📊 Analyse du jeu de données")
   st.markdown("""
            L’analyse descriptive est le terme donné à l’analyse des données permettant de décrire et de résumer des données historiques de manière significative
-           afin que des **insights** en ressortent. \n
-           L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles. \n
+           afin que des **insights** en ressortent.  
+           L’analyse descriptive de notre jeu de données va nous fournir les informations de base sur les variables, leur répartition, et leurs relations potentielles.  
            Nous allons pouvoir observer - _à première vue_ - les éléments qui ont favorisé, ou à l'inverse défavorisé, la performance de la campagne commerciale.
            """)
 
@@ -371,9 +371,9 @@ if page==pages[2]:
 
   expander1.markdown("""
            Le préprocessing est une de composante essentielle de la data science.
-           Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste.
-           Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème.
-           Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes. Les étapes sont :
+           Cette étape décrit toutes les **transformations** effectuées sur le jeu de données initial et indispensables à la création du modèle d'apprentissage fiable et robuste.  
+           Les algorithmes d'apprentissage automatique fonctionnent mieux lorsque les données sont présentées dans un format qui met en évidence les aspects pertinents requis pour résoudre un problème.  
+           Les fonctions de préprocessing consistent à **restructurer** les données brutes sous une forme adaptée à des types particuliers d'algorithmes.  Les étapes sont :
            * la transformation des données,
            * la réduction des données,
            * la sélection des variables
@@ -459,9 +459,9 @@ if page==pages[2]:
 
   st.header("Les observations :")
   st.info("""
-           On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact). \n
-           A l'inverse, une durée courte se traduit par une forte corrélation négative. \n
-           Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action. \n
+           On voit clairement que la feature **[duration]** impacte positivement la campagne dès lors que la valeur est élevée (temps de contact).  
+           A l'inverse, une durée courte se traduit par une forte corrélation négative.  
+           Egalement, les clients ayant répondu favorablement à la campagne précédente **[poutcome]** semblent être les plus susceptibles de renouveler leur action.  
            Les mois de mars et octobre [month] semblent être les meilleurs mois pour optimiser les leads.
            """)
 
@@ -584,9 +584,24 @@ if page==pages[3]:
   st.success("Le modèle **Random Forest** obtient les meilleures performances et semble le plus équilibré. Il permet de maximiser les positifs.")
 
          
+ # ______________________________________________________________________________________________________
+# 5/ INTERPRETABILITE
+# ______________________________________________________________________________________________________
+
+if page==pages[4]: 
+
+  st.title("🔍 Interprétabilité du modèle **Random Forest**")
+  st.markdown("""
+              L’interprétabilité et l'explicabilité d’un système de data science sont fondammentales.
+              Il s'agit de chercher à rendre un modèle intelligible, à l’expliquer et à le commenter.  
+              L’**Interprétabilité** consiste à pouvoir comprendre comment le modèle fonctionne en fournissant des informations sur le modèle de Machine Learning
+              ainsi que sur les données utilisées. L’interprétabilité est dédiée aux experts en ML ou des données.  
+              L’**Explicabilité** consiste à pouvoir expliquer pourquoi le modèle a donné telle prédiction en fournissant une information dans un format sémantique
+              complet et accessible à un utilisateur néophyte ou technophile.
+           """) 
          
 # ______________________________________________________________________________________________________
-# 5/ BONUS
+# 6/ BONUS
 # ______________________________________________________________________________________________________
 
 if page==pages[5]: 
