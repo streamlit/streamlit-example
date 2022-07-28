@@ -269,7 +269,7 @@ if page==pages[1]:
 
   tab1, tab2 = col1.tabs(["📈 Chart", "📋 Describe"])
          
-  option = tab1.selectbox("Choix une variable numérique :",numerics)
+  option = tab1.selectbox("Choix une variable numérique :", numerics, index=3)
   hist = px.histogram(df2,x=option,color="deposit",barmode="group")
   tab1.plotly_chart(hist)
          
@@ -285,7 +285,7 @@ if page==pages[1]:
 
   tab3, tab4 = col2.tabs(["📈 Chart", "📋 Describe"])
 
-  option = tab3.selectbox("Choix une variable catégorielle :", categoricals)
+  option = tab3.selectbox("Choix une variable catégorielle :", categoricals, index=7)
   hist = px.histogram(df2,y=option,color="deposit",barmode="group")
   tab3.plotly_chart(hist)
          
@@ -711,12 +711,13 @@ if page==pages[5]:
     col11.metric("Score du modèle sélectionné **", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-rfc_accuracy)) 
          
     st.info("""
-        *Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne. \n
-        *Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
+        - Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.
+        - Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
         """)
 
-    st.warning("""
-        La meilleur combinaison de paramètres semble être la suivante : \n
-        *Durée d'appel supérieure à **8 min** \n
-        *Lancement au cours du mois d'**octobre**
+    st.subheader("🏆 La combinaison gagnante")
+    st.success("""
+        La meilleure combinaison de paramètres semble être la suivante : \n
+        - Durée d'appel supérieure à **8 min**
+        - Lancement au cours du mois d'**octobre**
         """)
