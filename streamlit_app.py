@@ -698,7 +698,7 @@ if page==pages[5]:
     col10.write(" ")
     col10.write(" ") 
     col10.subheader("Répartition des prédictions")
-    pie = px.pie(probas, values='Probabilités', names='Classification', hole=.4)
+    pie = px.pie(probas['Classification'].value_counts(), values='Classification'), names='Classification', hole=.4)
     pie.update_layout(height=400, width=400, legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.8))
     col10.plotly_chart(pie)
 
@@ -715,7 +715,8 @@ if page==pages[5]:
         *Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
         """)
 
-         
-    pie = px.pie(probas['Classification'].value_counts(), values='Classification')
-    st.plotly_chart(pie)
-         
+    st.warning("""
+        La meilleur combinaison de paramètres semble être la suivante : \n
+        *Durée d'appel supérieure à **8 min** \n
+        *Lancement au cours du mois d'**octobre**
+        """)
