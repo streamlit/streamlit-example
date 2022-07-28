@@ -345,13 +345,9 @@ if page==pages[1]:
   df2=df.copy()
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
-  
-  #fig = plt.figure(figsize=(15,10))
-  #sns.heatmap(df2.corr(), annot=True, cmap='RdBu_r', center=0)
-  #col1.pyplot(fig)
-  #col2.write('')
          
-  heatmap = px.imshow(df2.corr())
+  heatmap = px.imshow(df2.corr(), color_continuous_scale='RdBu_r')
+  heatmap.update_layout(height=700, width=700)
   col1.plotly_chart(heatmap)    
 
 # Corrélations directes
@@ -360,12 +356,14 @@ if page==pages[1]:
 
   corr=pd.DataFrame(df2.corr()["deposit"]).reset_index()
   corr=corr.sort_values("deposit",ascending=False, key=abs)
+  #df2 = df2.drop(['job'], axis=1)
+  col3.write(corr)
          
-  fig = plt.figure(figsize=(10,5))
-  df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
+  #fig = plt.figure(figsize=(10,5))
+  #df2.corr()['deposit'].sort_values().drop('deposit').plot(kind='bar', cmap='viridis')
+  #col3.pyplot(fig)
   #fig = px.bar(corr, x='deposit', y='pop')
   #col3.plotly_chart(fig)  
-  col3.pyplot(fig)
 
 # Corrélations coefficients
 
