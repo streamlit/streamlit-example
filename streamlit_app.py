@@ -594,7 +594,7 @@ if page==pages[5]:
   st.write(" ")
   st.write(" ")
 
-  col1, col2, col3, col4, col5  = st.columns((1, 2 , 1, 2, 1))
+  col1, col2, col3, col4, col5  = st.columns((0.5, 2 , 1, 2, 0.5))
 
 # Volet personnalisation de la campagne -----------------------------------------------------------------------
 
@@ -702,7 +702,7 @@ if page==pages[5]:
     col11.write(" ") 
     col11.write(" ") 
     col11.subheader("Chiffres clés")
-    col11.metric("Performance présumée de la campagne *", classifieur + "_accuracy", (classifieur + "_accuracy" - rfc_accuracy))
+    col11.metric("Performance présumée de la campagne *", f"{classifieur}_accuracy")
     col11.metric("Nombre de clients scorés positifs", "9 mph", "-8%")
     col11.metric("Score du modèle **", "86%", "4%")
          
