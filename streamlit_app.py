@@ -625,12 +625,16 @@ if page==pages[5]:
     # Choix du modèle -----------------------------------
     if model == "Régression logistique":
       classifieur = rlc
+      accuracy=rlc_accuracy
     elif model == "K-Plus proches voisins":
       classifieur = knn
+      accuracy=knn_accuracy
     elif model == "Arbre de décisions":
       classifieur = dtc
+      accuracy=dtc_accuracy
     else:
       classifieur = rfc
+      accuracy=rfc_accuracy
 
     # Choix du mois -----------------------------------
     if m == "Janvier":
@@ -706,7 +710,7 @@ if page==pages[5]:
     perf=f"{classifieur}_accuracy"
     col11.write(perf)
 
-    #col11.metric("Performance présumée de la campagne *", f"{classifieur}_accuracy")
+    #col11.metric("Performance présumée de la campagne *", accuracy, rfc_accuracy-accuracy)
     #col11.metric("Nombre de clients scorés positifs", "9 mph", "-8%")
     #col11.metric("Score du modèle **", "86%", "4%")
          
