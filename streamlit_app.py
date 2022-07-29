@@ -537,10 +537,11 @@ if page==pages[3]:
     st.metric("Precision", "{:.2%}".format(rlc_precision))
     st.metric("Rappel", "{:.2%}".format(rlc_rappel))
 
-    st.write("Matrice de confusion :")        
-    heatmap = px.imshow(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    heatmap.update_layout(height=300, width=300)
-    st.plotly_chart(heatmap) 
+    st.write("Matrice de confusion :")     
+    st.write(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
+    #heatmap = px.imshow(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    #heatmap.update_layout(height=300, width=300)
+    #st.plotly_chart(heatmap) 
 
          
 # K plus proche voisins -----------------------------------------------------------------------
@@ -553,10 +554,11 @@ if page==pages[3]:
     st.metric("Precision", "{:.2%}".format(knn_precision))
     st.metric("Rappel", "{:.2%}".format(knn_rappel))
 
-    st.write("Matrice de confusion :")        
-    heatmap = px.imshow(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    heatmap.update_layout(height=300, width=300)
-    st.plotly_chart(heatmap) 
+    st.write("Matrice de confusion :")            
+    st.write(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
+    #heatmap = px.imshow(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    #heatmap.update_layout(height=300, width=300)
+    #st.plotly_chart(heatmap) 
      
 # Arbre de décision -----------------------------------------------------------------------
 
@@ -569,9 +571,10 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(dtc_rappel))
 
     st.write("Matrice de confusion :")        
-    heatmap = px.imshow(pd.crosstab(y_test, dtc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    heatmap.update_layout(height=300, width=300)
-    st.plotly_chart(heatmap) 
+    st.write(pd.crosstab(y_test, dtc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
+    #heatmap = px.imshow(pd.crosstab(y_test, dtc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    #heatmap.update_layout(height=300, width=300)
+    #st.plotly_chart(heatmap) 
 
 # Random Forest -----------------------------------------------------------------------
 
@@ -584,9 +587,10 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(rfc_rappel))
 
     st.write("Matrice de confusion :")        
-    heatmap = px.imshow(pd.crosstab(y_test, rfc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    heatmap.update_layout(height=300, width=300)
-    st.plotly_chart(heatmap) 
+    st.write(pd.crosstab(y_test, rfc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
+    #heatmap = px.imshow(pd.crosstab(y_test, rfc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    #heatmap.update_layout(height=300, width=300)
+    #st.plotly_chart(heatmap) 
 
 
 # Comparaison des résultats -----------------------------------------------------------------------
