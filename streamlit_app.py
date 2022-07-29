@@ -538,10 +538,10 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(rlc_rappel))
 
     st.write("Matrice de confusion :")     
-    st.write(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
-    #heatmap = px.imshow(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    #heatmap.update_layout(height=300, width=300)
-    #st.plotly_chart(heatmap) 
+    conf=pd.crosstab(y_test, rlc_y_pred)
+    conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
+    conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
+    st.write(conf) 
 
          
 # K plus proche voisins -----------------------------------------------------------------------
@@ -555,10 +555,10 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(knn_rappel))
 
     st.write("Matrice de confusion :")            
-    st.write(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
-    #heatmap = px.imshow(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    #heatmap.update_layout(height=300, width=300)
-    #st.plotly_chart(heatmap) 
+    conf=pd.crosstab(y_test, knn_y_pred)
+    conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
+    conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
+    st.write(conf) 
      
 # Arbre de décision -----------------------------------------------------------------------
 
@@ -571,10 +571,10 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(dtc_rappel))
 
     st.write("Matrice de confusion :")        
-    st.write(pd.crosstab(y_test, dtc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))     
-    #heatmap = px.imshow(pd.crosstab(y_test, dtc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
-    #heatmap.update_layout(height=300, width=300)
-    #st.plotly_chart(heatmap) 
+    conf=pd.crosstab(y_test, dtc_y_pred)
+    conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
+    conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
+    st.write(conf) 
 
 # Random Forest -----------------------------------------------------------------------
 
