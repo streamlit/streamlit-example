@@ -587,7 +587,7 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(rfc_rappel))
 
     st.write("Matrice de confusion :")        
-    conf=pd.crosstab(y_test, rfc_y_pred))
+    conf=pd.crosstab(y_test, rfc_y_pred)
     conf=conf.rename(columns = {'0': 'Prédit YES', '1': 'Prédit NO'}) 
     st.write(conf) 
     #heatmap = px.imshow(pd.crosstab(y_test, rfc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
