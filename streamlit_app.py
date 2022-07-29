@@ -538,10 +538,10 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(rlc_rappel))
 
     st.write("Matrice de confusion :")
-    st.write(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    #st.write(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
          
-    heatmap = px.imshow(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']), color_continuous_scale='RdBu_r')
-    heatmap.update_layout(height=400, width=400)
+    heatmap = px.imshow(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    heatmap.update_layout(height=200, width=200)
     st.plotly_chart(heatmap) 
 
          
