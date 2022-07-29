@@ -588,7 +588,9 @@ if page==pages[3]:
 
     st.write("Matrice de confusion :")        
     conf=pd.crosstab(y_test, rfc_y_pred)
-    conf=conf.rename(columns = {0: 'Prédit YES', 1: 'Prédit NO'}) 
+    conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
+    conf=conf.replace(0, 'Réel NO')
+    conf=conf.replace(1, 'Réel YES')
     st.write(conf) 
     #heatmap = px.imshow(pd.crosstab(y_test, rfc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
     #heatmap.update_layout(height=300, width=300)
