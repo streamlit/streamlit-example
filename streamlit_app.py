@@ -526,14 +526,7 @@ if page==pages[3]:
 # ---------- Les 3 modèles -----------
 
   col1, col2, col3, col4 = st.columns(4)
-         
-  # Sauvegarde des résulats de chacun des modèles
-  models=[]
-  scores =[]
-  precision=[]
-  rappel=[]
-  roc=[]
-         
+                  
 # Régression logistique -----------------------------------------------------------------------
 
   with col1:
@@ -545,7 +538,7 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(rlc_rappel))
 
     st.write("Matrice de confusion :")
-    st.write(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
+    st.dataframe(pd.crosstab(y_test, rlc_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
          
 # K plus proche voisins -----------------------------------------------------------------------
