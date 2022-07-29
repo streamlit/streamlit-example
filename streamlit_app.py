@@ -554,7 +554,7 @@ if page==pages[3]:
     st.metric("Rappel", "{:.2%}".format(knn_rappel))
 
     st.write("Matrice de confusion :")        
-    heatmap = px.imshow(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite'])))
+    heatmap = px.imshow(pd.crosstab(y_test, knn_y_pred, rownames=['Classe réelle'], colnames=['Classe prédite']))
     heatmap.update_layout(height=300, width=300)
     st.plotly_chart(heatmap) 
      
