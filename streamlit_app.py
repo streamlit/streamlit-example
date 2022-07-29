@@ -589,7 +589,7 @@ if page==pages[3]:
     st.write("Matrice de confusion :")        
     conf=pd.crosstab(y_test, rfc_y_pred)
     conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
-    conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'}, inplace=True)
+    conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
     st.write(conf) 
 
 # Comparaison des résultats -----------------------------------------------------------------------
