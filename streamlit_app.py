@@ -6,8 +6,8 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import pandas as pd
-import pickle
-import shap
+#import pickle
+#import shap
 
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -72,10 +72,10 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 
 filename_expl = 'explainer.sav'
-explainer = pickle.load(open(filename_expl, 'rb'))
+#explainer = pickle.load(open(filename_expl, 'rb'))
 
 filename = 'shapvalues.sav'
-shap_values = pickle.load(open(filename, 'rb'))
+#shap_values = pickle.load(open(filename, 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
