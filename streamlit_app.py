@@ -651,7 +651,7 @@ if page==pages[4]:
            """) 
          
   st.title("Test affichage SHAP")       
-  st_shap(shap.summary_plot(shap_values, feature_names = feats.columns))     
+  #st_shap(shap.summary_plot(shap_values, feature_names = feats.columns))     
 
 # ______________________________________________________________________________________________________
 # 6/ BONUS
