@@ -7,6 +7,7 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 import pickle
+import shap
 
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -19,6 +20,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from joblib import dump, load
 from datetime import datetime
+from streamlit_shap import st_shap
 
 from sklearn.metrics import accuracy_score, plot_confusion_matrix, roc_curve, roc_auc_score, auc, precision_score, recall_score, classification_report
 from sklearn import linear_model, neighbors, svm, tree, ensemble
@@ -70,10 +72,10 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 
 filename_expl = 'explainer.sav'
-#load_explainer = pickle.load(open(filename_expl, 'rb'))
+explainer = pickle.load(open(filename_expl, 'rb'))
 
 filename = 'shapvalues.sav'
-#load_shap_values = pickle.load(open(filename, 'rb'))
+shap_values = pickle.load(open(filename, 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -648,6 +650,9 @@ if page==pages[4]:
               Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
            """) 
          
+  st.title("Test affichage SHAP")       
+  st_shap(shap.summary_plot(shap_values, feature_names = feats.columns))     
+
 # ______________________________________________________________________________________________________
 # 6/ BONUS
 # ______________________________________________________________________________________________________
