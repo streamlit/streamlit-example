@@ -6,6 +6,3 @@ matplotlib
 plotly
 sklearn
 datetime
-streamlit-shap
-pickle
-shap
