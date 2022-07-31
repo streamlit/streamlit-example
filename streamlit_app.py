@@ -77,16 +77,10 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 xgb_rappel=compare.iloc[4]["rappel"]
 
-
 # Load pickle files
-
 @st.cache
-def st_cache(filename):
-    cached_data = pickle.load(open(f'data/{filename}', 'rb'))
-    return cached_data
-
-#expected_value = st_cache('expected_value')
-#shap_values = st_cache('shap_values')
+expected_value = pickle.load(open('explainer.sav', 'rb'))
+shap_values = pickle.load(open('shap_values.sav', 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -691,13 +685,13 @@ if page==pages[4]:
   shap.initjs()
   st.set_option('deprecation.showPyplotGlobalUse', False)
 
-  feats_shap=feats.iloc[:200]       
-  explainer = shap.TreeExplainer(xgbc)
-  shap_values = explainer.shap_values(feats_shap)    
+  #feats_shap=feats.iloc[:200]       
+  #explainer = shap.TreeExplainer(xgbc)
+  #shap_values = explainer.shap_values(feats_shap)    
 
 # Summary plot -----------------------------------------------------------------------
 
-  summary=shap.summary_plot(shap_values, feats_shap, plot_type="bar")
+  summary=shap.summary_plot(shap_values, feats, plot_type="bar")
   #summary.update_layout(height=450, width=700)
   st.pyplot(summary)
          
@@ -705,8 +699,8 @@ if page==pages[4]:
 
   obs = st.slider('Choisir une observation à analyser', 0, 200, 25)
 
-  prediction = feats[obs]
-  st.write(prediction)
+  #prediction = feats[obs]
+  #st.write(prediction)
          
   #force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
   #st.pyplot(force)
