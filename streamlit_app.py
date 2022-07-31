@@ -682,7 +682,13 @@ if page==pages[4]:
               \n
               Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
            """) 
-            
+  
+  explainer = shap.TreeExplainer(xgbc)
+  shap_values = explainer.shap_values(X_test)            
+  shap.initjs()
+         
+  summary=shap.summary_plot(shap_values, X_test, plot_type="bar", feature_names = feats.columns)
+  st.pyplot(summary)
 
 # ______________________________________________________________________________________________________
 # 6/ BONUS
