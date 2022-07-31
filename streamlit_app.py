@@ -698,7 +698,7 @@ if page==pages[4]:
 # Summary plot -----------------------------------------------------------------------
 
   summary=shap.summary_plot(shap_values, feats_shap, plot_type="bar")
-  summary.update_layout(height=450, width=700)
+  #summary.update_layout(height=450, width=700)
   st.pyplot(summary)
          
 # Summary plot -----------------------------------------------------------------------
@@ -708,8 +708,8 @@ if page==pages[4]:
   prediction = feats[obs]
   st.write(prediction)
          
-  force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
-  st.pyplot(force)
+  #force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
+  #st.pyplot(force)
          
 # ______________________________________________________________________________________________________
 # 6/ BONUS
