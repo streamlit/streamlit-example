@@ -683,20 +683,34 @@ if page==pages[4]:
               L’**Explicabilité** consiste à pouvoir expliquer pourquoi le modèle a donné telle prédiction en fournissant une information dans un format sémantique
               complet et accessible à un utilisateur néophyte ou technophile.  
               \n
-              Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
+              Ici nous utiliserons la méthode d’interprétabilité **SHAP**.
            """) 
 
-         
+# Calcul des shap values -----------------------------------------------------------------------
+
+  shap.initjs()
+  st.set_option('deprecation.showPyplotGlobalUse', False)
+
   feats_shap=feats.iloc[:200]       
   explainer = shap.TreeExplainer(xgbc)
   shap_values = explainer.shap_values(feats_shap)    
 
-  shap.initjs()
-  st.set_option('deprecation.showPyplotGlobalUse', False)
+# Summary plot -----------------------------------------------------------------------
+
   summary=shap.summary_plot(shap_values, feats_shap, plot_type="bar")
+  summary.update_layout(height=450, width=700)
   st.pyplot(summary)
+         
+# Summary plot -----------------------------------------------------------------------
 
+  obs = st.slider('Choisir une observation à analyser', 0, 200, 25)
 
+  prediction = feats[obs]
+  st.write(prediction)
+         
+  force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
+  st.pyplot(force)
+         
 # ______________________________________________________________________________________________________
 # 6/ BONUS
 # ______________________________________________________________________________________________________
