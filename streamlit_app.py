@@ -54,22 +54,26 @@ rlc = load('Regression logistique.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 rfc = load('Random Forest Classifier.joblib')
+xgbc = load('XG Boost Classifier.joblib')
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
 rlc_accuracy=compare.iloc[0]["accuracy"]
 knn_accuracy=compare.iloc[1]["accuracy"]
 dtc_accuracy=compare.iloc[2]["accuracy"]
 rfc_accuracy=compare.iloc[3]["accuracy"]
+xgb_accuracy=compare.iloc[4]["accuracy"]
 
 rlc_precision=compare.iloc[0]["precision"]
 knn_precision=compare.iloc[1]["precision"]
 dtc_precision=compare.iloc[2]["precision"]
 rfc_precision=compare.iloc[3]["precision"]
+xgb_precision=compare.iloc[4]["precision"]
 
 rlc_rappel=compare.iloc[0]["rappel"]
 knn_rappel=compare.iloc[1]["rappel"]
 dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
+xgb_rappel=compare.iloc[4]["rappel"]
 
 filename_expl = 'explainer.sav'
 #explainer = pickle.load(open(filename_expl, 'rb'))
@@ -150,6 +154,12 @@ rfc_y_pred = rfc.predict(X_test)
 probs_rfc = rfc.predict_proba(X_test)
 fpr_rfc, tpr_rfc, seuils = roc_curve(y_test, probs_rfc[:,1])
 roc_auc_rfc = auc(fpr_rfc, tpr_rfc)
+
+# XG Boost
+xgb_y_pred = xgbc.predict(X_test)
+probs_xgb = xgbc.predict_proba(X_test)
+fpr_xgb, tpr_xgb, seuils = roc_curve(y_test, probs_xgb[:,1])
+roc_auc_xgb = auc(fpr, tpr)
 
 
 # ---------- Jeu de données modifié -----------
@@ -517,17 +527,18 @@ if page==pages[3]:
                  
   st.title("🔮 Modèles prédictifs")
   st.markdown("""
-              Les quatre modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
+              Les cinq modèles prédictifs suivants ont été choisis en raison de leur équilibre entre bonne performance et durée d'exécution sur ce jeu de données.
               * La **régression logistique** ou LRC
               * Le modèle **K-plus proches voisins** ou KNN
               * L'**arbre de décision** ou DTC
               * Les **forêts aléatoires** ou RFC 
+              * Le **eXtreme Gradient Boosting** ou XGB
               """)
   st.write("  ")
 
 # ---------- Les 3 modèles -----------
 
-  col1, col2, col3, col4 = st.columns(4)
+  col1, col2, col3, col4, col5 = st.columns(5)
                   
 # Régression logistique -----------------------------------------------------------------------
 
@@ -593,7 +604,24 @@ if page==pages[3]:
     conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
     conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
     st.write(conf) 
+         
+# XG Boost -----------------------------------------------------------------------
 
+  with col5:
+    st.subheader("Modèle XGB")
+    st.image("xgboost.png")
+
+    st.metric("Accuracy", "{:.2%}".format(xgb_accuracy))
+    st.metric("Precision", "{:.2%}".format(xgb_precision))
+    st.metric("Rappel", "{:.2%}".format(xgb_rappel))
+
+    st.write("Matrice de confusion :")        
+    conf=pd.crosstab(y_test, xgb_y_pred)
+    conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
+    conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
+    st.write(conf)      
+         
+         
 # Comparaison des résultats -----------------------------------------------------------------------
 
   st.write(" ")
@@ -614,6 +642,7 @@ if page==pages[3]:
   fig.add_trace(go.Scatter(x=fpr_knn, y=tpr_knn , mode='lines', name='Modèle KNN (auc = %0.2f)' % roc_auc_knn))
   fig.add_trace(go.Scatter(x=fpr_dtc, y=tpr_dtc , mode='lines', name='Modèle DTC (auc = %0.2f)' % roc_auc_dtc))
   fig.add_trace(go.Scatter(x=fpr_rfc, y=tpr_rfc , mode='lines', name='Modèle RFC (auc = %0.2f)' % roc_auc_rfc))
+  fig.add_trace(go.Scatter(x=fpr_xgb, y=tpr_xgb , mode='lines', name='Modèle XGB (auc = %0.2f)' % roc_auc_xgb))
   fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], name='Aléatoire (auc = 0.5)', line = dict(color='black', width=2, dash='dot')))
   fig.update_layout(height=450, width=700, legend=dict(yanchor="top", y=0.5, xanchor="left", x=0.65))
   tab2.plotly_chart(fig)          
@@ -629,7 +658,7 @@ if page==pages[3]:
      """)
 
   st.subheader("🏆 Le modèle gagnant")
-  st.success("Le modèle **Random Forest** obtient les meilleures performances et semble le plus équilibré. Il permet de maximiser les positifs.")
+  st.success("Le modèle **XG Boost** obtient les meilleures performances et semble le plus équilibré. Il permet de maximiser les positifs.")
 
          
  # ______________________________________________________________________________________________________
