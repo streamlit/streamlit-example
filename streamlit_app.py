@@ -692,8 +692,10 @@ if page==pages[4]:
   shap_values = explainer.shap_values(feats_shap)    
 
   shap.initjs()
+  st.set_option('deprecation.showPyplotGlobalUse', False)
   summary=shap.summary_plot(shap_values, feats_shap, plot_type="bar")
   st.pyplot(summary)
+
 
 # ______________________________________________________________________________________________________
 # 6/ BONUS
