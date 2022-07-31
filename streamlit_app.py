@@ -79,6 +79,9 @@ xgb_rappel=compare.iloc[4]["rappel"]
 
 #load_explainer = pickle.load(open("explainer.sav", 'rb'))
 #load_shap_values = pickle.load(open("shap_values.sav", 'rb'))
+    
+explainer = shap.TreeExplainer(xgbc)
+shap_values = explainer.shap_values(feats)    
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -683,10 +686,6 @@ if page==pages[4]:
   shap.initjs()
   st.set_option('deprecation.showPyplotGlobalUse', False)
 
-  feats_shap=feats.iloc[:100]       
-  explainer = shap.TreeExplainer(xgbc)
-  shap_values = explainer.shap_values(feats_shap)    
-
 # Summary plot -----------------------------------------------------------------------
 
   summary=shap.summary_plot(shap_values, feats, plot_type="bar")
@@ -696,9 +695,8 @@ if page==pages[4]:
 # Summary plot -----------------------------------------------------------------------
 
   obs = st.slider('Choisir une observation à analyser', 0, 200, 25)
-
-  #prediction = feats[obs]
-  #st.write(prediction)
+  prediction = xgbc.predict(feats[obs])
+  st.write(prediction)
          
   #force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
   #st.pyplot(force)
