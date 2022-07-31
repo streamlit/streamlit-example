@@ -161,8 +161,8 @@ roc_auc_xgb = auc(fpr_xgb, tpr_xgb)
 
 # ---------- Shap -----------
 
-explainer = shap.TreeExplainer(xgbc)
-shap_values = explainer.shap_values(feats)    
+#explainer = shap.TreeExplainer(xgbc)
+#shap_values = explainer.shap_values(feats)    
 
 
 # ---------- Jeu de données modifié -----------
@@ -689,9 +689,9 @@ if page==pages[4]:
 
 # Summary plot -----------------------------------------------------------------------
 
-  summary=shap.summary_plot(shap_values, feats, plot_type="bar")
-  #summary.update_layout(height=450, width=700)
-  st.pyplot(summary)
+  #plt.figure(figsize=(10, 10))
+  #summary=shap.summary_plot(shap_values, feats, plot_type="bar")
+  #st.pyplot(summary)
          
 # Summary plot -----------------------------------------------------------------------
 
