@@ -78,9 +78,11 @@ rfc_rappel=compare.iloc[3]["rappel"]
 xgb_rappel=compare.iloc[4]["rappel"]
 
 # Load pickle files
+
 @st.cache
-explainer = pickle.load(open('explainer.sav', 'rb'))
-shap_values = pickle.load(open('shap_values.sav', 'rb'))
+
+explainer=pickle.load(open('explainer.sav', 'rb'))
+shap_values=pickle.load(open('shap_values.sav', 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
