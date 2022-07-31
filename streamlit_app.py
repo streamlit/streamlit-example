@@ -7,6 +7,7 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 import streamlit as st
+import xgboost as xgb
 import matplotlib.pyplot as plt
 import plotly.express as px
 
@@ -17,7 +18,6 @@ from streamlit_shap import st_shap
 from joblib import dump, load
 from datetime import datetime
 
-import xgboost as xgb
 from xgboost import XGBClassifier
 from xgboost import XGBRegressor
 from sklearn.model_selection import train_test_split
