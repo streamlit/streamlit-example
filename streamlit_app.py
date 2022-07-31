@@ -77,9 +77,8 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 xgb_rappel=compare.iloc[4]["rappel"]
 
-
-load_explainer = pickle.load(open("explainer.sav", 'rb'))
-load_shap_values = pickle.load(open("shap_values.sav", 'rb'))
+#load_explainer = pickle.load(open("explainer.sav", 'rb'))
+#load_shap_values = pickle.load(open("shap_values.sav", 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -684,14 +683,14 @@ if page==pages[4]:
   shap.initjs()
   st.set_option('deprecation.showPyplotGlobalUse', False)
 
-  #feats_shap=feats.iloc[:200]       
-  #explainer = shap.TreeExplainer(xgbc)
-  #shap_values = explainer.shap_values(feats_shap)    
+  feats_shap=feats.iloc[:100]       
+  explainer = shap.TreeExplainer(xgbc)
+  shap_values = explainer.shap_values(feats_shap)    
 
 # Summary plot -----------------------------------------------------------------------
 
   summary=shap.summary_plot(shap_values, feats, plot_type="bar")
-  #summary.update_layout(height=450, width=700)
+  summary.update_layout(height=450, width=700)
   st.pyplot(summary)
          
 # Summary plot -----------------------------------------------------------------------
