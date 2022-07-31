@@ -682,6 +682,10 @@ if page==pages[4]:
            """) 
          
   st.title("Test affichage SHAP")       
+  explainer = shap.Explainer(xgbc, X_test)
+  shap_values = explainer(X_test)
+  st_shap(shap.plots.waterfall(shap_values[0]), height=300)
+
   #st_shap(shap.summary_plot(shap_values, feature_names = feats.columns))     
 
 # ______________________________________________________________________________________________________
