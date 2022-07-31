@@ -77,11 +77,6 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 xgb_rappel=compare.iloc[4]["rappel"]
 
-#load_explainer = pickle.load(open("explainer.sav", 'rb'))
-#load_shap_values = pickle.load(open("shap_values.sav", 'rb'))
-    
-explainer = shap.TreeExplainer(xgbc)
-shap_values = explainer.shap_values(feats)    
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -162,6 +157,12 @@ xgb_y_pred = xgbc.predict(X_test)
 probs_xgb = xgbc.predict_proba(X_test)
 fpr_xgb, tpr_xgb, seuils = roc_curve(y_test, probs_xgb[:,1])
 roc_auc_xgb = auc(fpr_xgb, tpr_xgb)
+
+
+# ---------- Shap -----------
+
+explainer = shap.TreeExplainer(xgbc)
+shap_values = explainer.shap_values(feats)    
 
 
 # ---------- Jeu de données modifié -----------
