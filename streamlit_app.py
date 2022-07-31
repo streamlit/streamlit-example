@@ -13,8 +13,6 @@ import plotly.express as px
 
 import pickle
 import shap
-import streamlit_shap
-from streamlit_shap import st_shap
 from joblib import dump, load
 from datetime import datetime
 
@@ -80,10 +78,10 @@ rfc_rappel=compare.iloc[3]["rappel"]
 xgb_rappel=compare.iloc[4]["rappel"]
 
 filename_expl = 'explainer.sav'
-#explainer = pickle.load(open(filename_expl, 'rb'))
+explainer = pickle.load(open(filename_expl, 'rb'))
 
 filename = 'shapvalues.sav'
-#shap_values = pickle.load(open(filename, 'rb'))
+shap_values = pickle.load(open(filename, 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -682,11 +680,13 @@ if page==pages[4]:
               \n
               Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
            """) 
-  
-  explainer = shap.TreeExplainer(xgbc)
-  shap_values = explainer.shap_values(X_test)            
+
+  #with st.spinner('Wait for it...'):
+  #  explainer = shap.TreeExplainer(xgbc)
+  #  shap_values = explainer.shap_values(X_test)    
+  #st.success('Done!')
+
   shap.initjs()
-         
   summary=shap.summary_plot(shap_values, X_test, plot_type="bar", feature_names = feats.columns)
   st.pyplot(summary)
 
