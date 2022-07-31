@@ -79,7 +79,7 @@ xgb_rappel=compare.iloc[4]["rappel"]
 
 # Load pickle files
 @st.cache
-expected_value = pickle.load(open('explainer.sav', 'rb'))
+explainer = pickle.load(open('explainer.sav', 'rb'))
 shap_values = pickle.load(open('shap_values.sav', 'rb'))
 
 # ______________________________________________________________________________________________________
