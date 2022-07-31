@@ -159,7 +159,7 @@ roc_auc_rfc = auc(fpr_rfc, tpr_rfc)
 xgb_y_pred = xgbc.predict(X_test)
 probs_xgb = xgbc.predict_proba(X_test)
 fpr_xgb, tpr_xgb, seuils = roc_curve(y_test, probs_xgb[:,1])
-roc_auc_xgb = auc(fpr, tpr)
+roc_auc_xgb = auc(fpr_xgb, tpr_xgb)
 
 
 # ---------- Jeu de données modifié -----------
