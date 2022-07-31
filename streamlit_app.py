@@ -7,9 +7,11 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 
+import pickle
 import shap
 import streamlit_shap
 from streamlit_shap import st_shap
+
 
 import streamlit as st
 import matplotlib.pyplot as plt
