@@ -6,3 +6,4 @@ matplotlib
 plotly
 sklearn
 datetime
+shap
