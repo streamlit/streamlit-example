@@ -680,11 +680,7 @@ if page==pages[4]:
               \n
               Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
            """) 
-         
-  st.title("Test affichage SHAP")
-  st_shap(shap.plots.waterfall(shap_values[0]), height=300)
-
-  #st_shap(shap.summary_plot(shap_values, feature_names = feats.columns))     
+            
 
 # ______________________________________________________________________________________________________
 # 6/ BONUS
