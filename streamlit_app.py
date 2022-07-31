@@ -172,6 +172,7 @@ for duration in ["t_duration_1", "t_duration_2", "t_duration_3", "t_duration_4"]
 
 # ---------- Fonction de description -----------
 
+
 def describe_df(df):
     """
     Fonction améliorée de description des colonnes, elle permet d'identifier :
