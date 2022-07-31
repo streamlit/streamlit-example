@@ -690,7 +690,7 @@ if page==pages[4]:
 # Summary plot -----------------------------------------------------------------------
 
   summary=shap.summary_plot(shap_values, feats, plot_type="bar")
-  summary.update_layout(height=450, width=700)
+  #summary.update_layout(height=450, width=700)
   st.pyplot(summary)
          
 # Summary plot -----------------------------------------------------------------------
