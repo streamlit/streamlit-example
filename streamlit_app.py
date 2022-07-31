@@ -557,6 +557,10 @@ if page==pages[3]:
     conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
     st.write(conf) 
 
+    fig = px.imshow(conf, text_auto=True)
+    fig.layout.coloraxis.showscale = False
+    st.plotly_chart(fig)
+
          
 # K plus proche voisins -----------------------------------------------------------------------
 
