@@ -77,10 +77,9 @@ dtc_rappel=compare.iloc[2]["rappel"]
 rfc_rappel=compare.iloc[3]["rappel"]
 xgb_rappel=compare.iloc[4]["rappel"]
 
-@st.cache
 
-load_explainer = pickle.load(open('explainer.sav', 'rb'))
-load_shap_values = pickle.load(open('shap_values.sav', 'rb'))
+load_explainer = pickle.load(open("explainer.sav", 'rb'))
+load_shap_values = pickle.load(open("shap_values.sav", 'rb'))
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
