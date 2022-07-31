@@ -6,8 +6,10 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import pandas as pd
-#import pickle
-#import shap
+
+import shap
+import streamlit_shap
+from streamlit_shap import st_shap
 
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -556,11 +558,6 @@ if page==pages[3]:
     conf=conf.rename(columns = {0: 'Prédit NO', 1: 'Prédit YES'}) 
     conf=conf.rename(index={0: 'Réel NO', 1: 'Réel YES'})
     st.write(conf) 
-
-    fig = px.imshow(conf, text_auto=True)
-    fig.layout.coloraxis.showscale = False
-    st.plotly_chart(fig)
-
          
 # K plus proche voisins -----------------------------------------------------------------------
 
