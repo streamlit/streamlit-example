@@ -85,8 +85,8 @@ def st_cache(filename):
     cached_data = pickle.load(open(f'data/{filename}', 'rb'))
     return cached_data
 
-expected_value = st_cache('expected_value')
-shap_values = st_cache('shap_values')
+#expected_value = st_cache('expected_value')
+#shap_values = st_cache('shap_values')
 
 # ______________________________________________________________________________________________________
 # Préparation des jeux de données à utiliser
@@ -686,13 +686,13 @@ if page==pages[4]:
               Ici nous utiliserons la méthode d’interprétabilité dont nous allons expliciter le fonctionnement ainsi que ses points positifs et négatifs : **SHAP** !
            """) 
 
-  #with st.spinner('Wait for it...'):
-  #  explainer = shap.TreeExplainer(xgbc)
-  #  shap_values = explainer.shap_values(X_test)    
-  #st.success('Done!')
+         
+  feats_shap=feats.iloc[:200]       
+  explainer = shap.TreeExplainer(xgbc)
+  shap_values = explainer.shap_values(feats_shap)    
 
   shap.initjs()
-  summary=shap.summary_plot(shap_values, X_test, plot_type="bar", feature_names = feats.columns)
+  summary=shap.summary_plot(shap_values, feats_shap, plot_type="bar")
   st.pyplot(summary)
 
 # ______________________________________________________________________________________________________
