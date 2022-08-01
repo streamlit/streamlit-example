@@ -698,8 +698,13 @@ if page==pages[4]:
   col4, col5, col6  = st.columns((2,0.5,2))
          
   i = col4.slider('Choisir une observation à analyser', 0, 50, 25) 
-     
-  col6.metric("Prédiction calculée", shap.iloc[i]["Predictions"])
+
+  if shap.iloc[i]["Predictions"] == [0]:
+    predict = "Négatif"
+  else:
+    predict = "Positif"
+
+  col6.metric("Estimation ", predict)
 
   col4.subheader("WaterFall")
   col4.image(f"SHAP/waterfall_{i}.png")
