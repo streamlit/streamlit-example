@@ -679,21 +679,23 @@ if page==pages[4]:
          
 # Général  -----------------------------------------------------------------------
 
-  col1, col2, col3  = st.columns(3)
+  col1, col2  = st.columns(2)
          
-  col1.subheader("Plots Bar")
-  col1.image("SHAP/shap.plots.bar.png")
+  col1.subheader("Summary")
+  col1.image("SHAP/shap.summary_plot.png")       
          
-  col2.subheader("Summary")
-  col2.image("SHAP/shap.summary_plot.png")
+  col2.subheader("Plots Bar")
+  col2.image("SHAP/shap.plots.bar.png")   
          
-  col3.subheader("Heatmap")
-  col3.image("SHAP/shap.plots.heatmap.png")
+  col2.subheader("Heatmap")
+  col2.image("SHAP/shap.plots.heatmap.png")
 
 # Aperçus à la ligne  -----------------------------------------------------------------------  
 
   st.write("")
-  i = st.slider('Choisir une observation à analyser', 0, 50, 25)
+  st.subheader("Analyse des variables explicatives par individu")
+  col3, col4, col5  = st.columns((1,2,1))
+  i = col.slider('Choisir une observation à analyser', 0, 50, 25)
   st.write("")
          
   predictions = shap.iloc[i]["Predictions"]       
@@ -702,7 +704,7 @@ if page==pages[4]:
   st.write("Le client est classé ", predictions)     
          
   st.subheader("WaterFall")
-  st.image(f"SHAP/waterfall_{i}.png")
+  col4.image(f"SHAP/waterfall_{i}.png")
 
   st.subheader("Forceplot")
   st.image(f"SHAP/forceplot_{i}.png")
