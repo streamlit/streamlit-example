@@ -695,22 +695,20 @@ if page==pages[4]:
 
   st.write("")
   st.subheader("Analyse des variables explicatives par individu")
-  col4, col5, col6  = st.columns((1,1,1))
-  col5.write(" ")
-  i = col5.slider('Choisir une observation à analyser', 0, 50, 25) 
-
+  col4, col5  = st.columns(2)
+         
   col4.write(" ")
-  col4.write(" ")
+  i = col4.slider('Choisir une observation à analyser', 0, 50, 25) 
   col4.write(" ")
 
   predictions = shap.iloc[i]["Predictions"]       
-  st.write("Le client est classé ", predictions)     
+  col4.write("Le client est classé ", predictions)     
 
   col4.subheader("WaterFall")
   col4.image(f"SHAP/waterfall_{i}.png")
 
-  col4.subheader("Forceplot")
-  col4.image(f"SHAP/forceplot_{i}.png")
+  st.subheader("Forceplot")
+  st.image(f"SHAP/forceplot_{i}.png")
          
          
 # ______________________________________________________________________________________________________
