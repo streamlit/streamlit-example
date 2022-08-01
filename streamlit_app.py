@@ -704,7 +704,7 @@ if page==pages[4]:
   col4.write(" ")
 
   predictions = shap.iloc[i]["Predictions"]       
-  col4.write("Le client est classé ", predictions)     
+  st.write("Le client est classé ", predictions)     
 
   col4.subheader("WaterFall")
   col4.image(f"SHAP/waterfall_{i}.png")
