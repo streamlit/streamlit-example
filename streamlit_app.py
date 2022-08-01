@@ -663,7 +663,7 @@ if page==pages[3]:
 
 if page==pages[4]: 
 
-  st.title("🔍 Interprétabilité du modèle Random Forest")
+  st.title("🔍 Interprétabilité du modèle XG Boost")
   st.markdown("""
               L’interprétabilité et l'explicabilité d’un système de data science sont fondamentales.
               Il s'agit de chercher à rendre un modèle intelligible, à l’expliquer et à le commenter.  
