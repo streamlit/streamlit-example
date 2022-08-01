@@ -682,7 +682,7 @@ if page==pages[4]:
   preds = [0 if x < 0.5 else 1 for x in probs]  
          
   shap.initjs()
-  explainer = shap.TreeExplainer(bst)
+  explainer = shap.TreeExplainer(xgbc)
   shap_values = explainer.shap_values(X_test)  
 
 # Aperçus  -----------------------------------------------------------------------
