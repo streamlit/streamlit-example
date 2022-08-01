@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "solius-ocolus",
+  "private_key_id": "11ebe6a4aab7fbb8b4fce14d287b2790371a37ec",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIj63K1TGTrT2u\nNqoD4wyTjlN1N5skgvJ7/+XfnMIvx0ECNjbPabfLQ3/Sswky3K8TQp9FXWGvi1g+\nyrH6cPRyO8mA3ndlMhwyndd9gUGAQeeJVih6CVPMhpeoJxz2pav7nd+grWI7otHr\nJy5/cAF3mqiuYnQTjoZ4O4kZSxLJCeR2Qs/p7r6U8i0MtAmMRjgogxqSHNrv6jtg\nmVPveLALwUpllPFACJe3Q7A2YXHs0+eLt9GlbsRCMFkOGISTlDzkP2rUEafmQRNm\nq01n9UMi9LJqbUqB7Mt9PU9dweDJLiLAGlEOVR1ZMUZ9DWhJtPinJN6XkDihhwjD\n53CtF18dAgMBAAECggEACvZQIg/B4wfl9kAjzfdqms8S8It5RfHdVe86+IcC1dCJ\nf64zE+ZRRtbPOqw7/WUdXEtjgAurrkgKwFCHu//8BcQO+RBPzNQZa/UqJSs73LTd\ndlQjUrubR7N3QG2Lh6SvBYn6bOJv2ywaAVp10BPbv1aQpTVu5u8URP1Auq/v3H/p\nMi5vAkpHYliNK7iPWqBElBj0GmTfE8KiEls4rm+vIqVbtBzAtLzHf0oHBPNcRYNn\nQ3y9Xq3Vd/7FMTgN+YDIoZAP5P0zVw37xTDCE4BDIhByZn/iT2Rg84Yy+vjhiEE9\nXxqXGcHfzpi0XIXubYRIXc+CmS/ZBpuuf3bt/Lh5OQKBgQDvZPHmPT7PSh6OV2nG\nRVsOxGLs1umGiUfXFLYYhgCAQ416qTtpVpjIIq3JXNxzqaZEebwIoIrdBKHK6F6T\nmx1dmGYG7bzP63i8XMEPAMFnQM4Kmrqqm9rYK1reanJecG4o+PoibGw8F4kRoanp\nAGMrUao9gknyDCdAYxC0io8h9QKBgQDWeSdstHBOD2yqNnStzw3bKZeUUJqJJuB8\nD1WVCzz7s2r9FuhATACfHXXnfpSlfGGCD3bOwpcaBhx/rRWsRmLpWS0D8KPBVhBx\n04tsi9Q1erubU4oj7oaDGBrUA9XUp6E64JzAhNw4QGM//thUv9+1LvGDyRa8L2yC\nFhDe4X6HiQKBgDHAVNV4nPkPelIysHTYLRhgj/6Qm2+uUBPO5hkqoCgH4fs/+Gzn\n5lCRhHR4rAgNldRdSEqysqlEMSuuJxmd/vhYl7uQ5NCBK1JaJHUtvwPqX+esSGb0\nhQKv3+6hSKt/yiURuUo2JjhG2+GiK2GVBwcVrb+iuCNpiy7CZ9JdiWmRAoGBAJrg\ndoXbb1YPcWshU/THlrvzNxDVfCMavfUYpbaxnOIuWE5XonP77l74yVHYaMNwJIHl\nZOg+QRt72kyg0wvK8FaOHSHBPp+45LsuBnrmJuJPtPafxxvXfa9hUs5TzrB4NMft\nt4SW7Oh6JrHp+JKK1KNkOOfv6MkQfg0anig1MkfxAoGAPOEmGcA8/KEuXEs2d/f1\nA1hYt9svBlyNUaZkPfN2Ezazy2fdZJOZQXW/jkdycqIOyQ/wcL/+pz3iN1uZAWsn\nJhrr97XrwurE7dZ9qjSbkhdL1RddAY/OuIyF/taMTQMcm/GkrxzphJ1Bw5knuh3E\noICat7AuLqT9WOKatoDkQss=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sollius-automatus@solius-ocolus.iam.gserviceaccount.com",
+  "client_id": "109790525673227273670",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sollius-automatus%40solius-ocolus.iam.gserviceaccount.com"
+}
