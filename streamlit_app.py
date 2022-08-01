@@ -673,13 +673,14 @@ if page==pages[4]:
               complet et accessible à un utilisateur néophyte ou technophile.  
               \n
               Ici nous utiliserons la méthode d’interprétabilité **SHAP**.
+              \n
            """)
 
   shap = pd.read_csv('SHAP/shap.csv', sep = ',')
          
 # Général  -----------------------------------------------------------------------
 
-  col1, col2, col3  = st.columns((2,1,2))
+  col1, col2, col3  = st.columns((2,0,5,2))
          
   col1.subheader("Summary")
   col1.image("SHAP/shap.summary_plot.png")       
@@ -694,20 +695,22 @@ if page==pages[4]:
 
   st.write("")
   st.subheader("Analyse des variables explicatives par individu")
-  col4, col5, col6  = st.columns((1,2,1))
-  i = col5.slider('Choisir une observation à analyser', 0, 50, 25)
-  st.write("")
-         
-  predictions = shap.iloc[i]["Predictions"]       
-  
-  st.write("Affichage de l'importance des variables pour le client sélectionné")
-  st.write("Le client est classé ", predictions)     
-         
-  st.subheader("WaterFall")
-  col5.image(f"SHAP/waterfall_{i}.png")
+  col4, col5, col6  = st.columns((1,1,1))
+  col5.write(" ")
+  i = col5.slider('Choisir une observation à analyser', 0, 50, 25) 
 
-  st.subheader("Forceplot")
-  st.image(f"SHAP/forceplot_{i}.png")
+  col4.write(" ")
+  col4.write(" ")
+  col4.write(" ")
+
+  predictions = shap.iloc[i]["Predictions"]       
+  col4.info("Le client est classé ", predictions)     
+
+  col4.subheader("WaterFall")
+  col4.image(f"SHAP/waterfall_{i}.png")
+
+  col4.subheader("Forceplot")
+  col4.image(f"SHAP/forceplot_{i}.png")
          
          
 # ______________________________________________________________________________________________________
