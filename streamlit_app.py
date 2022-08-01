@@ -11,7 +11,6 @@ import xgboost as xgb
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-import pickle
 import shap
 from joblib import dump, load
 from datetime import datetime
@@ -157,12 +156,6 @@ xgb_y_pred = xgbc.predict(X_test)
 probs_xgb = xgbc.predict_proba(X_test)
 fpr_xgb, tpr_xgb, seuils = roc_curve(y_test, probs_xgb[:,1])
 roc_auc_xgb = auc(fpr_xgb, tpr_xgb)
-
-
-# ---------- Shap -----------
-
-#explainer = shap.TreeExplainer(xgbc)
-#shap_values = explainer.shap_values(feats)    
 
 
 # ---------- Jeu de données modifié -----------
@@ -684,8 +677,6 @@ if page==pages[4]:
 
 # Calcul des shap values -----------------------------------------------------------------------
 
-  shap.initjs()
-  st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Summary plot -----------------------------------------------------------------------
 
