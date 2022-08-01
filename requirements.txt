@@ -4,6 +4,6 @@ streamlit
 seaborn
 matplotlib
 plotly
-scikit-learn==0.24.2
+sklearn
 datetime
 shap
