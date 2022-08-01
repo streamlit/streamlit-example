@@ -11,8 +11,8 @@ import xgboost as xgb
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-import shap
-from streamlit_shap import st_shap
+#import shap
+#from streamlit_shap import st_shap
 from joblib import dump, load
 
 from xgboost import XGBClassifier
@@ -673,15 +673,40 @@ if page==pages[4]:
               complet et accessible à un utilisateur néophyte ou technophile.  
               \n
               Ici nous utiliserons la méthode d’interprétabilité **SHAP**.
-           """) 
+           """)
 
-# Préparation  -----------------------------------------------------------------------
+  shap = pd.read_csv('SHAP/shap.csv', sep = ',')
+         
+# Général  -----------------------------------------------------------------------
 
+  col1, col2, col3  = st.columns(3)
+         
+  col1.subheader("Plots Bar")
+  col1.image("SHAP/shap.plots.bar.png")
+         
+  col2.subheader("Summary")
+  col2.image("SHAP/shap.summary_plot.png")
+         
+  col3.subheader("Heatmap")
+  col3.image("SHAP/shap.plots.heatmap.png")
 
+# Aperçus à la ligne  -----------------------------------------------------------------------  
 
-# Aperçus  -----------------------------------------------------------------------
+  st.write("")
+  obs = st.slider('Choisir une observation à analyser', 0, 50, 25)
+  st.write("")
+         
+  class=shap.iloc[i]["Predictions"]       
+  
+  st.write("Affichage de l'importance des variables pour le client sélectionné")
+  st.write("Le client est classé ", class)     
+         
+  st.subheader("WaterFall")
+  st.image(f"SHAP/waterfall_{i}.png")
 
-
+  st.subheader("Forceplot")
+  st.image(f"SHAP/forceplot_{i}.png")
+         
          
 # ______________________________________________________________________________________________________
 # 6/ BONUS
