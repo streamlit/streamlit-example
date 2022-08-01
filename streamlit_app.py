@@ -680,7 +680,7 @@ if page==pages[4]:
          
 # Général  -----------------------------------------------------------------------
 
-  col1, col2, col3  = st.columns((2,0,5,2))
+  col1, col2, col3  = st.columns((2,0.5,2))
          
   col1.subheader("Summary")
   col1.image("SHAP/shap.summary_plot.png")       
