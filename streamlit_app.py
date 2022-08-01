@@ -732,7 +732,7 @@ if page==pages[5]:
 
   model = col2.radio(
      "✨Quel modèle prédictif souhaitez-vous privilégier ?",
-     ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires'), index=3)
+     ('Régression logistique', 'K-Plus proches voisins', 'Arbre de décisions', 'Fôrets aléatoires', 'eXtreme Gradient Boosting'), index=3)
   
   seuil = col2.number_input(
       "🎚️ Quel seuil pour les prédictions ?", min_value=0.1, max_value=0.9, value=0.5)         
@@ -765,9 +765,12 @@ if page==pages[5]:
     elif model == "Arbre de décisions":
       classifieur = dtc
       accuracy=dtc_accuracy
-    else:
+    elif model == "Fôrets aléatoires":
       classifieur = rfc
       accuracy=rfc_accuracy
+    else:
+      classifieur = xgbc
+      accuracy=xgb_accuracy
 
     # Choix du mois -----------------------------------
     if m == "Janvier":
@@ -836,11 +839,11 @@ if page==pages[5]:
 
     col11.metric("Nombre de clients scorés positifs", sum(probas['Classification']), sum(probas['Classification'])-5289)  
     col11.metric("Performance présumée de la campagne *", "{:.2%}".format(sum(probas['Classification'])/11162), "{:.2%}".format(sum(probas['Classification'])/11162-0.47))  
-    col11.metric("Score du modèle sélectionné **", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-rfc_accuracy)) 
+    col11.metric("Score du modèle sélectionné **", "{:.2%}".format(accuracy), "{:.2%}".format(accuracy-xgb_accuracy)) 
          
     st.info("""
         - *Performance : Pourcentage estimé de clients susceptibles d'effectuer un dépôt lors de la campagne.
-        - **Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle Random Forest est utilisé comme référence.
+        - **Score du modèle : Taux de prédictions correctes effectuées par le modèle choisi. Le modèle XGBoost est utilisé comme référence.
         """)
 
     st.write(" ")
