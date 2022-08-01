@@ -4,6 +4,8 @@ import math
 import pandas as pd
 import streamlit as st
 
+import plotly.express as px
+
 """
 Overview of PM priotitization 
 """
@@ -42,36 +44,47 @@ def check_password():
 def main_app():
     st.subheader('Overview of active rules')
 
-    with st.expander("Overview of product scoring rules"):
-        cols = st.columns(4)
-        cols[0].write(f'**Layer name**')
-        cols[1].write(f'**Rule Type**')
-        cols[2].write(f'**Min Value**')
-        cols[3].write(f'**Max Value**')
+    cols = st.columns(4)
+    cols[0].write(f'**Layer name**')
+    cols[1].write(f'**Rule Type**')
+    cols[2].write(f'**Min Value**')
+    cols[3].write(f'**Max Value**')
 
-        for filename in filenames: 
-
-            
+    for filename in [1,2,3,4]: 
 
 
 
-            if activated_layers_dict[filename]['active']:
+        cols = st.columns(3)
 
-                cols = st.columns(4)
-                cols[0].write(f'{filename}')
-                cols[1].write(f'{ activated_layers_dict[filename]["type of analysis"] }')
+        col1, col2, col3 = st.columns(3)
+        col1.metric(f'{filename}', 5, -1)
+        col2.metric("Wind", "9 mph", "-8%")
+        col3.metric("Humidity", "86%", "4%")
+
+        cols[0].write(f'{filename}')
+        
+        cols[1].write(f'{ filename **2 }')
+        cols[2].write(f'{ filename **3 }')
 
 
-                # st.write('For: ', activated_layers_dict[filename]['name'])
-                # st.write('Type of analysis selected: ', activated_layers_dict[filename]['type of analysis'])
 
-                for key,value in activated_layers_dict[filename]['parameters'].items():
-                    # st.write(key, value)
-                    if key == "min_val":
-                        cols[2].write(f'{value}')
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Temperature", "70 °F", "1.2 °F")
+        col2.metric("Wind", "9 mph", "-8%")
+        col3.metric("Humidity", "86%", "4%")
 
-                    elif key == 'max_val':
-                        cols[3].write(f'{value}')
+        st.write("---")
+    
+
+    
+    df = px.data.gapminder()
+
+    fig = px.scatter(df.query("year==2007"), x="gdpPercap", y="lifeExp",
+                size="pop", color="continent",
+                    hover_name="country", log_x=True, size_max=60)
+    fig.show()
+
+
 
     return None 
 
@@ -82,5 +95,5 @@ def main_app():
 if check_password():
 
 
-    st.write("Here goes your normal Streamlit app...")'
+    st.write("Here goes your normal Streamlit app...")
     main_app()
