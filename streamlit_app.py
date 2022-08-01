@@ -13,7 +13,6 @@ import plotly.express as px
 
 import shap
 from joblib import dump, load
-from datetime import datetime
 
 from xgboost import XGBClassifier
 from xgboost import XGBRegressor
@@ -315,7 +314,7 @@ if page==pages[1]:
 
   tab1, tab2 = col1.tabs(["📈 Chart", "📋 Describe"])
          
-  option = tab1.selectbox("Choix une variable numérique :", numerics, index=3)
+  option = tab1.selectbox("Choix d'une variable numérique :", numerics, index=3)
   hist = px.histogram(df2,x=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Plotly)
   tab1.plotly_chart(hist)
          
@@ -331,7 +330,7 @@ if page==pages[1]:
 
   tab3, tab4 = col2.tabs(["📈 Chart", "📋 Describe"])
 
-  option = tab3.selectbox("Choix une variable catégorielle :", categoricals, index=7)
+  option = tab3.selectbox("Choix d'une variable catégorielle :", categoricals, index=7)
   hist = px.histogram(df2,y=option,color="deposit",barmode="group", color_discrete_sequence=px.colors.qualitative.Plotly)
   tab3.plotly_chart(hist)
          
@@ -665,7 +664,7 @@ if page==pages[4]:
 
   st.title("🔍 Interprétabilité du modèle Random Forest")
   st.markdown("""
-              L’interprétabilité et l'explicabilité d’un système de data science sont fondammentales.
+              L’interprétabilité et l'explicabilité d’un système de data science sont fondamentales.
               Il s'agit de chercher à rendre un modèle intelligible, à l’expliquer et à le commenter.  
               L’**Interprétabilité** consiste à pouvoir comprendre comment le modèle fonctionne en fournissant des informations sur le modèle de Machine Learning
               ainsi que sur les données utilisées. L’interprétabilité est dédiée aux experts en ML ou des données.  
@@ -686,9 +685,9 @@ if page==pages[4]:
          
 # Summary plot -----------------------------------------------------------------------
 
-  obs = st.slider('Choisir une observation à analyser', 0, 200, 25)
-  prediction = xgbc.predict(feats[obs])
-  st.write(prediction)
+  #obs = st.slider('Choisir une observation à analyser', 0, 200, 25)
+  #prediction = xgbc.predict(feats[obs])
+  #st.write(prediction)
          
   #force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
   #st.pyplot(force)
