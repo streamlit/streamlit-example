@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 import shap
+from streamlit_shap import st_shap
 from joblib import dump, load
 
 from xgboost import XGBClassifier
@@ -674,23 +675,54 @@ if page==pages[4]:
               Ici nous utiliserons la méthode d’interprétabilité **SHAP**.
            """) 
 
-# Calcul des shap values -----------------------------------------------------------------------
+# Préparation  -----------------------------------------------------------------------
 
-
-# Summary plot -----------------------------------------------------------------------
-
-  #plt.figure(figsize=(10, 10))
-  #summary=shap.summary_plot(shap_values, feats, plot_type="bar")
-  #st.pyplot(summary)
+  X_test = pd.DataFrame(X_test, columns=feats.columns)
+  probs= xgb_y_pred
+  preds = [0 if x < 0.5 else 1 for x in probs]  
          
-# Summary plot -----------------------------------------------------------------------
+  shap.initjs()
+  explainer = shap.TreeExplainer(bst)
+  shap_values = explainer.shap_values(X_test)  
 
-  #obs = st.slider('Choisir une observation à analyser', 0, 200, 25)
-  #prediction = xgbc.predict(feats[obs])
-  #st.write(prediction)
+# Aperçus  -----------------------------------------------------------------------
+
+  class_report = st.checkbox("Aperçu du classification report")
+  if class_report:
+    report = classification_report(y_test, preds, output_dict=True)
+    report = pd.DataFrame(report).transpose()
+    st.dataframe(report)
+
+  shap_values_view = st.checkbox("Aperçu du Expected Value et de shap_values")
+  if shap_values_view:
+    st.write('Expected Value:', explainer.expected_value)
+    st.dataframe(shap_values)
          
-  #force= shap.force_plot(explainer.expected_value, shap_values[obs], features=feats_shap.iloc[obs], feature_names=feats_shap.columns)
-  #st.pyplot(force)
+  shap_summary_view = st.checkbox("Aperçu des features d'importance obtenues avec SHAP")
+  if shap_summary_view:
+    st_shap(shap.summary_plot(shap_values, X_test1, plot_type="bar"),  height=800, width=800 )      
+         
+  shap_dependance_view = st.checkbox("Aperçu des dependance plots de différentes variables")
+
+  if shap_dependance_view:
+      choix = X_test.columns
+      option1 = st.selectbox("Choix d'une première variable :", choix, index=3) # essayos d'abord avec les variables numériques
+      option2 = st.selectbox("Choix d'une deuxième variable :", choix, index=3)
+      st.set_option('deprecation.showPyplotGlobalUse', False)
+      st_shap(shap.dependence_plot(option1, shap_values, X_test, interaction_index= option2))
+
+  shap_force_plot_view1 = st.checkbox("Aperçu, au niveau local, montrant ce qui a poussé le modèle à classer p.r. var influentes (une variable)")
+  if shap_force_plot_view1:
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[3,:], X_test.iloc[3,:]) , height=400, width=1000 )
+
+  shap_force_plot_view2= st.checkbox("Aperçu, au niveau local, montrant ce qui a poussé le modèle à classer p.r. var influentes (plusieurs variables)")
+  if shap_force_plot_view2:
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[233,:], X_test.iloc[233,:]), height=400, width=1000 )
+
+  shap_force_plot_view3 = st.checkbox("Aperçu du graphique interactif proposé par SHAP.")
+  if shap_force_plot_view3:
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000], X_test1[:1000]),  height=600, width=1000 )
+
          
 # ______________________________________________________________________________________________________
 # 6/ BONUS
