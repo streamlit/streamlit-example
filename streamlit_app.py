@@ -700,9 +700,8 @@ if page==pages[4]:
   col4.write(" ")
   i = col4.slider('Choisir une observation à analyser', 0, 50, 25) 
   col4.write(" ")
-
-  predictions = shap.iloc[i]["Predictions"]       
-  col4.write("Le client est classé ", predictions)     
+     
+  col5.metric("Prédiction calculée", shap.iloc[i]["Predictions"])
 
   col4.subheader("WaterFall")
   col4.image(f"SHAP/waterfall_{i}.png")
