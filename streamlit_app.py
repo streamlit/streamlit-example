@@ -695,13 +695,11 @@ if page==pages[4]:
 
   st.write("")
   st.subheader("Analyse des variables explicatives par individu")
-  col4, col5  = st.columns(2)
+  col4, col5, col6  = st.columns((2,0.5,2))
          
-  col4.write(" ")
   i = col4.slider('Choisir une observation à analyser', 0, 50, 25) 
-  col4.write(" ")
      
-  col5.metric("Prédiction calculée", shap.iloc[i]["Predictions"])
+  col6.metric("Prédiction calculée", shap.iloc[i]["Predictions"])
 
   col4.subheader("WaterFall")
   col4.image(f"SHAP/waterfall_{i}.png")
