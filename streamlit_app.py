@@ -696,10 +696,10 @@ if page==pages[4]:
   obs = st.slider('Choisir une observation à analyser', 0, 50, 25)
   st.write("")
          
-  class=shap.iloc[i]["Predictions"]       
+  predictions = shap.iloc[i]["Predictions"]       
   
   st.write("Affichage de l'importance des variables pour le client sélectionné")
-  st.write("Le client est classé ", class)     
+  st.write("Le client est classé ", predictions)     
          
   st.subheader("WaterFall")
   st.image(f"SHAP/waterfall_{i}.png")
