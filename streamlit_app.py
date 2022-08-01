@@ -693,7 +693,7 @@ if page==pages[4]:
 # Aperçus à la ligne  -----------------------------------------------------------------------  
 
   st.write("")
-  obs = st.slider('Choisir une observation à analyser', 0, 50, 25)
+  i = st.slider('Choisir une observation à analyser', 0, 50, 25)
   st.write("")
          
   predictions = shap.iloc[i]["Predictions"]       
