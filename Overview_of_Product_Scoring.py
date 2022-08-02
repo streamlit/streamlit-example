@@ -63,16 +63,18 @@ def main_app():
 
         df['Business value (k NOK) [MIN]'] = pd.to_numeric(df['Business value (k NOK) [MIN]'], errors='coerce')
         df['Business value (k NOK) [MAX]'] = pd.to_numeric(df['Business value (k NOK) [MAX]'], errors='coerce')
+        df['Business value (k NOK) [BEST]'] = pd.to_numeric(df['Business value (k NOK) [BEST]'], errors='coerce')
 
         # df.columns
 
         df_res = df.groupby(['Product']).mean().reset_index()
         df_res['count'] = df.groupby(['Product']).count().reset_index()['ID']
+        df_res['must_haves'] = "" # To be done
 
 
         df_res.sort_values(by=['count'])
 
-        df_res
+        # df_res
 
 
 
@@ -80,34 +82,48 @@ def main_app():
 
     # Logic for sorting by score here. 
     
+    df_res = df_res.reset_index()  # make sure indexes pair with number of rows
+    for index, row in df_res.iterrows():
 
-    for filename in [1,2,3,4]: 
-    
-        st.subheader("PRODUCT NAME")
+        
+
+        st.subheader(row['Product'])  
 
 
-        cols = st.columns(4)
-        cols[0].write(f'**Product Name**')
-        cols[1].write(f'**Rule Type**')
-        cols[2].write(f'**Min Value**')
-        cols[3].write(f'**Max Value**')
 
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2 = st.columns(2)
 
-        col1.metric(f'{filename}', 5, -1)
-        col2.metric("Wind", "9 mph", "-8%")
-        col3.metric("Humidity", "86%", "4%")
-        col4.metric("Humidity", "86%", "4%")
+        col1.metric("The count of feedback registered", str(row['count']), 2)
+        col2.metric("The average best business value estimate [kNOK]", str(row['Business value (k NOK) [BEST]']), "8%")
+
+        with st.expander("See the underlaying input", expanded=False):
+            df[df['Product'] == row['Product']]
 
         st.write("---")
     
 
     
     df = px.data.gapminder()
+    
+    import random
+    # list of strings
+    val = [f"HE {i}" for i in range(10)]
+    # size = [40 for i in range(10)]
+    lst = [random.randint(0,10) for i in range(10)]
+    
+    
+    # list of int
+    lst2 = [random.randint(0,10) for i in range(10)]
 
-    fig = px.scatter(df.query("year==2007"), x="gdpPercap", y="lifeExp",
-                size="pop", color="continent",
-                    hover_name="country", log_x=True, size_max=60)
+
+    lsts_ = zip(val, lst, lst2)
+    
+    # Calling DataFrame constructor after zipping
+    # both lists, with columns specified
+    df = pd.DataFrame(lsts_,
+                columns =['val','x', 'y'])
+
+    fig = px.scatter(df, x="x", y="y", color="val",hover_name="val", log_x=True, size_max=300)
 
     import base64
     img_file = "background_go_zone.png"

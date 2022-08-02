@@ -76,10 +76,11 @@ if product != None:
 
 
         st.write('(OPTIONAL) If business value estimates exists (K NOK / year), add these here:')
-        st.caption('**Note:** If the following inputs are numbers they are added to the value estimations.')
+        st.caption('**Note:** If the following inputs are numbers they are added to the value estimations for the product. The "best estimate" is considered together with the confidence value.')
 
         col1, col2 = st.columns(2)
         min_business_val = col1.text_input('Min Value (KNOK)', "")
+        best_business_val = col2.text_input('Best Estimate (KNOK)', "")
         max_business_val = col2.text_input('Max Value (KNOK)', "")
 
         confidence = st.slider('If applicable: How confident are you in the interval given?', 0, 10, 5)
@@ -103,7 +104,7 @@ if product != None:
             import json
 
             must_haves = json.dumps(must_haves)
-            product_feedback.append_rows(values=[[id_val, product,source, type_of_source, feedback, min_business_val, max_business_val, confidence ,must_haves, str(date)]])
+            product_feedback.append_rows(values=[[id_val, product,source, type_of_source, feedback, min_business_val,best_business_val, max_business_val, confidence ,must_haves, str(date)]])
             st.success("Feedback added")
 
         # Every form must have a submit button.
