@@ -1,4 +1,3 @@
-from turtle import onclick
 import streamlit as st
 
 import pandas as pd
@@ -8,7 +7,25 @@ import gspread
 scope = ['https://www.googleapis.com/auth/drive']
 
 
-gc = gspread.service_account(filename='Authentification\key_google.json')
+
+credentials = {
+                "type": st.secrets.credentials["type"],
+                "project_id": st.secrets.credentials["project_id"],
+                "private_key_id": st.secrets.credentials["private_key_id"],
+                "private_key": st.secrets.credentials["private_key"], 
+                "client_email": st.secrets.credentials["client_email"], 
+                "client_id": st.secrets.credentials["client_id"], 
+                "auth_uri": st.secrets.credentials["auth_uri"], 
+                "token_uri": st.secrets.credentials["token_uri"], 
+                "auth_provider_x509_cert_url": st.secrets.credentials["auth_provider_x509_cert_url"], 
+                "client_x509_cert_url": st.secrets.credentials["client_x509_cert_url"]
+                }
+
+# gc = gspread.service_account(filename='Authentification\key_google.json')
+# gc = gspread.service_account(credentials)
+gc = gspread.service_account_from_dict(credentials)
+
+
 
 #spreadsheet file named "example"
 sps = gc.open('Product Portfolio Planning')
@@ -65,25 +82,25 @@ if product != None:
 
         # Define type of source
         col1, col2 = st.columns(2)
-        type_of_source = col1.selectbox('Select feadback type', ("Existing Customer","Potential Customer", "Compeditor", "Website", "Internal"))
+        type_of_source = col1.selectbox('Select source type', ("Existing Customer","Potential Customer", "Compeditor", "Website", "Internal"))
 
         source = col2.text_input('Source', '', placeholder = 'write the name/company/website')
 
         #
         feedback = st.text_input('Feedback', '', placeholder = 'Write the feedback recived, or key takeaways' )
 
-
+        type_of_feedback = st.selectbox('Select feadback type', ("Very Positive", "Positive", "Neutral", "Negative", "Very Negative"))
 
 
         st.write('(OPTIONAL) If business value estimates exists (K NOK / year), add these here:')
         st.caption('**Note:** If the following inputs are numbers they are added to the value estimations for the product. The "best estimate" is considered together with the confidence value.')
 
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         min_business_val = col1.text_input('Min Value (KNOK)', "")
-        best_business_val = col2.text_input('Best Estimate (KNOK)', "")
-        max_business_val = col2.text_input('Max Value (KNOK)', "")
+        best_business_val = col2.text_input('**Best Estimate (KNOK)**', "")
+        max_business_val = col3.text_input('Max Value (KNOK)', "")
 
-        confidence = st.slider('If applicable: How confident are you in the interval given?', 0, 10, 5)
+        confidence = st.slider('If applicable: How confident are you in the BEST ESTIMATE above?', 0, 10, 5)
 
 
         # min_business_val, max_business_val = st.slider('Estimated Business Value (K NOK) from customer per year ', 0.0, 1000.0, (0.0, 0.0))
@@ -104,7 +121,7 @@ if product != None:
             import json
 
             must_haves = json.dumps(must_haves)
-            product_feedback.append_rows(values=[[id_val, product,source, type_of_source, feedback, min_business_val,best_business_val, max_business_val, confidence ,must_haves, str(date)]])
+            product_feedback.append_rows(values=[[id_val, product,source, type_of_source, feedback, type_of_feedback, min_business_val,best_business_val, max_business_val, confidence ,must_haves, str(date)]])
             st.success("Feedback added")
 
         # Every form must have a submit button.

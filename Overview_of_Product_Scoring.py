@@ -54,7 +54,27 @@ def main_app():
     st.caption('Change is defined as difference in average during the last month')
 
     with st.spinner('Loading data and sorting the scoring..'):
-        gc = gspread.service_account(filename='Authentification\key_google.json')
+
+
+
+        credentials = {
+                        "type": st.secrets.credentials["type"],
+                        "project_id": st.secrets.credentials["project_id"],
+                        "private_key_id": st.secrets.credentials["private_key_id"],
+                        "private_key": st.secrets.credentials["private_key"], 
+                        "client_email": st.secrets.credentials["client_email"], 
+                        "client_id": st.secrets.credentials["client_id"], 
+                        "auth_uri": st.secrets.credentials["auth_uri"], 
+                        "token_uri": st.secrets.credentials["token_uri"], 
+                        "auth_provider_x509_cert_url": st.secrets.credentials["auth_provider_x509_cert_url"], 
+                        "client_x509_cert_url": st.secrets.credentials["client_x509_cert_url"]
+                        }
+
+        # gc = gspread.service_account(filename='Authentification\key_google.json')
+        # gc = gspread.service_account(credentials)
+        gc = gspread.service_account_from_dict(credentials)
+
+
         sps = gc.open('Product Portfolio Planning')
         product_feedback = sps.get_worksheet_by_id(1479889959)
         data = product_feedback.get_all_values()

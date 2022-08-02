@@ -7,7 +7,25 @@ import gspread
 scope = ['https://www.googleapis.com/auth/drive']
 
 
-gc = gspread.service_account(filename='Authentification\key_google.json')
+
+
+credentials = {
+                "type": st.secrets.credentials["type"],
+                "project_id": st.secrets.credentials["project_id"],
+                "private_key_id": st.secrets.credentials["private_key_id"],
+                "private_key": st.secrets.credentials["private_key"], 
+                "client_email": st.secrets.credentials["client_email"], 
+                "client_id": st.secrets.credentials["client_id"], 
+                "auth_uri": st.secrets.credentials["auth_uri"], 
+                "token_uri": st.secrets.credentials["token_uri"], 
+                "auth_provider_x509_cert_url": st.secrets.credentials["auth_provider_x509_cert_url"], 
+                "client_x509_cert_url": st.secrets.credentials["client_x509_cert_url"]
+                }
+
+# gc = gspread.service_account(filename='Authentification\key_google.json')
+# gc = gspread.service_account(credentials)
+gc = gspread.service_account_from_dict(credentials)
+
 
 #spreadsheet file named "example"
 sps = gc.open('Product Portfolio Planning')
@@ -112,12 +130,15 @@ with st.expander("Add new feature <--> Product pair"):
         feature_name = st.text_input('Feature Name', '', placeholder = 'descriptive name')
         product_selected = st.selectbox('Select related product', (products[1:]), )
         feature_desc = st.text_input('Feature description', '', placeholder = 'Longer description, preferably with why this feature is useful.')
+        status = st.selectbox('Select current status', ('N/A','To be evaluated','Prototyping','Prototype Ready', 'Backlog', 'In development', 'Implemented'), )
+        date2 = st.date_input( "Date of status",datetime.datetime.now())
+
 
 
         suby = st.form_submit_button("Submit")
 
         if suby:
-            features_list.append_rows(values=[[feature_name,product_selected,feature_desc]])
+            features_list.append_rows(values=[[feature_name,product_selected,feature_desc, status, str(date2)]])
             st.success("Feature added")
 
 
