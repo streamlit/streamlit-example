@@ -123,7 +123,7 @@ def main_app():
     df = pd.DataFrame(lsts_,
                 columns =['val','x', 'y'])
 
-    fig = px.scatter(df, x="x", y="y", color="val",hover_name="val", log_x=True, size_max=300)
+    fig = px.scatter(df, x="x", y="y", color="val",hover_name="val", log_x=True, width=700, height=550)
 
     import base64
     img_file = "background_go_zone.png"
@@ -157,8 +157,10 @@ def set_score():
 
         set_max_value = st.text_input('Max value', '', placeholder = 'write (numeric K NOK) value that yields 10')
         set_max_time  = st.text_input('Max time --> Above this yields 0', '', placeholder = 'write (numeric FTE months) value that yields 0')
+        must_haves = st.multiselect('Select what types of input are acceptable', ['customer', 'all', 'internal'])
 
-        suby = st.form_submit_button("Submit")
+
+        suby = st.form_submit_button("Re-run")
 
         if suby:
 
