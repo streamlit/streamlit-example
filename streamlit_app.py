@@ -691,6 +691,8 @@ if page==pages[4]:
   col3.subheader("Heatmap")
   col3.image("SHAP/shap.plots.heatmap.png")
 
+  st.info("Les variables ..... A COMPLETER")       
+         
 # Aperçus à la ligne  -----------------------------------------------------------------------  
 
   st.write("")
