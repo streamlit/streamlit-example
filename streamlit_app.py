@@ -699,7 +699,7 @@ if page==pages[4]:
          
   i = col4.slider('Choisir une observation à analyser', 0, 50, 25) 
 
-  if shap.iloc[i]["Predictions"] == [0]:
+  if shap.iloc[i]["Predictions"] == "[0]":
     predict = "Négatif"
   else:
     predict = "Positif"
