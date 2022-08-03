@@ -4,6 +4,7 @@ import pandas as pd
 import gspread
 
 
+
 scope = ['https://www.googleapis.com/auth/drive']
 
 
@@ -89,7 +90,7 @@ if product != None:
 
         # Define type of source
         col1, col2 = st.columns(2)
-        type_of_source = col1.selectbox('Select feadback type', ("Existing Customer","Potential Customer", "Compeditor", "Website", "Internal"))
+        type_of_source = col1.selectbox('Select feadback type', ("Existing Customer","Potential Customer", "Compeditor", "Website", 'Law Document',"Internal"))
 
         source = col2.text_input('Source', '', placeholder = 'write the name/company/website')
 
@@ -98,9 +99,10 @@ if product != None:
 
 
         st.write('(OPTIONAL) If business value estimates exists, add these here:')
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         min_business_val = col1.text_input('Min Value (KNOK)', "")
-        max_business_val = col2.text_input('Max Value (KNOK)', "")
+        best_business_val = col2.text_input('BEST estimate Value (KNOK)', "")
+        max_business_val = col3.text_input('Max Value (KNOK)', "")
 
         st.write('(OPTIONAL) If development time estimates exists, add these here:')
 
@@ -118,7 +120,7 @@ if product != None:
         submitted = st.form_submit_button("Submit")
 
         if submitted:
-            feature_feedback.append_rows(values=[[id_val, product,feature,type_of_source, source, feedback,feature_type, min_business_val, max_business_val,min_time,max_time,str(date)  ]])
+            feature_feedback.append_rows(values=[[id_val, product,feature,type_of_source, source, feedback,feature_type, min_business_val,best_business_val, max_business_val,min_time,max_time,str(date)  ]])
             st.success("Feedback added")
 
         # Every form must have a submit button.
