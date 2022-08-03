@@ -362,7 +362,7 @@ if page==pages[1]:
   for col in df2.columns:
     df2[col]= le.fit_transform(df2[col])
          
-  heatmap = px.imshow(df2.corr(), color_continuous_scale='RdBu_r')
+  heatmap = px.imshow(df2.corr(), color_continuous_scale='RdBu_r', text_auto=".1f")
   heatmap.update_layout(height=600, width=700)
   col1.plotly_chart(heatmap)    
 
