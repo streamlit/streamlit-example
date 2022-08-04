@@ -55,8 +55,8 @@ rlc = joblib.load('Regression logistique.joblib')
 knn = joblib.load('K plus proches voisins.joblib')
 dtc = joblib.load('Decision Tree Classifier.joblib')
 rfc = joblib.load('Random Forest Classifier.joblib')
-#xgbc = joblib.load('XG Boost Classifier.joblib')
-#voir ligne 127
+xgbc = xgb.XGBClassifier()
+xgbc.load_model("XG Boost Classifier.json")
 
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
@@ -124,11 +124,6 @@ feats = df2.drop(['deposit'], axis=1)
 
 # Séparation des données en jeu d'entraînement et de test
 X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.25, random_state=123)
-
-# Ré entrainement du XGBoost que je n'arrive pas à  importer
-xgbc = xgb.XGBClassifier(max_depth=12,subsample=0.33,objective='binary:logistic',n_estimators=300,learning_rate = 0.01)
-eval_set = [(X_train, y_train), (X_test, y_test)]
-xgbc.fit(X_train, y_train.values.ravel(), early_stopping_rounds=15, eval_metric=["error", "logloss"], eval_set=eval_set, verbose=False)
 
 # Normaliser les données - MinMaxScaler
 scaler = MinMaxScaler()
