@@ -5,3 +5,4 @@ seaborn
 matplotlib
 plotly
 sklearn
+xgboost
