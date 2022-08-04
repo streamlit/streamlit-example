@@ -51,6 +51,7 @@ def check_if_feature_exists():
     # if feature is not in pre-defined list, create a new feature with the related feature <--> product connection. 
     return True 
 
+st.sidebar.info("The database is located here: [link](https://docs.google.com/spreadsheets/d/1ah2joFtc8UV1vyT05KFBJT6fe9QJI_ZjI4Jkl32M1DY/edit#gid=1399876879)")
 
 
 

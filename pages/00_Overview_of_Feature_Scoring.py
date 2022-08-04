@@ -40,6 +40,7 @@ def check_password():
         # Password correct.
         return True
 
+st.sidebar.info("The database is located here: [link](https://docs.google.com/spreadsheets/d/1ah2joFtc8UV1vyT05KFBJT6fe9QJI_ZjI4Jkl32M1DY/edit#gid=1399876879)")
 
 
 def convert_to_values(category):
