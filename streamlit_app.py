@@ -134,8 +134,7 @@ X_test = scaler.transform(X_test)
 
 # XGBoost
 xgbc = xgb.XGBClassifier(max_depth=12,subsample=0.33,objective='binary:logistic',n_estimators=300,learning_rate = 0.01)
-eval_set = [(X_train, y_train), (X_test, y_test)]
-xgbc.fit(X_train, y_train.values.ravel(), early_stopping_rounds=15, eval_metric=["error", "logloss"], eval_set=eval_set, verbose=False)
+xgbc.fit(X_train, y_train)
 
 # Regression logistique
 rlc_y_pred = rlc.predict(X_test)
