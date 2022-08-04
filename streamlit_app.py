@@ -11,7 +11,6 @@ import xgboost as xgb
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-import json
 import joblib
 from joblib import dump, load
 
@@ -52,10 +51,10 @@ page = st.sidebar.radio("Aller vers", pages)
 # ______________________________________________________________________________________________________
 
 df = pd.read_csv('bank.csv', sep = ',')
-rlc = joblib.load('Regression logistique.joblib')
-knn = joblib.load('K plus proches voisins.joblib')
-dtc = joblib.load('Decision Tree Classifier.joblib')
-rfc = joblib.load('Random Forest Classifier.joblib')
+rlc = load('Regression logistique.joblib')
+knn = load('K plus proches voisins.joblib')
+dtc = load('Decision Tree Classifier.joblib')
+rfc = load('Random Forest Classifier.joblib')
 
 xgbc = joblib.load('Random Forest Classifier.joblib')
 #xgbc = xgb.XGBClassifier()
@@ -133,10 +132,6 @@ X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.2
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
-
-# XGBoost
-#xgbc = xgb.XGBClassifier(max_depth=12,subsample=0.33,objective='binary:logistic',n_estimators=300,learning_rate = 0.01)
-#xgbc.fit(X_train, y_train)
 
 # Regression logistique
 rlc_y_pred = rlc.predict(X_test)
