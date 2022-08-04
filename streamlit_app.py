@@ -56,6 +56,7 @@ knn = joblib.load('K plus proches voisins.joblib')
 dtc = joblib.load('Decision Tree Classifier.joblib')
 rfc = joblib.load('Random Forest Classifier.joblib')
 #xgbc = joblib.load('XG Boost Classifier.joblib')
+#voir ligne 127
 
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
