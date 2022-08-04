@@ -11,7 +11,7 @@ import xgboost as xgb
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-import joblib
+#import joblib
 from joblib import dump, load
 
 import xgboost as xgb
@@ -55,12 +55,8 @@ rlc = load('Regression logistique.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 rfc = load('Random Forest Classifier.joblib')
-
+###
 xgbc = joblib.load('Random Forest Classifier.joblib')
-#xgbc = xgb.XGBClassifier()
-#xgbc.load_model("XG Boost Classifier.json")
-#voir ligne 135
-
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
 rlc_accuracy=compare.iloc[0]["accuracy"]
