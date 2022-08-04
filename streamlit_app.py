@@ -50,11 +50,11 @@ page = st.sidebar.radio("Aller vers", pages)
 # ______________________________________________________________________________________________________
 
 df = pd.read_csv('bank.csv', sep = ',')
-rlc = load('Regression logistique.joblib')
-knn = load('K plus proches voisins.joblib')
-dtc = load('Decision Tree Classifier.joblib')
-rfc = load('Random Forest Classifier.joblib')
-xgbc = load('XG Boost Classifier.joblib')
+rlc = joblib.load('Regression logistique.joblib')
+knn = joblib.load('K plus proches voisins.joblib')
+dtc = joblib.load('Decision Tree Classifier.joblib')
+rfc = joblib.load('Random Forest Classifier.joblib')
+xgbc = joblib.load('XG Boost Classifier.joblib')
 
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
