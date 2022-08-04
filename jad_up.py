@@ -53,6 +53,7 @@ knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 rfc = load('Random Forest Classifier.joblib')
 #xgbc = load('Random Forest Classifier.joblib')
+xgbc = rfc
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
 rlc_accuracy=compare.iloc[0]["accuracy"]
