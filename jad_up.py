@@ -52,7 +52,7 @@ rlc = load('Regression logistique.joblib')
 knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 rfc = load('Random Forest Classifier.joblib')
-#xgbc = load('Random Forest Classifier.joblib')
+#xgbc = load('XG Boost Classifier.joblib')
 xgbc = rfc
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
