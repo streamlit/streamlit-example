@@ -3,6 +3,7 @@ import altair as alt
 import math
 import pandas as pd
 import geopandas as gpd
+import numpy as np
 import streamlit as st
 
 """
@@ -37,3 +38,9 @@ with st.echo(code_location='below'):
     st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
         .mark_circle(color='#0068c9', opacity=0.5)
         .encode(x='x:Q', y='y:Q'))
+
+map_data = pd.DataFrame(
+np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+columns=['lat', 'lon'])
+
+st.map(map_data)
