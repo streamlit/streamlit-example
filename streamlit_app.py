@@ -2,6 +2,7 @@ from collections import namedtuple
 import altair as alt
 import math
 import pandas as pd
+import geopandas as gpd
 import streamlit as st
 
 """
