@@ -152,7 +152,7 @@ def main_app():
         col1.metric("The count of feedback registered", str(row['count']), delta_count)
         col2.metric("The average best business value estimate [kNOK]", str(row['Business value (k NOK) [BEST]']), str(delta_best) + str("%"))
 
-        st.caption("A total SAM business value of: "+ str(int(int(df_products[df_products["Product"] == row['Product']].iloc[0,2]) * int(row['Business value (k NOK) [BEST]']))) +" K NOK is based on a SAM of " + str( df_products[df_products["Product"] == row['Product']].iloc[0,2]) + " yearly paying customers." )
+        # st.caption("A total SAM business value of: "+ str(int(int(df_products[df_products["Product"] == row['Product']].iloc[0,2]) * int(row['Business value (k NOK) [BEST]']))) +" K NOK is based on a SAM of " + str( df_products[df_products["Product"] == row['Product']].iloc[0,2]) + " yearly paying customers." )
 
         st.write('The following score represents the average confidence for the BEST business estimates.')
         st.progress(int(row["Confidence in value [1-10]"]*10))
