@@ -53,6 +53,7 @@ knn = load('K plus proches voisins.joblib')
 dtc = load('Decision Tree Classifier.joblib')
 rfc = load('Random Forest Classifier.joblib')
 #xgbc = load('XG Boost Classifier.joblib')
+
 xgbc = rfc
 compare = pd.read_csv('compare_scores.csv', sep = ',')
 
@@ -125,6 +126,12 @@ X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.2
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
+# XGBoost => Jean-Marc c'est ici !
+#xgbc = xgb.XGBClassifier(max_depth=12,subsample=0.33,objective='binary:logistic',n_estimators=300,learning_rate = 0.01)
+#eval_set = [(X_train, y_train), (X_test, y_test)]
+#xgbc.fit(X_train, y_train.values.ravel(), early_stopping_rounds=15, eval_metric=["error", "logloss"], eval_set=eval_set, verbose=False)
+#xgbc.fit(X_train, y_train)
 
 # Regression logistique
 rlc_y_pred = rlc.predict(X_test)
