@@ -715,9 +715,7 @@ if page==pages[4]:
   col3.image("SHAP/shap.plots.bar.png")   
          
   col3.subheader("Heatmap")
-  col3.image("SHAP/shap.plots.heatmap.png")
-
-  st.info("Les variables ..... A COMPLETER")       
+  col3.image("SHAP/shap.plots.heatmap.png") 
          
 # Aperçus à la ligne  -----------------------------------------------------------------------  
 
@@ -740,7 +738,7 @@ if page==pages[4]:
   st.subheader("Forceplot")
   st.image(f"SHAP/forceplot_{i}.png")
          
-  if option==25:
+  if i==25:
     col6.info("""
               On observe la décomposition de la SHAP value (ici f(x) = -2.08) pour chaque variable explicative principale : 
               Graphe en cascade : si on regarde les premières variables : 
@@ -755,7 +753,7 @@ if page==pages[4]:
               La valeur de SHAP totale est de -2.08.
            """)
 
-  elif option==11:
+  elif i==11:
     col6.info("Le graphique en cascade on en ligne permet de voir la décomposition par variable explicative de la SHAP value, ici de 2.12, donc positive, donc target réalisé (souscription d’un compte à terme).")
 
 # Observations  -----------------------------------------------------------------------  
