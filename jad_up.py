@@ -766,13 +766,13 @@ if page==pages[4]:
               \n
               **Graphiques généraux**
               \n
-              Grâce au Plot Bar, nous pouvons afficher les features importances obtenues avec SHAP.
+              Grâce au **Plot Bar**, nous pouvons afficher les features importances obtenues avec SHAP.
               Le Plot Bar crée un tracé en barre par ordre décroissant de l’importance de chaque variable explicative,
               où l’importance globale de chaque variable est considérée comme la valeur absolue moyenne de cette variable sur toutes les instances.
               Nous constatons que les 2 variables explicatives les plus significatives sont t_duration_1 (durée de contact courte)
               et t_duration_4 (durée de contact longue). Ces 2 variables ont un impact total plus important sur le modèle que les autres variables. 
               \n
-              La Heatmap fait apparaître un tracé avec toutes les instances sur l’axe des x (il s’agit de la base de données test,
+              La **Heatmap** fait apparaître un tracé avec toutes les instances sur l’axe des x (il s’agit de la base de données test,
               donc il y a 30% de 11162 données = 3348 instances), les variables explicatives du modèle sur l’axe des y
               et les valeurs SHAP codées sur une échelle de couleurs (SHAP value de bleu -1.587 à rouge +1.587, selon l’importance faible à forte sur le modèle).
               On peut observer par variable, et par paquet d’instances, l’impact global sur le f(x).
@@ -783,7 +783,7 @@ if page==pages[4]:
               en revanche couleur bleue pour les autres instances donc pas de souscription, mais le bleu est plus clair,
               donc contribution plus légère à la SHAP value globale.
               \n
-              Le Summary Plot permet de voir encore plus précisément l’impact positif et/ou négatif d’une variable explicative donnée sur le modèle,
+              Le **Summary Plot** permet de voir encore plus précisément l’impact positif et/ou négatif d’une variable explicative donnée sur le modèle,
               en affichant chaque point correspondant à chaque instance de la base de données. Une épaisseur permet de représenter
               une densité de points plus importante. Là encore on constate l’importance des variables  t_duration_1 et t_duration_4 :
               et plus précisément un  impact fort mais négatif sur la SHAP Value donc si durée de contact est courte (t_duration_1) la souscription sera faible
