@@ -740,7 +740,61 @@ if page==pages[4]:
   st.subheader("Forceplot")
   st.image(f"SHAP/forceplot_{i}.png")
          
-         
+  if option==25:
+    col6.info("""
+              On observe la décomposition de la SHAP value (ici f(x) = -2.08) pour chaque variable explicative principale : 
+              Graphe en cascade : si on regarde les premières variables : 
+              - t_duration_1 =1 donc durée courte pour cette donnée : -1.54 forte contribution à cible = 0
+              - d’ailleurs t_duration_4 = 0 : contribution de -0.36
+              - pas de prêt immobilier (housing = 0) : contribution positive : +0.21
+              - mois du contact = janvier : contribution de -0.17
+              - p_outcome_success = 0 (donc pas de succès à la campagne précédente…) : contribution de -0.15
+              \n
+              Cette représentation peut s’afficher en ligne, à gauche en rouge ce qui contribue à un target non réalisé
+              (pas de souscription de compte à terme), en bleu, ce qui contribue à la réalisation du target.
+              La valeur de SHAP totale est de -2.08.
+           """)
+
+  elif option==11:
+    col6.info("Le graphique en cascade on en ligne permet de voir la décomposition par variable explicative de la SHAP value, ici de 2.12, donc positive, donc target réalisé (souscription d’un compte à terme).")
+
+# Observations  -----------------------------------------------------------------------  
+
+  st.write("")
+  st.subheader("Observations")
+  st.markdown("""
+              Pour la prédiction d’un modèle, SHAP calcule les contributions de chaque variable à cette prédiction.
+              L’explication est exprimée comme une fonction linéaire des différentes variables explicatives (ici 52 variables).
+              \n
+              **Graphiques généraux**
+              \n
+              Grâce au Plot Bar, nous pouvons afficher les features importances obtenues avec SHAP.
+              Le Plot Bar crée un tracé en barre par ordre décroissant de l’importance de chaque variable explicative,
+              où l’importance globale de chaque variable est considérée comme la valeur absolue moyenne de cette variable sur toutes les instances.
+              Nous constatons que les 2 variables explicatives les plus significatives sont t_duration_1 (durée de contact courte)
+              et t_duration_4 (durée de contact longue). Ces 2 variables ont un impact total plus important sur le modèle que les autres variables. 
+              \n
+              La Heatmap fait apparaître un tracé avec toutes les instances sur l’axe des x (il s’agit de la base de données test,
+              donc il y a 30% de 11162 données = 3348 instances), les variables explicatives du modèle sur l’axe des y
+              et les valeurs SHAP codées sur une échelle de couleurs (SHAP value de bleu -1.587 à rouge +1.587, selon l’importance faible à forte sur le modèle).
+              On peut observer par variable, et par paquet d’instances, l’impact global sur le f(x).
+              Si on prend l’exemple de la variable t_duration_1 on constate que sur les 2500 premières instances de la base test,
+              la couleur est rouge donc contribution positive au modèle, càd impact positif (la cible « souscription d’un contrat à terme » sera un succès.
+              Pour les les instances suivantes, la contribution est négative, donc pas de souscription.
+              Pour la variable t_duration_4 on constate une très forte contribution positive pour les instances 1500 à 2300,
+              en revanche couleur bleue pour les autres instances donc pas de souscription, mais le bleu est plus clair,
+              donc contribution plus légère à la SHAP value globale.
+              \n
+              Le Summary Plot permet de voir encore plus précisément l’impact positif et/ou négatif d’une variable explicative donnée sur le modèle,
+              en affichant chaque point correspondant à chaque instance de la base de données. Une épaisseur permet de représenter
+              une densité de points plus importante. Là encore on constate l’importance des variables  t_duration_1 et t_duration_4 :
+              et plus précisément un  impact fort mais négatif sur la SHAP Value donc si durée de contact est courte (t_duration_1) la souscription sera faible
+              (cible non atteinte : pas d’ouverture de compte à terme). Et impact positif fort pour une durée de contact longue (t_duration_4),
+              donc cible atteinte (ouverture compte à terme). On constate également que pour la variable poutcome_success qui apparaît en 4ème variable
+              dans l’ordre d’importance, l’impact est positif fort, ce qui reconfirme que si la campagne précédente a été un succès, les chances de succès
+              de la nouvelle campagne seront élevées.              
+           """)
+
 # ______________________________________________________________________________________________________
 # 6/ BONUS
 # ______________________________________________________________________________________________________
