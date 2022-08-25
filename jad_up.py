@@ -347,6 +347,36 @@ if page==pages[1]:
   elif option=="poutcome":
     col2.info("Les clients ayant répondu positivement à la campagne précédente sont les plus susceptibles de renouveller un dépôt.")
 
+
+# ---------- analyse Violons & Stripcharts-----------
+
+  st.header("Analyse de distribution des variables en violon et stripchart")
+  col1, col2, col3 = st.columns([1,3,3])
+  col1.subheader("Choix des variables à analyser")
+  col2.subheader("Violon à 1 variable")
+  col3.subheader("Violon à 2 variables")
+         
+  #col3.subheader("Analyse en strip charts")
+  var1 = col1.selectbox("variable 1:", df.columns, index=11)  # utilisons df plutôt que df2 car sans normalisation
+  var2 = col1.selectbox("variable 2:", df.columns, index=0)  # utilisons df plutôt que df2 car sans normalisation
+  fig1 = px.violin(data_frame = df, x=var1, color="deposit",violinmode="overlay") # utilisons df plutôt que df2 car sans normalisation
+         
+  #fig1.update_layout(height=600, width=700)
+  col2.plotly_chart(fig1)
+  #col3.subheader("Analyse en strip charts")
+  #fig2 = px.strip(data_frame=df, x=var1, y=var2, color="deposit")
+  #col3.subheader("Analyse en strip charts")
+
+  fig2 = px.violin(data_frame = df, x=var1, y=var2,  color="deposit",violinmode="overlay")#, palette="RdBu_r") # utilisons df plutôt que df2 car sans normalisation
+  col3.plotly_chart(fig2)
+  col1, col2, col3 = st.columns([1,3,3])
+  col2.subheader("Stripchart à 1 variable")
+  fig3 = px.strip(data_frame=df, x=var1, color="deposit")
+  col2.plotly_chart(fig3)
+  col3.subheader("Stripchart à 2 variables")
+  fig4 = px.strip(data_frame=df, x=var1, y=var2, color="deposit")
+  col3.plotly_chart(fig4)
+
 # ---------- Les correlations -----------
 
   st.header("Analyse des corrélations")
