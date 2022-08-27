@@ -1,0 +1,767 @@
+[
+    {
+        "date": "2022-03-01",
+        "value": 3257,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-02",
+        "value": 2235,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-03",
+        "value": 2239,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-04",
+        "value": 2375,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-05",
+        "value": 2318,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-06",
+        "value": 2353,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-07",
+        "value": 2430,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-08",
+        "value": 2444,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-09",
+        "value": 2456,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-10",
+        "value": 2490,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-11",
+        "value": 2642,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-12",
+        "value": 3103,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-13",
+        "value": 2344,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-14",
+        "value": 2467,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-15",
+        "value": 2414,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-16",
+        "value": 2369,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-17",
+        "value": 2410,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-18",
+        "value": 2391,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-19",
+        "value": 3492,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-20",
+        "value": 2314,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-21",
+        "value": 2288,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-22",
+        "value": 2371,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-23",
+        "value": 2328,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-24",
+        "value": 2300,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-25",
+        "value": 2415,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-26",
+        "value": 3023,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-27",
+        "value": 2219,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-28",
+        "value": 2396,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-29",
+        "value": 2593,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-30",
+        "value": 2320,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-03-31",
+        "value": 2483,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-01",
+        "value": 2490,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-02",
+        "value": 2316,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-03",
+        "value": 2386,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-04",
+        "value": 2408,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-05",
+        "value": 2314,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-06",
+        "value": 2268,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-07",
+        "value": 2332,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-08",
+        "value": 2398,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-09",
+        "value": 2893,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-10",
+        "value": 2357,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-11",
+        "value": 2501,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-12",
+        "value": 2600,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-13",
+        "value": 2404,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-14",
+        "value": 2557,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-15",
+        "value": 2255,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-16",
+        "value": 2241,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-17",
+        "value": 2362,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-18",
+        "value": 2319,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-19",
+        "value": 2166,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-20",
+        "value": 2565,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-21",
+        "value": 2497,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-22",
+        "value": 3002,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-23",
+        "value": 2229,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-24",
+        "value": 2339,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-25",
+        "value": 2294,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-26",
+        "value": 2505,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-27",
+        "value": 2506,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-28",
+        "value": 2966,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-29",
+        "value": 2387,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-04-30",
+        "value": 2404,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-01",
+        "value": 2180,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-02",
+        "value": 2449,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-03",
+        "value": 2699,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-04",
+        "value": 2392,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-05",
+        "value": 2413,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-06",
+        "value": 3398,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-07",
+        "value": 2809,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-08",
+        "value": 3136,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-09",
+        "value": 2383,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-10",
+        "value": 2283,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-11",
+        "value": 2196,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-12",
+        "value": 2578,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-13",
+        "value": 2712,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-14",
+        "value": 2366,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-15",
+        "value": 2330,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-16",
+        "value": 2360,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-17",
+        "value": 2355,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-18",
+        "value": 2380,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-19",
+        "value": 2371,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-20",
+        "value": 3082,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-21",
+        "value": 2683,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-22",
+        "value": 2222,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-23",
+        "value": 2323,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-24",
+        "value": 2349,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-25",
+        "value": 2512,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-26",
+        "value": 2471,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-27",
+        "value": 2479,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-28",
+        "value": 2563,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-29",
+        "value": 2280,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-30",
+        "value": 2542,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-05-31",
+        "value": 2284,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-01",
+        "value": 2507,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-02",
+        "value": 2711,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-03",
+        "value": 2583,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-04",
+        "value": 2813,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-05",
+        "value": 2295,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-06",
+        "value": 2440,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-07",
+        "value": 2521,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-08",
+        "value": 2608,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-09",
+        "value": 3238,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-10",
+        "value": 2758,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-11",
+        "value": 2138,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-12",
+        "value": 2176,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-13",
+        "value": 2330,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-14",
+        "value": 2716,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-15",
+        "value": 2935,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-16",
+        "value": 3392,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-17",
+        "value": 3745,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-18",
+        "value": 2713,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-19",
+        "value": 2599,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-20",
+        "value": 2678,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-21",
+        "value": 2419,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-22",
+        "value": 2998,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-23",
+        "value": 2748,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-24",
+        "value": 2766,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-25",
+        "value": 2597,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-26",
+        "value": 2442,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-27",
+        "value": 2461,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-28",
+        "value": 2322,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-29",
+        "value": 2237,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-06-30",
+        "value": 3210,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-01",
+        "value": 3545,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-02",
+        "value": 3378,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-03",
+        "value": 4272,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-04",
+        "value": 2624,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-05",
+        "value": 2698,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-06",
+        "value": 2549,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-07",
+        "value": 3402,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-08",
+        "value": 2712,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-09",
+        "value": 2822,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-10",
+        "value": 2470,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-11",
+        "value": 2715,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-12",
+        "value": 2267,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-13",
+        "value": 2589,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-14",
+        "value": 2273,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-15",
+        "value": 2419,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-16",
+        "value": 2360,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-17",
+        "value": 2367,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-18",
+        "value": 2907,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-19",
+        "value": 2542,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-20",
+        "value": 2313,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-21",
+        "value": 2656,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-22",
+        "value": 2951,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-23",
+        "value": 2398,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-24",
+        "value": 2478,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-25",
+        "value": 2367,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-26",
+        "value": 2542,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-27",
+        "value": 2430,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-28",
+        "value": 2332,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-29",
+        "value": 2269,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-30",
+        "value": 2726,
+        "source": "garmin"
+    },
+    {
+        "date": "2022-07-31",
+        "value": 2311,
+        "source": "garmin"
+    }
+]
