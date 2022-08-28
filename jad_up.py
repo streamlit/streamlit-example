@@ -432,8 +432,8 @@ if page==pages[1]:
            * **_contact_** = Type de contact 
            * housing = Prêt immo
            * previous = Nb contacts au cours de la campagne précédente
-           * housing = pdays = Nb jours écoulés depuis le dernier contact de la campagne précédente
-           * previous = balance = Solde compte bancaire
+           * pdays = Nb jours écoulés depuis le dernier contact de la campagne précédente
+           * balance = Solde compte bancaire
            **Attention** , les **_deux variables_** correspondent à des données non connues à priori (avant lancement de la campagne)
            """)
          
