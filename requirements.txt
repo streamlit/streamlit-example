@@ -1,3 +1,5 @@
 altair
+extra-streamlit-components
 pandas
+requests
 streamlit

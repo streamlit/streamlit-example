@@ -45,18 +45,11 @@ end_time = st.sidebar.slider(
     format="YYYY/MM/DD")
 st.write("Start time:", start_time, "End time:", end_time)
 
-st.sidebar.markdown('<style>.btn {font-family: "Poppins", Sans-serif;font-size: 12px;font-weight: 500;border-radius: 50px 50px 50px 50px;box-shadow: 0px 4px 10px -1px rgb(0 0 0 / 27%);padding: 14px 35px 14px 35px;width: 130px;border: unset;color: #f2f5f8;background-color: #1b2836;}</style>',
+st.sidebar.markdown('<style>.btn {font-family: "Poppins", Sans-serif;font-size: 12px;font-weight: 500;border-radius: 50px 50px 50px 50px;box-shadow: 0px 4px 10px -1px rgb(0 0 0 / 27%);padding: 14px 35px 14px 35px;width: 300px;border: unset;color: #f2f5f8;background-color: #1b2836;}</style>',
     unsafe_allow_html=True)
 st.sidebar.markdown(
     f"""
-    <div style='display: block; text-align: center; font-family: "Roboto", Sans-serif;
-              font-weight: 400; color: #1b2836'">Connect Device</div>
-    <form name="REQUEST"  method="post" action="https://api.spikeapi.com/init-user-integration/">
-        <input type="hidden" id="provider" name="provider" value="fitbit">
-        <input type="hidden" id="user_id" name="user_id" value="ELSz1ND0Oc">
-        <input type="hidden" id="client_id" name="client_id" value="{CLIENT_ID}">
-        <button type="submit" class="btn">Fitbit</button>
-    </form>    
+        <a href="https://spikeapi.com/app" target="_parent"><button type="submit" class="btn">Connect device</button></a>
     """,
     unsafe_allow_html=True,
 )
