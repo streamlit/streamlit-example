@@ -49,12 +49,12 @@ st.sidebar.markdown('<style>.btn {font-family: "Poppins", Sans-serif;font-size: 
     unsafe_allow_html=True)
 st.sidebar.markdown(
     f"""
-        <a href="https://spikeapi.com/app"><button type="submit" class="btn">Connect device</button></a>
+        <a href="https://spikeapi.com/app" target='_self'>Connect device</a>
     """,
     unsafe_allow_html=True,
 )
-link = '[Connect device](https://spikeapi.com/app)'
-st.sidebar.markdown(link, unsafe_allow_html=True)
+# link = '[Connect device](https://spikeapi.com/app)'
+# st.sidebar.markdown(link, unsafe_allow_html=True)
 
 with st.echo(code_location='below'):
 
