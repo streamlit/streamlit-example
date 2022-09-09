@@ -190,10 +190,10 @@ def main_app():
     # df = pd.DataFrame(lsts_,
     #             columns =['val','x', 'y'])
 
-    fig = px.scatter(df_res, x="Business value score", y="Ease of develoment", color="Product",  width=700, height=550)
-
+    fig = px.scatter(df_res, x="Business value score", y="Product",  text="Product", width=960, height=400 )
+    fig.update_traces(textposition='top center', textfont_size=14)
     import base64
-    img_file = "background_go_zone.png"
+    img_file = "photos/Product_Stages1.png"
     background = base64.b64encode(open(img_file, 'rb').read())
 
     fig.update_layout(
@@ -204,8 +204,9 @@ def main_app():
                         sizex=1, sizey=1,
                         xanchor="left",
                         yanchor="top",
-                        sizing="stretch",
-                        layer="above")])
+                        # sizing=,
+
+                        layer="below")])
  
 
     st.plotly_chart(fig)

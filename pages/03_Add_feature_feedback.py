@@ -90,10 +90,21 @@ if product != None:
             feature_type = col2.selectbox('Select Category', ("Not Selected", "Must Have", "Should Have","Could Have","Won't Have"))
 
         # Define type of source
-        col1, col2 = st.columns(2)
-        type_of_source = col1.selectbox('Select feadback type', ("Existing Customer","Potential Customer", "Compeditor", "Website", 'Law Document',"Internal"))
 
-        source = col2.text_input('Source', '', placeholder = 'write the name/company/website')
+
+
+        # col1, col2 = st.columns(2)
+        # type_of_source = col1.selectbox('Select feadback type', ("Existing Customer","Potential Customer", "Compeditor", "Website", 'Law Document',"Internal"))
+
+        # Define type of source
+        col1, col2 = st.columns(2)
+        type_of_source = col1.selectbox('Select source type', ("Potential Customer","Existing Customer", "Compeditor", "Website", "Internal"))
+
+        source_name = col2.text_input('Name/Link', '', placeholder = 'write the name/link')
+        source_company = col2.text_input('Company/Org', '', placeholder = 'write the company/Source', autocomplete = "organization")
+        source_position = col2.selectbox('Select position type', ("N/A","Environmental", "Technical", "Strategic", "Data", "C-suite"))
+
+        # source = col2.text_input('Source', '', placeholder = 'write the name/company/website')
 
         #
         feedback = st.text_input('Feedback', '', placeholder = 'Write the feedback recived, or key takeaways' )
@@ -121,7 +132,7 @@ if product != None:
         submitted = st.form_submit_button("Submit")
 
         if submitted:
-            feature_feedback.append_rows(values=[[id_val, product,feature,type_of_source, source, feedback,feature_type, min_business_val,best_business_val, max_business_val,min_time,max_time,str(date)  ]])
+            feature_feedback.append_rows(values=[[id_val, product,feature,type_of_source, source_name, source_company, source_position, feedback,feature_type, min_business_val,best_business_val, max_business_val,min_time,max_time,str(date)  ]])
             st.success("Feedback added")
 
         # Every form must have a submit button.

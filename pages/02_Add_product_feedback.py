@@ -70,7 +70,16 @@ if product != None:
 
     df_features = df[df["Product"] == product]
     features = df_features.Feature.to_list()
- 
+    
+
+    
+    # preset_values = st.selectbox() # value="",
+    # if preset_values != "N/A":
+    # get the values for the customer 
+    # Position, 
+
+
+
 
     with st.form("my_form"):
 
@@ -83,14 +92,16 @@ if product != None:
 
         # Define type of source
         col1, col2 = st.columns(2)
-        type_of_source = col1.selectbox('Select source type', ("Existing Customer","Potential Customer", "Compeditor", "Website", "Internal"))
+        type_of_source = col1.selectbox('Select source type', ("Potential Customer","Existing Customer", "Compeditor", "Website", "Internal"))
 
-        source = col2.text_input('Source', '', placeholder = 'write the name/company/website')
+        sorce_name = col2.text_input('Name/Link', '', placeholder = 'write the name/link')
+        sorce_company = col2.text_input('Company/Org', '', placeholder = 'write the company/Source', autocomplete = "organization")
+        sorce_position = col2.selectbox('Select position type', ("N/A","Environmental", "Technical", "Strategic", "Data", "C-suite"))
 
         #
         feedback = st.text_input('Feedback', '', placeholder = 'Write the feedback recived, or key takeaways' )
 
-        type_of_feedback = st.selectbox('Select feadback type', ("Very Positive", "Positive", "Neutral", "Negative", "Very Negative"))
+        type_of_feedback = st.selectbox('Select feadback type', ("", "Very Positive", "Positive", "Neutral", "Negative", "Very Negative"))
 
 
         st.write('(OPTIONAL) If business value estimates exists (K NOK / year), add these here:')
@@ -122,7 +133,7 @@ if product != None:
             import json
 
             must_haves = json.dumps(must_haves)
-            product_feedback.append_rows(values=[[id_val, product,source, type_of_source, feedback, type_of_feedback, min_business_val,best_business_val, max_business_val, confidence ,must_haves, str(date)]])
+            product_feedback.append_rows(values=[[id_val, product,sorce_name,sorce_company,sorce_position, type_of_source, feedback, type_of_feedback, min_business_val,best_business_val, max_business_val, confidence ,must_haves, str(date)]])
             st.success("Feedback added")
 
         # Every form must have a submit button.
