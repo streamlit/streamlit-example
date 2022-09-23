@@ -1,5 +1,4 @@
 altair
 pandas
 streamlit
-transformers
 st_aggrid
