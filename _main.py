@@ -12,12 +12,9 @@
 
 
 # -- Importation des bibliothèques
-from calendar import c, month
-
 from datetime import date, datetime, timedelta
 from time import *
 import sqlite3 as sql
-import pandas as pd
 import streamlit as st # pip install streamlit
 
 
