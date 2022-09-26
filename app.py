@@ -10,7 +10,7 @@ from _main import *
 from _charts import *
 from _edit_sql import *
 from verify_files import *
-from _mail import Mailing
+#from _mail import Mailing
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 
 import streamlit as st  # pip install streamlit
