@@ -2,7 +2,6 @@ altair
 pandas
 streamlit
 streamlit-aggrid
-time
 sqlite3
 win32com.client
 pythoncom
