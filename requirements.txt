@@ -1,8 +1,10 @@
-altair
+plotly
 pandas
 streamlit
+openpyxl
+protobuf
 streamlit-aggrid
-datetime
-plotly
+sqlite3
+pypiwin32
 matplotlib
-coreapi
+numpy
