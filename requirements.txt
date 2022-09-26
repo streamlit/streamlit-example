@@ -7,3 +7,4 @@ plotly
 matplotlib
 pywin32
 pypiwin32
+coreapi
