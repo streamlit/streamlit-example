@@ -1,7 +1,4 @@
-
-from calendar import month
 import sqlite3 as sql
-from this import d
 from time import sleep
 import datetime
 import pandas as pd
