@@ -3,5 +3,5 @@ pandas
 streamlit
 streamlit-aggrid
 datetime
-plotly.graph_objects
-matplotlib.pyplot
+plotly
+matplotlib
