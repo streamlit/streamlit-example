@@ -5,5 +5,4 @@ streamlit-aggrid
 datetime
 plotly
 matplotlib
-pypiwin32
 coreapi
