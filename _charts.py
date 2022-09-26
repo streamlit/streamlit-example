@@ -1,12 +1,5 @@
-
-from re import I, X, template
-from turtle import color, title
 import pandas as pd  # pip install pandas openpyxl
 import plotly.graph_objects as go
-import plotly.figure_factory as ff
-import plotly.express as px  # pip install plotly-express
-import streamlit as st
-import matplotlib.pyplot as plt
 import altair as alt
 
 
