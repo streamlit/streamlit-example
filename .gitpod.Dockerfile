@@ -5,6 +5,6 @@ RUN pip install pandas snowflake-connector-python snowflake-snowpark-python stre
 WORKDIR /snow/tmp
 
 RUN { curl -o https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.22-linux_x86_64.bash ; \
-      chmod +x ./snowsql-linux_x86_64.bash ; \
-      bash ./snowsql-linux_x86_64.bash ; \
+      chmod +x snowsql-linux_x86_64.bash ; \
+      bash snowsql-linux_x86_64.bash ; \
 }
