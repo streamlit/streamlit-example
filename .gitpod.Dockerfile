@@ -1,6 +1,6 @@
 FROM gitpod/workspace-full
 
-USER gitpod
+# USER gitpod
 
 RUN pip install pandas snowflake-connector-python snowflake-snowpark-python streamlit
 
@@ -11,4 +11,4 @@ RUN { mkdir -p ~/utils/snowsql ; cd ~/utils/snowsql ; curl -LJOf https://sfc-rep
       bash ~/utils/snowsql/snowsql-1.2.22-linux_x86_64.bash ; \
 }
 
-USER root
+# USER root
