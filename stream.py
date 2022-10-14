@@ -314,7 +314,7 @@ st.write('**Observacion:** El filtro Wiener lo que busca es reducir el ruido de 
 st.write('El filtro de median lo que hace es reemplazar el valor de cada una de las posiciones de la funcion, y reemplazarlo con la media de las posiciones adyacentes. Para esto se define el tamaño de la ventana de filtro (kernel) en donde operara la funcion, a mientras mayor sea el rango, la señal tiende a simplificarse.')
 data = np.load('signal.npy')
 Mkernel = st.slider("Filtro Median: Tamaño de la ventana de filtro", 1, 201, 3,2)
-Wkernel = st.slider("Filtro Wiener: Tamaño de la ventana de filtro", 1, 101, 3,2)
+Wkernel = st.slider("Filtro Wiener: Tamaño de la ventana de filtro", 1, 201, 3,2)
 w = wiener(data,Wkernel)
 m = medfilt(data,Mkernel)
 
