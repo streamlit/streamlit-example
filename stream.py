@@ -315,8 +315,8 @@ st.write('El filtro de median lo que hace es reemplazar el valor de cada una de 
 data = np.load('signal.npy')
 Mkernel = st.slider("Filtro Median: Tamaño de la ventana de filtro", 1, 201, 3,2)
 Wkernel = st.slider("Filtro Wiener: Tamaño de la ventana de filtro", 1, 101, 3,2)
-w = wiener(data,Mkernel)
-m = medfilt(data,Wkernel)
+w = wiener(data,Wkernel)
+m = medfilt(data,Mkernel)
 
 fig = plt.figure(figsize=(10,4))
 ax = plt.axes()
