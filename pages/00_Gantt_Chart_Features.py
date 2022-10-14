@@ -45,7 +45,6 @@ def main_app():
 
 
     
-
     
     data = features_list.get_all_values()
 
@@ -65,7 +64,6 @@ def main_app():
 
     # st.write(df_features_with_dates)
 
-    
 
     fig = ff.create_gantt(df_features_with_dates, title  = "Overview of features planned and in progress", showgrid_x=True, width  = 1000,show_hover_fill = True, index_col='Main type of work needed', show_colorbar=True)
 

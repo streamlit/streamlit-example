@@ -1,3 +1,4 @@
+from unicodedata import category
 import streamlit as st
 
 import pandas as pd
@@ -132,7 +133,19 @@ if product != None:
         submitted = st.form_submit_button("Submit")
 
         if submitted:
-            feature_feedback.append_rows(values=[[id_val, product,feature,type_of_source, source_name, source_company, source_position, feedback,feature_type, min_business_val,best_business_val, max_business_val,min_time,max_time,str(date)  ]])
+
+            score = 0 
+            if "Must" in feature_type:
+                score = 5
+            elif "Should" in feature_type: 
+                score = 3
+            elif "Could" in feature_type: 
+                score = 1
+
+        
+
+
+            feature_feedback.append_rows(values=[[id_val, product,feature,type_of_source, source_name, source_company, source_position, feedback,feature_type, min_business_val,best_business_val, max_business_val,min_time,max_time,str(date),  score]])
             st.success("Feedback added")
 
         # Every form must have a submit button.
@@ -152,7 +165,11 @@ with st.expander("Add new feature <--> Product pair"):
         suby = st.form_submit_button("Submit")
 
         if suby:
-            features_list.append_rows(values=[[feature_name,product_selected,feature_desc, status, str(date2)]])
+
+
+            features_list.append_rows(values=[[feature_name,product_selected,feature_desc, status, str(date2), ]])
+
+
             st.success("Feature added")
 
 
