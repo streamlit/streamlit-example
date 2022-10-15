@@ -74,14 +74,29 @@ def main_app():
 
     st.title('Pilot Part 1 (Goal: Allow for a non-enernite user)')
 
-    fig1= ff.create_gantt(df_features_with_dates_p1, title  = "Overview of features for Part1", showgrid_x=True, width  = 1000,show_hover_fill = True, index_col='Category', show_colorbar=True)
+    fig1= ff.create_gantt(df_features_with_dates_p1, 
+                            title  = "Overview of features for Part1", 
+                            showgrid_x=True, width  = 1000, 
+                            show_hover_fill = True, 
+                            index_col='Category', 
+                            show_colorbar=True)
+
+
     fig1.add_vline(x=datetime.today())
     st.plotly_chart(fig1, wuse_container_width = True, window_width = True)
 
 
     st.title('Pilot Part 2 (Goal: Enable enhanced functionality & Capital PV)')
 
-    fig2 = ff.create_gantt(df_features_with_dates_p2, title  = "Overview of features planned for Part2", showgrid_x=True, width  = 1000, index_col='Category', show_hover_fill = True, show_colorbar=True)
+    fig2 = ff.create_gantt(df_features_with_dates_p2,
+                             title  = "Overview of features planned for Part2", 
+                             showgrid_x=True, 
+                             width  = 1000, 
+                             index_col='Category', 
+                             show_hover_fill = True, 
+                             show_colorbar=True
+                            #  hovertemplate = 'Price: $%{y:.2f}'+'<br>Week: %{x}'
+                             )
 
     fig2.add_vline(x=datetime.today())
     st.plotly_chart(fig2, wuse_container_width = True, window_width = True)
