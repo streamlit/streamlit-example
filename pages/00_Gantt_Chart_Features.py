@@ -55,24 +55,42 @@ def main_app():
     # st.write(df)
     df_features_with_dates = df[df["Date Started"] != ""]
     df_features_with_dates["Start"] = pd.to_datetime(df_features_with_dates["Date Started"], format=r'%d/%m/%Y')
-    df_features_with_dates["Finish"] = pd.to_datetime(df_features_with_dates["Date Started"], format=r'%d/%m/%Y') + timedelta(weeks=3)
+    df_features_with_dates["Finish"] = pd.to_datetime(df_features_with_dates["Date Started"], format=r'%d/%m/%Y') + pd.to_timedelta(pd.to_numeric(df_features_with_dates["Estimated Weeks"]),"W") # timedelta(weeks=3)
     df_features_with_dates["Task"] = df_features_with_dates["Feature / Module"]
 
     df_features_with_dates = df_features_with_dates.sort_values(by = ["Category"])
 
-    print(df_features_with_dates)
 
-    # st.write(df_features_with_dates)
-
-
-    fig = ff.create_gantt(df_features_with_dates, title  = "Overview of features planned and in progress", showgrid_x=True, width  = 1000,show_hover_fill = True, index_col='Main type of work needed', show_colorbar=True)
-
-
-    fig.add_vline(x=datetime.today())
+    df_features_with_dates_p1 = df_features_with_dates[df_features_with_dates["Timing"] == "Pilot"]
+    df_features_with_dates_p2 = df_features_with_dates[df_features_with_dates["Timing"] == "Pilot part 2 "]
+    # df_features_with_dates_p3 = df_features_with_dates[df_features_with_dates["Timing" == "Later updates"]]
 
 
 
-    st.plotly_chart(fig, wuse_container_width = True, window_width = True)
+    # Where no date is added
+    df_without_dates = df[df["Date Started"] == ""]
+
+
+
+    st.title('Pilot Part 1 (Goal: Allow for a non-enernite user)')
+
+    fig1= ff.create_gantt(df_features_with_dates_p1, title  = "Overview of features for Part1", showgrid_x=True, width  = 1000,show_hover_fill = True, index_col='Category', show_colorbar=True)
+    fig1.add_vline(x=datetime.today())
+    st.plotly_chart(fig1, wuse_container_width = True, window_width = True)
+
+
+    st.title('Pilot Part 2 (Goal: Enable enhanced functionality & Capital PV)')
+
+    fig2 = ff.create_gantt(df_features_with_dates_p2, title  = "Overview of features planned for Part2", showgrid_x=True, width  = 1000, index_col='Category', show_hover_fill = True, show_colorbar=True)
+
+    fig2.add_vline(x=datetime.today())
+    st.plotly_chart(fig2, wuse_container_width = True, window_width = True)
+
+
+
+    st.title('Without dates')
+
+    st.dataframe(df_without_dates)
 
 
 
