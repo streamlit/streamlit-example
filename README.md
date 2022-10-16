@@ -1,6 +1,5 @@
-# Welcome to Streamlit!
+# Welcome to my very first Streamlit app!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+This is my first Streamlit app and also the very first Github project.
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+Feel free to give feedbacks, although it is a test one :)
