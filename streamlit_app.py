@@ -69,7 +69,7 @@ with c30:
 
     if uploaded_file is not None:
         file_container = st.expander("Check your uploaded .csv")
-        shows = pd.read_excel(uploaded_file)
+        shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1", index_col=0)
         uploaded_file.seek(0)
         file_container.write(shows)
 
