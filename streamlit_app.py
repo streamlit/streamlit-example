@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 
+[theme]
+base="light"
 
 uploaded_file = st.file_uploader("Choose your Excel file")
 if uploaded_file is not None:
@@ -17,5 +19,5 @@ if uploaded_file is not None:
     st.write(string_data)
 
     # Can be used wherever a "file-like" object is accepted:
-    dataframe = pd.read_csv(uploaded_file)
+    dataframe = pd.read_excel(uploaded_file, index_col=0)
     st.write(dataframe)
