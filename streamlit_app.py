@@ -18,4 +18,4 @@ if uploaded_file is not None:
 
     # Can be used wherever a "file-like" object is accepted:
     dataframe = pd.read_excel(uploaded_file, index_col=0)
-    st.write(dataframe)
+    #st.write(dataframe)
