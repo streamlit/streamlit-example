@@ -1,8 +1,6 @@
 import pandas as pd
 import streamlit as st
 
-[theme]
-base="light"
 
 uploaded_file = st.file_uploader("Choose your Excel file")
 if uploaded_file is not None:
