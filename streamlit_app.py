@@ -65,7 +65,7 @@ c29, c30, c31 = st.columns([1, 6, 1])
 
 with c30:
 
-    uploaded_file = st.file_uploader("Choose a XLSX file", type="xlsx")
+    uploaded_file = st.file_uploader("Choose a XLSX file")
 
     if uploaded_file is not None:
         file_container = st.expander("Check your uploaded .csv")
