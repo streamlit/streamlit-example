@@ -28,50 +28,29 @@ def _max_width_():
 
 st.set_page_config(page_icon="✂️", page_title="CSV Wrangler")
 
-# st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 st.image(
-    "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/scissors_2702-fe0f.png",
+    "https://cdn-icons-png.flaticon.com/128/5070/5070702.png",
     width=100,
 )
 
-st.title("CSV Wrangler")
 
-# st.caption(
-#     "PRD : TBC | Streamlit Ag-Grid from Pablo Fonseca: https://pypi.org/project/streamlit-aggrid/"
-# )
+st.title("TIME SERIES FORECAST")
 
 
-# ModelType = st.radio(
-#     "Choose your model",
-#     ["Flair", "DistilBERT (Default)"],
-#     help="At present, you can choose between 2 models (Flair or DistilBERT) to embed your text. More to come!",
-# )
+###################################
 
-# with st.expander("ToDo's", expanded=False):
-#     st.markdown(
-#         """
-# -   Add pandas.json_normalize() - https://streamlit.slack.com/archives/D02CQ5Z5GHG/p1633102204005500
-# -   **Remove 200 MB limit and test with larger CSVs**. Currently, the content is embedded in base64 format, so we may end up with a large HTML file for the browser to render
-# -   **Add an encoding selector** (to cater for a wider array of encoding types)
-# -   **Expand accepted file types** (currently only .csv can be imported. Could expand to .xlsx, .txt & more)
-# -   Add the ability to convert to pivot → filter → export wrangled output (Pablo is due to change AgGrid to allow export of pivoted/grouped data)
-# 	    """
-#     )
-# 
-#     st.text("")
 
 
 c29, c30, c31 = st.columns([1, 6, 1])
 
 with c30:
 
-    uploaded_file = st.file_uploader("Choose a XLSX file")
+    uploaded_file = st.file_uploader("Choose a Excel file")
 
     if uploaded_file is not None:
-        file_container = st.expander("Check your uploaded .csv")
         shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1", index_col=0)
-        uploaded_file.seek(0)
-        file_container.write(shows)
+        #uploaded_file.seek(0)
+        st.write(shows)
 
     else:
         st.info(
