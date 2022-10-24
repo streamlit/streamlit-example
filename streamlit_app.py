@@ -26,7 +26,7 @@ def _max_width_():
         unsafe_allow_html=True,
     )
 
-st.set_page_config(page_icon="✂️", page_title="CSV Wrangler")
+st.set_page_config(page_icon="📊", page_title="Forecast")
 
 st.image(
     "https://cdn-icons-png.flaticon.com/128/5070/5070702.png",
