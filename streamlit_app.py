@@ -55,7 +55,7 @@ with c30:
         #st.write(shows)
         #unpivot & pivot to WIDE-FORMAT
         df_unpivot = pd.melt(shows, id_vars=shows.columns[0])
-        df_unpivot["Date"] = df_unpivot["Date"].datetime.strftime("%m-%Y")
+        df_unpivot["Date"] = df_unpivot["Date"].datetime.date()
         df_unpivot = pd.pivot_table(df_unpivot, values="value",index="variable",columns="Date")
         st.write(df_unpivot)
     else:
