@@ -51,11 +51,11 @@ with c30:
         shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1")
         shows = shows.fillna(0)
         #uploaded_file.seek(0)
-        st.write(shows)
+        #st.write(shows)
         #unpivot & pivot to WIDE-FORMAT
         df_unpivot = pd.melt(shows, id_vars=shows.columns[0])
         df_unpivot = pd.pivot_table(df_unpivot, values="value",index="variable",columns="Date")
-
+        st.write(df_unpivot)
     else:
         st.info(
             f"""
