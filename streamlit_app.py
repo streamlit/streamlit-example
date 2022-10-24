@@ -15,7 +15,7 @@ from functionforDownloadButtons import download_button
 
 
 def _max_width_():
-    max_width_str = f"max-width: 1800px;"
+    max_width_str = f"max-width: 2400px;"
     st.markdown(
         f"""
     <style>
@@ -55,11 +55,11 @@ with c30:
         #st.write(shows)
         #unpivot & pivot to WIDE-FORMAT
         shows = pd.melt(shows, id_vars=shows.columns[0])
-        shows.sort_values(by=['Date'],inplace=True)
-        shows["Date"] = shows["Date"].apply(lambda x: datetime.strftime(x, '%m-%Y'))
-        shows.set_index(['Date', 'variable'],inplace=True)
-        shows = shows.unstack('Date').reset_index()
-        #shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
+        #shows.sort_values(by=['Date'],inplace=True)
+        #shows["Date"] = shows["Date"].apply(lambda x: datetime.strftime(x, '%m-%Y'))
+        #shows.set_index(['Date', 'variable'],inplace=True)
+        #shows = shows.unstack('Date').reset_index()
+        shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
         st.write(shows)
     else:
         st.info(
