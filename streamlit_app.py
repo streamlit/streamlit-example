@@ -50,9 +50,11 @@ with c30:
     if uploaded_file is not None:
         shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1")
         shows = shows.fillna(0)
-        
         #uploaded_file.seek(0)
         st.write(shows)
+        #unpivot & pivot to WIDE-FORMAT
+        df_unpivot = pd.melt(shows, id_vars=shows.columns[0])
+        df_unpivot = pd.pivot_table(df_unpivot, values="value",index="variable",columns="Date")
 
     else:
         st.info(
@@ -65,7 +67,7 @@ with c30:
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-gb = GridOptionsBuilder.from_dataframe(shows)
+gb = GridOptionsBuilder.from_dataframe(df_unpivot)
 # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
 gb.configure_default_column(enablePivot=True, enableValue=True, enableRowGroup=True)
 gb.configure_selection(selection_mode="multiple",use_checkbox=True)
