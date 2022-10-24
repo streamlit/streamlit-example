@@ -54,10 +54,10 @@ with c30:
         #uploaded_file.seek(0)
         #st.write(shows)
         #unpivot & pivot to WIDE-FORMAT
-        df_unpivot = pd.melt(shows, id_vars=shows.columns[0])
-        df_unpivot["Date"] = df_unpivot["Date"].apply(lambda x: datetime.strftime(x, '%m-%Y'))
-        df_unpivot = pd.pivot_table(df_unpivot, values="value",index="variable",columns="Date").reset_index()
-        st.write(df_unpivot)
+        shows = pd.melt(shows, id_vars=shows.columns[0])
+        shows["Date"] = shows["Date"].apply(lambda x: datetime.strftime(x, '%m-%Y'))
+        shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
+        st.write(shows)
     else:
         st.info(
             f"""
