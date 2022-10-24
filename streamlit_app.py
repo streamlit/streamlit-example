@@ -55,6 +55,7 @@ with c30:
         #st.write(shows)
         #unpivot & pivot to WIDE-FORMAT
         shows = pd.melt(shows, id_vars=shows.columns[0])
+        shows.sort_values(by=['Date'],inplace=True)
         shows["Date"] = shows["Date"].apply(lambda x: datetime.strftime(x, '%m-%Y'))
         shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
         st.write(shows)
