@@ -48,14 +48,14 @@ with c30:
     uploaded_file = st.file_uploader("Choose a Excel file")
 
     if uploaded_file is not None:
-        shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1", index_col=0)
+        shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1")
         #uploaded_file.seek(0)
         st.write(shows)
 
     else:
         st.info(
             f"""
-                👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
+                👆 Upload a .xlsx file first. Sample to try: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=5sv1nB)
                 """
         )
 
