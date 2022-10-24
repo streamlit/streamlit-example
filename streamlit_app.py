@@ -49,13 +49,14 @@ with c30:
 
     if uploaded_file is not None:
         shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1")
+        shows = shows.fillna(0)
         #uploaded_file.seek(0)
         st.write(shows)
 
     else:
         st.info(
             f"""
-                👆 Upload a .xlsx file first. Sample to try: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=j3HVCj)
+                👆 Upload your .xlsx file to make forecast. Here's a sample file: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=j3HVCj)
                 """
         )
 
