@@ -56,7 +56,7 @@ with c30:
         #unpivot & pivot to WIDE-FORMAT
         shows = pd.melt(shows, id_vars=shows.columns[0])
         #shows.sort_values(by=['Date'],inplace=True)
-        shows["Date"] = shows["Date"].apply(lambda x: date())
+        shows["Date"] = shows["Date"].apply(lambda x: date(x))
         #shows.set_index(['Date', 'variable'],inplace=True)
         #shows = shows.unstack('Date').reset_index()
         shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
