@@ -55,7 +55,7 @@ with c30:
     else:
         st.info(
             f"""
-                👆 Upload a .xlsx file first. Sample to try: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=5sv1nB)
+                👆 Upload a .xlsx file first. Sample to try: [Actual Sales](https://duytan.sharepoint.com/:x:/s/baocaobi/ES2CKFuy_S5HokRj6aDVAgcBVcf6RPkRoXnKeyqk7Z_Uxw?e=USakfN)
                 """
         )
 
