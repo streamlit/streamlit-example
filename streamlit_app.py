@@ -79,20 +79,27 @@ with c30:
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-gb = GridOptionsBuilder.from_dataframe(shows2)
-# enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
-gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
-gb.configure_selection(selection_mode="multiple",use_checkbox=True)
-gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
-gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
-gridOptions = gb.build()
+midlayout = st.columns((1,1))
+with top[0]:
+    gb = GridOptionsBuilder.from_dataframe(shows2)
+    # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
+    gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
+    gb.configure_selection(selection_mode="multiple",use_checkbox=True)
+    gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
+    gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
+    gridOptions = gb.build()
 
-st.success(
-    f"""
-        💡 Tip! Hold the shift key when selecting rows to select multiple rows at once!
-        """
-)
+    st.success(
+        f"""
+            💡 Tip! Hold the shift key when selecting rows to select multiple rows at once!
+            """
+    )
 
+with top[1]:
+    st.radio(
+        "Select forecast model",
+        ('SARIMA', 'Prophet', 'UCM','Holt-Winter'))
+    
 response = AgGrid(
     shows2,
     gridOptions=gridOptions,
