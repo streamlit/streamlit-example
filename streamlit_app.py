@@ -80,7 +80,7 @@ with c30:
 from st_aggrid import GridUpdateMode, DataReturnMode
 
 midlayout = st.columns((1,1))
-with top[0]:
+with midlayout[0]:
     gb = GridOptionsBuilder.from_dataframe(shows2)
     # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
     gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
@@ -95,7 +95,7 @@ with top[0]:
             """
     )
 
-with top[1]:
+with midlayout[1]:
     st.radio(
         "Select forecast model",
         ('SARIMA', 'Prophet', 'UCM','Holt-Winter'))
