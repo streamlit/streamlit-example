@@ -94,7 +94,7 @@ st.success(
 )
 
 response = AgGrid(
-    shows,
+    shows2,
     gridOptions=gridOptions,
     enable_enterprise_modules=True,
     update_mode=GridUpdateMode.MODEL_CHANGED,
