@@ -65,7 +65,7 @@ with c30:
         shows.rename({'variable': 'Material'}, axis=1, inplace=True)
         shows2 = pd.pivot_table(shows2, values="value",index="variable",columns="Date").reset_index()
         shows2.rename({'variable': 'Material'}, axis=1, inplace=True)
-        st.write(shows)
+        st.write(shows2)
         
         
     else:
