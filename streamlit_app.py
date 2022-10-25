@@ -89,11 +89,6 @@ with midlayout[0]:
     gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
     gridOptions = gb.build()
 
-    st.success(
-        f"""
-            💡 Tip! Hold the shift key when selecting rows to select multiple rows at once!
-            """
-    )
 
 with midlayout[1]:
     st.radio(
