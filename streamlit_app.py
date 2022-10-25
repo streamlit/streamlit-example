@@ -13,6 +13,12 @@ from functionforDownloadButtons import download_button
 
 ###################################
 
+with st.sidebar:
+    st.title("1. Select Data")
+    uploaded_file = st.file_uploader("Choose a Excel file")
+
+
+###################################
 
 def _max_width_():
     max_width_str = f"max-width: 2400px;"
