@@ -60,6 +60,7 @@ with c30:
         #shows.set_index(['Date', 'variable'],inplace=True)
         #shows = shows.unstack('Date').reset_index()
         shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
+        shows.rename({'variable': 'Material'}, axis=1, inplace=True)
         st.write(shows)
     else:
         st.info(
