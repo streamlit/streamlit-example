@@ -57,11 +57,17 @@ with c30:
         shows = pd.melt(shows, id_vars=shows.columns[0])
         #shows.sort_values(by=['Date'],inplace=True)
         shows["Date"] = shows["Date"].apply(lambda x: x.date())
+        shows2 = shows.copy(deep=True)
+        shows2["Date"] = shows2["Date"].apply(lambda x: x.strftime("%m-%Y"))
         #shows.set_index(['Date', 'variable'],inplace=True)
         #shows = shows.unstack('Date').reset_index()
         shows = pd.pivot_table(shows, values="value",index="variable",columns="Date").reset_index()
         shows.rename({'variable': 'Material'}, axis=1, inplace=True)
+        shows2 = pd.pivot_table(shows2, values="value",index="variable",columns="Date").reset_index()
+        shows2.rename({'variable': 'Material'}, axis=1, inplace=True)
         st.write(shows)
+        
+        
     else:
         st.info(
             f"""
@@ -73,11 +79,11 @@ with c30:
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-gb = GridOptionsBuilder.from_dataframe(shows)
+gb = GridOptionsBuilder.from_dataframe(shows2)
 # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
 gb.configure_default_column(enablePivot=True, enableValue=True, enableRowGroup=True)
 gb.configure_selection(selection_mode="multiple",use_checkbox=True)
-gb.configure_column(shows.columns[0],headerCheckboxSelection=True)
+gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
 gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
 gridOptions = gb.build()
 
