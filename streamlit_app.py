@@ -28,19 +28,21 @@ def _max_width_():
 
 st.set_page_config(page_icon="📊", page_title="Forecast")
 
-st.image(
-    "https://cdn-icons-png.flaticon.com/128/5070/5070702.png",
-    width=100,
-)
 
 
-st.title("TIME SERIES FORECAST")
+
+
 
 
 
 ###################################
 
 with st.sidebar:
+    st.title("TIME SERIES FORECAST")
+    st.image(
+    "https://cdn-icons-png.flaticon.com/128/5070/5070702.png",
+    width=100,
+    )
     st.title("1. Select Data")
     uploaded_file = st.file_uploader("Choose a Excel file")
 
