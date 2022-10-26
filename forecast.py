@@ -85,7 +85,7 @@ with st.sidebar:
 top = st.columns(1)
 bottom = st.columns((1,1))
 
- with top[0]:
+with top[0]:
     st.subheader('1. Data loading 📋')
     st.write("Your raw data will show here.")
     st.write(shows)
