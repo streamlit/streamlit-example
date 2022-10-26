@@ -96,13 +96,13 @@ from st_aggrid import GridUpdateMode, DataReturnMode
 
 col1, col2 = st.columns([3,1])
 with col1:
-    with st.empty():
+    with st.container():
         gb = GridOptionsBuilder.from_dataframe(shows2)
         gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
         gb.configure_selection(selection_mode="multiple",use_checkbox=True)
         gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
         gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
-        gb.configure_grid_options(domLayout='autoHeight')
+        gb.configure_grid_options(domLayout='normal')
         gridOptions = gb.build()
 
 with col2:
