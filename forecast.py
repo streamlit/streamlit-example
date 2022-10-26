@@ -96,12 +96,13 @@ from st_aggrid import GridUpdateMode, DataReturnMode
 
 col1, col2 = st.columns([3,1])
 with col1:
-    gb = GridOptionsBuilder.from_dataframe(shows2)
-    gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
-    gb.configure_selection(selection_mode="multiple",use_checkbox=True)
-    gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
-    gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
-    gridOptions = gb.build()
+    with st.empty():
+        gb = GridOptionsBuilder.from_dataframe(shows2)
+        gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
+        gb.configure_selection(selection_mode="multiple",use_checkbox=True)
+        gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
+        gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
+        gridOptions = gb.build()
 
 with col2:
     st.checkbox("UCM")
