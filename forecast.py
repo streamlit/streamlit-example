@@ -94,6 +94,7 @@ st.write(shows)
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
+st.subheader('2. Forecast')
 col1, col2 = st.columns([3,1])
 with col1:
     with st.container():
@@ -104,14 +105,14 @@ with col1:
         gb.configure_side_bar()
         gridOptions = gb.build()
   
-response = AgGrid(
-    shows2,
-    gridOptions=gridOptions,
-    enable_enterprise_modules=True,
-    update_mode=GridUpdateMode.MODEL_CHANGED,
-    data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
-    fit_columns_on_grid_load=False,
-)
+        response = AgGrid(
+            shows2,
+            gridOptions=gridOptions,
+            enable_enterprise_modules=True,
+            update_mode=GridUpdateMode.MODEL_CHANGED,
+            data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
+            fit_columns_on_grid_load=False,
+        )
 
 with col2:
     st.checkbox("UCM")
