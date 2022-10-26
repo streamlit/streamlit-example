@@ -97,7 +97,6 @@ from st_aggrid import GridUpdateMode, DataReturnMode
 col1, col2 = st.columns(2)
 with col1:
     gb = GridOptionsBuilder.from_dataframe(shows2)
-    #enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
     gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
     gb.configure_selection(selection_mode="multiple",use_checkbox=True)
     gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
@@ -108,6 +107,7 @@ with col2:
     st.checkbox("UCM")
     st.checkbox("SARIMA")
     st.checkbox("Prophet")
+    st.slider("Number of Bins", min_value=1,max_value=40, value=7)
 
   
 response = AgGrid(
