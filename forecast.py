@@ -10,7 +10,7 @@ from st_aggrid.shared import JsCode
 ###################################
 
 from functionforDownloadButtons import download_button
-#import footer as footer
+import footer as footer
 ###################################
 
 def _max_width_():
@@ -45,35 +45,10 @@ with st.sidebar:
     st.title("TIME SERIES FORECAST")
     st.title("1. Select Data")
     uploaded_file = st.file_uploader("Choose a Excel file")
+    
+    
     #####
-    footer="""<style>
-    a:link , a:visited{
-    color: blue;
-    background-color: transparent;
-    text-decoration: underline;
-    }
-
-    a:hover,  a:active {
-    color: red;
-    background-color: transparent;
-    text-decoration: underline;
-    }
-
-    .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    color: black;
-    text-align: center;
-    }
-    </style>
-    <div class="footer">
-    <p>©: PhamGiaPhu@duytan.com | ☎: 240 | Dept: Supply Chain Planning <a style='display: block; text-align: center</a></p>
-    </div>
-    """
-    st.markdown(footer,unsafe_allow_html=True)
+    footer.footer()
     
     #####
 
