@@ -38,28 +38,15 @@ st.set_page_config(page_icon="📊", page_title="Forecast")
 ###################################
 
 with st.sidebar:
-    st.title("TIME SERIES FORECAST")
     st.image(
     "https://cdn-icons-png.flaticon.com/128/5070/5070702.png",
-    width=100,
-    )
+    width=300,
+    )    
+    st.title("TIME SERIES FORECAST")
     st.title("1. Select Data")
     uploaded_file = st.file_uploader("Choose a Excel file")
-    st.info(
-            f"""
-                👆 Upload your .xlsx file to make forecast. Here's a sample file: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=j3HVCj)
-                """
+
      )
-
-
-###################################
-
-
-
-c29, c30, c31 = st.columns([1, 6, 1])
-
-with c30:
-
     if uploaded_file is not None:
         shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1")
         shows = shows.fillna(0)
@@ -81,9 +68,21 @@ with c30:
         
         
     else:
-
-
+        st.info(
+            f"""
+                👆 Upload your .xlsx file to make forecast. Here's a sample file: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=j3HVCj)
+                """)
         st.stop()
+
+###################################
+
+
+
+c29, c30, c31 = st.columns([1, 6, 1])
+
+with c30:
+
+
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
