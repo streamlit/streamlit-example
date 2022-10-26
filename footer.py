@@ -7,13 +7,13 @@ from htbuilder.funcs import rgba, rgb
 def layout(*args):
   with st.sidebar:
 
-    style = 
+    style = """
     <style>
       # MainMenu {visibility: hidden;}
       footer {visibility: hidden;}
      .stApp { bottom: 50px; }
     </style>
-    
+    """
 
     style_div = styles(
         position="fixed",
