@@ -77,7 +77,7 @@ with st.sidebar:
 ###################################
 
 
-st.subheader('1. Data loading 🏋️')
+st.subheader('1. Data loading 📋')
 st.write("Your raw data will show here.")
 st.write(shows)
 
