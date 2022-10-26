@@ -5,6 +5,7 @@ from htbuilder.funcs import rgba, rgb
 
 
 def layout(*args):
+  with st.sidebar:
 
     style = """
     <style>
