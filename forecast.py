@@ -127,7 +127,7 @@ with col2:
     ['Holt-Winter'])
 
 
-df = pd.DataFrame(response["selected_rows"])
+df = pd.DataFrame(response["selected_rows"]).melt(id_vars=['Material'])
 
 st.subheader("Filtered data will appear below 👇 ")
 st.text("")
