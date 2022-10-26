@@ -83,7 +83,7 @@ with st.sidebar:
 ###################################
 
 top = st.columns(1)
-bottom = st.columns((1,1))
+
 
 with top[0]:
     st.subheader('1. Data loading 📋')
@@ -94,7 +94,8 @@ with top[0]:
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-with bottom[0]:
+col1, col2 = st.columns(2)
+with col1:
     gb = GridOptionsBuilder.from_dataframe(shows2)
     #enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
     gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
@@ -105,7 +106,7 @@ with bottom[0]:
 
 
 
-with bottom[1]:    
+with col2:    
     response = AgGrid(
         shows2,
         gridOptions=gridOptions,
