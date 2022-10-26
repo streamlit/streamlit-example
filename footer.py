@@ -10,7 +10,7 @@ def layout(*args):
     <style>
       # MainMenu {visibility: hidden;}
       footer {visibility: hidden;}
-     .stApp { bottom: 105px; }
+     .stApp { bottom: 50px; }
     </style>
     """
 
@@ -28,7 +28,7 @@ def layout(*args):
 
     style_hr = styles(
         display="block",
-        margin=px(8, 8, "auto", "auto"),
+        margin=px(4, 4, "auto", "auto"),
         border_style="inset",
         border_width=px(2)
     )
