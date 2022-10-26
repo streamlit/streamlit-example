@@ -97,7 +97,7 @@ from st_aggrid import GridUpdateMode, DataReturnMode
 col1, col2 = st.columns([3,1])
 with col1:
     with st.empty():
-        gb = GridOptionsBuilder.from_dataframe(shows2)
+        gb = GridOptionsBuilder.from_dataframe(shows2,min_column_width=10)
         gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
         gb.configure_selection(selection_mode="multiple",use_checkbox=True)
         gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
@@ -117,7 +117,7 @@ response = AgGrid(
     enable_enterprise_modules=True,
     update_mode=GridUpdateMode.MODEL_CHANGED,
     data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
-    fit_columns_on_grid_load=False,
+    fit_columns_on_grid_load=True,
 )
 
 df = pd.DataFrame(response["selected_rows"])
