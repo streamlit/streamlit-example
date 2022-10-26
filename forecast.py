@@ -126,12 +126,15 @@ with col2:
     ['UCM', 'SARIMA', 'Prophet', 'Holt-Winter'],
     ['Holt-Winter'])
 
-
-df = pd.DataFrame(response["selected_rows"])
-df = pd.melt(df,id_vars=shows.columns[0])
-df.rename({'variable': 'Date'}, axis=1, inplace=True)
-df['Date'] = df['Date'].apply(lambda x: datetime.strptime("01-{}".format(x),"%d-%m-%Y").date())
-df.sort_values(by=['Material','Date'],inplace=True)
+    df = pd.DataFrame(response["selected_rows"])
+    df = pd.melt(df,id_vars=shows.columns[0])
+    df.rename({'variable': 'Date'}, axis=1, inplace=True)
+    df['Date'] = df['Date'].apply(lambda x: datetime.strptime("01-{}".format(x),"%d-%m-%Y").date())
+    df.sort_values(by=['Material','Date'],inplace=True)
+    
+    st.line_chart(df, x="Date", y="value")
+    
+    
 
 st.subheader("Filtered data will appear below 👇 ")
 st.text("")
