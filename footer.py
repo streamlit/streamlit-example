@@ -7,13 +7,13 @@ from htbuilder.funcs import rgba, rgb
 def layout(*args):
   with st.sidebar:
 
-    style = """
+    style = 
     <style>
       # MainMenu {visibility: hidden;}
       footer {visibility: hidden;}
-     .stApp { bottom: 102px; }
+     .stApp { bottom: 50px; }
     </style>
-    """
+    
 
     style_div = styles(
         position="fixed",
@@ -22,8 +22,8 @@ def layout(*args):
         margin=px(0, 0, 0, 0),
         width=percent(100),
         color="black",
-        text_align="left",
-        height="auto",
+        text_align="center",
+        height=50px,
         opacity=1
     )
 
