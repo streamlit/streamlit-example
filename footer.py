@@ -22,14 +22,14 @@ def layout(*args):
         margin=px(0, 0, 0, 0),
         width=percent(100),
         color="black",
-        text_align="center",
+        text_align="left",
         height="auto",
         opacity=1
     )
 
     style_hr = styles(
         display="block",
-        margin=px(8, 8, "auto", "auto"),
+        margin=px(6, 6, "auto", "auto"),
         border_style="inset",
         border_width=px(2)
     )
