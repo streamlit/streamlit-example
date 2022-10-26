@@ -10,7 +10,7 @@ from st_aggrid.shared import JsCode
 ###################################
 
 from functionforDownloadButtons import download_button
-
+import footer as footer
 ###################################
 
 def _max_width_():
@@ -45,6 +45,7 @@ with st.sidebar:
     st.title("TIME SERIES FORECAST")
     st.title("1. Select Data")
     uploaded_file = st.file_uploader("Choose a Excel file")
+    footer.footer()
 
      
     if uploaded_file is not None:
