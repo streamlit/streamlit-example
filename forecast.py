@@ -105,25 +105,24 @@ with col1:
     gridOptions = gb.build()
 
 
+  
+response = AgGrid(
+    shows2,
+    gridOptions=gridOptions,
+    enable_enterprise_modules=True,
+    update_mode=GridUpdateMode.MODEL_CHANGED,
+    data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
+    fit_columns_on_grid_load=False,
+)
 
-with col2:    
-    response = AgGrid(
-        shows2,
-        gridOptions=gridOptions,
-        enable_enterprise_modules=True,
-        update_mode=GridUpdateMode.MODEL_CHANGED,
-        data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
-        fit_columns_on_grid_load=False,
-    )
+df = pd.DataFrame(response["selected_rows"])
 
-    df = pd.DataFrame(response["selected_rows"])
+st.subheader("Filtered data will appear below 👇 ")
+st.text("")
 
-    st.subheader("Filtered data will appear below 👇 ")
-    st.text("")
+st.table(df)
 
-    st.table(df)
-
-    st.text("")
+st.text("")
 
 c29, c30 = st.columns([1, 1])
 
