@@ -39,7 +39,7 @@ st.set_page_config(page_icon="📊", page_title="Forecast")
 
 with st.sidebar:
     st.image(
-    "https://cdn-icons-png.flaticon.com/128/5070/5070702.png",
+    "https://www.duytan.com/Data/Sites/1/media/home/logo_duytan_scgp-endorsement_full-color-01.png",
     width=300,
     )    
     st.title("TIME SERIES FORECAST")
