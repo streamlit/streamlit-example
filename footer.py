@@ -11,7 +11,7 @@ def layout(*args):
         <style>
           # MainMenu {visibility: hidden;}
           footer {visibility: hidden;}
-         .stApp { bottom: 50px; }
+         .stApp { bottom: 10px; }
         </style>
     """
 
@@ -19,18 +19,18 @@ def layout(*args):
         position="fixed",
         left=0,
         bottom=0,
-        margin=px(10, 10, 10, 10),
-        width=percent(100),
+        margin=px(2, 2, 2, 2),
+        width=percent(50),
         color="black",
         text_align="center",
-        height=50,
+        height=10,
         opacity=1
     )
 
     style_hr = styles(
         display="block",
         margin=px(2, 2, 2, 2),
-        border_style="inset",
+        border_style="none",
         border_width=px(2)
     )
 
