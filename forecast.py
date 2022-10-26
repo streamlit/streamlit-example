@@ -104,6 +104,8 @@ with col1:
     gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
     gridOptions = gb.build()
 
+with col2:
+    st.checkbox("UCM","SARIMA")
 
   
 response = AgGrid(
