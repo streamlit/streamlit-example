@@ -57,5 +57,6 @@ def layout(*args):
 
 def footer():
     myargs = [
-        "©: PhamGiaPhu@duytan.com | ☎: 240 \n Dept: Supply Chain Planning"]
+        """©: PhamGiaPhu@duytan.com | ☎: 240 
+          Dept: Supply Chain Planning"""]
     layout(*myargs)
