@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+from prophet import Prophet
+import pmdarima as pmd
+import statsmodels.api as sm
 from datetime import datetime, date
 
 ###################################
@@ -89,7 +92,7 @@ with st.sidebar:
 
 
 
-st.subheader('1. Data loading 📋')
+st.subheader('2. Data loading 📋')
 st.write("Your raw data will show here.")
 st.write(shows)
 
@@ -97,8 +100,8 @@ st.write(shows)
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-st.subheader('2. Forecast')
-col1, col2 = st.columns([3,1])
+st.subheader('3. Forecast')
+col1, col2 = st.columns([1,1])
 with col1:
     with st.container():
         gb = GridOptionsBuilder.from_dataframe(shows2)
@@ -121,9 +124,9 @@ with col2:
     st.checkbox("UCM")
     st.checkbox("SARIMA")
     st.checkbox("Prophet")
-    st.slider("Number of Bins", min_value=1,max_value=40, value=7)
+    df 
 
-df = pd.DataFrame(response["selected_rows"])
+df = pd.DataFrame(response["selected_rows"]).stack()
 
 st.subheader("Filtered data will appear below 👇 ")
 st.text("")
