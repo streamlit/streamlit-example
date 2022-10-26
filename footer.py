@@ -56,6 +56,6 @@ def layout(*args):
     st.markdown(str(foot), unsafe_allow_html=True)
 
 def footer():
-    myargs = """©: PhamGiaPhu@duytan.com | ☎: 240 
-             Dept: Supply Chain Planning"""
+    myargs = ["©: PhamGiaPhu@duytan.com | ☎: 240",br(),
+             "Dept: Supply Chain Planning"]
     layout(*myargs)
