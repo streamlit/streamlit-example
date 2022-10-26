@@ -121,9 +121,10 @@ with col1:
         )
 
 with col2:
-    st.checkbox("UCM")
-    st.checkbox("SARIMA")
-    st.checkbox("Prophet")
+    model = st.multiselect(
+    'Choose your forecast model',
+    ['UCM', 'SARIMA', 'Prophet', 'Holt-Winter'],
+    ['Holt-Winter'])
 
 
 df = pd.DataFrame(response["selected_rows"])
