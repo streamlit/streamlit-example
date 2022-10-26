@@ -105,7 +105,9 @@ with col1:
     gridOptions = gb.build()
 
 with col2:
-    st.checkbox("UCM","SARIMA")
+    st.checkbox("UCM")
+    st.checkbox("SARIMA")
+    st.checkbox("Prophet")
 
   
 response = AgGrid(
