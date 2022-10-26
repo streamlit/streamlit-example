@@ -8,18 +8,18 @@ def layout(*args):
   with st.sidebar:
 
     style = """
-    <style>
-      # MainMenu {visibility: hidden;}
-      footer {visibility: hidden;}
-     .stApp { bottom: 50px; }
-    </style>
+        <style>
+          # MainMenu {visibility: hidden;}
+          footer {visibility: hidden;}
+         .stApp { bottom: 50px; }
+        </style>
     """
 
     style_div = styles(
         position="fixed",
         left=0,
         bottom=0,
-        margin=px(0, 0, 0, 0),
+        margin=px(10, 10, 10, 10),
         width=percent(100),
         color="black",
         text_align="center",
@@ -29,7 +29,7 @@ def layout(*args):
 
     style_hr = styles(
         display="block",
-        margin=px(6, 6, "auto", "auto"),
+        margin=px(2, 2, 2, 2),
         border_style="inset",
         border_width=px(2)
     )
