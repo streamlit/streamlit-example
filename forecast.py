@@ -103,13 +103,6 @@ with col1:
         gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
         gb.configure_side_bar()
         gridOptions = gb.build()
-
-with col2:
-    st.checkbox("UCM")
-    st.checkbox("SARIMA")
-    st.checkbox("Prophet")
-    st.slider("Number of Bins", min_value=1,max_value=40, value=7)
-
   
 response = AgGrid(
     shows2,
@@ -119,6 +112,12 @@ response = AgGrid(
     data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
     fit_columns_on_grid_load=False,
 )
+
+with col2:
+    st.checkbox("UCM")
+    st.checkbox("SARIMA")
+    st.checkbox("Prophet")
+    st.slider("Number of Bins", min_value=1,max_value=40, value=7)
 
 df = pd.DataFrame(response["selected_rows"])
 
