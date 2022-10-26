@@ -26,7 +26,7 @@ def _max_width_():
         unsafe_allow_html=True,
     )
 
-st.set_page_config(page_icon="📊", page_title="Forecast")
+st.set_page_config(page_icon="📊", page_title="Forecast",layout="wide")
 
 
 
@@ -82,49 +82,49 @@ with st.sidebar:
 
 ###################################
 
+top = st.columns(1)
+bottom = st.columns((1,1))
 
-st.subheader('1. Data loading 📋')
-st.write("Your raw data will show here.")
-st.write(shows)
+ with top[0]:
+    st.subheader('1. Data loading 📋')
+    st.write("Your raw data will show here.")
+    st.write(shows)
 
 
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
+with bottom[0]:
+    gb = GridOptionsBuilder.from_dataframe(shows2)
+    #enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
+    gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
+    gb.configure_selection(selection_mode="multiple",use_checkbox=True)
+    gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
+    gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
+    gridOptions = gb.build()
 
-gb = GridOptionsBuilder.from_dataframe(shows2)
-#enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
-gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
-gb.configure_selection(selection_mode="multiple",use_checkbox=True)
-gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
-gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
-gridOptions = gb.build()
 
 
-#with col2:
-#    st.radio(
-#        "Select forecast model",
-#        ('SARIMA', 'Prophet', 'UCM','Holt-Winter'))
-    
-response = AgGrid(
-    shows2,
-    gridOptions=gridOptions,
-    enable_enterprise_modules=True,
-    update_mode=GridUpdateMode.MODEL_CHANGED,
-    data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
-    fit_columns_on_grid_load=False,
-)
+with bottom[1]:    
+    response = AgGrid(
+        shows2,
+        gridOptions=gridOptions,
+        enable_enterprise_modules=True,
+        update_mode=GridUpdateMode.MODEL_CHANGED,
+        data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
+        fit_columns_on_grid_load=False,
+    )
 
-df = pd.DataFrame(response["selected_rows"])
+    df = pd.DataFrame(response["selected_rows"])
 
-st.subheader("Filtered data will appear below 👇 ")
-st.text("")
+    st.subheader("Filtered data will appear below 👇 ")
+    st.text("")
 
-st.table(df)
+    st.table(df)
 
-st.text("")
+    st.text("")
 
-c29, c30, c31 = st.columns([1, 1, 2])
+c29, c30 = st.columns([1, 1])
 
 with c29:
 
