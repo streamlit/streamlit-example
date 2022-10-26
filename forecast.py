@@ -82,19 +82,19 @@ with st.sidebar:
 
 ###################################
 
-top = st.columns(1)
 
 
-with top[0]:
-    st.subheader('1. Data loading 📋')
-    st.write("Your raw data will show here.")
-    st.write(shows)
+
+
+st.subheader('1. Data loading 📋')
+st.write("Your raw data will show here.")
+st.write(shows)
 
 
 
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([3,1])
 with col1:
     gb = GridOptionsBuilder.from_dataframe(shows2)
     gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
