@@ -124,7 +124,7 @@ with col2:
     st.checkbox("UCM")
     st.checkbox("SARIMA")
     st.checkbox("Prophet")
-    df 
+
 
 df = pd.DataFrame(response["selected_rows"]).stack()
 
