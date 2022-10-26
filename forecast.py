@@ -70,7 +70,10 @@ with st.sidebar:
         shows.rename({'variable': 'Material'}, axis=1, inplace=True)
         shows2 = pd.pivot_table(shows2, values="value",index="variable",columns="Date").reset_index()
         shows2.rename({'variable': 'Material'}, axis=1, inplace=True)
-        
+        st.info(
+            f"""
+                👆 Upload your .xlsx file to make forecast. Here's a sample file: [Actual Sales](https://duytan-my.sharepoint.com/:x:/g/personal/phamgiaphu_duytan_com1/EYe1ArKWaulDhLa1G9mPrnMB7C3G_F_mkvJ-7c93u6c9kw?e=j3HVCj)
+                """)
         
         
     else:
