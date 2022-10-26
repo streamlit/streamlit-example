@@ -9,4 +9,4 @@ click==8
 prophet
 pmdarima
 numpy
-statsmodels.api
+statsmodels
