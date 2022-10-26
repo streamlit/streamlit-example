@@ -126,7 +126,7 @@ with col2:
     st.checkbox("Prophet")
 
 
-df = pd.DataFrame(response["selected_rows"]).stack()
+df = pd.DataFrame(response["selected_rows"])
 
 st.subheader("Filtered data will appear below 👇 ")
 st.text("")
