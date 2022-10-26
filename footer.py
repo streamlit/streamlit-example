@@ -11,7 +11,7 @@ def layout(*args):
         <style>
           # MainMenu {visibility: hidden;}
           footer {visibility: hidden;}
-         .stApp { bottom: 10px; }
+         .stApp { bottom: 5px; }
         </style>
     """
 
@@ -20,10 +20,10 @@ def layout(*args):
         left=0,
         bottom=0,
         margin=px(2, 2, 2, 2),
-        width=percent(50),
+        width=percent(100),
         color="black",
-        text_align="center",
-        height=10,
+        text_align="left",
+        height=5,
         opacity=1
     )
 
@@ -57,5 +57,5 @@ def layout(*args):
 
 def footer():
     myargs = [
-        "©: PhamGiaPhu@duytan.com | ☎: 240 | Dept: Supply Chain Planning"]
+        "©: PhamGiaPhu@duytan.com | ☎: 240 \n Dept: Supply Chain Planning"]
     layout(*myargs)
