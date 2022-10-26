@@ -128,6 +128,8 @@ with col2:
 
 
 df = pd.DataFrame(response["selected_rows"]).melt(id_vars=['Material'])
+df.rename({'variable': 'Date'}, axis=1, inplace=True)
+df['Date'] = df['Date'].apply(lambda x: x.strptime("01-{}".format(x),"%d-%m-%Y").date())
 
 st.subheader("Filtered data will appear below 👇 ")
 st.text("")
