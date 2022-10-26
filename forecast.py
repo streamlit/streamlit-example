@@ -101,8 +101,7 @@ with col1:
         gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
         gb.configure_selection(selection_mode="multiple",use_checkbox=True)
         gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
-        gb.configure_side_bar()  # side_bar is clearly a typo :) should by sidebar
-        gb.configure_grid_options(domLayout='normal')
+        gb.configure_side_bar()
         gridOptions = gb.build()
 
 with col2:
