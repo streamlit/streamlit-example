@@ -12,7 +12,7 @@ def layout(*args):
           # MainMenu {visibility: hidden;}
           footer {visibility: hidden;}
          .stApp { bottom: 5px; }
-         label {font-size:2px;}
+         body {font-size:2px;}
         </style>
     """
 
