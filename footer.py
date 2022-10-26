@@ -23,7 +23,7 @@ def layout(*args):
         width=percent(100),
         color="black",
         text_align="center",
-        height=50px,
+        height=50,
         opacity=1
     )
 
