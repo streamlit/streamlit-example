@@ -1,5 +1,6 @@
 altair
 openpyxl
+htbuilder
 datetime
 pandas
 streamlit
