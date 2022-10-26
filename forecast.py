@@ -46,7 +46,7 @@ with st.sidebar:
     st.title("1. Select Data")
     uploaded_file = st.file_uploader("Choose a Excel file")
 
-     )
+     
     if uploaded_file is not None:
         shows = pd.read_excel(uploaded_file, sheet_name = "Sheet1")
         shows = shows.fillna(0)
