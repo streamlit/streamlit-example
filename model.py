@@ -48,7 +48,9 @@ def HoltWinter(df):
  for sku in df.columns:
         fitHW = sm.tsa.ExponentialSmoothing(np.asarray(df[sku]), initialization_method="heuristic",seasonal_periods=12,trend='add', seasonal='add',damped_trend=True).fit(optimized=True)
         arr_forecast = fitHW.forecast(fcperiod)
-        df_HW[sku] = arr_forecast    
+        df_HW[sku] = arr_forecast
+        df_HW.set_index(future_index,inplace=True)
+        df_HW['Model'] = 'Holt Winter'
     
     
     
