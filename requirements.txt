@@ -10,3 +10,4 @@ prophet
 pmdarima
 numpy
 statsmodels
+scipy
