@@ -27,17 +27,19 @@ def clean_outlier(df):
    
 ############################################## 
 #forecast period
-fcperiod = 12
+
 #create list of forecast date
 
 df_P = pd.DataFrame()
-df_HW = pd.DataFrame()
+
 df_UCM = pd.DataFrame()
 df_SARIMA = pd.DataFrame()
 ############################################## 
 
 
 def HoltWinter(df):
+ fcperiod = 12
+ df_HW = pd.DataFrame()
  future_index = []
  future_index.append(df.tail(12).index.shift(12,freq="MS"))
  #exog for fitting
@@ -53,7 +55,6 @@ def HoltWinter(df):
         arr_forecast = fitHW.forecast(fcperiod)
         df_HW[sku] = arr_forecast
         df_HW.set_index(future_index,inplace=True)
-        df_HW['Model'] = 'Holt Winter'
     
     
     
