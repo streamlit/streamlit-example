@@ -64,48 +64,9 @@ def open_link(url, new_tab=True):
 
 
 def download_button(object_to_download, download_filename, button_text):
-    """
-    Generates a link to download the given object_to_download.
-    From: https://discuss.streamlit.io/t/a-download-button-with-custom-css/4220
-    Params:
-    ------
-    object_to_download:  The object to be downloaded.
-    download_filename (str): filename and extension of file. e.g. mydata.csv,
-    some_txt_output.txt download_link_text (str): Text to display for download
-    link.
-    button_text (str): Text to display on download button (e.g. 'click here to download file')
-    pickle_it (bool): If True, pickle file.
-    Returns:
-    -------
-    (str): the anchor tag to download object_to_download
-    Examples:
-    --------
-    download_link(your_df, 'YOUR_DF.csv', 'Click to download data!')
-    download_link(your_str, 'YOUR_STRING.txt', 'Click to download text!')
-    """
-    # if pickle_it:
-    #    try:
-    #        object_to_download = pickle.dumps(object_to_download)
-    #    except pickle.PicklingError as e:
-    #        st.write(e)
-    #        return None
 
-    # if:
-    if isinstance(object_to_download, bytes):
-        pass
+    object_to_download = object_to_download.to_excel(download_filename)
 
-    elif isinstance(object_to_download, pd.DataFrame):
-        #object_to_download = object_to_download.to_csv(index=False)
-        object_to_download = object_to_download.to_excel("FC test")
-    # Try JSON encode for everything else
-    else:
-        object_to_download = json.dumps(object_to_download)
-
-    try:
-        # some strings <-> bytes conversions necessary here
-        b64 = base64.b64encode(object_to_download.encode()).decode()
-    except AttributeError as e:
-        b64 = base64.b64encode(object_to_download).decode()
 
     button_uuid = str(uuid.uuid4()).replace("-", "")
     button_id = re.sub("\d+", "", button_uuid)
