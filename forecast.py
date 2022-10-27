@@ -156,7 +156,7 @@ with c29:
 
     CSVButton = download_button(
         df,
-        "File.csv",
+        "File.xlsx",
         "Download to CSV",
     )
 
