@@ -26,7 +26,12 @@ def clean_outlier(df):
     df = df.fillna(df.median())
    
 ############################################## 
-#forecast period
+#exog for fitting
+#exog_fit = df.merge(wd[['WD']],left_index=True,right_index=True,how='inner')
+#exog_fit = exog_fit.drop(exog_fit.columns.difference(['WD']),axis=1) #drop other column
+#exog for forecast
+#exog_fc = wd.merge(df,left_index=True,right_index=True,how='outer',indicator=True).query('_merge == "left_only"') #anti left join
+#exog_fc = exog_fc.drop(exog_fc.columns.difference(['WD']),axis=1).head(fcperiod)
 
 #create list of forecast date
 
@@ -42,12 +47,7 @@ def HoltWinter(df: pd.DataFrame):
  df_HW = pd.DataFrame()
  future_index = []
  future_index.append(df.tail(12).index.shift(12,freq="MS"))
- #exog for fitting
- exog_fit = df.merge(wd[['WD']],left_index=True,right_index=True,how='inner')
- exog_fit = exog_fit.drop(exog_fit.columns.difference(['WD']),axis=1) #drop other column
- #exog for forecast
- exog_fc = wd.merge(df,left_index=True,right_index=True,how='outer',indicator=True).query('_merge == "left_only"') #anti left join
- exog_fc = exog_fc.drop(exog_fc.columns.difference(['WD']),axis=1).head(fcperiod)
+
  
  
  for sku in df.columns:
