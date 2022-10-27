@@ -136,6 +136,7 @@ with col2:
     
     fig, ax = plt.subplots()
     ax.plot(df, color='k', label='Actual')
+    plt.show()
     #ax.plot(df_HW, label='Holt Winter')
     
     #df.sort_values(by=['Material','Date'],inplace=True)
