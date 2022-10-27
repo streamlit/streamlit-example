@@ -150,19 +150,23 @@ st.table(df)
 
 st.text("")
 
-c29, c30 = st.columns([1, 1])
 
-with c29:
 
-    CSVButton = download_button(
-        df,
-        "File.xlsx",
-        "Download to CSV",
-    )
+import xlsxwriter
+from io import BytesIO
+output = BytesIO()
 
-with c30:
-    CSVButton = download_button(
-        df,
-        "File.csv",
-        "Download to TXT",
-    )
+# Write files to in-memory strings using BytesIO
+# See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
+workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+worksheet = workbook.add_worksheet()
+
+worksheet.write(df)
+workbook.close()
+
+st.download_button(
+    label="Download Excel workbook",
+    data=output.getvalue(),
+    file_name="forecasttest.xlsx",
+    mime="application/vnd.ms-excel"
+)
