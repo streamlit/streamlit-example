@@ -135,6 +135,7 @@ with col2:
     df.index = pd.to_datetime(df.index)
     df_HW = HoltWinter(df)
     df = df.merge(df_HW,left_index=True,right_index=True,how='outer',indicator=True)
+    df.drop(['_merge'],axis=1,inplace=True)
     
     #df.sort_values(by=['Material','Date'],inplace=True)
     
