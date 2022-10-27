@@ -133,7 +133,7 @@ with col2:
     df['Date'] = df['Date'].apply(lambda x: datetime.strptime("01-{}".format(x),"%d-%m-%Y").date())
     df = pd.DataFrame(df.pivot('Date','Material','value'))
     df.index = pd.to_datetime(df.index)
-    HoltWinter(df)
+    df_HW = HoltWinter(df)
     df = df.merge(df_HW,left_index=True,right_index=True,how='outer',indicator=True)
     
     #df.sort_values(by=['Material','Date'],inplace=True)
