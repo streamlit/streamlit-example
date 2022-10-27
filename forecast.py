@@ -12,7 +12,7 @@ from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_aggrid.shared import JsCode
 
 ###################################
-import model as model
+from model import HoltWinter
 from functionforDownloadButtons import download_button
 import footer as footer
 ###################################
