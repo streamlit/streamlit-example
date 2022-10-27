@@ -135,7 +135,7 @@ with col2:
     #model.HoltWinter(df)
     
     fig, ax = plt.subplots()
-    ax.plot(df, color='k', label='Actual')
+    ax.plot(df.columns[-1], color='k', label='Actual')
     plt.show()
     #ax.plot(df_HW, label='Holt Winter')
     
