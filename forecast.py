@@ -134,15 +134,11 @@ with col2:
     df = pd.DataFrame(df.pivot('Date','Material','value'))
     df.index = pd.to_datetime(df.index)
     HoltWinter(df)
-    
-    fig, ax = plt.subplots()
-    ax.plot(df.columns[-1], color='k', label='Actual')
-    plt.show()
-    #ax.plot(df_HW, label='Holt Winter')
+    df = df.merge(df_HW,left_index=True,right_index=True,how='outer',indicator=True)
     
     #df.sort_values(by=['Material','Date'],inplace=True)
     
-    #st.line_chart(df, x="Date", y="value")
+    st.line_chart(df)
     
     
 
