@@ -1,6 +1,5 @@
 altair
 numpy<=1.20
-cartopy
 driftmlp
 streamlit
 streamlit-folium
