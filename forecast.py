@@ -132,7 +132,7 @@ with col2:
     df.rename({'variable': 'Date'}, axis=1, inplace=True)
     df['Date'] = df['Date'].apply(lambda x: datetime.strptime("01-{}".format(x),"%d-%m-%Y").date())
     df = pd.DataFrame(df.pivot('Date','Material','value'))
-    #model.HoltWinter(df)
+    model.HoltWinter(df)
     
     fig, ax = plt.subplots()
     ax.plot(df.columns[-1], color='k', label='Actual')
