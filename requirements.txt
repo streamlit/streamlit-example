@@ -11,3 +11,4 @@ pmdarima
 numpy
 statsmodels
 scipy
+matplotlib
