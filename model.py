@@ -55,8 +55,8 @@ def HoltWinter(df: pd.DataFrame):
         arr_forecast = fitHW.forecast(fcperiod)
         df_HW['fc_'+sku] = arr_forecast
         df_HW.set_index(future_index,inplace=True)
-      
-  return pd.DataFrame(df_HW)
+    
+ return pd.DataFrame(df_HW)
     
     
     
