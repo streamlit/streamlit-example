@@ -1,5 +1,0 @@
-altair
-numpy<=1.20
-driftmlp
-streamlit
-streamlit-folium

@@ -1,0 +1,11 @@
+name: driftmlpapp
+
+channels:
+  - conda-forge
+dependencies:
+  - numpy<=1.20
+  - streamlit
+  - streamlit-folium
+  - pip
+  - pip:
+    - driftmlp
