@@ -37,7 +37,7 @@ df_SARIMA = pd.DataFrame()
 ############################################## 
 
 
-def HoltWinter(df):
+def HoltWinter(df: pd.DataFrame):
  fcperiod = 12
  df_HW = pd.DataFrame()
  future_index = []
