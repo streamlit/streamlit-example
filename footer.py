@@ -5,8 +5,6 @@ from htbuilder.funcs import rgba, rgb
 
 
 def layout(*args):
-  with st.sidebar:
-
     style = """
         <style>
           # MainMenu {visibility: hidden;}
@@ -22,7 +20,7 @@ def layout(*args):
         margin=px(2, 2, 2, 2),
         width=percent(100),
         color="black",
-        text_align="left",
+        text_align="center",
         height=5,
         opacity=1
     )
@@ -56,6 +54,5 @@ def layout(*args):
     st.markdown(str(foot), unsafe_allow_html=True)
 
 def footer():
-    myargs = ["©: PhamGiaPhu@duytan.com | ☎: 240",br(),
-             "Dept: Supply Chain Planning"]
+    myargs = ["©: PhamGiaPhu@duytan.com    |    ☎: 240    |    Dept: Supply Chain Planning    |    Manager: PhamHungTinh@duytan.com"]
     layout(*myargs)
