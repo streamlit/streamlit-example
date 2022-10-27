@@ -96,7 +96,7 @@ def download_button(object_to_download, download_filename, button_text):
 
     elif isinstance(object_to_download, pd.DataFrame):
         #object_to_download = object_to_download.to_csv(index=False)
-        object_to_download = object_to_download.to_excel()
+        object_to_download = object_to_download.to_excel("FC test")
     # Try JSON encode for everything else
     else:
         object_to_download = json.dumps(object_to_download)
