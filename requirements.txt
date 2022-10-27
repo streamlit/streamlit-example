@@ -13,4 +13,3 @@ statsmodels
 scipy
 matplotlib
 xlsxwriter
-io
