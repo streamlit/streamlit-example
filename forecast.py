@@ -154,7 +154,7 @@ st.text("")
 
 import xlsxwriter
 from io import BytesIO
-buffer = io.BytesIO()
+buffer = BytesIO()
 
 with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
     # Write each dataframe to a different worksheet.
