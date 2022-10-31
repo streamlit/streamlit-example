@@ -67,7 +67,7 @@ def HoltWinter(df: pd.DataFrame):
  return df_HW
  ############################################## 
 def SARIMAX(df: pd.DataFrame):
-    #df = clean_outlier(df)
+    df = clean_outlier(df)
     fcperiod = fc_length()
     df_SARIMAX = pd.DataFrame()
     future_index = []
