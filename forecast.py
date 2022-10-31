@@ -12,7 +12,7 @@ from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_aggrid.shared import JsCode
 
 ###################################
-from model import HoltWinter
+import model as md
 from functionforDownloadButtons import download_button
 import footer as footer
 ###################################
@@ -124,7 +124,7 @@ with col1:
 with col2:
     model = st.multiselect(
     'Choose your forecast model',
-    ['UCM', 'SARIMA', 'Prophet', 'Holt-Winter'],
+    ['UCM', 'SARIMAX', 'Prophet', 'Holt-Winter'],
     ['Holt-Winter'])
 
     df = pd.DataFrame(response["selected_rows"])
@@ -133,7 +133,7 @@ with col2:
     df['Date'] = df['Date'].apply(lambda x: datetime.strptime("01-{}".format(x),"%d-%m-%Y").date())
     df = pd.DataFrame(df.pivot('Date','Material','value'))
     df.index = pd.to_datetime(df.index)
-    df_HW = HoltWinter(df)
+    df_HW = md.HoltWinter(df)
     df = df.merge(df_HW,left_index=True,right_index=True,how='outer',indicator=True)
     df.drop(['_merge'],axis=1,inplace=True)
     
