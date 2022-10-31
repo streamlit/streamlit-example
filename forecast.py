@@ -133,8 +133,14 @@ with col2:
     df['Date'] = df['Date'].apply(lambda x: datetime.strptime("01-{}".format(x),"%d-%m-%Y").date())
     df = pd.DataFrame(df.pivot('Date','Material','value'))
     df.index = pd.to_datetime(df.index)
-    df_HW = md.HoltWinter(df)
-    df = df.merge(df_HW,left_index=True,right_index=True,how='outer',indicator=True)
+    if 'Holt-Winter' in model:
+        df_HW = md.HoltWinter(df)
+        df = df.merge(df_HW,left_index=True,right_index=True,how='outer',indicator=True)
+    if 'SARIMAX' in model:
+        df_SARIMAX = md.SARIMAX(df)
+        df = df.merge(df_SARIMAX,left_index=True,right_index=True,how='outer',indicator=True)
+    
+    
     df.drop(['_merge'],axis=1,inplace=True)
     
     #df.sort_values(by=['Material','Date'],inplace=True)
