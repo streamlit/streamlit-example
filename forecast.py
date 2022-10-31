@@ -107,8 +107,8 @@ with col1:
     with st.container():
         gb = GridOptionsBuilder.from_dataframe(shows2)
         gb.configure_default_column(enablePivot=False, enableValue=False, enableRowGroup=False)
-        gb.configure_selection(selection_mode="multiple",use_checkbox=True)
-        gb.configure_column(shows2.columns[0],headerCheckboxSelection=True)
+        gb.configure_selection(selection_mode="single",use_checkbox=True)
+        gb.configure_column(shows2.columns[0],headerCheckboxSelection=False)
         gb.configure_side_bar()
         gridOptions = gb.build()
   
