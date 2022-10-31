@@ -36,7 +36,7 @@ def clean_outlier(df: pd.DataFrame):
    
 ############################################## 
 #EXOGENOUS VARABILE
- def exog_var(df: pd.DataFrame):
+def exog_var(df: pd.DataFrame):
     WD = working_day()
     fcperiod = fc_length()
     exog_fit = df.merge(WD[['WD']],left_index=True,right_index=True,how='inner')
