@@ -51,8 +51,6 @@ df_P = pd.DataFrame()
 df_UCM = pd.DataFrame()
 df_SARIMA = pd.DataFrame()
 ############################################## 
-
-
 def HoltWinter(df: pd.DataFrame):
  df = clean_outlier(df)
  fcperiod = fc_length()
@@ -63,11 +61,34 @@ def HoltWinter(df: pd.DataFrame):
  for sku in df.columns:
         fitHW = sm.tsa.ExponentialSmoothing(np.asarray(df[sku]), initialization_method="heuristic",seasonal_periods=12,trend='add', seasonal='add',damped_trend=True).fit(optimized=True)
         arr_forecast = fitHW.forecast(fcperiod)
-        df_HW['fc_'+sku] = arr_forecast
+        df_HW['HW_'+sku] = arr_forecast
         df_HW.set_index(future_index,inplace=True)
     
  return df_HW
+ ############################################## 
+def SARIMAX(df: pd.DataFrame):
+    df = clean_outlier(df)
+    fcperiod = fc_length()
+    df_SARIMAX = pd.DataFrame()
+    future_index = []
+    future_index.append(df.tail(12).index.shift(12,freq="MS"))
     
+    ap_autoarimamodel = pmd.arima.auto_arima(np.asarray(df[sku]), 
+                                     start_p=0, max_p=12,
+                                     d=1, max_d=2,
+                                     start_q=0, max_q=12,
+                                     start_P=0, max_P=12,
+                                     start_Q=0, max_Q=12,
+                                     D=1,max_D=2,
+                                     m=12,seasonal=True,
+                                     error_action='warn',trace=True,supress_warnings=True,stepwise=True,random_state=20,n_fits=50)
+    try:
+        arr_forecast = ap_autoarimamodel.predict(n_periods=fcperiod,return_conf_int = False)
+        df_SARIMAX['SARIMAX_'+sku] = arr_forecast
+        df_SARIMAX.set_index(future_index,inplace=True)
+    except:
+        pass
+    return df_SARIMAX
     
     
     
