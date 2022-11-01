@@ -43,6 +43,7 @@ def exog_var(df: pd.DataFrame):
     exog_fit = exog_fit.drop(exog_fit.columns.difference(['WD']),axis=1) #drop other column
     exog_fc = WD.merge(df,left_index=True,right_index=True,how='outer',indicator=True).query('_merge == "left_only"') #anti left join
     exog_fc = exog_fc.drop(exog_fc.columns.difference(['WD']),axis=1).head(fcperiod)
+    return exog_fit, exog_fc
 
 #create list of forecast date
 
