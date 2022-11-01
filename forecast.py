@@ -139,7 +139,7 @@ with col2:
     if 'SARIMAX' in model:
         df_SARIMAX = md.SARIMAX(df)
         df = df.merge(df_SARIMAX,left_index=True,right_index=True,how='outer',indicator=True)
-     if 'UCM' in model:
+    if 'UCM' in model:
         df_UCM = md.UCM(df)
         df = df.merge(df_UCM,left_index=True,right_index=True,how='outer',indicator=True)
     
