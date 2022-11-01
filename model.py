@@ -48,8 +48,8 @@ def exog_var(df: pd.DataFrame):
 
 df_P = pd.DataFrame()
 
-df_UCM = pd.DataFrame()
-df_SARIMA = pd.DataFrame()
+
+
 ############################################## 
 def HoltWinter(df: pd.DataFrame):
  df = clean_outlier(df)
@@ -90,6 +90,26 @@ def SARIMAX(df: pd.DataFrame):
         except:
             pass
     return df_SARIMAX
+  ############################################## 
+  def UCM(df: pd.DataFrame):
+      df = clean_outlier(df)
+      fcperiod = fc_length()
+      df_UCM = pd.DataFrame()
+      future_index = []
+      future_index.append(df.tail(12).index.shift(12,freq="MS"))
+      
+      for sku in df.columns:
+          fitUCM = sm.tsa.UnobservedComponents(
+                   np.asarray(df[sku]),
+                   exog = exog_fit,
+                   level=True, trend=False,cycle=True,irregular=True,damped_cycle=True,
+                   stochastic_level=False,stochastic_trend=True,
+                   autoregressive= pUCM,
+                   freq_seasonal=[{'period':12,'harmonics':12}]).fit()
+            arr_forecast = fitUCM.forecast(fcperiod,exog = exog_fc)
+            df_UCM['UCM_'+sku] = arr_forecast
+            df_UCM.set_index(future_index,inplace=True)
+    
     
     
     
