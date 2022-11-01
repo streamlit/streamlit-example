@@ -90,8 +90,8 @@ def SARIMAX(df: pd.DataFrame):
         except:
             pass
     return df_SARIMAX
-  ############################################## 
-  def UCM(df: pd.DataFrame):
+############################################## 
+def UCM(df: pd.DataFrame):
       df = clean_outlier(df)
       fcperiod = fc_length()
       df_UCM = pd.DataFrame()
