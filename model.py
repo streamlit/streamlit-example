@@ -109,6 +109,8 @@ def UCM(df: pd.DataFrame):
       arr_forecast = fitUCM.forecast(fcperiod)#,exog = exog_fc)
       df_UCM['UCM_'+sku] = arr_forecast
       df_UCM.set_index(future_index,inplace=True)
+      
+      return df_UCM
     
     
     
