@@ -129,8 +129,8 @@ with col2:
     model = st.selectbox(
             'Choose your forecast model',
             ('Holt-Winter', 'SARIMAX', 'Prophet', 'UCM'),
-            label_visibility=st.session_state.visibility,
-            disabled=st.session_state.disabled)
+            #label_visibility=st.session_state.visibility,
+            #disabled=st.session_state.disabled)
 
     df = pd.DataFrame(response["selected_rows"])
     df = pd.melt(df,id_vars=shows.columns[0])
