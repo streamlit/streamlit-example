@@ -101,12 +101,12 @@ def UCM(df: pd.DataFrame):
       for sku in df.columns:
           fitUCM = sm.tsa.UnobservedComponents(
                    np.asarray(df[sku]),
-                   exog = exog_fit,
+                   #exog = exog_fit,
                    level=True, trend=False,cycle=True,irregular=True,damped_cycle=True,
                    stochastic_level=False,stochastic_trend=True,
                    autoregressive= pUCM,
                    freq_seasonal=[{'period':12,'harmonics':12}]).fit()
-      arr_forecast = fitUCM.forecast(fcperiod,exog = exog_fc)
+      arr_forecast = fitUCM.forecast(fcperiod)#,exog = exog_fc)
       df_UCM['UCM_'+sku] = arr_forecast
       df_UCM.set_index(future_index,inplace=True)
     
