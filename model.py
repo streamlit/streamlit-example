@@ -104,7 +104,7 @@ def UCM(df: pd.DataFrame):
                    #exog = exog_fit,
                    level=True, trend=False,cycle=True,irregular=True,damped_cycle=True,
                    stochastic_level=False,stochastic_trend=True,
-                   autoregressive= pUCM,
+                   #autoregressive= pUCM,
                    freq_seasonal=[{'period':12,'harmonics':12}]).fit()
       arr_forecast = fitUCM.forecast(fcperiod)#,exog = exog_fc)
       df_UCM['UCM_'+sku] = arr_forecast
