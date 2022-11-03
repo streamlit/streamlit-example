@@ -15,7 +15,38 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
+def detect_sentiment(self):
 
+        # get a whole input content from text box
+        sentence = self.entryMsg.get()
+
+        # Create a SentimentIntensityAnalyzer object.
+        obj = SentimentIntensityAnalyzer()
+
+        dict1 = obj.polarity_scores(sentence)
+
+        string = str(dict1['neg'] * 100) + "% Negative"
+        self.negativeField.insert(10, string)
+
+        string = str(dict1['neu'] * 100) + "% Neutral"
+        self.neutralField.insert(10, string)
+
+        string = str(dict1['pos'] * 100) + "% Positive"
+        self.positiveField.insert(10, string)
+
+        # decide sentiment as positive, negative and neutral
+        if dict1['compound'] >= 0.05:
+            string = "Positive"
+
+        elif sentiment_dict['compound'] <= - 0.05:
+            string = "Negative"
+
+
+        else:
+            string = "Neutral"
+
+        self.overallField.insert(10, string)
+        
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
     num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
