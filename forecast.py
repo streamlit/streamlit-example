@@ -110,7 +110,7 @@ with col1:
         #gb.configure_selection(selection_mode="single",use_checkbox=True)
         #gb.configure_column(shows2.columns[0],headerCheckboxSelection=False)
         #gb.configure_side_bar()
-        gb.configure_columns(shows2.columns[0],headerCheckboxSelection=False, editable=True)
+        gb.configure_columns(shows2.columns(),headerCheckboxSelection=False, editable=True)
         js = JsCode("""
                     function(e) {
                         let api = e.api;
