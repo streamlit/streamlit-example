@@ -106,20 +106,51 @@ col1, col2 = st.columns([1,1])
 with col1:
     with st.container():
         gb = GridOptionsBuilder.from_dataframe(shows2)
-        gb.configure_default_column(enablePivot=False, enableValue=True, enableRowGroup=False,editable=True)
-        gb.configure_selection(selection_mode="single",use_checkbox=True)
-        gb.configure_column(shows2.columns[0],headerCheckboxSelection=False)
-        gb.configure_side_bar()
+        #gb.configure_default_column(enablePivot=False, enableValue=True, enableRowGroup=False,editable=True)
+        #gb.configure_selection(selection_mode="single",use_checkbox=True)
+        #gb.configure_column(shows2.columns[0],headerCheckboxSelection=False)
+        #gb.configure_side_bar()
+        gb.configure_columns(shows2.columns[0],headerCheckboxSelection=False, editable=True)
+        js = JsCode("""
+                    function(e) {
+                        let api = e.api;
+                        let rowIndex = e.rowIndex;
+                        let col = e.column.colId;
+
+                        let rowNode = api.getDisplayedRowAtIndex(rowIndex);
+                        api.flashCells({
+                          rowNodes: [rowNode],
+                          columns: [col],
+                          flashDelay: 10000000000
+                        });
+
+                    };
+                    """)
+
+        gb.configure_grid_options(onCellValueChanged=js)
         gridOptions = gb.build()
+        
+        st.markdown("""
+                    ### JsCode injections
+                    Cell editions are highlighted here by attaching to ```onCellValueChanged``` of the grid, using JsCode injection
+                    ```python
+                    js = JsCode(...)
+                    gb.configure_grid_options(onCellValueChanged=js) 
+                    ag = AgGrid(data, gridOptions=gb.build(),  key='grid1', allow_unsafe_jscode=True, reload_data=False)
+                    """)
+
+        ag = AgGrid(show2, gridOptions=gridOptions, key=shows2.columns[0], allow_unsafe_jscode=True, reload_data=False)
+        
+        
   
-        response = AgGrid(
-            shows2,
-            gridOptions=gridOptions,
-            enable_enterprise_modules=True,
-            update_mode=GridUpdateMode.MODEL_CHANGED,
-            data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
-            fit_columns_on_grid_load=False,
-        )
+        #response = AgGrid(
+        #    shows2,
+        #    gridOptions=gridOptions,
+        #    enable_enterprise_modules=True,
+        #    update_mode=GridUpdateMode.MODEL_CHANGED,
+        #    data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
+        #    fit_columns_on_grid_load=False,
+        #)
 
 with col2:
     model = st.multiselect(
