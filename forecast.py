@@ -139,7 +139,7 @@ with col1:
                     ag = AgGrid(data, gridOptions=gb.build(),  key='grid1', allow_unsafe_jscode=True, reload_data=False)
                     """)
 
-        ag = AgGrid(show2, gridOptions=gridOptions, key=shows2.columns[0], allow_unsafe_jscode=True, reload_data=False)
+        ag = AgGrid(shows2, gridOptions=gridOptions, key=shows2.columns[0], allow_unsafe_jscode=True, reload_data=False)
         
         
   
