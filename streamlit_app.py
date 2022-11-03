@@ -14,7 +14,7 @@ forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
-
+title = st.text_input('Enter sentiment', 'Life of Brian')
 def detect_sentiment(self):
 
         # get a whole input content from text box
