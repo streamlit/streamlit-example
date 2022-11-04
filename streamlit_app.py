@@ -31,7 +31,7 @@ def main():
             # Apply the linkage function here
             col1= st.columns(1)
             results = pipeline.predict([raw_text])
-            st.write(results)
+            st.write("{}".format(results, emoji_icon))
             
         
 
