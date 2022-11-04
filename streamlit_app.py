@@ -29,16 +29,16 @@ def get_prediction_proba(docx):
 # Main Application
 def main():
     st.title("Emotion Classifier App")
-        with st.form(key="emotion_clf_form"):
-            raw_text = st.text_area("Type Here")
-            submit_text = st.form_submit_button(label="Submit")
+    with st.form(key="emotion_clf_form"):
+        raw_text = st.text_area("Type Here")
+        submit_text = st.form_submit_button(label="Submit")
 
-        if submit_text:
-            col1, col2 = st.columns(2)
+    if submit_text:
+        col1, col2 = st.columns(2)
 
-            # Apply the linkage function here
-            prediction = predict_emotions(raw_text)
-    
+        # Apply the linkage function here
+        prediction = predict_emotions(raw_text)
+
 
 
 
