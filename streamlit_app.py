@@ -30,7 +30,7 @@ def main():
     if submit_text:
             # Apply the linkage function here
             col1= st.columns(1)
-            results = pipeline.predict(vec.transform([raw_text]))
+            results = pipeline.predict([raw_text])
             with col1:
                 st.write(results)
 
