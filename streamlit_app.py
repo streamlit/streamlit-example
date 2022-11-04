@@ -25,20 +25,14 @@ def main():
     with st.form(key="emotion_clf_form"):
         raw_text = st.text_area("Type Here")
         submit_text = st.form_submit_button(label="Submit")
+        
 
     if submit_text:
             # Apply the linkage function here
-            results = pipeline.predict(vec.transform(['raw_text']))
-            st.write((results))
-            
-
-   
-
-
-
-
-
-
+            col1= st.columns(1)
+            results = pipeline.predict(vec.transform([raw_text]))
+            with col1:
+                st.write(results)
 
 if __name__ == "__main__":
     main()
