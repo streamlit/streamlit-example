@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from sklearn.feature_extraction.text import CountVectorizer
+vec = CountVectorizer(stop_words='english')
 # Utils
 import joblib
 
