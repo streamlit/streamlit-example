@@ -18,7 +18,7 @@ pipeline = joblib.load(
     
 
 st.set_page_config(layout="wide")
-st.write("[![Star](<https://img.shields.io/github/stars/><username>/<repo>.svg?logo=github&style=social)](<https://gitHub.com/Venkatakrishnan-Ramesh/)")
+st.write("[![Star](<https://img.shields.io/github/stars/Venkatakrishnan-Ramesh/Sentimental-Analysis-of-Omicron.svg?logo=github&style=social)](<https://gitHub.com/Venkatakrishnan-Ramesh/)")
 
 # Main Application
 def main():
