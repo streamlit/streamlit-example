@@ -18,7 +18,7 @@ pipeline = joblib.load(
     
 
 st.set_page_config(layout="wide")
-st.write([![Follow](<https://img.shields.io/twitter/follow/><Cody_coder017>?style=social)](<https://www.twitter.com/><Cody_coder017>))
+#st.write([![Follow](<https://img.shields.io/twitter/follow/><Cody_coder017>?style=social)](<https://www.twitter.com/><Cody_coder017>))
 
 # Main Application
 def main():
