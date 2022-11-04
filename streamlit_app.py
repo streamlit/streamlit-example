@@ -14,15 +14,7 @@ pipeline = joblib.load(
     open("model/model.pkl", "rb")
 )
 # Function to connect with our ML model
-def predict_emotions(docx):
-    results = pipeline.predict(docx)
-    return results
-
-
-def get_prediction_proba(docx):
-    results = pipeline.predict_proba([docx])
-    return results
-
+    
 
 
 
@@ -37,7 +29,8 @@ def main():
         col1, col2 = st.columns(2)
 
         # Apply the linkage function here
-        prediction = predict_emotions(raw_text)
+        results = pipeline.predict(raw_text)
+    return results
 
 
 
