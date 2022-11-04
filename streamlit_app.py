@@ -17,7 +17,7 @@ pipeline = joblib.load(
 # Function to connect with our ML model
     
 
-
+st.set_page_config(layout="wide")
 
 # Main Application
 def main():
