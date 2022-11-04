@@ -11,7 +11,7 @@ from datetime import datetime
 import joblib
 
 pipeline = joblib.load(
-    open("model/Emotion_classification_pipeline_17_dec_2021.pkl", "rb")
+    open("model/model.pkl", "rb")
 )
 # Function to connect with our ML model
 def predict_emotions(docx):
