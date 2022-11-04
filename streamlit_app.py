@@ -6,7 +6,7 @@ import altair as alt
 import pandas as pd
 import numpy as np
 from datetime import datetime
-
+from sklearn.feature_extraction.text import CountVectorizer
 # Utils
 import joblib
 
