@@ -20,7 +20,7 @@ def predict_emotions(docx):
 
 
 def get_prediction_proba(docx):
-    results = pipeline.predict_proba(docx)
+    results = pipeline.predict_proba([docx])
     return results
 
 
