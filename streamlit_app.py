@@ -30,7 +30,8 @@ def main():
 
         # Apply the linkage function here
         results = pipeline.predict(raw_text)
-    return results
+        st.write("{}".format(results))
+   
 
 
 
