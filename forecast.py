@@ -142,7 +142,7 @@ with col1:
         response = AgGrid(
             shows2,
             gridOptions=gridOptions,
-            allow_unsafe_jscode=True, reload_data=False
+            allow_unsafe_jscode=True, reload_data=False,
             #enable_enterprise_modules=True,
             update_mode=GridUpdateMode.MODEL_CHANGED,
             data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
