@@ -32,19 +32,7 @@ def main():
             col1= st.columns(1)
             results = pipeline.predict([raw_text])
             st.write(results)
-            st.success("Prediction Probability")
-            # st.write(probability)
-            proba_df = pd.DataFrame(probability, columns=pipeline.classes_)
-            # st.write(proba_df.T)
-            proba_df_clean = proba_df.T.reset_index()
-            proba_df_clean.columns = ["emotions", "probability"]
-
-            fig = (
-                alt.Chart(proba_df_clean)
-                .mark_bar()
-                .encode(x="emotions", y="probability", color="emotions")
-            )
-            st.altair_chart(fig, use_container_width=True)
+        
 
 if __name__ == "__main__":
     main()
