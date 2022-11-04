@@ -1,49 +1,17 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
+# Core Packages
 import streamlit as st
+import altair as alt
+
+# Exploratory data analysis Packages
+import pandas as pd
+import numpy as np
 from datetime import datetime
 
-
-title = st.text_input('Enter sentiment', 'Life of Brian')
-def detect_sentiment(self):
-
-        # get a whole input content from text box
-        sentence = self.entryMsg.get()
-
-        # Create a SentimentIntensityAnalyzer object.
-        obj = SentimentIntensityAnalyzer()
-
-        dict1 = obj.polarity_scores(sentence)
-
-        string = str(dict1['neg'] * 100) + "% Negative"
-        self.negativeField.insert(10, string)
-
-        string = str(dict1['neu'] * 100) + "% Neutral"
-        self.neutralField.insert(10, string)
-
-        string = str(dict1['pos'] * 100) + "% Positive"
-        self.positiveField.insert(10, string)
-
-        # decide sentiment as positive, negative and neutral
-        if dict1['compound'] >= 0.05:
-            string = "Positive"
-
-        elif sentiment_dict['compound'] <= - 0.05:
-            string = "Negative"
-
-
-        else:
-            string = "Neutral"
-
-        self.overallField.insert(10, string)
-        
 # Utils
 import joblib
 
 pipeline = joblib.load(
-    open("model/model.pkl", "rb")
+    open("model/Emotion_classification_pipeline_17_dec_2021.pkl", "rb")
 )
 # Function to connect with our ML model
 def predict_emotions(docx):
@@ -54,9 +22,24 @@ def predict_emotions(docx):
 def get_prediction_proba(docx):
     results = pipeline.predict_proba([docx])
     return results
-        
+
+
+emotions_emoji_dict = {
+    "anger": "😠",
+    "disgust": "🤮",
+    "fear": "😨😱",
+    "happy": "🤗",
+    "joy": "😂",
+    "neutral": "😐",
+    "sad": "😔",
+    "sadness": "😔",
+    "shame": "😳",
+    "surprise": "😮",
+}
+
+# Main Application
 def main():
-    st.title("Sentiment Classifier App")
+    st.title("Emotion Classifier App")
     menu = ["Home"]
     choice = st.sidebar.selectbox("Menu", menu)
 
