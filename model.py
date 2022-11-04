@@ -29,6 +29,7 @@ def fc_length(n=12):
 
 #clean outlier
 def clean_outlier(df: pd.DataFrame):
+    df = df.apply(pd.to_numeric)
     df = df.fillna(df.median())
     df = df[(np.abs(df.apply(zscore))<2.3)]
     df = df.fillna(df.median())
