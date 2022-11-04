@@ -48,6 +48,22 @@ def detect_sentiment(self):
 
         self.overallField.insert(10, string)
         
+# Utils
+import joblib
+
+pipeline = joblib.load(
+    open("model/Emotion_classification_pipeline_17_dec_2021.pkl", "rb")
+)
+# Function to connect with our ML model
+def predict_emotions(docx):
+    results = pipeline.predict([docx])
+    return results[0]
+
+
+def get_prediction_proba(docx):
+    results = pipeline.predict_proba([docx])
+    return results
+        
 def main():
     st.title("Sentiment Classifier App")
     menu = ["Home"]
