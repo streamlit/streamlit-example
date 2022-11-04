@@ -29,7 +29,7 @@ def main():
     if submit_text:
             # Apply the linkage function here
             results = pipeline.predict(vec.transform([raw_text]))
-            st.write("{}".format(results))
+            st.write((results))
             
 
    
