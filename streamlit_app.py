@@ -48,7 +48,7 @@ def detect_sentiment(self):
         self.overallField.insert(10, string)
         
 def main():
-    st.title("Emotion Classifier App")
+    st.title("Sentiment Classifier App")
     menu = ["Home"]
     choice = st.sidebar.selectbox("Menu", menu)
 
