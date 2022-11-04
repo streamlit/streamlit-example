@@ -12,7 +12,7 @@ vec = CountVectorizer(stop_words='english')
 import joblib
 
 pipeline = joblib.load(
-    open("model1/model.pkl", "rb")
+    open("model/model1.pkl", "rb")
 )
 # Function to connect with our ML model
     
