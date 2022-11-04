@@ -32,6 +32,7 @@ def main():
             col1= st.columns(1)
             results = pipeline.predict([raw_text])
             st.write(results)
+            
         
 
 if __name__ == "__main__":
