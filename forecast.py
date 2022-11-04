@@ -174,6 +174,7 @@ with col2:
     
     
     df.drop(['_merge'],axis=1,inplace=True)
+    df = df.apply(pd.to_numeric)
     
     #df.sort_values(by=['Material','Date'],inplace=True)
     
