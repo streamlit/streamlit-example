@@ -135,18 +135,19 @@ with col1:
                     Edited cells are highlighted
                     """)
 
-        response = AgGrid(shows2, gridOptions=gridOptions, key=shows2.columns[0], allow_unsafe_jscode=True, reload_data=False)
+        #response = AgGrid(shows2, gridOptions=gridOptions, key=shows2.columns[0], allow_unsafe_jscode=True, reload_data=False)
         
         
   
-        #response = AgGrid(
-        #    shows2,
-        #    gridOptions=gridOptions,
-        #    enable_enterprise_modules=True,
-        #    update_mode=GridUpdateMode.MODEL_CHANGED,
-        #    data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
-        #    fit_columns_on_grid_load=False,
-        #)
+        response = AgGrid(
+            shows2,
+            gridOptions=gridOptions,
+            allow_unsafe_jscode=True, reload_data=False
+            #enable_enterprise_modules=True,
+            update_mode=GridUpdateMode.MODEL_CHANGED,
+            data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
+            fit_columns_on_grid_load=False,
+        )
 
 with col2:
     model = st.multiselect(
