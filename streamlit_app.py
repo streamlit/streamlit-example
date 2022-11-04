@@ -15,7 +15,7 @@ pipeline = joblib.load(
 )
 # Function to connect with our ML model
 def predict_emotions(docx):
-    results = pipeline.predict([docx])
+    results = pipeline.predict(docx)
     return results[0]
 
 
