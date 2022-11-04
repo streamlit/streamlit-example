@@ -16,8 +16,7 @@ pipeline = joblib.load(
 )
 # Function to connect with our ML model
     
-logo_url=https://www.google.com/url?sa=i&url=https%3A%2F%2Fsites.umiacs.umd.edu%2Felm%2F2016%2F02%2F01%2Fmistakes-reviewers-make%2F&psig=AOvVaw0mE0u66b1sQ6gBtNUYPN-X&ust=1667634411456000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCICfiLeElPsCFQAAAAAdAAAAABAE
-st.image(logo_url, width=100)
+
 st.set_page_config(layout="wide")
 
 # Main Application
