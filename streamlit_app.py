@@ -26,11 +26,15 @@ def main():
         submit_text = st.form_submit_button(label="Submit")
 
     if submit_text:
-        col1, col2 = st.columns(2)
+        col1= st.columns(1)
+        
+        
+        with col1:
+            # Apply the linkage function here
+            results = pipeline.predict(vec.transform([raw_text]))
+            st.write("{}".format(results))
+            
 
-        # Apply the linkage function here
-        results = pipeline.predict(raw_text)
-        st.write("{}".format(results))
    
 
 
