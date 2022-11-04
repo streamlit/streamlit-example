@@ -28,7 +28,7 @@ def get_prediction_proba(docx):
 
 # Main Application
 def main():
-    st.title("Emotion Classifier App")
+    st.title("Movie Review classifier App")
     with st.form(key="emotion_clf_form"):
         raw_text = st.text_area("Type Here")
         submit_text = st.form_submit_button(label="Submit")
