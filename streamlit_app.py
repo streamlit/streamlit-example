@@ -5,16 +5,7 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 
-"""
-# Welcome to Streamlit!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
 title = st.text_input('Enter sentiment', 'Life of Brian')
 def detect_sentiment(self):
 
@@ -52,7 +43,7 @@ def detect_sentiment(self):
 import joblib
 
 pipeline = joblib.load(
-    open("model/Emotion_classification_pipeline_17_dec_2021.pkl", "rb")
+    open("model/model.pkl", "rb")
 )
 # Function to connect with our ML model
 def predict_emotions(docx):
