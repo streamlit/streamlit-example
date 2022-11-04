@@ -144,7 +144,7 @@ with col1:
             gridOptions=gridOptions,
             allow_unsafe_jscode=True, reload_data=False,
             #enable_enterprise_modules=True,
-            update_mode=GridUpdateMode.VALUE_CHANGED | SELECTION_CHANGED,
+            update_mode=GridUpdateMode.VALUE_CHANGED,
             data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
             fit_columns_on_grid_load=False,
         )
