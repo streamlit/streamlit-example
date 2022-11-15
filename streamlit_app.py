@@ -1,6 +1,13 @@
 # Core Packages
 import streamlit as st
 import altair as alt
+# Decoration
+[theme]
+primaryColor="#2214c7"
+backgroundColor="#ffffff"
+secondaryBackgroundColor="#e8eef9"
+textColor="#000000"
+font="sans serif"
 
 # Exploratory data analysis Packages
 import pandas as pd
