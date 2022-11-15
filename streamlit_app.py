@@ -2,7 +2,6 @@
 import streamlit as st
 import altair as alt
 # Decoration
-[theme]
 primaryColor="#2214c7"
 backgroundColor="#ffffff"
 secondaryBackgroundColor="#e8eef9"
