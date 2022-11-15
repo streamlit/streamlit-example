@@ -14,7 +14,7 @@ cbsa_param = st.selectbox("Please select CBSA", options=cbsa_data)
 
 bedroom_param = st.number_input("Please enter your desired # of bedrooms", min_value=0, max_value=7)
 
-bathroom_param = st.number_input("Please enter your desired # of baathrooms", min_value=0, max_value=7)
+bathroom_param = st.number_input("Please enter your desired # of bathrooms", min_value=0, max_value=7)
 
 age_param = st.number_input("Please enter your age", min_value=0, max_value=100)
 
