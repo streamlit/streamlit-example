@@ -30,7 +30,8 @@ st.set_page_config(layout="wide")
 def main():
     st.title("Movie Review classifier App 😉")
     with st.form(key="emotion_clf_form"):
-        raw_text = st.text_area("Feed your review here for your latest movie")
+        raw_text = st.text_area(" Your latest movie name")
+        raw_text1 = st.text_area("Feed your review here for your latest movie")
         submit_text = st.form_submit_button(label="Submit")
         
 
