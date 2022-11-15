@@ -1,5 +1,6 @@
 altair
+sklearn
 pandas
 streamlit
 joblib
-sklearn
+
