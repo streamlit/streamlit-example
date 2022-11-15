@@ -39,6 +39,9 @@ def main():
             col1= st.columns(1)
             results = pipeline.predict([raw_text])
             st.write((results))
+            from PIL import Image
+            image = Image.open('THANKYOU.jpeg')
+            st.image(image, caption='Sunrise by the mountains')
             
         
 
