@@ -22,7 +22,7 @@ pipeline = joblib.load(
 )
 # Function to connect with our ML model
     
-
+st.set_page_config(page_title=’Movie Reviewer’, page_icon=”🖖”)
 st.set_page_config(layout="wide")
 #st.write([![Follow](<https://img.shields.io/twitter/follow/><Cody_coder017>?style=social)](<https://www.twitter.com/><Cody_coder017>))
 
