@@ -14,7 +14,7 @@ conn.close()
 
 
 cbsa_options = []
-cbsa_data = df.loc[:, 'cbsatitle']
+cbsa_data = df.loc[:, 'cbsatitle'].T.drop_duplicates().T
 # st.selectbox("Please select CBSA", options=cbsa_options)
 # if cbsa != '':
 #   st.text(cbsa)
