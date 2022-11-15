@@ -38,10 +38,10 @@ def main():
             # Apply the linkage function here
             col1= st.columns(1)
             results = pipeline.predict([raw_text])
-            st.write((results))
+            st.write("{}".format(results))
             from PIL import Image
             image = Image.open('THANKYOU.jpeg')
-            st.image(image, caption='Sunrise by the mountains')
+            st.image(image, caption='tHANK YOU FOR REVIEW !!')
             
         
 
