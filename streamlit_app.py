@@ -26,11 +26,11 @@ def _max_width_():
         unsafe_allow_html=True,
     )
 
-st.set_page_config(page_icon="✂️", page_title="Studies Results")
+st.set_page_config(page_icon="", page_title="Studies Results")
 
-# st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
+# st.image("https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js", width=100)
 st.image(
-    "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/scissors_2702-fe0f.png",
+    "https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js",
     width=100,
 )
 
