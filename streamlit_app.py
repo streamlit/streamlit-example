@@ -1,38 +1,54 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
+import pdfkit
+from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
+from datetime import date
 import streamlit as st
+from streamlit.components.v1 import iframe
 
-"""
-# Welcome to Streamlit!
+st.set_page_config(layout="centered", page_icon="🎓", page_title="Diploma Generator")
+st.title("🎓 Diploma PDF Generator")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+st.write(
+    "This app shows you how you can use Streamlit to make a PDF generator app in just a few lines of code!"
+)
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+left, right = st.columns(2)
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+right.write("Here's the template we'll be using:")
+
+right.image("template.png", width=300)
+
+env = Environment(loader=FileSystemLoader("."), autoescape=select_autoescape())
+template = env.get_template("template.html")
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+left.write("Fill in the data:")
+form = left.form("template_form")
+student = form.text_input("Student name")
+course = form.selectbox(
+    "Choose course",
+    ["Report Generation in Streamlit", "Advanced Cryptography"],
+    index=0,
+)
+grade = form.slider("Grade", 1, 100, 60)
+submit = form.form_submit_button("Generate PDF")
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+if submit:
+    html = template.render(
+        student=student,
+        course=course,
+        grade=f"{grade}/100",
+        date=date.today().strftime("%B %d, %Y"),
+    )
 
-    points_per_turn = total_points / num_turns
+    pdf = pdfkit.from_string(html, False)
+    st.balloons()
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    right.success("🎉 Your diploma was generated!")
+    # st.write(html, unsafe_allow_html=True)
+    # st.write("")
+    right.download_button(
+        "⬇️ Download PDF",
+        data=pdf,
+        file_name="diploma.pdf",
+        mime="application/octet-stream",
+    )
