@@ -26,7 +26,7 @@ def _max_width_():
         unsafe_allow_html=True,
     )
 
-st.set_page_config(page_icon="✂️", page_title="CSV Wrangler")
+st.set_page_config(page_icon="✂️", page_title="Studies Results")
 
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 st.image(
@@ -34,7 +34,7 @@ st.image(
     width=100,
 )
 
-st.title("CSV Wrangler")
+st.title("Studies Results")
 
 # st.caption(
 #     "PRD : TBC | Streamlit Ag-Grid from Pablo Fonseca: https://pypi.org/project/streamlit-aggrid/"
@@ -80,7 +80,7 @@ with c30:
     else:
         st.info(
             f"""
-                👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
+                👆 Upload the results from the study.
                 """
         )
 
@@ -125,7 +125,7 @@ with c29:
 
     CSVButton = download_button(
         df,
-        "File.csv",
+        "Report.csv",
         "Download to CSV",
     )
 
