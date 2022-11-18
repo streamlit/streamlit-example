@@ -20,18 +20,18 @@ with col1:
 
   bathroom_param = st.number_input("Please enter # of bathrooms", min_value=0, max_value=7)
   
-  year_built_param = st.number_input("Please enter your min year built", min_value=1900, max_value=2022)
+  year_built_param = st.number_input("Please enter min year built", min_value=1900, max_value=2022)
   
   
 with col2:
   income_param = st.number_input("Please enter your income", min_value=0, max_value=300000)
 
-  square_feet_param = st.number_input("Please enter your min square feet", min_value=0, max_value=10000)
+  square_feet_param = st.number_input("Please enter min square feet", min_value=0, max_value=10000)
   
   price_param = st.number_input("Please enter min price", min_value=0, max_value=1000000)
 
   education_options = ['', 'Graduate', 'Bachelors', 'High School Diploma', 'Associates or Equivelant', 'No Diploma']
-  education_options_param = st.selectbox("Please select your education level", options=education_options)
+  education_options_param = st.selectbox("Please select education level", options=education_options)
   
 
 with col3:
