@@ -27,16 +27,13 @@ with col1:
 
   bathroom_param = st.number_input("# of Bathrooms", min_value=0, max_value=7)
   
-  
 with col2:
+  price_param = st.number_input("Min price", min_value=0, max_value=1000000)    
+  
+  square_feet_param = st.number_input("Min Square Feet", min_value=0, max_value=10000) 
+  
   year_built_param = st.number_input("Min Year Built", min_value=1900, max_value=2022)  
   
-  square_feet_param = st.number_input("Min Square Feet", min_value=0, max_value=10000)
-  
-  price_param = st.number_input("Min price", min_value=0, max_value=1000000)  
-
-  
-
 with col3:
   age_param = st.number_input("Age", min_value=0, max_value=100)  
   
@@ -45,7 +42,6 @@ with col3:
   
   income_param = st.number_input("Income", min_value=0, max_value=300000)
   
-
 with col4:
   family_options = ['', 'Yes', 'No']
   family_param = st.selectbox("Do you have a family?", options=family_options)    
