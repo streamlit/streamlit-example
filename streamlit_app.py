@@ -15,7 +15,7 @@ st.markdown("<h1 style='text-align: center;'>Where should you live?</h1>", unsaf
 
 query = "SELECT '' AS cbsatitle UNION SELECT DISTINCT cbsatitle FROM listings_enriched_final ORDER BY 1"
 cbsa_data = pd.read_sql(query, conn)
-cbsa_param = st.selectbox("Select CBSA", options=cbsa_data)
+cbsa_param = st.selectbox("Select Geographic Area", options=cbsa_data)
 
 col1, col2, col3, col4 = st.columns(4)
 
