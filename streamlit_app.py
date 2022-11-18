@@ -46,7 +46,7 @@ with col4:
   family_options = ['', 'Yes', 'No']
   family_param = st.selectbox("Do you have a family?", options=family_options)    
   
-  important_options = ['', 'Not Important', 'Somewhat Important', 'Important', 'Very Important']
+  important_options = ['', 'Not Important', 'Little Important', 'Important', 'Very Important']
   school_param = st.selectbox("Importance of School", options=important_options)  
   centrality_param = st.selectbox("Closeness to Downtown", options=important_options)  
 
