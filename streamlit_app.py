@@ -9,6 +9,12 @@ conn = pymysql.connect(host='cse6242.czj7hqwhnoml.us-east-1.rds.amazonaws.com', 
                                         password="cse6242110", port=3306, database="realestate"
                                         )
 
+zipcode = None
+
+st.header("Where should you live?")
+if zipcode is not none:
+  st.out("You should live in " + zipcpde)
+
 query = "SELECT '' AS cbsatitle UNION SELECT DISTINCT cbsatitle FROM listings_enriched_final ORDER BY 1"
 cbsa_data = pd.read_sql(query, conn)
 cbsa_param = st.selectbox("Select CBSA", options=cbsa_data)
