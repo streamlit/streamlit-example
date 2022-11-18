@@ -14,7 +14,7 @@ zipcode = None
 st.markdown("<h1 style='text-align: center; color: white;'>Where should you live?</h1>", unsafe_allow_html=True)
 
 if zipcode is not None:
-  st.out("You should live in " + zipcpde)
+  st.out("You should live in " + zipcode)
 
 query = "SELECT '' AS cbsatitle UNION SELECT DISTINCT cbsatitle FROM listings_enriched_final ORDER BY 1"
 cbsa_data = pd.read_sql(query, conn)
@@ -57,4 +57,7 @@ with col4:
   school_param = st.selectbox("Importance of School", options=important_options)  
   centrality_param = st.selectbox("Closeness to Downtown", options=important_options)  
 
+if cbsa_param is not None and cbsa_param != '':
+  zipcode = '123456'
+  
 conn.close()
