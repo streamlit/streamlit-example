@@ -11,7 +11,7 @@ conn = pymysql.connect(host='cse6242.czj7hqwhnoml.us-east-1.rds.amazonaws.com', 
 
 zipcode = None
 
-st.markdown("<h1 style='text-align: center; color: white;'>Where should you live?</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Where should you live?</h1>", unsafe_allow_html=True)
 
 query = "SELECT '' AS cbsatitle UNION SELECT DISTINCT cbsatitle FROM listings_enriched_final ORDER BY 1"
 cbsa_data = pd.read_sql(query, conn)
@@ -56,6 +56,6 @@ with col4:
 
 if cbsa_param is not None and cbsa_param != '':
   zipcode = '123456'
-  st.markdown("<h2 style='text-align: center; color: white;'>We recommend you live in zipcode " + zipcode + "!</h2>", unsafe_allow_html=True)
+  st.markdown("<h2 style='text-align: center;'>We recommend you live in zipcode " + zipcode + "!</h2>", unsafe_allow_html=True)
   
 conn.close()
