@@ -38,7 +38,7 @@ with col3:
   
   square_feet_param = st.number_input("Please enter your minimum desired square feet", min_value=0, max_value=10000)
   
-  price_param = st.number_input("Please enter your desired price", min_value=0, max_value=1000000
+  price_param = st.number_input("Please enter your desired price", min_value=0, max_value=1000000)
 
   education_options = ['', 'Graduate', 'Bachelors', 'High School Diploma', 'Associates or Equivelant', 'No Diploma']
   education_options_param = st.selectbox("Please select your education level", options=education_options)
@@ -47,8 +47,6 @@ with col4:
   school_param = st.number_input("Please enter your importance of school (higher is more important)", min_value=0, max_value=10)  
   
   centrality_param = st.number_input("Please enter your desired closeness to downtown (higher is closer)", min_value=0.0, max_value=1.0)  
-
-  ) 
 
 
 # if age_param > 0:
