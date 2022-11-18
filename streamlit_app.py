@@ -11,6 +11,8 @@ conn = pymysql.connect(host='cse6242.czj7hqwhnoml.us-east-1.rds.amazonaws.com', 
 
 zipcode = None
 
+st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+
 st.header("Where should you live?")
 if zipcode is not None:
   st.out("You should live in " + zipcpde)
