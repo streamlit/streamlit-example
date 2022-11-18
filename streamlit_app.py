@@ -13,9 +13,6 @@ zipcode = None
 
 st.markdown("<h1 style='text-align: center; color: white;'>Where should you live?</h1>", unsafe_allow_html=True)
 
-if zipcode is not None:
-  st.write("You should live in " + zipcode)
-
 query = "SELECT '' AS cbsatitle UNION SELECT DISTINCT cbsatitle FROM listings_enriched_final ORDER BY 1"
 cbsa_data = pd.read_sql(query, conn)
 cbsa_param = st.selectbox("Select CBSA", options=cbsa_data)
@@ -59,6 +56,6 @@ with col4:
 
 if cbsa_param is not None and cbsa_param != '':
   zipcode = '123456'
-  st.write(zipcode)
+  st.markdown("<h2 style='text-align: center; color: white;'>We reccomend you live in zipcode: </h2>", unsafe_allow_html=True).write(zipcode)
   
 conn.close()
