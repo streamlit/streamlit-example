@@ -59,5 +59,6 @@ with col4:
 
 if cbsa_param is not None and cbsa_param != '':
   zipcode = '123456'
+  st.out(zipcode)
   
 conn.close()
