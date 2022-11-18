@@ -56,6 +56,6 @@ with col4:
 
 if cbsa_param is not None and cbsa_param != '':
   zipcode = '123456'
-  st.markdown("<h2 style='text-align: center; color: white;'>We reccomend you live in zipcode: </h2>", unsafe_allow_html=True).write(zipcode)
+  st.markdown("<h2 style='text-align: center; color: white;'>We reccomend you live in zipcode: </h2>", unsafe_allow_html=True)
   
 conn.close()
