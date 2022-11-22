@@ -5,7 +5,7 @@ This app recommend the best neighborhood to live in based on user input related 
 
 ## Overview
 
-  [!Example](/image/example.png)
+  ![Example](/image/example.png)
  
 
 ### Dataset
