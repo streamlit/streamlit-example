@@ -1,1 +1,1 @@
-streamlit run streamlit_app.py --server.enableCORS=false
+streamlit run main_page.py --server.enableCORS=false
