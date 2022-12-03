@@ -1,8 +1,9 @@
-import pandas as pd
 import streamlit as st
 import os
+import pandas as pd
+import sqldf
 
-from qa import get_answer_from_openai, Table
+from qa import get_query_from_openai, Table
 
 # Upload the file using the file_uploader function
 uploaded_file = st.file_uploader("Upload your a csv file", type="csv")
@@ -35,11 +36,15 @@ if df is not None:
     # Extract the first line as a list of column names
     column_names = df.columns.tolist()
 
+    # For each column replace the spaces with underscores
+    column_names = [column_name.replace(" ", "_") for column_name in column_names]
+    df.columns = column_names
+
     # Show a text input to ask the user a question
     question = st.text_input("Ask a question about the data", "")
 
     # Translate the column names to a single table
-    table = Table('table', column_names)
+    table = Table('df', column_names)
 
     tables = [table]
 
@@ -49,5 +54,10 @@ if df is not None:
     # If the user has pressed enter, then call the OpenAI API.
     # If the user has not pressed enter, then do not call the OpenAI API.
     if st.button("Get Answer"):
-        answer = get_answer_from_openai(question, tables)
-        st.write(answer)
+        query = get_query_from_openai(question, tables)
+
+        # Replace table with the word df
+        query = query.replace("table", "df")
+
+        # Run the SQL query on the DataFrame and display the results
+        st.write(sqldf.run(query))

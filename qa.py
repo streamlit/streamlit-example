@@ -1,6 +1,8 @@
 import openai
 import os
 
+import streamlit
+
 
 class Table:
     def __init__(self, name, columns):
@@ -9,7 +11,7 @@ class Table:
 
 
 # Method to get answer from OpenAI API and return the answer as a string
-def get_answer_from_openai(query, tables):
+def get_query_from_openai(query, tables):
     # Generate a prompt for OpenAI to translate the query to SQL in the following format:
     # "### Postgres SQL tables, with their properties:\n#\n# Employee(id, name, department_id)\n# "
     # "Department(id, name, address)\n# Salary_Payments(id, employee_id, amount, date)\n#\n### A query "
