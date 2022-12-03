@@ -1,6 +1,15 @@
-# Welcome to Streamlit!
+# Welcome to Streamlit Demo!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+### I. Setup the virtual environment
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+``` pip3 install virtualenv ```
+
+``` virtualenv venv ```
+
+``` source venv/bin/activate ```
+
+``` pip3 install -r requirements.txt ```
+
+### II. To run this file use the following command:
+```streamlit run app.py``` 
+
