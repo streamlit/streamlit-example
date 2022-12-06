@@ -15,7 +15,18 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
+st.markdown('# Main Page')
+st.sidebar.markdown('# Main Page')
 
+left_column,right_column=st.columns(2)
+
+with left_column:
+    chosen=st.sidebar.selection("Please select your guess on type of feature this DNA visualizes", ('pointy','non-pointy'))
+    st.write(f'You think the owner of this DNA has a {chosen} feature.')
+with right_column:
+    chosen=st.sidebar.slider("Select probability that your guess is right",0,100,50)
+    st.write(f'You are {chosen}% sure of your guess... Let\'s see if you are right!')
+    
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
     num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
