@@ -1,0 +1,53 @@
+/* Logo */
+[data-testid="stSidebar"] {
+  background-image: url(https://hellopocketed.io/wp-content/uploads/2022/01/P_Logo_CMYK-768x285.png);
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: 4px 20px;
+  background-color: white;
+}
+
+/* Card */
+/* Adapted from https://startbootstrap.com/theme/sb-admin-2 */
+div.css-1r6slb0.e1tzin5v2,
+div.css-keje6w.e1tzin5v2 {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 4em;
+  border-radius: 5px;
+
+  border-left: 0.5rem solid #692e82 !important;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+div.css-1r6slb0.e1tzin5v2:nth-child(odd),
+div.css-keje6w.e1tzin5v2:nth-child(odd) {
+  border-left: 0.5rem solid #c94298 !important;
+}
+
+label.css-mkogse.e16fv1kl2 {
+  color: #36b9cc !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
+
+/* Move block container higher */
+div.block-container.css-18e3th9.egzxvld2 {
+  margin-top: -5em;
+}
+
+/* Hide hamburger menu and footer */
+div.css-r698ls.e8zbici2 {
+  display: none;
+}
+
+footer.css-ipbk5a.egzxvld4 {
+  display: none;
+}
+
+footer.css-12gp8ed.eknhn3m4 {
+  display: none;
+}
+
+div.vg-tooltip-element {
+  display: none;
+}

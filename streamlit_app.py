@@ -1,38 +1,87 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
-
-"""
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+import pandas as pd
+import requests
+import plost
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+def fetch(session, url):
+    try:
+        result = session.get(url)
+        return result.json()
+    except Exception:
+        return {}
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+def main():
+    st.set_page_config(layout='wide', initial_sidebar_state='expanded')
+    session = requests.Session()
+    with open('style.css') as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+        
+    st.sidebar.header('Pocketed Analytics')
 
-    points_per_turn = total_points / num_turns
+    
+    time_period = st.sidebar.date_input('Figures since:') 
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    st.sidebar.markdown('''
+    ---
+    Created with ❤️ by [Donal](https://github.com/donaldev).
+    ''')
+
+    data = fetch(session,f"""http://localhost:8000/analytics/?since={time_period}""")
+    print(data)
+    referral_users = data.get('referral_users')
+    free_trial_starts = data.get('free_trial_starts')
+    free_trial_cancellations = data.get('free_trial_canceled_subs')
+    free_trial_conversions = data.get('free_trial_conversions')
+    pplus_conversions = data.get('pplus_subscriptions')
+    # Row A
+    st.markdown('### User Metrics')
+    st.text(f""" Since: {time_period}""")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Users with referral code", referral_users)
+    col2.metric("Free Trial Starts", free_trial_starts)
+    col3.metric("Free Trial Cancellations", free_trial_cancellations)
+    # st.markdown('### Saas Purchase Metrics')
+    # st.text(f""" Since: {time_period}""")
+    
+    col4,col5 = st.columns(2)
+    col4.metric("Free Trial Conversions", free_trial_conversions)
+    col5.metric("Pocketed+ Conversions", pplus_conversions)
+    # col5.metric("Pocketed+ ", "24")
+    # col6.metric("Pocketed Concierge ", 0)
+
+    # st.text(f""" Referral Users: {referral_users}""")
+    # st.text(f""" Free Trial Starts: {free_trial_starts}""")
+    # st.text(f""" Free Trial Cancellations: {free_trial_cancellations}""")
+    # st.text(f""" Free Trial Cancellations: {free_trial_conversions}""")
+
+
+
+if __name__ == '__main__':
+    main()
+# c1, c2 = st.columns((7,3))
+# with c1:
+#     st.markdown('### Heatmap')
+#     plost.time_hist(
+#     data=seattle_weather,
+#     date='date',
+#     x_unit='week',
+#     y_unit='day',
+#     color=time_hist_color,
+#     aggregate='median',
+#     legend=None,
+#     height=345,
+#     use_container_width=True)
+# with c2:
+#     st.markdown('### Donut chart')
+#     plost.donut_chart(
+#         data=stocks,
+#         theta=donut_theta,
+#         color='company',
+#         legend='bottom', 
+#         use_container_width=True)
+
+# # Row C
+# st.markdown('### Line chart')
+# st.line_chart(seattle_weather, x = 'date', y = plot_data, height = plot_height)
