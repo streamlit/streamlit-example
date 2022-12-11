@@ -1,38 +1,27 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import cv2
 
-"""
-# Welcome to Streamlit!
+st.title("Satellite Image Diff")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Upload the first image
+image1 = st.file_uploader("Choose the first image")
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Upload the second image
+image2 = st.file_uploader("Choose the second image")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Check if the images have been uploaded
+if image1 and image2:
+    # Load the images
+    img1 = cv2.imread(image1)
+    img2 = cv2.imread(image2)
 
+    # Check if the images have the same size
+    if img1.shape == img2.shape:
+        # Calculate the difference between the two images
+        diff = cv2.absdiff(img1, img2)
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+        # Convert the difference image to grayscale
+        gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+        # Select the area to compare
+        area = st.select_area("Select the area to compare")
