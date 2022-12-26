@@ -1,3 +1,6 @@
-altair
-pandas
-streamlit
+torch==1.13.1
+torchvision
+easyocr~=1.6.2
+streamlit~=1.16.0
+numpy~=1.24.1
+Pillow~=9.3.0
