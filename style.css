@@ -1,0 +1,184 @@
+
+
+/*NB : une variable commençant par .var est paramétré dans le yml*/
+/*NB : une variable ne commençant par .var est paramétré dans le corps du fichier markdon*/
+/*le fichier .css regroupe l'ensemble des mises en formes paramétrés et agissant sur le yml et le markdown */
+
+/* La gestion des marges en pourcentage est préférable*/
+#document-content {
+  margin-right: 1%;
+  margin-left: 1%;
+  width: 100%; 
+  height: 100;
+  max-width: 100%;
+  max-height: 100%;
+  max-block-size: 100%;
+}
+
+#document-body {
+  width: 100%;
+  height: 100;
+}
+
+#margin-sidebar {
+  margin-right: 15%;
+  margin-left: -10%
+
+}
+
+/* couleur et police du texte/légende(tableau,image) écrit en markdown */
+body, caption {
+  color: rgb(0, 34, 93); /* blue : couleur des titres et du texte markdown */
+  font-family: "Gandhi Serif", "Serif"; /*famille de police d'écriture pour le texte et les titre markdown*/
+}
+.author {font-family: "Bayshore", cursive;}
+
+/* taille de la police */
+.title {font-size: 300% !important}/* titre paramétré dans le yml du notebook*/
+.author {font-size: 200%}/* auteur paramétré dans le yml du notebook*/
+h1 {font-size: 180%}
+h2 {font-size: 140%}
+h3, .date {font-size: 120%} /* taille des section défini par #, ## ou ### dans le markdown*/
+
+/* Bold : texte en gras les sections markdown et les parties caption et author du ymal*/
+h1, h2, h3, caption, .caption, .author, .date {font-weight: bold;}
+
+/* Main title */
+.title {
+  font-variant: small-caps;
+  margin-top: 2.5em;
+  margin-bottom: 0.5em;
+  border: 5px solid rgb(0, 136, 81); /* green */
+}
+
+/* Centering */
+.title {
+  text-align: center;
+}
+
+caption, .caption {
+  text-align: center;
+}
+
+/* Justify */
+p {text-align: justify;}
+
+/* Margin */
+.date {margin-bottom: 2em;}
+
+/* souligne les titres h1 défini par # dans markdown sans ajustement sur le contenu */
+h1 {
+  border-bottom: 3px solid rgb(0, 136, 81); /* green */
+}
+
+/* souligne les titres h2 défini par ## dans markdown avec ajustement sur le contenu */
+h2 {
+  border-bottom: 3px solid rgb(0, 136, 81); /* green */
+  width: fit-content;
+}
+/* souligne les titres h3 défini par ### dans markdown avec ajustement sur le contenu */
+h3 {
+  border-bottom: 2px solid rgb(0, 136, 81); /* blue */
+  width: fit-content;
+}
+
+/* lien dynamique sur les références */
+a:link{
+  line-height: 2;
+  background-color: white;
+  color: rgb(0, 34, 93);
+  font-weight: bold;
+}
+
+a:hover,a:active {
+  background-color: green;
+  color: white;
+  width: 250px;
+
+  font-weight: bold;
+}
+/* Tables */
+td, td > .math, th, th > .math {font-family: "Gandhi Serif", serif !important;}
+
+td, td > .math {
+  color: rgb(0, 34, 93); /* blue */
+  font-size: 90% !important;
+}
+
+th, th > .math, .t2 > tbody > tr > td:first-child, .t2 > tbody > tr > td:first-child > .math {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 136, 81); /* green */
+  font-size: 100% !important;
+  font-weight: bold !important;
+}
+
+.t1 {
+  border: 1px solid black;
+}
+
+.t1 > tbody > tr:last-child > td {
+  border-bottom: 1px solid black !important;
+}
+
+.t1 > thead > tr > th {
+  border-top: 1px solid black !important;
+  border-bottom: 1px solid black !important;
+}
+
+.t2 > tbody > tr > td {
+  border: 1px solid black !important;
+}
+
+.t2 > thead > tr > th:first-child {
+  background-color: white;
+}
+
+.t2 > thead > tr {
+  border: none !important;
+}
+
+.t2 > thead > tr > th {
+  border: 1px solid black !important;
+}
+
+.t2 > thead > tr > th:first-child {
+  border: none !important;
+}
+
+/* Tables and formula adjust to page width */
+.MathJax_Display, .MJXc-display, .MathJax_SVG_Display {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Table of contents */
+.tocify-item {font-weight: bold;   
+  width: 300px;
+  height: 50;
+  margin-right: 5%;
+  margin-left: -5%
+}
+
+.tocify-item:active, .tocify-item:hover > nav > ul > li > ul > li > a{
+ 
+  background-color: rgb(250, 250, 250) !important; /* green */
+  color: rgb(3, 15, 37) !important; /* blue */
+  font-weight: bold;
+  width: 90%;
+}
+
+#toc-title {
+  margin-bottom: 0 !important;
+  font-family: "Gandhi Serif", "Serif"
+}
+
+/* Logo */
+.logo {
+  margin-top: 1em;
+  width: 50%;
+  max-width: 250px;
+}
+
+
+
+

@@ -1,6 +1,15 @@
-# Welcome to Streamlit!
+# streamlit
+ 
+Pour exécuter le streamlit, suivez les étapes suivantes :
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+# 1)
+$pip install streamlit
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# 2) accedez au fichier du répertoire streamlit_rakuten
+
+$streamlit run main.py
+
+la commande ouvre un navigateur pour afficher le rendu.
+
+Le fichier main.py fait appel à un ensemble de fichier, chacun d'eux s'exécutant un un endroit précis du projet
+
