@@ -1,3 +1,4 @@
-altair
-pandas
-streamlit
+numpy==1.21.2
+pandas==1.3.3
+streamlit==0.85.0
+Pillow==8.3.2
