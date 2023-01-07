@@ -112,23 +112,23 @@ ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 # Set the major tick intervals to 1 hour
 ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 
-# Localize the time to EST
-#data.index = data.index.tz_localize('EST')
-
-# Set the tick label format to display the time in EST
-#ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M", tz=mdates.timezone('EST')))
-
 # Set the tick label format to display the hour and minute
-#ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
 # Filter the data to only include volume above 1500
 data_filtered = data[data['Volume'] > 1500]
 
+# Create a boolean mask that indicates where the 'volume' values are greater than 1500
+mask = data_filtered['volume'] > 1500
+
+# Shade the region of the subplot where the mask is True
+ax.fill_between(data_filtered.index, data_filtered['volume'], where=mask, alpha=0.25, color='green')
+
 # Plot the filtered data in green
-ax2.plot(data_filtered.index, data_filtered['Volume'], linestyle='-', linewidth=1, color='green')
+#ax2.plot(data_filtered.index, data_filtered['Volume'], linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=.2)
+fig.subplots_adjust(hspace=.5)
 
 #plt.show()
 
