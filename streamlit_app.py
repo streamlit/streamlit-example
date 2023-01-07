@@ -144,7 +144,7 @@ ax3 = fig.add_subplot(gs[2])
 ax4 = fig.add_subplot(gs[3])
 
 # Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=2)
+fig.subplots_adjust(hspace=.4)
 
 # Plot the results
 
@@ -155,10 +155,10 @@ ax1.set_ylabel('Price')
 ax1.xaxis.set_major_locator(MinuteLocator (interval=30))
 
 # Get the tick labels
-tick_labels = ax1.get_xticklabels()
+tick_labels1 = ax1.get_xticklabels()
 
 # Set the font size and style of the tick labels
-for label in tick_labels:
+for label in tick_labels1:
     label.set_fontsize(12)
     label.set_fontstyle("italic")
     label.set_rotation(45)
@@ -185,6 +185,19 @@ ax2.set_ylabel('RSI')
 
 ax2.set_xlim(data.index.min(), data.index.max())
 
+ax2.set_xlabel('Time')
+ax2.xaxis.set_major_locator(MinuteLocator (interval=30))
+
+# Get the tick labels
+tick_labels2 = ax2.get_xticklabels()
+
+# Set the font size and style of the tick labels
+for label in tick_labels2:
+    label.set_fontsize(12)
+    label.set_fontstyle("italic")
+    label.set_rotation(45)
+    label.set_horizontalalignment('right')
+
 # Calculate the MACD of the 'Close' column using a 12-period fast moving average, a 26-period slow moving average, and a 9-period signal line
 macd_df = calc_macd(data, 'Close', 12, 26, 9)
 
@@ -196,6 +209,19 @@ ax3.plot(macd_df['MACD'], label='MACD')
 ax3.plot(macd_df['MACD signal'], label='MACD signal')
 ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
+ax3.set_xlabel('Time')
+ax3.xaxis.set_major_locator(MinuteLocator (interval=30))
+
+# Get the tick labels
+tick_labels3 = ax3.get_xticklabels()
+
+# Set the font size and style of the tick labels
+for label in tick_labels3:
+    label.set_fontsize(12)
+    label.set_fontstyle("italic")
+    label.set_rotation(45)
+    label.set_horizontalalignment('right')
+    
 ax3.set_xlim(data.index.min(), data.index.max())
 #ax3.xaxis.set_major_locator(MinuteLocator (interval=30))
 
