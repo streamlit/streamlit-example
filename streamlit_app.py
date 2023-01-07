@@ -94,7 +94,7 @@ ax2 = fig.add_subplot(212)
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
 # Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=3)
+fig.subplots_adjust(hspace=5)
 
 plt.show()
 
