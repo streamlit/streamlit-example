@@ -132,7 +132,7 @@ mask = data['Volume'] > 1500
 ax2.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
 # Plot the filtered data in green
-ax2.plot(data.index, mask['Volume'], linestyle='-', linewidth=1, color='green')
+ax2.plot(data.index, mask, linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
