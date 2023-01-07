@@ -126,13 +126,10 @@ for label in tick_labels2:
 #ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
 # Create a boolean mask that indicates where the 'volume' values are greater than 1500
-mask = data['Volume'] > 1500
+mask = data['Volume'] > 1200
 
 # Shade the region of the subplot where the mask is True
 ax2.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
-
-# Plot the filtered data in green
-ax2.plot(data.index, mask, linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
