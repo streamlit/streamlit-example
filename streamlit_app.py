@@ -7,6 +7,7 @@ import yfinance as yf
 import plotly.graph_objects as go
 from datetime import datetime
 import matplotlib.ticker as ticker
+import matplotlib.dates as mdates
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
 
 # Create a sidebar for user input
@@ -105,11 +106,20 @@ plt.legend(fontsize=6)
 # Plot the volume data on the new subplot
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
+# Set the X axis limits to the minimum and maximum datetime values in the index
+ax2.set_xlim(df.index.min(), df.index.max())
+
+# Set the major tick intervals to 1 hour
+ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
+
+# Set the tick label format to display the hour and minute
+ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+
 # Filter the data to only include volume above 1500
 data_filtered = data[data['Volume'] > 1500]
 
 # Plot the filtered data in green
-ax2.plot(data_filtered.index, data_filtered['Volume'], color='green')
+ax2.plot(data_filtered.index, data_filtered['Volume'], linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
