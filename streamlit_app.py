@@ -75,7 +75,7 @@ tick_labels = ax.get_xticklabels()
 
 # Set the font size and style of the tick labels
 for label in tick_labels:
-    label.set_fontsize(14)
+    label.set_fontsize(12)
     label.set_fontstyle("italic")
     label.set_rotation(45)
     label.set_horizontalalignment('right')
