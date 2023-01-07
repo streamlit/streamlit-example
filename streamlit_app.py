@@ -16,6 +16,17 @@ symbol = "SPY221223C00380000"
 
 st.title(symbol)
 st.title('Ichimoku Cloud Indicator')
+# Create a sidebar for user input
+st.sidebar.header("Inputs")
+
+# Add a text input for the interval
+interval = st.sidebar.text_input("Interval", "1m")
+
+# Add a text input for the period
+period = st.sidebar.text_input("Period", "1d")
+
+# Add a text input for the symbol
+symbol = st.sidebar.text_input("Symbol", "SPY230106C00386000")
 
 # Connect to the TradeStation API and retrieve the price data for the specified symbol and interval
 ticker = yf.Ticker(symbol)
