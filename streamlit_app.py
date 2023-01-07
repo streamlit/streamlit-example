@@ -9,6 +9,7 @@ from datetime import datetime
 import matplotlib.ticker as ticker
 import matplotlib.dates as mdates
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
+import talib
 
 # Create a sidebar for user input
 st.sidebar.header("Inputs")
@@ -108,8 +109,12 @@ plt.legend(fontsize=6)
 
 # Calculate the RSI and MACD indicators
 # (Assuming that the data and necessary indicators are stored in a Pandas DataFrame 'df')
-rsi = data['Close'].rsi()
-macd, macd_signal, macd_hist = data['Close'].macd()
+#rsi = data['Close'].rsi()
+#macd, macd_signal, macd_hist = data['Close'].macd()
+
+
+# Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
+rsi = talib.RSI(data['Close'])
 
 # Plot the RSI on the first subplot
 ax2.plot(data.index, rsi)
