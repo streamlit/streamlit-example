@@ -92,6 +92,37 @@ def calc_rsi(df: pd.DataFrame, column: str, period: int) -> pd.Series:
     
     return rsi
 
+def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int, signal_period: int) -> pd.DataFrame:
+    """Calculate the moving average convergence divergence (MACD) for a column in a Pandas DataFrame.
+    
+    Args:
+        df: The Pandas DataFrame containing the data.
+        column: The name of the column for which to calculate the MACD.
+        fast_period: The number of periods to use for the fast moving average.
+        slow_period: The number of periods to use for the slow moving average.
+        signal_period: The number of periods to use for the signal line.
+    
+    Returns:
+        A Pandas DataFrame containing the MACD, MACD signal, and MACD histogram values.
+    """
+    # Calculate the fast and slow moving averages
+    fast_ma = df[column].ewm(com=fast_period - 1, min_periods=fast_period).mean()
+    slow_ma = df[column].ewm(com=slow_period - 1, min_periods=slow_period).mean()
+    
+    # Calculate the MACD
+    macd = fast_ma - slow_ma
+    
+    # Calculate the MACD signal
+    macd_signal = macd.ewm(com=signal_period - 1, min_periods=signal_period).mean()
+    
+    # Calculate the MACD histogram
+    macd_hist = macd - macd_signal
+    
+    # Create a Pandas DataFrame to store the MACD, MACD signal, and MACD histogram values
+    macd_df = pd.DataFrame({'MACD': macd, 'MACD signal': macd_signal, 'MACD histogram': macd_hist})
+    
+    return macd_df
+
 # Create a figure with four subplots arranged in a single column
 fig, ax = plt.subplots(nrows=4, ncols=1)
 
@@ -141,14 +172,15 @@ ax1.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", colo
 ax1.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
 plt.legend(fontsize=6)
 
-# Calculate the RSI and MACD indicators
-# (Assuming that the data and necessary indicators are stored in a Pandas DataFrame 'df')
-#rsi = data['Close'].rsi()
-#macd, macd_signal, macd_hist = data['Close'].macd()
-
 
 # Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
-rsi = calc_rsi(data, 'Close')
+rsi = calc_rsi(data, 'Close', 14)
+
+# Calculate the MACD of the 'Close' column using a 12-period fast moving average, a 26-period slow moving average, and a 9-period signal line
+macd_df = calc_macd(data, 'Close', 12, 26, 9)
+
+# Print the MACD, MACD signal, and MACD histogram values
+#print(macd_df)
 
 # Plot the RSI on the first subplot
 ax2.plot(data.index, rsi)
