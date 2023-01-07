@@ -253,7 +253,7 @@ ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='gree
 
 #plt.show()
 
-st.pyplot()
+st.pyplot(fig)
 data
 print(rsi)
 print(macd_df)
