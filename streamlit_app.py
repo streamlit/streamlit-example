@@ -218,13 +218,13 @@ macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
 #print(macd_df)
 
 # # Plot the MACD and MACD histogram values
-ax3.plot(macd_df['MACD'], label='MACD')
-ax3.plot(macd_df['Signal'], label='MACD signal')
+ax3.plot(macd_df1['MACD'], label='MACD')
+ax3.plot(macd_df1['Signal'], label='MACD signal')
 # ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
 #ax3.plot(macd_df1)
-ax3.fill_between(macd_df1['MACD'], macd_df1['Signal'], where=df['MACD'] > df['Signal'], facecolor='green', interpolate=True)
-ax3.fill_between(macd_df1['MACD'], macd_df1['Signal'], where=df['MACD'] < df['Signal'], facecolor='red', interpolate=True)
+ax3.fill_between(macd_df1['MACD'], macd_df1['Signal'], where=macd_df1['MACD'] > macd_df1['Signal'], facecolor='green', interpolate=True)
+ax3.fill_between(macd_df1['MACD'], macd_df1['Signal'], where=macd_df1['MACD'] < macd_df1['Signal'], facecolor='red', interpolate=True)
 
 ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
