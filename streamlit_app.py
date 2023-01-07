@@ -67,7 +67,9 @@ ax.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=
 ax.set_xlabel('Time')
 ax.set_ylabel('Price')
 #ax.xaxis.set_major_locator(MinuteLocator (interval=15))
-ax.xaxis.set_major_locator(ticker.MultipleLocator(15))
+#ax.xaxis.set_major_locator(ticker.MultipleLocator(15))
+ax.xaxis.set_major_locator(MultipleLocator(15))
+
 #ax.xaxis.set_major_formatter(ConciseDateFormatter(ax.xaxis.get_major_locator())
 
 # Get the tick labels
