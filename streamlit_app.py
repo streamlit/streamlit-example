@@ -116,10 +116,10 @@ ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
 # Create a boolean mask that indicates where the 'volume' values are greater than 1500
-mask = data['volume'] > 1500
+mask = data['Volume'] > 1500
 
 # Shade the region of the subplot where the mask is True
-ax2.fill_between(data.index, data['volume'], where=mask, alpha=0.25, color='green')
+ax2.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
 # Plot the filtered data in green
 #ax2.plot(data.index, data['Volume'], linestyle='-', linewidth=1, color='green')
