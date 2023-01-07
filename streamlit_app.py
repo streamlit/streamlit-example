@@ -77,10 +77,8 @@ tick_labels = ax.get_xticklabels()
 for label in tick_labels:
     label.set_fontsize(14)
     label.set_fontstyle("italic")
-
-#for label in ax.get_xticklabels():
-        #label.set_rotation(45)
-        #label.set_horizontalalignment('right')
+    label.set_rotation(45)
+    label.set_horizontalalignment('right')
 
 ax.plot(data["Close"], label="Close", color='dimgrey', linewidth=1)
 ax.plot(data["tenkan_sen"], label="tenkan_sen" , color='blue', linewidth=0.75)
