@@ -125,11 +125,6 @@ def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int,
     
     return macd_df
 
-# # Calculate the MACD values
-# short_ema = data['Close'].ewm(span=12, adjust=False).mean()
-# long_ema = data['Close'].ewm(span=26, adjust=False).mean()
-# macd1 = short_ema - long_ema
-# signal = macd1.ewm(span=9, adjust=False).mean()
 
 fig = plt.figure(figsize=(12, 18))
 gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[3, 1, 1, 1])
@@ -200,13 +195,10 @@ for label in tick_labels2:
 # Calculate the MACD of the 'Close' column using a 12-period fast moving average, a 26-period slow moving average, and a 9-period signal line
 macd_df = calc_macd(data, 'Close', 12, 26, 9)
 
-# Create a new dataframe with the MACD and signal values
-#macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
-
 # Plot the MACD and MACD histogram values
 ax3.plot(macd_df['MACD'], label='MACD', color='green')
 ax3.plot(macd_df['MACD signal'], label='MACD signal', color='red')
-ax3.bar(data.index, macd_df['MACD histogram'], label='MACD histogram', color='limegreen', edgecolor='black', alpha=.25)
+ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram', color='limegreen', edgecolor='black', alpha=.25)
 
 ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
@@ -225,7 +217,6 @@ for label in tick_labels3:
     label.set_horizontalalignment('right')
     
 ax3.set_xlim(data.index.min(), data.index.max())
-#ax3.xaxis.set_major_locator(MinuteLocator (interval=30))
 
 # Plot the volume data on the new subplot
 ax4.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
