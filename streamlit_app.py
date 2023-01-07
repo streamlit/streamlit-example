@@ -9,6 +9,8 @@ from datetime import datetime
 import matplotlib.ticker as ticker
 import matplotlib.dates as mdates
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
+import matplotlib.gridspec as gridspec
+
 
 # Create a sidebar for user input
 st.sidebar.header("Inputs")
@@ -123,29 +125,38 @@ def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int,
     
     return macd_df
 
-# Create a figure with four subplots arranged in a single column
-fig, ax = plt.subplots(nrows=4, ncols=1)
+# # Create a figure with four subplots arranged in a single column
+# fig, ax = plt.subplots(nrows=4, ncols=1)
 
-# Access the subplots using the `ax` array
-ax1 = ax[0]
-ax2 = ax[1]
-ax3 = ax[2]
-ax4 = ax[3]
+# # Access the subplots using the `ax` array
+# ax1 = ax[0]
+# ax2 = ax[1]
+# ax3 = ax[2]
+# ax4 = ax[3]
+
+fig = plt.figure()
+gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[1, 1, 1, 1])
+
+# Create the subplots using the grid specification
+ax1 = fig.add_subplot(gs[0])
+ax2 = fig.add_subplot(gs[1])
+ax3 = fig.add_subplot(gs[2])
+ax4 = fig.add_subplot(gs[3])
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=1)
 
 # Create a new figure with the desired size
-fig = plt.figure(figsize=(10, 12))
+#fig = plt.figure(figsize=(10, 12))
 
-# Create a subplot that takes up 25% of the figure height
-#ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
+# # Create a subplot that takes up 25% of the figure height
+# ax1 = plt.subplot2grid((4, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
 
-# Create a subplot that takes up 50% of the figure height
-#ax2 = plt.subplot2grid((3, 1), (1, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
+# # Create a subplot that takes up 50% of the figure height
+# ax2 = plt.subplot2grid((3, 1), (1, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
 
-# Create a subplot that takes up 25% of the figure height
-#ax3 = plt.subplot2grid((3, 1), (2, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
+# # Create a subplot that takes up 25% of the figure height
+# ax3 = plt.subplot2grid((3, 1), (2, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
 
 # Plot the results
 
