@@ -176,23 +176,20 @@ plt.legend(fontsize=6)
 # Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
 rsi = calc_rsi(data, 'Close', 14)
 
+# Plot the RSI on the first subplot
+ax2.plot(data.index, rsi)
+ax2.set_ylabel('RSI')
+
 # Calculate the MACD of the 'Close' column using a 12-period fast moving average, a 26-period slow moving average, and a 9-period signal line
 macd_df = calc_macd(data, 'Close', 12, 26, 9)
 
 # Print the MACD, MACD signal, and MACD histogram values
 #print(macd_df)
 
-# Plot the RSI on the first subplot
-ax2.plot(data.index, rsi)
-ax2.set_ylabel('RSI')
-
-# Plot the MACD on the second subplot
-ax3.plot(data.index, macd, label='MACD')
-ax3.plot(data.index, macd_signal, label='MACD Signal')
-ax3.plot(data.index, macd_hist, label='MACD Histogram')
-ax3.legend()
-ax3.set_ylabel('MACD')
-
+# Plot the MACD and MACD histogram values
+ax3.plot(macd_df['MACD'], label='MACD')
+ax3.plot(macd_df['MACD signal'], label='MACD signal')
+ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
 # Plot the volume data on the new subplot
 ax4.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
