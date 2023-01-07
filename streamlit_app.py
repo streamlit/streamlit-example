@@ -209,8 +209,8 @@ ax3.plot(macd_df['MACD signal'], label='MACD signal')
 #ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
 #ax3.plot(macd_df1)
-ax3.fill_between(macd_df['MACD'], macd_df['Signal'], where=macd_df['MACD'] > macd_df['Signal'], facecolor='green', interpolate=True)
-ax3.fill_between(macd_df['MACD'], macd_df['Signal'], where=macd_df['MACD'] < macd_df['Signal'], facecolor='red', interpolate=True)
+#ax3.fill_between(macd_df['MACD'], macd_df['Signal'], where=macd_df['MACD'] > macd_df['Signal'], facecolor='green', interpolate=True)
+#ax3.fill_between(macd_df['MACD'], macd_df['Signal'], where=macd_df['MACD'] < macd_df['Signal'], facecolor='red', interpolate=True)
 
 ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
