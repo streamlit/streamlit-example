@@ -7,7 +7,7 @@ import yfinance as yf
 import plotly.graph_objects as go
 from datetime import datetime
 import matplotlib.ticker as ticker
-from matplotlib.dates import MinuteLocator, ConciseDateFormatter, MultipleLocator
+from matplotlib.dates import MinuteLocator, ConciseDateFormatter
 
 # Set the interval to 1 minute and the symbol to SPY
 #interval = "1m"
@@ -76,6 +76,7 @@ tick_labels = ax.get_xticklabels()
 for label in tick_labels:
     label.set_fontsize(14)
     label.set_fontstyle("italic")
+
 #for label in ax.get_xticklabels():
         #label.set_rotation(45)
         #label.set_horizontalalignment('right')
