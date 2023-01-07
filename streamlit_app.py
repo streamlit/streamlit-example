@@ -110,7 +110,7 @@ ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 #ax2.set_xlim(data.index.min(), data.index.max())
 
 # Set the major tick intervals to 1 hour
-ax2.xaxis.set_major_locator(mdates.HourLocator(interval=.25))
+ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 
 # Localize the time to EST
 data.index = data.index.tz_localize('EST')
@@ -128,9 +128,9 @@ data_filtered = data[data['Volume'] > 1500]
 ax2.plot(data_filtered.index, data_filtered['Volume'], linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=.5)
+fig.subplots_adjust(hspace=.2)
 
-plt.show()
+#plt.show()
 
 st.pyplot()
 data
