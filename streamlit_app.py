@@ -153,6 +153,7 @@ ax1.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where
 ax1.set_xlabel('Time')
 ax1.set_ylabel('Price')
 ax1.xaxis.set_major_locator(MinuteLocator (interval=30))
+ax1.set_xlim(data.index.min(), data.index.max())
 
 # Get the tick labels
 tick_labels1 = ax1.get_xticklabels()
@@ -245,7 +246,7 @@ for label in tick_labels4:
 
 
 # Create a boolean mask that indicates where the 'volume' values are greater than 1500
-mask = data['Volume'] > 1200
+mask = data['Volume'] > 1000
 
 # Shade the region of the subplot where the mask is True
 ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
