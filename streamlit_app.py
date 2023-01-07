@@ -173,7 +173,7 @@ ax1.plot(data["senkou_span_b"], label="senkou_span_b" , color='red', linewidth=0
 ax1.plot(data["chikou_span"], label="chikou_span" , color='magenta', linewidth=0.75)
 ax1.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", color='green')
 ax1.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
-ax1.legend(fontsize=8)
+ax1.legend(fontsize=8, loc='upper left')
 
 
 # Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
@@ -189,7 +189,7 @@ ax2.set_xlim(data.index.min(), data.index.max())
 ax2.set_xlabel('Time')
 ax2.xaxis.set_major_locator(MinuteLocator (interval=30))
 
-ax2.legend(fontsize=6)
+#ax2.legend(fontsize=6)
 
 # Get the tick labels
 tick_labels2 = ax2.get_xticklabels()
@@ -216,7 +216,7 @@ ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
 ax3.xaxis.set_major_locator(MinuteLocator (interval=30))
 
-ax3.legend(fontsize=6)
+ax3.legend(fontsize=6, loc='upper left')
 
 # Get the tick labels
 tick_labels3 = ax3.get_xticklabels()
@@ -240,7 +240,7 @@ ax4.set_xlim(data.index.min(), data.index.max())
 
 ax4.xaxis.set_major_locator(MinuteLocator (interval=30))
 
-ax4.legend(fontsize=6)
+#ax4.legend(fontsize=6)
 
 # Get the tick labels
 tick_labels4 = ax4.get_xticklabels()
