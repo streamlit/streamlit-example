@@ -54,12 +54,8 @@ for index, row in data.iterrows():
     elif row["Close"] < row["Open"] and row["chikou_span"] < row["Close"]:
         short_positions.append(index)
 
-#data.insert(loc=1, column='TIME', value=pd.to_datetime(data.index,format='%H:%M')
-#data['TIME'] = pd.to_datetime(data.index)
-#data['TIME'] = data['TIME'].dt.strftime('%H:%M')
-#time_data = data['TIME'] 
-
 data = data.drop(columns=['Dividends', 'Stock Splits'])
+
 # Plot the results
 fig, ax = plt.subplots()
 #ax.set_xlim(data.index)
@@ -90,6 +86,13 @@ ax.plot(data["chikou_span"], label="chikou_span" , color='magenta', linewidth=0.
 ax.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", color='green')
 ax.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
 plt.legend(fontsize=6)
+
+# Add a subplot below the existing subplot
+ax2 = fig.add_subplot(212)
+
+# Plot the volume data on the new subplot
+ax2.plot(df.index, df['Volume'], color='k', linestyle='-', linewidth=1)
+
 plt.show()
 
 st.pyplot()
