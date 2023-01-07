@@ -7,13 +7,7 @@ import yfinance as yf
 import plotly.graph_objects as go
 from datetime import datetime
 import matplotlib.ticker as ticker
-from matplotlib.ticker import MultipleLocator
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
-
-# Set the interval to 1 minute and the symbol to SPY
-#interval = "1m"
-#period = '1d'
-#symbol = "SPY221223C00380000"
 
 # Create a sidebar for user input
 st.sidebar.header("Inputs")
@@ -33,6 +27,12 @@ st.markdown("Interval: **{}**, Period: **{}**, Symbol: **{}**".format(interval, 
 # Connect to the TradeStation API and retrieve the price data for the specified symbol and interval
 ticker = yf.Ticker(symbol)
 data = ticker.history(period=period, interval=interval)
+
+# Convert the index to a column and keep only the hour and minute
+data['time'] = pd.to_datetime(data.index, format='%H:%M')
+
+# Set the 'time' column as the new index
+data.set_index('time', inplace=True)
 
 # Calculate the Ichimoku Cloud indicator using the data
 data["tenkan_sen"] = data["High"].rolling(window=9).mean()
@@ -55,9 +55,10 @@ for index, row in data.iterrows():
         short_positions.append(index)
 
 #data.insert(loc=1, column='TIME', value=pd.to_datetime(data.index,format='%H:%M')
-data['TIME'] = pd.to_datetime(data.index)
-data['TIME'] = data['TIME'].dt.strftime('%H:%M')
+#data['TIME'] = pd.to_datetime(data.index)
+#data['TIME'] = data['TIME'].dt.strftime('%H:%M')
 #time_data = data['TIME'] 
+
 data = data.drop(columns=['Dividends', 'Stock Splits'])
 # Plot the results
 fig, ax = plt.subplots()
