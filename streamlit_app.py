@@ -136,7 +136,7 @@ ax4 = ax[3]
 fig.subplots_adjust(hspace=1)
 
 # Create a new figure with the desired size
-#fig = plt.figure(figsize=(10, 8))
+fig = plt.figure(figsize=(10, 12))
 
 # Create a subplot that takes up 25% of the figure height
 #ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
