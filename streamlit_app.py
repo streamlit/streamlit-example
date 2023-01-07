@@ -60,8 +60,8 @@ data = data.drop(columns=['Dividends', 'Stock Splits'])
 fig = plt.figure(figsize=(10, 8))
 
 # Add subplots to the figure
-ax1 = fig.add_subplot(211)
-ax2 = fig.add_subplot(212)
+#ax1 = fig.add_subplot(211)
+#ax2 = fig.add_subplot(212)
 
 # Create a subplot that takes up 25% of the figure height
 ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
@@ -70,7 +70,7 @@ ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 
 ax2 = plt.subplot2grid((3, 1), (1, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
 
 # Create a subplot that takes up 25% of the figure height
-ax3 = plt.subplot2grid((3, 1), (2, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
+#ax3 = plt.subplot2grid((3, 1), (2, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
 
 # Plot the results
 #fig, ax = plt.subplots()
