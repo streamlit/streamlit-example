@@ -204,8 +204,8 @@ macd_df = calc_macd(data, 'Close', 12, 26, 9)
 #macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
 
 # Plot the MACD and MACD histogram values
-ax3.plot(mac_df.index, macd_df['MACD'], label='MACD')
-ax3.plot(macd_df['Signal'], label='MACD signal')
+ax3.plot(macd_df['MACD'], label='MACD')
+ax3.plot(macd_df['MACD signal'], label='MACD signal')
 #ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
 #ax3.plot(macd_df1)
