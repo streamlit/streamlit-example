@@ -211,6 +211,7 @@ ax3.plot(macd_df['MACD signal'], label='MACD signal')
 ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
 ax3.set_xlabel('Time')
+ax3.set_ylabel('MACD')
 ax3.xaxis.set_major_locator(MinuteLocator (interval=30))
 
 # Get the tick labels
@@ -228,6 +229,7 @@ ax3.set_xlim(data.index.min(), data.index.max())
 
 # Plot the volume data on the new subplot
 ax4.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
+ax4.set_ylabel('Volume of Option')
 
 # Set the X axis limits to the minimum and maximum datetime values in the index
 ax4.set_xlim(data.index.min(), data.index.max())
