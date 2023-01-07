@@ -132,6 +132,9 @@ ax2 = ax[1]
 ax3 = ax[2]
 ax4 = ax[3]
 
+# Adjust the spacing between the subplots
+fig.subplots_adjust(hspace=1)
+
 # Create a new figure with the desired size
 #fig = plt.figure(figsize=(10, 8))
 
@@ -222,8 +225,7 @@ mask = data['Volume'] > 1200
 # Shade the region of the subplot where the mask is True
 ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
-# Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=.5)
+
 
 #plt.show()
 
