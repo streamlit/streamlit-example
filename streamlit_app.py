@@ -97,6 +97,12 @@ plt.legend(fontsize=6)
 # Plot the volume data on the new subplot
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
+# Filter the data to only include volume above 1500
+data_filtered = data[df['Volume'] > 1500]
+
+# Plot the filtered data in green
+ax2.plot(data_filtered.index, data_filtered['Volume'], color='green')
+
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
 
