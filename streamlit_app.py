@@ -133,7 +133,7 @@ ax3 = ax[2]
 ax4 = ax[3]
 
 # Create a new figure with the desired size
-fig = plt.figure(figsize=(10, 8))
+#fig = plt.figure(figsize=(10, 8))
 
 # Create a subplot that takes up 25% of the figure height
 #ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
@@ -175,6 +175,7 @@ plt.legend(fontsize=6)
 
 # Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
 rsi = calc_rsi(data, 'Close', 14)
+print(rsi)
 
 # Plot the RSI on the first subplot
 ax2.plot(data.index, rsi)
@@ -184,7 +185,7 @@ ax2.set_ylabel('RSI')
 macd_df = calc_macd(data, 'Close', 12, 26, 9)
 
 # Print the MACD, MACD signal, and MACD histogram values
-#print(macd_df)
+print(macd_df)
 
 # Plot the MACD and MACD histogram values
 ax3.plot(macd_df['MACD'], label='MACD')
