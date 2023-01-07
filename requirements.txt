@@ -5,3 +5,4 @@ pandas
 yfinance
 plotly
 matplotlib
+talib
