@@ -113,7 +113,7 @@ ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 
 # Localize the time to EST
-data.index = data.index.tz_localize('EST')
+#data.index = data.index.tz_localize('EST')
 
 # Set the tick label format to display the time in EST
 ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M", tz=mdates.timezone('EST')))
