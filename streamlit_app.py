@@ -9,7 +9,6 @@ from datetime import datetime
 import matplotlib.ticker as ticker
 import matplotlib.dates as mdates
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
-import talib
 
 # Create a sidebar for user input
 st.sidebar.header("Inputs")
@@ -57,6 +56,41 @@ for index, row in data.iterrows():
         short_positions.append(index)
 
 data = data.drop(columns=['Dividends', 'Stock Splits'])
+
+
+def calc_rsi(df: pd.DataFrame, column: str, period: int) -> pd.Series:
+    """Calculate the relative strength index (RSI) for a column in a Pandas DataFrame.
+    
+    Args:
+        df: The Pandas DataFrame containing the data.
+        column: The name of the column for which to calculate the RSI.
+        period: The number of periods to use for the RSI calculation.
+    
+    Returns:
+        A Pandas Series containing the RSI values.
+    """
+    # Calculate the difference between the current and previous values
+    diff = df[column].diff()
+    
+    # Create two empty Pandas Series to store the gain and loss
+    gain = pd.Series(index=diff.index)
+    loss = pd.Series(index=diff.index)
+    
+    # Fill the gain and loss Series with the appropriate values
+    gain[diff > 0] = diff[diff > 0]
+    loss[diff < 0] = -diff[diff < 0]
+    
+    # Calculate the rolling average of the gain and loss
+    avg_gain = gain.ewm(com=period - 1, min_periods=period).mean()
+    avg_loss = loss.ewm(com=period - 1, min_periods=period).mean()
+    
+    # Calculate the relative strength
+    rs = avg_gain / avg_loss
+    
+    # Calculate the RSI
+    rsi = 100 - (100 / (1 + rs))
+    
+    return rsi
 
 # Create a figure with four subplots arranged in a single column
 fig, ax = plt.subplots(nrows=4, ncols=1)
@@ -114,7 +148,7 @@ plt.legend(fontsize=6)
 
 
 # Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
-rsi = talib.RSI(data['Close'])
+rsi = calc_rsi(data, 'Close')
 
 # Plot the RSI on the first subplot
 ax2.plot(data.index, rsi)
