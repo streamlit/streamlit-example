@@ -81,7 +81,7 @@ for label in tick_labels:
     label.set_rotation(45)
     label.set_horizontalalignment('right')
 
-ax.plot(data["Close"], label="Close", color='dimgrey', linewidth=1)
+ax.plot(data.index, data["Close"], label="Close", color='dimgrey', linewidth=1)
 ax.plot(data["tenkan_sen"], label="tenkan_sen" , color='blue', linewidth=0.75)
 ax.plot(data["kijun_sen"], label="kijun_sen" , color='saddlebrown', linewidth=0.75)
 ax.plot(data["senkou_span_a"], label="senkou_span_a" , color='limegreen', linewidth=0.75)
