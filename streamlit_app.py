@@ -134,7 +134,7 @@ def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int,
 # ax3 = ax[2]
 # ax4 = ax[3]
 
-fig = plt.figure()
+fig = plt.figurefigsize=(12, 16)
 gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[3, 1, 1, 1])
 
 # Create the subplots using the grid specification
@@ -229,4 +229,4 @@ ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='gree
 st.pyplot()
 data
 print(rsi)
-macdf
+print(macd_df)
