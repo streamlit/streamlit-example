@@ -125,6 +125,16 @@ def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int,
     
     return macd_df
 
+# Calculate the MACD values
+short_ema = data['Close'].ewm(span=12, adjust=False).mean()
+long_ema = data['Close'].ewm(span=26, adjust=False).mean()
+macd1 = short_ema - long_ema
+signal = macd1.ewm(span=9, adjust=False).mean()
+
+# Create a new dataframe with the MACD and signal values
+macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
+
+
 # # Create a figure with four subplots arranged in a single column
 # fig, ax = plt.subplots(nrows=4, ncols=1)
 
@@ -207,10 +217,12 @@ macd_df = calc_macd(data, 'Close', 12, 26, 9)
 # Print the MACD, MACD signal, and MACD histogram values
 #print(macd_df)
 
-# Plot the MACD and MACD histogram values
-ax3.plot(macd_df['MACD'], label='MACD')
-ax3.plot(macd_df['MACD signal'], label='MACD signal')
-ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
+# # Plot the MACD and MACD histogram values
+# ax3.plot(macd_df['MACD'], label='MACD')
+# ax3.plot(macd_df['MACD signal'], label='MACD signal')
+# ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
+
+ax3.plot(mac_df1)
 
 ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
@@ -267,4 +279,4 @@ data
 st.write("RSI Data from Option " + symbol)
 rsi
 st.write("MACD Data from Option " + symbol)
-macd_df
+macd_df1
