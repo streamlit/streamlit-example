@@ -56,19 +56,26 @@ for index, row in data.iterrows():
 
 data = data.drop(columns=['Dividends', 'Stock Splits'])
 
+# Create a new figure with the desired size
+fig = plt.figure(figsize=(10, 15))
+
+# Add subplots to the figure
+ax1 = fig.add_subplot(211)
+ax2 = fig.add_subplot(212)
+
 # Plot the results
-fig, ax = plt.subplots()
+#fig, ax = plt.subplots()
 #ax.set_xlim(data.index)
-ax.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=data['senkou_span_a'] >= data['senkou_span_b'], facecolor='green', alpha=0.25, interpolate=True)  # green fill for bullish trend 
-ax.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=data['senkou_span_a'] < data['senkou_span_b'], facecolor='red', alpha=0.25, interpolate=True)  # red fill for bearish trend 
-ax.set_xlabel('Time')
-ax.set_ylabel('Price')
-ax.xaxis.set_major_locator(MinuteLocator (interval=15))
+ax1.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=data['senkou_span_a'] >= data['senkou_span_b'], facecolor='green', alpha=0.25, interpolate=True)  # green fill for bullish trend 
+ax1.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=data['senkou_span_a'] < data['senkou_span_b'], facecolor='red', alpha=0.25, interpolate=True)  # red fill for bearish trend 
+ax1.set_xlabel('Time')
+ax1.set_ylabel('Price')
+ax1.xaxis.set_major_locator(MinuteLocator (interval=15))
 
 #ax.xaxis.set_major_formatter(ConciseDateFormatter(ax.xaxis.get_major_locator())
 
 # Get the tick labels
-tick_labels = ax.get_xticklabels()
+tick_labels = ax1.get_xticklabels()
 
 # Set the font size and style of the tick labels
 for label in tick_labels:
@@ -77,18 +84,15 @@ for label in tick_labels:
     label.set_rotation(45)
     label.set_horizontalalignment('right')
 
-ax.plot(data.index, data["Close"], label="Close", color='dimgrey', linewidth=1)
-ax.plot(data["tenkan_sen"], label="tenkan_sen" , color='blue', linewidth=0.75)
-ax.plot(data["kijun_sen"], label="kijun_sen" , color='saddlebrown', linewidth=0.75)
-ax.plot(data["senkou_span_a"], label="senkou_span_a" , color='limegreen', linewidth=0.75)
-ax.plot(data["senkou_span_b"], label="senkou_span_b" , color='red', linewidth=0.75)
-ax.plot(data["chikou_span"], label="chikou_span" , color='magenta', linewidth=0.75)
-ax.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", color='green')
-ax.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
+ax1.plot(data.index, data["Close"], label="Close", color='dimgrey', linewidth=1)
+ax1.plot(data["tenkan_sen"], label="tenkan_sen" , color='blue', linewidth=0.75)
+ax1.plot(data["kijun_sen"], label="kijun_sen" , color='saddlebrown', linewidth=0.75)
+ax1.plot(data["senkou_span_a"], label="senkou_span_a" , color='limegreen', linewidth=0.75)
+ax1.plot(data["senkou_span_b"], label="senkou_span_b" , color='red', linewidth=0.75)
+ax1.plot(data["chikou_span"], label="chikou_span" , color='magenta', linewidth=0.75)
+ax1.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", color='green')
+ax1.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
 plt.legend(fontsize=6)
-
-# Add a subplot below the existing subplot
-ax2 = fig.add_subplot(212)
 
 # Plot the volume data on the new subplot
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
