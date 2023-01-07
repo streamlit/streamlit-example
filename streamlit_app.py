@@ -109,6 +109,16 @@ ax2.set_xlim(data.index.min(), data.index.max())
 
 ax2.xaxis.set_major_locator(MinuteLocator (interval=30))
 
+# Get the tick labels
+tick_labels2 = ax2.get_xticklabels()
+
+# Set the font size and style of the tick labels
+for label in tick_labels2:
+    label.set_fontsize(12)
+    label.set_fontstyle("italic")
+    label.set_rotation(45)
+    label.set_horizontalalignment('right')
+
 # Set the major tick intervals to 1 hour
 #ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 
@@ -122,7 +132,7 @@ mask = data['Volume'] > 1500
 ax2.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
 # Plot the filtered data in green
-ax2.plot(data.index, data['Volume'], linestyle='-', linewidth=1, color='green')
+ax2.plot(data.index, mask['Volume'], linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
