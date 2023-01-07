@@ -119,7 +119,7 @@ ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 data_filtered = data[data['Volume'] > 1500]
 
 # Shade the region of the subplot where the mask is True
-ax.fill_between(data.index, data['volume'], where=data_filtered, alpha=0.25, color='green')
+ax2.fill_between(data.index, data['volume'], where=data_filtered, alpha=0.25, color='green')
 
 # Plot the filtered data in green
 ax2.plot(data.index, data['Volume'], linestyle='-', linewidth=1, color='green')
