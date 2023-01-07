@@ -107,13 +107,19 @@ plt.legend(fontsize=6)
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
 # Set the X axis limits to the minimum and maximum datetime values in the index
-ax2.set_xlim(data.index.min(), data.index.max())
+#ax2.set_xlim(data.index.min(), data.index.max())
 
 # Set the major tick intervals to 1 hour
-ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
+ax2.xaxis.set_major_locator(mdates.HourLocator(interval=.25))
+
+# Localize the time to EST
+data.index = data.index.tz_localize('EST')
+
+# Set the tick label format to display the time in EST
+ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M", tz=mdates.timezone('EST')))
 
 # Set the tick label format to display the hour and minute
-ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+#ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
 # Filter the data to only include volume above 1500
 data_filtered = data[data['Volume'] > 1500]
