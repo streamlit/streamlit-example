@@ -206,11 +206,7 @@ macd_df = calc_macd(data, 'Close', 12, 26, 9)
 # Plot the MACD and MACD histogram values
 ax3.plot(macd_df['MACD'], label='MACD', color='green')
 ax3.plot(macd_df['MACD signal'], label='MACD signal', color='red')
-ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram', color='limegreen', edgecolor='black', alpha=.25)
-
-#ax3.plot(macd_df1)
-#ax3.fill_between(macd_df['MACD'], macd_df['MACD signal'], where=macd_df['MACD'] > macd_df['MACD signal'], facecolor='green', interpolate=True)
-#ax3.fill_between(macd_df['MACD'], macd_df['MACD signal'], where=macd_df['MACD'] < macd_df['MACD signal'], facecolor='red', interpolate=True)
+ax3.bar(data.index, macd_df['MACD histogram'], label='MACD histogram', color='limegreen', edgecolor='black', alpha=.25)
 
 ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
