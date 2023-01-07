@@ -81,8 +81,6 @@ ax1.set_xlabel('Time')
 ax1.set_ylabel('Price')
 ax1.xaxis.set_major_locator(MinuteLocator (interval=15))
 
-#ax.xaxis.set_major_formatter(ConciseDateFormatter(ax.xaxis.get_major_locator())
-
 # Get the tick labels
 tick_labels = ax1.get_xticklabels()
 
@@ -109,11 +107,13 @@ ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 # Set the X axis limits to the minimum and maximum datetime values in the index
 ax2.set_xlim(data.index.min(), data.index.max())
 
+ax2.xaxis.set_major_locator(MinuteLocator (interval=30))
+
 # Set the major tick intervals to 1 hour
-ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
+#ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 
 # Set the tick label format to display the hour and minute
-ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+#ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
 # Create a boolean mask that indicates where the 'volume' values are greater than 1500
 mask = data['Volume'] > 1500
@@ -122,7 +122,7 @@ mask = data['Volume'] > 1500
 ax2.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
 # Plot the filtered data in green
-#ax2.plot(data.index, data['Volume'], linestyle='-', linewidth=1, color='green')
+ax2.plot(data.index, data['Volume'], linestyle='-', linewidth=1, color='green')
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
