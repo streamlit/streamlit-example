@@ -257,11 +257,14 @@ for label in tick_labels4:
 mask = data['Volume'] > 1000
 
 # Shade the region of the subplot where the mask is True
-ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
+ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='purple')
 
 #plt.show()
 
 st.pyplot(fig)
+st.write("Pricing Data from Option" + symbol)
 data
-print(rsi)
-print(macd_df)
+st.write("RSI Data from Option" + symbol)
+rsi
+st.write("MACD Data from Option" + symbol)
+macd_df
