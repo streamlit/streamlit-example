@@ -57,14 +57,17 @@ for index, row in data.iterrows():
 
 data = data.drop(columns=['Dividends', 'Stock Splits'])
 
+# Create a figure with four subplots arranged in a single column
+fig, ax = plt.subplots(nrows=4, ncols=1)
+
+# Access the subplots using the `ax` array
+ax1 = ax[0]
+ax2 = ax[1]
+ax3 = ax[2]
+ax4 = ax[3]
+
 # Create a new figure with the desired size
 fig = plt.figure(figsize=(10, 8))
-
-# Add subplots to the figure
-ax1 = fig.add_subplot(211)
-ax2 = fig.add_subplot(212)
-ax3 = fig.add_subplot(213)
-ax4 = fig.add_subplot(214)
 
 # Create a subplot that takes up 25% of the figure height
 #ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
