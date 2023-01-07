@@ -93,6 +93,9 @@ ax2 = fig.add_subplot(212)
 # Plot the volume data on the new subplot
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
+# Adjust the spacing between the subplots
+fig.subplots_adjust(hspace=0.4)
+
 plt.show()
 
 st.pyplot()
