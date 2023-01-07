@@ -132,9 +132,6 @@ long_ema = data['Close'].ewm(span=26, adjust=False).mean()
 macd1 = short_ema - long_ema
 signal = macd1.ewm(span=9, adjust=False).mean()
 
-# Create a new dataframe with the MACD and signal values
-macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
-
 
 # # Create a figure with four subplots arranged in a single column
 # fig, ax = plt.subplots(nrows=4, ncols=1)
@@ -213,7 +210,10 @@ for label in tick_labels2:
     label.set_horizontalalignment('right')
 
 # Calculate the MACD of the 'Close' column using a 12-period fast moving average, a 26-period slow moving average, and a 9-period signal line
-macd_df = calc_macd(data, 'Close', 12, 26, 9)
+#macd_df = calc_macd(data, 'Close', 12, 26, 9)
+
+# Create a new dataframe with the MACD and signal values
+macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
 
 # Print the MACD, MACD signal, and MACD histogram values
 #print(macd_df)
