@@ -115,8 +115,8 @@ ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
 # Set the tick label format to display the hour and minute
 ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
-# Filter the data to only include volume above 1500
-mask = data[data['Volume'] > 1500]
+# Create a boolean mask that indicates where the 'volume' values are greater than 1500
+mask = data['volume'] > 1500
 
 # Shade the region of the subplot where the mask is True
 ax2.fill_between(data.index, data['volume'], where=mask, alpha=0.25, color='green')
