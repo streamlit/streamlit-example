@@ -94,40 +94,39 @@ def calc_rsi(df: pd.DataFrame, column: str, period: int) -> pd.Series:
     
     return rsi
 
-def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int, signal_period: int) -> pd.DataFrame:
-    """Calculate the moving average convergence divergence (MACD) for a column in a Pandas DataFrame.
+# def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int, signal_period: int) -> pd.DataFrame:
+#     """Calculate the moving average convergence divergence (MACD) for a column in a Pandas DataFrame.
     
-    Args:
-        df: The Pandas DataFrame containing the data.
-        column: The name of the column for which to calculate the MACD.
-        fast_period: The number of periods to use for the fast moving average.
-        slow_period: The number of periods to use for the slow moving average.
-        signal_period: The number of periods to use for the signal line.
+#     Args:
+#         df: The Pandas DataFrame containing the data.
+#         column: The name of the column for which to calculate the MACD.
+#         fast_period: The number of periods to use for the fast moving average.
+#         slow_period: The number of periods to use for the slow moving average.
+#         signal_period: The number of periods to use for the signal line.
     
-    Returns:
-        A Pandas DataFrame containing the MACD, MACD signal, and MACD histogram values.
-    """
-    # Calculate the fast and slow moving averages
-    fast_ma = df[column].ewm(com=fast_period - 1, min_periods=fast_period).mean()
-    slow_ma = df[column].ewm(com=slow_period - 1, min_periods=slow_period).mean()
+#     Returns:
+#         A Pandas DataFrame containing the MACD, MACD signal, and MACD histogram values.
+#     """
+#     # Calculate the fast and slow moving averages
+#     fast_ma = df[column].ewm(com=fast_period - 1, min_periods=fast_period).mean()
+#     slow_ma = df[column].ewm(com=slow_period - 1, min_periods=slow_period).mean()
     
-    # Calculate the MACD
-    macd = fast_ma - slow_ma
+#     # Calculate the MACD
+#     macd = fast_ma - slow_ma
     
-    # Calculate the MACD signal
-    macd_signal = macd.ewm(com=signal_period - 1, min_periods=signal_period).mean()
+#     # Calculate the MACD signal
+#     macd_signal = macd.ewm(com=signal_period - 1, min_periods=signal_period).mean()
     
-    # Calculate the MACD histogram
-    macd_hist = macd - macd_signal
+#     # Calculate the MACD histogram
+#     macd_hist = macd - macd_signal
     
-    # Create a Pandas DataFrame to store the MACD, MACD signal, and MACD histogram values
-    macd_df = pd.DataFrame({'MACD': macd, 'MACD signal': macd_signal, 'MACD histogram': macd_hist})
+#     # Create a Pandas DataFrame to store the MACD, MACD signal, and MACD histogram values
+#     macd_df = pd.DataFrame({'MACD': macd, 'MACD signal': macd_signal, 'MACD histogram': macd_hist})
     
-    return macd_df
+#     return macd_df
 
 # Calculate the MACD values
 short_ema = data['Close'].ewm(span=12, adjust=False).mean()
-st.write(short_ema)
 long_ema = data['Close'].ewm(span=26, adjust=False).mean()
 macd1 = short_ema - long_ema
 signal = macd1.ewm(span=9, adjust=False).mean()
@@ -223,7 +222,7 @@ macd_df1 = pd.DataFrame({'MACD': macd1, 'Signal': signal})
 # ax3.plot(macd_df['MACD signal'], label='MACD signal')
 # ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
 
-ax3.plot(macd_df1)
+ax3.plot(macd_df1. color=['green', 'red'])
 
 ax3.set_xlabel('Time')
 ax3.set_ylabel('MACD')
