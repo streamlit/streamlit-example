@@ -144,7 +144,7 @@ ax3 = fig.add_subplot(gs[2])
 ax4 = fig.add_subplot(gs[3])
 
 # Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=.5)
+fig.subplots_adjust(hspace=2)
 
 # Plot the results
 
@@ -152,7 +152,7 @@ ax1.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where
 ax1.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=data['senkou_span_a'] < data['senkou_span_b'], facecolor='red', alpha=0.25, interpolate=True)  # red fill for bearish trend 
 ax1.set_xlabel('Time')
 ax1.set_ylabel('Price')
-ax1.xaxis.set_major_locator(MinuteLocator (interval=15))
+ax1.xaxis.set_major_locator(MinuteLocator (interval=30))
 
 # Get the tick labels
 tick_labels = ax1.get_xticklabels()
@@ -172,7 +172,7 @@ ax1.plot(data["senkou_span_b"], label="senkou_span_b" , color='red', linewidth=0
 ax1.plot(data["chikou_span"], label="chikou_span" , color='magenta', linewidth=0.75)
 ax1.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", color='green')
 ax1.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
-plt.legend(fontsize=6)
+ax1.legend(fontsize=6)
 
 
 # Calculate the RSI of the 'Close' column of a Pandas DataFrame 'df'
@@ -182,6 +182,8 @@ rsi = calc_rsi(data, 'Close', 14)
 # Plot the RSI on the first subplot
 ax2.plot(data.index, rsi)
 ax2.set_ylabel('RSI')
+
+ax2.set_xlim(data.index.min(), data.index.max())
 
 # Calculate the MACD of the 'Close' column using a 12-period fast moving average, a 26-period slow moving average, and a 9-period signal line
 macd_df = calc_macd(data, 'Close', 12, 26, 9)
@@ -193,6 +195,9 @@ macd_df = calc_macd(data, 'Close', 12, 26, 9)
 ax3.plot(macd_df['MACD'], label='MACD')
 ax3.plot(macd_df['MACD signal'], label='MACD signal')
 ax3.bar(macd_df.index, macd_df['MACD histogram'], label='MACD histogram')
+
+ax3.set_xlim(data.index.min(), data.index.max())
+#ax3.xaxis.set_major_locator(MinuteLocator (interval=30))
 
 # Plot the volume data on the new subplot
 ax4.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
@@ -212,11 +217,6 @@ for label in tick_labels4:
     label.set_rotation(45)
     label.set_horizontalalignment('right')
 
-# Set the major tick intervals to 1 hour
-#ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
-
-# Set the tick label format to display the hour and minute
-#ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
 # Create a boolean mask that indicates where the 'volume' values are greater than 1500
 mask = data['Volume'] > 1200
@@ -224,9 +224,9 @@ mask = data['Volume'] > 1200
 # Shade the region of the subplot where the mask is True
 ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
-
-
 #plt.show()
 
 st.pyplot()
 data
+print(rsi)
+macdf
