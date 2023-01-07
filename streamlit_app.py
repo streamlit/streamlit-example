@@ -65,11 +65,20 @@ ax.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=
 ax.fill_between(data.index, data['senkou_span_a'], data['senkou_span_b'], where=data['senkou_span_a'] < data['senkou_span_b'], facecolor='red', alpha=0.25, interpolate=True)  # red fill for bearish trend 
 ax.set_xlabel('Time')
 ax.set_ylabel('Price')
-ax.xaxis.set_major_locator(MinuteLocator (interval=15))
+#ax.xaxis.set_major_locator(MinuteLocator (interval=15))
+ax.xaxis.set_major_locator(ticker.MultipleLocator(15))
 #ax.xaxis.set_major_formatter(ConciseDateFormatter(ax.xaxis.get_major_locator())
-for label in ax.get_xticklabels():
-        label.set_rotation(40)
-        label.set_horizontalalignment('right')
+
+# Get the tick labels
+tick_labels = ax.get_xticklabels()
+
+# Set the font size and style of the tick labels
+for label in tick_labels:
+    label.set_fontsize(14)
+    label.set_fontstyle("italic")
+#for label in ax.get_xticklabels():
+        #label.set_rotation(45)
+        #label.set_horizontalalignment('right')
 #ax.set_xticks(time_data.values)
 #ax.set_xticklabels(labels = time_data.values, rotation=45, fontstyle='italic', color='black')
 ax.plot(data["Close"], label="Close", color='dimgrey', linewidth=1)
