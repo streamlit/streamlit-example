@@ -7,6 +7,7 @@ import yfinance as yf
 import plotly.graph_objects as go
 from datetime import datetime
 import matplotlib.ticker as ticker
+from matplotlib.ticker import MultipleLocator
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
 
 # Set the interval to 1 minute and the symbol to SPY
