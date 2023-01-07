@@ -224,7 +224,7 @@ ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='gree
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
 
-#plt.show()
+plt.show()
 
 st.pyplot()
 data
