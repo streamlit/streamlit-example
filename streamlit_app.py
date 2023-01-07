@@ -57,7 +57,7 @@ for index, row in data.iterrows():
 data = data.drop(columns=['Dividends', 'Stock Splits'])
 
 # Create a new figure with the desired size
-fig = plt.figure(figsize=(10, 15))
+fig = plt.figure(figsize=(10, 8))
 
 # Add subplots to the figure
 ax1 = fig.add_subplot(211)
@@ -98,7 +98,7 @@ plt.legend(fontsize=6)
 ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
 # Adjust the spacing between the subplots
-fig.subplots_adjust(hspace=5)
+fig.subplots_adjust(hspace=.5)
 
 plt.show()
 
