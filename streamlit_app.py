@@ -63,6 +63,8 @@ fig = plt.figure(figsize=(10, 8))
 # Add subplots to the figure
 ax1 = fig.add_subplot(211)
 ax2 = fig.add_subplot(212)
+ax3 = fig.add_subplot(213)
+ax4 = fig.add_subplot(214)
 
 # Create a subplot that takes up 25% of the figure height
 #ax1 = plt.subplot2grid((3, 1), (0, 0), rowspan=1, fig=fig, height_ratios=[1, 3, 1])
@@ -101,19 +103,36 @@ ax1.scatter(long_positions, data.loc[long_positions]["Close"], label="Buy", colo
 ax1.scatter(short_positions, data.loc[short_positions]["Close"], label="Sell" , color='red')
 plt.legend(fontsize=6)
 
+# Calculate the RSI and MACD indicators
+# (Assuming that the data and necessary indicators are stored in a Pandas DataFrame 'df')
+rsi = data['Close'].rsi()
+macd, macd_signal, macd_hist = data['Close'].macd()
+
+# Plot the RSI on the first subplot
+ax2.plot(data.index, rsi)
+ax2.set_ylabel('RSI')
+
+# Plot the MACD on the second subplot
+ax3.plot(data.index, macd, label='MACD')
+ax3.plot(data.index, macd_signal, label='MACD Signal')
+ax3.plot(data.index, macd_hist, label='MACD Histogram')
+ax3.legend()
+ax3.set_ylabel('MACD')
+
+
 # Plot the volume data on the new subplot
-ax2.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
+ax4.plot(data.index, data['Volume'], color='k', linestyle='-', linewidth=1)
 
 # Set the X axis limits to the minimum and maximum datetime values in the index
-ax2.set_xlim(data.index.min(), data.index.max())
+ax4.set_xlim(data.index.min(), data.index.max())
 
-ax2.xaxis.set_major_locator(MinuteLocator (interval=30))
+ax4.xaxis.set_major_locator(MinuteLocator (interval=30))
 
 # Get the tick labels
-tick_labels2 = ax2.get_xticklabels()
+tick_labels4 = ax4.get_xticklabels()
 
 # Set the font size and style of the tick labels
-for label in tick_labels2:
+for label in tick_labels4:
     label.set_fontsize(12)
     label.set_fontstyle("italic")
     label.set_rotation(45)
@@ -129,7 +148,7 @@ for label in tick_labels2:
 mask = data['Volume'] > 1200
 
 # Shade the region of the subplot where the mask is True
-ax2.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
+ax4.fill_between(data.index, data['Volume'], where=mask, alpha=0.25, color='green')
 
 # Adjust the spacing between the subplots
 fig.subplots_adjust(hspace=.5)
