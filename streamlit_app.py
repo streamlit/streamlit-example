@@ -10,9 +10,9 @@ import matplotlib.ticker as ticker
 from matplotlib.dates import MinuteLocator, ConciseDateFormatter
 
 # Set the interval to 1 minute and the symbol to SPY
-interval = "1m"
-period = '1d'
-symbol = "SPY221223C00380000"
+#interval = "1m"
+#period = '1d'
+#symbol = "SPY221223C00380000"
 
 st.title(symbol)
 st.title('Ichimoku Cloud Indicator')
