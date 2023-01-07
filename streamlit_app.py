@@ -127,6 +127,7 @@ def calc_macd(df: pd.DataFrame, column: str, fast_period: int, slow_period: int,
 
 # Calculate the MACD values
 short_ema = data['Close'].ewm(span=12, adjust=False).mean()
+st.write(short_ema)
 long_ema = data['Close'].ewm(span=26, adjust=False).mean()
 macd1 = short_ema - long_ema
 signal = macd1.ewm(span=9, adjust=False).mean()
