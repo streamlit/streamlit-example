@@ -3,6 +3,17 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import TM1py as tm1py
+
+with tm1py.TM1Service(base_url='https://fcah.planning-analytics.ibmcloud.com/tm1/api/tm1/',
+                      user='fcah_tm1_automation',
+                      namespace="LDAP",
+                      password='2YgCJom03qBFxL',
+                      ssl=True,
+                      verify=True,
+                      async_requests_mode=True
+                      ) as tm1:
+    print(tm1.server.get_server_name())
 
 """
 # Welcome to Streamlit!
