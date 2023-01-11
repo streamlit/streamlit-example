@@ -9,18 +9,20 @@
 
 /* Card */
 /* Adapted from https://startbootstrap.com/theme/sb-admin-2 */
-div.css-1r6slb0.e1tzin5v2,
-div.css-keje6w.e1tzin5v2 {
+div.css-12w0qpk.e1tzin5v2,
+div.css-keje6w.e1tzin5v2,
+div.css-1r6slb0.e1tzin5v2 {
   background-color: #ffffff;
   border: 1px solid #cccccc;
-  padding: 4em;
+  padding: 2em;
   border-radius: 5px;
 
   border-left: 0.5rem solid #692e82 !important;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
-div.css-1r6slb0.e1tzin5v2:nth-child(odd),
-div.css-keje6w.e1tzin5v2:nth-child(odd) {
+div.css-12w0qpk.e1tzin5v2:nth-child(odd),
+div.css-keje6w.e1tzin5v2:nth-child(odd),
+div.css-1r6slb0.e1tzin5v2:nth-child(odd) {
   border-left: 0.5rem solid #c94298 !important;
 }
 
