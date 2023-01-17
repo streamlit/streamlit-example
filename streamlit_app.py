@@ -1,38 +1,98 @@
 from collections import namedtuple
 import altair as alt
 import math
+import numpy as np
 import pandas as pd
 import streamlit as st
+import time
+import streamlit.components.v1 as components
+st.set_page_config(
+    page_title="Cool App",
+    page_icon=":shark:",
+    layout="wide"
+    )
+# 1st way of setting title style   
+st.markdown("<h1 style='text-align: center; \
+                        color: red;'>Some title\
+            </h1>", unsafe_allow_html=True)
 
+# 2nd way of setting title style
+title_alignment= \
 """
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+<style>
+#the-title {
+  text-align: center
+}
+</style>
 """
+st.markdown(title_alignment, unsafe_allow_html=True)
+st.title("The title")
+"""
+# Welcome to Streamlit! """
+@st.cache
+def read_csv():
+    df = pd.read_csv('test_1.csv')
+    return df
+df = read_csv()
+# sidebar
+sidebar_1 = st.sidebar
+sidebar_1.header('hello')
 
+column = sidebar_1.multiselect(
+    "Column",
+    options=df.columns
+)
+numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+#   return df.boxplot(column = list(df.select_dtypes(include=numerics).columns.values),figsize=(fig_w,fig_h))
+row = sidebar_1.multiselect(
+    "Row",
+    options=df.columns
+)
+value_col = sidebar_1.multiselect(
+    "Value",
+    options=df.select_dtypes(include=numerics).columns
+)
+value = sidebar_1.selectbox(
+    "Operation",
+    ("Sum", "Count", "Distinct","Mean")
+)
+if value == 'Sum':
+    arg_ = np.sum
+elif value == 'Count':
+    arg_ = 'count'
+elif value == 'Distinct':
+    arg_ =  pd.Series.nunique
+elif value == 'Mean':
+    arg_ =  np.mean
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+df_query = table = pd.pivot_table(df, values=value_col, index=column,
+                    columns=row, aggfunc=arg_)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+    
+# container
+container_1 = st.container()
 
-    points_per_turn = total_points / num_turns
+with container_1:
+    st.dataframe(df)
+    st.title("Pivot table")
+    if column and value_col:
+        st.dataframe(df_query)
+    else:
+        e = RuntimeError('Must select - Column, value in sidebar')
+        st.exception(e)
+    col1, col2, col3 = st.columns(3,gap="medium")
+    total_points = col1.slider("Number of points in spiral", 1, 5000, 2000,help='hii')
+    num_turns = col2.slider("Number of turns in spiral", 1, 100, 9)
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+    st.info('This is a purely informational message', icon="ℹ️")
+    st.success('This is a success message!', icon="✅")
+    e = RuntimeError('This is an exception of type RuntimeError')
+    st.exception(e)
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    with col3.form("my_form"):
+        slider_val = st.slider("Form slider")
+        checkbox_val = st.checkbox("Form checkbox")
+        # Every form must have a submit button.
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            st.write("slider", slider_val, "checkbox", checkbox_val)
