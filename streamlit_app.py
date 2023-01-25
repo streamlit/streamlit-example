@@ -1,38 +1,36 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+from PIL import Image
 
-"""
-# Welcome to Streamlit!
+st.set_page_config(page_title="Image Compressor", page_icon=":camera:", layout="wide")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+def compress_image(image, size_percentage):
+    im = Image.open(image)
+    width, height = im.size
+    new_width = int(width * size_percentage / 100)
+    new_height = int(height * size_percentage / 100)
+    im_resized = im.resize((new_width, new_height))
+    return im_resized
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+def main():
+    st.title("Image Compressor")
+    st.subheader("Upload an image and set the desired size percentage")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
+    if uploaded_file is not None:
+        uploaded_file.seek(0)
+        image = Image.open(uploaded_file)
+        
+        st.sidebar.image(image, caption='Original Image', use_column_width=True)
+        size_percentage = st.sidebar.slider("Set the image size percentage", min_value=1, max_value=100, value=100)
+
+        compressed_image = compress_image(uploaded_file, size_percentage)
+        st.image(compressed_image, caption='Compressed Image', use_column_width=True)
+        st.write("Resolution (width, height): ", compressed_image.size)
+        if st.button('Download'):
+            compressed_image.save(f'compressed_{uploaded_file.name}')
+            st.write("Download Compressed Image", file_downloader=True, filename=f'compressed_{uploaded_file.name}')
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+if __name__ == "__main__":
+    main()
