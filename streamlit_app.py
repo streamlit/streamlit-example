@@ -14,7 +14,10 @@ st.markdown("---")
 
 st.subheader("Upload your files here : ")
 
-spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
+spark = SparkSession \
+    .builder \
+    .appName("how to read csv file") \
+    .getOrCreate()
         
 upload_data = st.file_uploader("Choose a CSV file", type = ['CSV'])
 if upload_data is not None:
