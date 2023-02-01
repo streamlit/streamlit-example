@@ -4,9 +4,6 @@ import pandas as pd
 import numpy as np
 import pyspark
 from pyspark.sql import SparkSession
-spark = SparkSession.builder.master("local[1]") \
-                    .appName('SparkByExamples.com') \
-                    .getOrCreate()
 
 st.title("Quality Checker")
 st.write("This application will allow you to upload your dataset and run a quality check on it.")
