@@ -1,14 +1,13 @@
+from pyspark.rdd import RDD
+from pyspark.sql import Row
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import pyspark
 import jdk
-from utils import _initialize_spark
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType,StructField, StringType, IntegerType 
-from pyspark.sql.types import ArrayType, DoubleType, BooleanType
-from pyspark.sql.functions import col,array_contains
+from utils import _initialize_spark
 
 
 st.write("# :tada: Hello Pyspark")
