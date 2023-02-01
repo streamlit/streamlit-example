@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 import pyspark
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType,StructField, StringType, IntegerType 
+from pyspark.sql.types import ArrayType, DoubleType, BooleanType
+from pyspark.sql.functions import col,array_contains
 
 st.title("Quality Checker")
 st.write("This application will allow you to upload your dataset and run a quality check on it.")
@@ -11,7 +14,7 @@ st.markdown("---")
 
 st.subheader("Upload your files here : ")
 
-spark = SparkSession.builder().master("local[1]").appName("SparkByExamples.com").getOrCreate()
+spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
         
 upload_data = st.file_uploader("Choose a CSV file", type = ['CSV'])
 if upload_data is not None:
