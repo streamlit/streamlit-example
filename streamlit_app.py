@@ -13,7 +13,7 @@ st.subheader("Upload your files here : ")
 
 upload_data = st.file_uploader("Choose a CSV file", type = ['CSV'])
 if upload_data is not None:
-    read_data = pd.read_csv(upload_data, encoding='latin-1',on_bad_lines='skip')
+    read_data = spark.read.csv(upload_data)
 
 #read_data = read_data
 #st.subheader('Data Quality Dashboard')
