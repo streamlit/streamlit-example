@@ -4,3 +4,4 @@ streamlit
 spark
 pyspark
 install-jdk
+flasgger
