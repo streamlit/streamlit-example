@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import pyspark
 import jdk
+from utils import _initialize_spark
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType,StructField, StringType, IntegerType 
 from pyspark.sql.types import ArrayType, DoubleType, BooleanType
@@ -15,7 +16,7 @@ st.markdown("---")
 
 st.subheader("Upload your files here : ")
 
-spark = SparkSession.builder.master("local[1]").appName("SparkByExamples.com").getOrCreate()
+spark, sc = _initialize_spark()
         
 upload_data = st.file_uploader("Choose a CSV file", type = ['CSV'])
 if upload_data is not None:
