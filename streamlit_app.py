@@ -44,7 +44,7 @@ st.markdown("---")
 
 sparkDF=spark.createDataFrame(read_data)
 
-sparkDF.printSchema()
+st.write(sparkDF.printSchema())
 
 st.markdown("---")
 
