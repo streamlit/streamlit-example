@@ -5,10 +5,10 @@ import numpy as np
 import pyspark
 import jdk
 from pyspark.sql import SparkSession
-from utils import _initialize_spark
 
 
-spark, sc = _initialize_spark()
+
+spark = SparkSession.builder.master('local[3]').appName('Qualitycheck').getOrCreate()
 
 st.title("Quality Checker")
 st.write("This application will allow you to upload your dataset and run a quality check on it.")
@@ -42,12 +42,13 @@ except:
     st.stop()
 st.markdown("---")
 
-sparkDF=spark.createDataFrame(read_data)
+sparkdata=spark.createDataFrame(read_data)
 
-schema = sparkDF.printSchema()
+schema = sparkdata.printSchema()
 st.write(schema)
 
 st.markdown("---")
 
-sparkDF.show()
+shows = sparkdata.show(5)
+st.write(shows)
 st.markdown("---")
