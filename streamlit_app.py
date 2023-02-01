@@ -1,5 +1,3 @@
-from pyspark.rdd import RDD
-from pyspark.sql import Row
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -24,7 +22,7 @@ st.subheader("Upload your files here : ")
 
 upload_data = st.file_uploader("Choose a CSV file", type = ['CSV'])
 if upload_data is not None:
-    read_data = spark.read.csv(upload_data, sep=',',inferSchema=True, header=True)
+    read_data = spark.read.csv('upload_data', sep=',',inferSchema=True, header=True)
 
 #read_data = read_data
 #st.subheader('Data Quality Dashboard')
