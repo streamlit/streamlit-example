@@ -3,3 +3,4 @@ pandas
 streamlit
 spark
 pyspark
+openjdk-8-jdk-headless
