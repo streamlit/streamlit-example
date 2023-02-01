@@ -36,5 +36,5 @@ st.markdown("---")
 
 
 st.write("Dataset Schema ")
-schema = read_data.printSchema()
+schema = read_data.show()
 st.markdown("---")
