@@ -21,6 +21,20 @@ if upload_data is not None:
 #st.progress(null_values)
 st.markdown("---")
 
+st.write("Dataset Overview : ")
+try:
+    number_of_rows = st.slider("No of rows:",5,10)
+    head = st.radio("View from Top or Bottom",('Head','Tail'))
+    if head=='Head':
+        st.dataframe(read_data.head(number_of_rows))
+    else:
+        st.dataframe(read_data.tail(number_of_rows))
+except:
+    st.info("KINDLY UPLOAD YOUR CSV FILE !!!")
+    st.stop()
+st.markdown("---")
 
+
+st.write("Dataset Schema ")
 schema = read_data.printSchema()
-
+st.markdown("---")
