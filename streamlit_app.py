@@ -8,8 +8,6 @@ from pyspark.sql import SparkSession
 from utils import _initialize_spark
 
 
-st.write("# :tada: Hello Pyspark")
-
 spark, sc = _initialize_spark()
 
 st.title("Quality Checker")
@@ -22,7 +20,7 @@ st.subheader("Upload your files here : ")
 
 upload_data = st.file_uploader("Choose a CSV file", type = ['CSV'])
 if upload_data is not None:
-    read_data = spark.read.csv('upload_data', sep=',',inferSchema=True, header=True)
+     read_data = pd.read_csv(upload_data, encoding='latin-1',on_bad_lines='skip')
 
 #read_data = read_data
 #st.subheader('Data Quality Dashboard')
@@ -44,6 +42,11 @@ except:
     st.stop()
 st.markdown("---")
 
-read_data.printSchema()
+sparkDF=spark.createDataFrame(read_data)
 
+sparkDF.printSchema()
+
+st.markdown("---")
+
+sparkDF.show()
 st.markdown("---")
