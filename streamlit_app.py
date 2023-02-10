@@ -43,6 +43,7 @@ leaderboard_display_df = session.table('leaderboard_display_vw')
 with tab1:
     leaderboard = create_local_dataframe(leaderboard_display_df)
     st.dataframe(leaderboard)
+    st.write("__Scoreboard reflects the projected cut of E__")
 
 with tab2:
     st.write("Under Construction")
