@@ -5,7 +5,7 @@ import plotly.express as px
 import datetime
 
 
-@st.cache_resource # magic to cache db connection
+@st.experimental_singleton # magic to cache db connection
 def create_connection():
     connection_parameters = {
         "account": st.secrets["account"],
@@ -22,7 +22,7 @@ def create_connection():
 
 
 
-@st.cache_data(ttl=300) # 5 minute object cache, or when query changes. Applies to all usage of this func.
+@st.experimental_memo(ttl=300) # 5 minute object cache, or when query changes. Applies to all usage of this func.
 def create_local_dataframe(_snowpark_dataframe):
     df = _snowpark_dataframe.to_pandas()
     return pd.DataFrame(df)
