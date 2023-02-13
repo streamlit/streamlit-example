@@ -1,3 +1,4 @@
 secrets.toml
 *.ipynb
 streamlit_app_old.py
+__pycache__
