@@ -8,11 +8,9 @@ if "snowpark_session" not in st.session_state:
 else:
   session = st.session_state['snowpark_session']
 
-st.write('Season Long Race')
+st.write('## 🏆 The Race For The 80 Yard Bombs Cup')
 
-leaderboard_display_df = session.table('leaderboard_display_vw')
+cup_standings_df = session.table('cup_standings')
 
 
-leaderboard = cache_local_dataframe(leaderboard_display_df.to_pandas())
-st.dataframe(leaderboard)
-st.write("__Scoreboard reflects the projected cut of E__")
+st.dataframe(cup_standings_df)

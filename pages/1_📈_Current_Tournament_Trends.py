@@ -7,4 +7,4 @@ if "snowpark_session" not in st.session_state:
 else:
   session = st.session_state['snowpark_session']
 
-st.write("Under Construction")
+st.write("## 🚧 Under Construction")
