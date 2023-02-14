@@ -1,6 +1,7 @@
 from collections import namedtuple
 import altair as alt
 import math
+import openai 
 import pandas as pd
 import streamlit as st
 
