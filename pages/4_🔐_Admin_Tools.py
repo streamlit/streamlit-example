@@ -72,8 +72,10 @@ else:
                     st.write(tournament_name,' created')
                 else:
                     st.write('Error: Tournament already exists.')
-
-    with st.expander('Entry Tool'):
         if st.button('Truncate Pool Staging',):
             with st.spinner('Clearing table!'):
                 session.sql('DELETE FROM GOLF_NEW.RAW.POOL_STAGING').collect()
+
+    with st.expander('Entry Tool'):
+        unconfirmed_entries_df = session.table('GOLF_NEW.RAW.POOL_STAGING')
+        st.dataframe(unconfirmed_entries_df)
