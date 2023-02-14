@@ -8,9 +8,10 @@ if "snowpark_session" not in st.session_state:
 else:
   session = st.session_state['snowpark_session']
 
-st.write('## 🏆 The Race For The 80 Yard Bombs Cup')
+with st.spinner('Checking the trophy room!'):
+    st.write('## 🏆 The Race For The 80 Yard Bombs Cup')
 
-cup_standings_df = session.table('cup_standings')
+    cup_standings_df = session.table('cup_standings')
 
 
-st.dataframe(cup_standings_df)
+    st.dataframe(cup_standings_df)
