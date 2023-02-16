@@ -48,7 +48,9 @@ except TypeError:
 if leaderboard_display_df.count() > 0:
   with st.spinner('Getting yardages...'):
       st.write('#### Member Leaderboard',f""" - ```{last_refresh.collect()[0][0].strftime("%A %b %d %I:%M %p")}```""")
-      st.dataframe(leaderboard_display_df)
+      leaderboard_display = leaderboard_display_df.to_pandas()
+      leaderboard_display['SELECTIONS'] = leaderboard_display['SELECTIONS'].apply(lambda x: [sel.strip() for sel in x.split(",")])
+      st.dataframe(leaderboard_display)
       st.write(f"#### Cut = {tournament_cut_line}")
       st.write(f"All golfers who miss the cut will reflect as __{cut_player_score}__ for scoring")
       st.write("")
