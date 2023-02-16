@@ -3,3 +3,4 @@ streamlit==1.17.0
 snowflake-snowpark-python[pandas]
 plotly
 cffi==1.15.1
+streamlit-aggrid==0.3.3

@@ -4,7 +4,7 @@ import pandas as pd
 from snowflake.snowpark import Session, functions as F
 from global_functions import get_session, check_password
 
-from st_aggrid import AgGrid, GridUpdateMode, JsCode
+from st_aggrid import AgGrid, GridUpdateMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 
 def get_pre_tourney_odds() -> requests.Response:
