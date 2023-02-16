@@ -11,7 +11,6 @@ session = get_session()
 
 
 tournament = st.secrets["current_event"]
-tournament = 'WM Phoenix Open'
 st.title(tournament)
 
 entries = session.table("POOL_COLUMNAR_VW")[["ENTRY_NAME"]]
