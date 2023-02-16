@@ -52,7 +52,7 @@ if leaderboard_display_df.count() > 0:
       st.write(f"All golfers who miss the cut will reflect as __{cut_player_score}__ for scoring")
       st.write("")
       st.write('#### Selected Player Leaderboard ')
-      st.dataframe(player_leaderboard_df[['POSITION','GOLFER','TOTAL','THRU','SELECTIONS']])
+      st.dataframe(player_leaderboard_df[['POSITION','GOLFER','TOTAL','THRU','SELECTIONS']],height=825)
 
 
 
