@@ -4,6 +4,9 @@ import pandas as pd
 from snowflake.snowpark import Session, functions as F
 from global_functions import get_session, check_password
 
+from st_aggrid import AgGrid, GridUpdateMode, JsCode
+from st_aggrid.grid_options_builder import GridOptionsBuilder
+
 def get_pre_tourney_odds() -> requests.Response:
     url = f"https://feeds.datagolf.com/preds/pre-tournament?tour=pga&odds_format=percent&key={st.secrets['api_key']}"
     payload={}
@@ -71,7 +74,40 @@ else:
         if st.button('Truncate Pool Staging',):
             with st.spinner('Clearing table!'):
                 session.sql('DELETE FROM GOLF_NEW.RAW.POOL_STAGING').collect()
+        
+    with st.expander('Entry Manager'):
+        member_reference_df = session.table('GOLF_NEW.ANALYTICS.MEMBERS_VW').to_pandas()
+        unconfirmed_entries_df = session.table('GOLF_NEW.RAW.POOL_STAGING').to_pandas()
+        unconfirmed_entries_df.insert(loc=1,column='MEMBER_ID',value=pd.Series(dtype='int'))
 
-    with st.expander('Entry Tool'):
-        unconfirmed_entries_df = session.table('GOLF_NEW.RAW.POOL_STAGING')
-        st.dataframe(unconfirmed_entries_df)
+        # The code below is for the title and logo.
+        # st.info("💡 Hold the `Shift` (⇧) key to select multiple rows at once.")
+        st.caption("")
+        gd = GridOptionsBuilder.from_dataframe(unconfirmed_entries_df)
+        gd.configure_pagination(enabled=True)
+        gd.configure_default_column(editable=True, groupable=True)
+        gd.configure_selection(selection_mode="multiple", use_checkbox=True)
+        gridoptions = gd.build()
+        grid_table = AgGrid(
+            unconfirmed_entries_df,
+            gridOptions=gridoptions,
+            update_mode=GridUpdateMode.SELECTION_CHANGED,
+            theme="streamlit",
+        )
+
+        st.dataframe(member_reference_df)
+        sel_row = grid_table["selected_rows"]
+
+        st.write("")
+
+        try:
+            df_sel_row = pd.DataFrame(sel_row)
+            validated_df = df_sel_row[['ENTRY_NAME','MEMBER_ID','GOLFER_1','GOLFER_2','GOLFER_3','GOLFER_4','GOLFER_5','TOURNAMENT']]
+            st.dataframe(validated_df)
+
+            if st.button('Insert Validated Pool Entries'):
+                with st.spinner('Adding entries to Pool'):
+                    session.write_pandas(validated_df,'POOL',schema='RAW',database='GOLF_NEW',overwrite=False)
+
+        except KeyError:
+            st.write('No Selections Made')

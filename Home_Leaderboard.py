@@ -13,18 +13,23 @@ session = get_session()
 st.write(f"# {tournament}")
 
 # create Snowpark Dataframes
+
+leaderboard_display_df = session.table('leaderboard_display_vw').filter(F.col('TOURNAMENT') == tournament)
+
 try:
-  leaderboard_display_df = session.table('leaderboard_display_vw').filter(F.col("TOURNAMENT") == tournament)
   tournament_cut_line = int(session.table('tournaments_vw').filter(F.col("TOURNAMENT") == tournament).collect()[0][2]) # type: ignore
-
-  with st.spinner('Getting yardages...'):
-      st.dataframe(leaderboard_display_df)
-      st.write(f"#### Cut = {tournament_cut_line}")
-
-      st.write(f"All golfers who miss the cut will reflect as __{tournament_cut_line + 1}__ for scoring")
-
-
+  cut_player_score = tournament_cut_line + 1
 except TypeError:
+  tournament_cut_line = 'TBD'
+  cut_player_score = 'TBD'
+
+if leaderboard_display_df.count() > 0:
+  with st.spinner('Getting yardages...'):
+      st.dataframe(leaderboard_display_df.drop(['TOURNAMENT']))
+      st.write(f"#### Cut = {tournament_cut_line}")
+      st.write(f"All golfers who miss the cut will reflect as __{cut_player_score}__ for scoring")
+
+
+else:
   st.write(f"Whoops...the players are still warming up! {tournament} hasn't started yet...come back later!")
   st.image('assets/tiger-woods-gif.gif')
-  

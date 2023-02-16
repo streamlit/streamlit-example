@@ -13,12 +13,8 @@ session = get_session()
 tournament = st.secrets["current_event"]
 st.title(tournament)
 
-entries = session.table("POOL_COLUMNAR_VW")[["ENTRY_NAME"]]
 golfer_line_df = session.table('GOLFER_TIME_SERIES_VW').filter(F.col("TOURNAMENT") == tournament)
-
 member_line_df = golfer_line_df.group_by(F.col('ENTRY_NAME'),F.col('LAST_UPDATED')).agg(F.sum(F.col('TOTAL'))).with_column_renamed(F.col('SUM(TOTAL)'),'TOTAL')
-
-golfer_df = golfer_line_df.to_pandas()
 
 
 # player_trend_df = tourney_df[["PLAYER","SCORE","UPDATED","THRU"]].fillna(0).sort_values(by=['PLAYER','UPDATED'], ascending= [0,0])
