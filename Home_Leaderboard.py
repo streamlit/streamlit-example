@@ -47,7 +47,8 @@ except TypeError:
 
 if leaderboard_display_df.count() > 0:
   with st.spinner('Getting yardages...'):
-      st.write('#### Member Leaderboard',f""" - ```{last_refresh.collect()[0][0].strftime("%A %b %d %I:%M %p")}```""")
+      st.write('#### Member Leaderboard')
+      st.write(f"""```{last_refresh.collect()[0][0].strftime("%A %b %d %I:%M %p")}```""")
       leaderboard_display = leaderboard_display_df.to_pandas()
       leaderboard_display['SELECTIONS'] = leaderboard_display['SELECTIONS'].apply(lambda x: [sel.strip() for sel in x.split(",")])
       st.dataframe(leaderboard_display)
