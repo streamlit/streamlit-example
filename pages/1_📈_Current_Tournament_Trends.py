@@ -37,6 +37,13 @@ fig1.update_layout(
     )
 )
 fig1.update_yaxes(autorange="reversed")
+fig1.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=-.2,
+    xanchor="right",
+    x=1
+))
 
 st.plotly_chart(fig1,use_container_width=True,theme='streamlit')
 
