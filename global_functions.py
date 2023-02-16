@@ -3,7 +3,7 @@ from snowflake.snowpark import Session
 import pandas as pd
 
 @st.experimental_singleton # magic to cache db connection
-def create_connection():
+def create_connection() -> Session:
     connection_parameters = {
         "account": st.secrets["account"],
         "user": st.secrets["user"],
@@ -17,11 +17,28 @@ def create_connection():
     session = Session.builder.configs(connection_parameters).create()
     return session
 
-@st.experimental_memo(ttl=300) # 5 minute object cache, or when query changes. Applies to all usage of this func.
-def cache_local_dataframe(local_dataframe):
-    return pd.DataFrame(local_dataframe)
+def validate_session():
+    try:
+        session = st.session_state['snowpark_session']
+        session.sql('select 1;')
+    except:
+        return False
+    return True
 
-def check_password():
+def get_session() -> Session:
+    if "snowpark_session" not in st.session_state:
+        session = create_connection()
+        st.session_state['snowpark_session'] = session
+    else:
+        if validate_session():
+            session = st.session_state['snowpark_session']
+        else:
+            session = create_connection()
+            st.session_state['snowpark_session'] = session
+    return session
+
+
+def check_password() -> bool:
     """Returns `True` if the user had the correct password."""
 
     def password_entered():

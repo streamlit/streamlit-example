@@ -1,19 +1,15 @@
 import streamlit as st
-from global_functions import create_connection
+from global_functions import get_session
 import pandas as pd
 from snowflake.snowpark import Session, functions as F
 import logging
 
 @st.cache(ttl=300)
-def get_pick_options():
+def get_pick_options() -> pd.DataFrame:
   df = session.table('GOLF_NEW.RAW.PICK_OPTIONS').to_pandas()
-  return df
+  return pd.DataFrame(df)
 
-if "snowpark_session" not in st.session_state:
-  session = create_connection()
-  st.session_state['snowpark_session'] = session
-else:
-  session = st.session_state['snowpark_session']
+session = get_session()
 
 if st.secrets['entry_boolean'] == 'False':
     st.write('## 🔒 Entries are currently locked')

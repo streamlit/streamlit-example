@@ -2,18 +2,13 @@ import pandas as pd
 import streamlit as st
 from snowflake.snowpark import Session
 import plotly.express as px
-from global_functions import create_connection, cache_local_dataframe
+from global_functions import get_session
 from snowflake.snowpark import functions as F
 
 tournament = st.secrets['current_event']
 
-if "snowpark_session" not in st.session_state:
-  session = create_connection()
-  st.session_state['snowpark_session'] = session
-else:
-  session = st.session_state['snowpark_session']
+session = get_session()
 
-session = create_connection()
 
 st.write(f"# {tournament}")
 

@@ -2,9 +2,9 @@ import streamlit as st
 import requests
 import pandas as pd
 from snowflake.snowpark import Session, functions as F
-from global_functions import create_connection, check_password
+from global_functions import get_session, check_password
 
-def get_pre_tourney_odds():
+def get_pre_tourney_odds() -> requests.Response:
     url = f"https://feeds.datagolf.com/preds/pre-tournament?tour=pga&odds_format=percent&key={st.secrets['api_key']}"
     payload={}
     headers = {}
@@ -14,11 +14,7 @@ def get_pre_tourney_odds():
 if not check_password():
     st.write('☠️ Not Authorized ☠️')
 else:
-    if "snowpark_session" not in st.session_state:
-        session = create_connection()
-        st.session_state['snowpark_session'] = session
-    else:
-        session = st.session_state['snowpark_session']
+    session = get_session()
 
     with st.expander('Pre-Tourney Checklist'):
         st.checkbox('Copy Event Name into the Secrets config')
