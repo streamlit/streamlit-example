@@ -3,7 +3,7 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
-importy jwt
+import jwt
 import time
 """
 # Welcome to Streamlit!
