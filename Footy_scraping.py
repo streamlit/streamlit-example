@@ -18,6 +18,5 @@ st.markdown(
     Input your scraping parameters and press 'scrape'. After a few seconds, the data 
     should appear. This app will allow you to make changes just like you would in excel!
     After you have reviewed the data, press 'download' to download data as a .csv 
-     
 """
 )

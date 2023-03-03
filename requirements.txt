@@ -1,3 +1,7 @@
-altair
-pandas
-streamlit
+altair==4.2.2
+pandas==1.5.3
+streamlit==1.19.0
+numpy==1.24.2
+beautifulsoup4==4.11.2
+requests==2.28.2
+streamlit-aggrid==0.3.4
