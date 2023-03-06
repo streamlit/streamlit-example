@@ -51,12 +51,12 @@ if leaderboard_display_df.count() > 0:
       st.write(f"""```{last_refresh.collect()[0][0].strftime("%A %b %d %I:%M %p")}```""")
       leaderboard_display = leaderboard_display_df.to_pandas()
       leaderboard_display['SELECTIONS'] = leaderboard_display['SELECTIONS'].apply(lambda x: [sel.strip() for sel in x.split(",")])
-      st.dataframe(leaderboard_display)
+      st.dataframe(leaderboard_display.set_index('RANK'))
       st.write(f"#### Cut = {tournament_cut_line}")
       st.write(f"All golfers who miss the cut will reflect as __{cut_player_score}__ for scoring")
       st.write("")
       st.write('#### Selected Player Leaderboard')
-      st.dataframe(player_leaderboard_df[['POSITION','GOLFER','TOTAL','THRU','SELECTIONS']],height=825)
+      st.dataframe(player_leaderboard_df[['POSITION','GOLFER','TOTAL','THRU','SELECTIONS']].to_pandas().set_index('POSITION'),height=825)
 
 
 else:
