@@ -23,4 +23,4 @@ if namelist_file:
 
 
 else:
-    st.warning("Please upload both registry and namelist files.")
+    st.warning("Please upload your namelist file")
