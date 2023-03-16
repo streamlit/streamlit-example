@@ -1,8 +1,3 @@
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
-
-
 # AceCast Namelist Advisor
 
 The AceCast Namelist Advisor is a collection of Python classes designed to validate and provide guidance on configuring namelists for Weather Research and Forecasting (WRF) model simulations. The classes in this repository focus on verifying domain configurations, physics options, dynamics options, and nesting options for use within AceCast's supported options.
