@@ -1,5 +1,5 @@
 import streamlit as st
-from namelist_validator import NamelistValidator
+from helpers.namelist_validator import NamelistValidator
 import pandas as pd
 
 
