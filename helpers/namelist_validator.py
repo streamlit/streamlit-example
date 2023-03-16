@@ -64,12 +64,16 @@ class NamelistValidator:
             return [vtype(var)]
 
     def set_physics_parameters(self, params):
-        self.user_nml['physics']['mp_physics'] = self.var_to_list(self.user_nml['physics']['mp_physics'], int)
-        for i, v in enumerate(self.user_nml['physics']['mp_physics']):
-            if v == -1:
-                for var, val in params:
-                    self.user_nml['physics'][var] = self.var_to_list(self.user_nml['physics'][var], int)
-                    self.user_nml['physics'][var][i] = val
+        # SE - loop through physics options specified by the physics suite
+        for variable,default_option in params:
+            # SE - turn namelist options into list of ints in the case that f90nml interpreted it as a scalar
+            self.user_nml['physics'][variable] = self.var_to_list(self.user_nml['physics'][variable], int)
+            # SE - loop through namelist variable's value for each domain
+            for dom_id,option in enumerate(self.user_nml['physics'][variable]):
+                # SE - if user specified -1 (i.e. use the default for the physics suite) change the option for that
+                #      domain to the default specified by the physics suite
+                if option == -1:
+                    self.user_nml['physics'][variable][dom_id] = default_option
 
     def apply_physics_suite(self):
         params_conus = [('mp_physics', 8), ('cu_physics', 6), ('ra_lw_physics', 4), ('ra_sw_physics', 4),
@@ -78,10 +82,13 @@ class NamelistValidator:
         params_tropical = [('mp_physics', 6), ('cu_physics', 16), ('ra_lw_physics', 4), ('ra_sw_physics', 4),
                            ('bl_pbl_physics', 1), ('sf_sfclay_physics', 91), ('sf_surface_physics', 2)]
 
-        if self.user_nml['physics']['physics_suite'].lower() == 'conus':
+        # SE - This will handle the cases where physics_suite is either not specified or if the user specifies
+        #      it multiple times
+        physics_suite = self.var_to_list(self.user_nml['physics'].get('physics_suite','none'))[0].lower()
+        if physics_suite == 'conus':
             self.set_physics_parameters(params_conus)
                                         
-        if self.user_nml['physics']['physics_suite'].lower() == 'tropical':
+        if physics_suite == 'tropical':
             self.set_physics_parameters(params_tropical)
 
     def validate(self):
