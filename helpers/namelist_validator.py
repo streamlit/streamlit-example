@@ -84,7 +84,7 @@ class NamelistValidator:
 
         # SE - This will handle the cases where physics_suite is either not specified or if the user specifies
         #      it multiple times
-        physics_suite = self.var_to_list(self.user_nml['physics'].get('physics_suite','none'))[0].lower()
+        physics_suite = self.var_to_list(self.user_nml['physics'].get('physics_suite','none'), str)[0].lower()
         if physics_suite == 'conus':
             self.set_physics_parameters(params_conus)
                                         
