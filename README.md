@@ -37,7 +37,7 @@ dynamics_validator.validate_advection_schemes()
 
 nesting_validator = NestingOptionsValidation(namelist)
 nesting_validator.validate_nesting_options()
-
+```
 
 ## To do
 -Error checking for reading/processing namelist and registry files
