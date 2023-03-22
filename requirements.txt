@@ -1,7 +1,4 @@
-altair
-pandas
 streamlit
-pandas
-yfinance
-plotly
-matplotlib
+docx
+PyPDF2
+openai
