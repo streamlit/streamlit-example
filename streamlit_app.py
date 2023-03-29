@@ -13,37 +13,67 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from sklearn.feature_extraction.text import CountVectorizer
-vec = CountVectorizer(stop_words='english')
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score, classification_report
+from joblib import dump, load
+
 # Utils
 import joblib
 
-pipeline = joblib.load(
-    open("model/model1.pkl", "rb")
-)
+# Load the dataset
+df = pd.read_csv("movie_reviews.csv")
+
+# Define the pipeline
+pipeline = Pipeline([
+    ('vectorizer', CountVectorizer(stop_words='english')),
+    ('clf', LogisticRegression())
+])
+
+# Define the hyperparameters for the grid search
+parameters = {
+    'vectorizer__max_df': [0.5, 0.75, 1.0],
+    'vectorizer__ngram_range': [(1, 1), (1, 2)],
+    'clf__C': [0.1, 1, 10]
+}
+
+# Perform the grid search
+grid_search = GridSearchCV(pipeline, parameters, cv=5, n_jobs=-1)
+grid_search.fit(df['text'], df['sentiment'])
+
+# Save the best model
+dump(grid_search.best_estimator_, "model.pkl")
+
+# Load the model
+model = load("model.pkl")
+
+# Function to classify movie reviews
+def classify_review(review):
+    prediction = model.predict([review])
+    return prediction[0]
+
 # Function to connect with our ML model
-    
-st.set_page_config(page_title="Movie Reviewer", layout="wide")
-#st.write([![Follow](<https://img.shields.io/twitter/follow/><Cody_coder017>?style=social)](<https://www.twitter.com/><Cody_coder017>))
+def get_prediction(review):
+    prediction = classify_review(review)
+    return prediction
 
 # Main Application
 def main():
-    st.title("😉 DR Soumyendra  & Team One's Movie Review classifier App 😉")
-    with st.form(key="emotion_clf_form"):
-        raw_text1 = st.text_area(" Your latest movie name")
-        raw_text = st.text_area("Feed your review here for your latest movie")
-        submit_text = st.form_submit_button(label="Submit")
-        
+    st.set_page_config(page_title="Movie Reviewer", layout="wide")
+    st.title("😉 Movie Review classifier App 😉")
 
-    if submit_text:
-            # Apply the linkage function here
-            col1= st.columns(1)
-            results = pipeline.predict([raw_text])
-            st.write("{}".format(results))
-            from PIL import Image
-            image = Image.open('THANKYOU.jpeg')
-            st.image(image, caption='tHANK YOU FOR REVIEW !!')
-            
-        
+    # User input
+    with st.form(key="emotion_clf_form"):
+        movie_name = st.text_input("Enter the name of the movie", "")
+        review = st.text_area("Enter your review here", "")
+        submitted = st.form_submit_button("Submit")
+
+    # Display the result
+    if submitted:
+        prediction = get_prediction(review)
+        st.write(f"The predicted sentiment for the movie review of {movie_name} is {prediction}")
+        image = Image.open('THANKYOU.jpeg')
+        st.image(image, caption='THANK YOU FOR YOUR REVIEW !!')
 
 if __name__ == "__main__":
     main()
