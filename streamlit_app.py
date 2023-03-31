@@ -57,10 +57,10 @@ For more information abaout d3c calture please visit [this wiki page](https://co
     st.write("")
     
 cole, col1, cole, col2, cole = st.columns([0.1, 1, 0.05, 1, 0.1])
-
+name_slider = ["Kumru"]
 with col1:
 
-    name_slider = st.selectbox("Pick your name", new_slider_01)
+    name_slider = st.selectbox("Pick your name", name_slider)
 
     st.write("")
     
