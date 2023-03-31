@@ -55,11 +55,24 @@ For more information abaout d3c calture please visit [this wiki page](https://co
     )
 
     st.write("")
+    
+cole, col1, cole, col2, cole = st.columns([0.1, 1, 0.05, 1, 0.1])
 
-fig.layout.plot_bgcolor = "#efefef"  # Set the background color to white
-fig.layout.width = 750
-fig.layout.height = 750
-fig.layout.xaxis.tickvals = user_retention.columns
-fig.layout.yaxis.tickvals = user_retention.index
-fig.layout.margin.b = 100
+with col1:
+
+    name_slider = st.selectbox("Pick your name", new_slider_01)
+
+    st.write("")
+    
+with col2:
+
+    try:
+        name_filter = df["Name"].isin[(name_slider)]
+        date_filter = df["Date"].isin[(name_slider)]
+
+        final_df = df[name_filter & date_filter]
+
+    except IndexError:
+        st.warning("This is throwing an exception, bear with us!")
+
 fig
