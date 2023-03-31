@@ -56,10 +56,6 @@ For more information abaout d3c calture please visit [this wiki page](https://co
 
     st.write("")
 
-
-fig.layout.xaxis.title = "Cohort Group"
-fig.layout.yaxis.title = "Cohort Period"
-fig["layout"]["title"]["font"] = dict(size=25)
 fig.layout.plot_bgcolor = "#efefef"  # Set the background color to white
 fig.layout.width = 750
 fig.layout.height = 750
