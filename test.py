@@ -1,0 +1,1 @@
+!streamlit run my_project6.py
