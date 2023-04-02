@@ -28,7 +28,7 @@ with st.echo(code_location='below'):
 
     if st.button('Run Backtest'):
         # Read data for the given stock symbol and date range
-        data = pd.read_csv(f"./13. Data Collection/Data/{symbol}.csv", parse_dates=['Date'], index_col='Date')
+        data = pd.read_csv(f"./PythonForFinance/13. Data Collection/Data/{symbol}.csv", parse_dates=['Date'], index_col='Date')
 
         data = data.loc[start_date:end_date]
 
