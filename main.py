@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from sklearn.metrics import accuracy_score, precision_score
+import plotly.graph_objects as go
 
 st.set_page_config(layout="wide")
 
@@ -259,20 +260,22 @@ if selected == "Modelo":
         features = [grupo_idade_encoded, valor_tnm_t1, valor_tnm_n1, valor_tnm_m1, valor_estagio_tumor, valor_possui_metastase,
                     valor_risk_metastase, carcinoma_adenoide, carcinoma_micropapilar, cod_topografia_cid_502, cod_topografia_cid_508]
 
-        features_categ = [grupo_idade, classific_tnm_t1, classific_tnm_n1, classific_tnm_t1, estagio_tumor, possui_metastase,
+        features_categ = [grupo_idade, classific_tnm_t1, classific_tnm_n1, classific_tnm_m1, estagio_tumor, possui_metastase,
                           risk_metastase, carcinoma_adenoide_value, carcinoma_micropapilar_value, cod_topografia_cid_502_value, cod_topografia_cid_508_value]
 
         if submit_model:
             predicao_modelo = dtc_model.predict([features])
+            # accuracy = dtc_model.score(predicao_modelo)
+            # print(accuracy)
 
             # y_test = dtc_model(['y_test_new'])
 
             # accuracy = accuracy_score(y_test, predicao_modelo)
             # precision = precision_score(y_test, predicao_modelo)
 
-            st.subheader(f"Tratamento indicado: {predicao_modelo}")
+            st.subheader(f"Tratamento indicado: {predicao_modelo[0]}")
             st.markdown(
-                f"O melhor tratamento previsto foi {predicao_modelo}. Isso significa que esse resultado serve apenas de suporte ao médico e não deve ser 100% confiavel.")
+                f"O melhor tratamento previsto foi {predicao_modelo[0]}. Isso significa que esse resultado serve apenas de suporte ao médico e não deve ser 100% confiavel.")
 
             explainer = shap.TreeExplainer(dtc_model)
 
