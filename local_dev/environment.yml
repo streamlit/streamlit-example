@@ -3,9 +3,7 @@ name: driftmlpapp
 channels:
   - conda-forge
 dependencies:
-  - numpy<=1.20
-  - streamlit
-  - streamlit-folium
+  - python=3.9
   - pip
   - pip:
-    - driftmlp
+    -r ../requirements.txt
