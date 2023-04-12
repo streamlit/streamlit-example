@@ -1,4 +1,4 @@
-name: driftmlpapp
+name: drift-mlp-app
 
 channels:
   - conda-forge

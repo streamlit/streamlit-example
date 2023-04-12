@@ -3,14 +3,16 @@ import streamlit as st
 import zipfile
 from streamlit_folium import st_folium
 """
-# Welcome to Streamlit!
+**Instructions**
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+Select two locations using the four sliders below. Upon releasing the mouse a map will be shown displaying the most likely pathway from the transition matrix. The blue pathway shows the path going from (lon_from, lat_from) to (lon_to, lat_to); the red pathway shows the return. The two points are shown in the top plot; from in blue, to in red.
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+Use the dropdown menu to select which drifter data subset to use to estimate the transition matrix.
 
-In the meantime, below is an example of what you can do with just a few lines of code:
+- Drogued drifters will give pathways corresponding to top 15m flows. The drifters in this dataset have less of a wind forcing.
+- Undrogued drifters will give pathways corresponding to near surface flows, with a stronger influence from the surface stress winds.
+- Both is simply just a mixture of both datasets.
+Typically undrogued drifters and the both options will have shorter travel times.
 """
 
 
@@ -62,10 +64,10 @@ with st.echo(code_location='below'):
     options_map = {"No Drogued Drifters": "nodrg",
                     "Drogued Drifters": "drg",
                     "Both Drogued and Undrogued": "both"}
-    lon_from=st.slider(label ="lon_from", value=-158.0, min_value=-180.0, max_value=180.0)
-    lat_from = st.slider(label = "lat_from", value=44.0, min_value=-80.0, max_value=80.0)
+    lon_from=st.slider(label ="lon_from", value=-38.35, min_value=-180.0, max_value=180.0)
+    lat_from = st.slider(label = "lat_from", value=43.41, min_value=-80.0, max_value=80.0)
     lon_to = st.slider(label ="lon_to", value=-19.55, min_value=-180.0, max_value=180.0)
     lat_to = st.slider(label = "lat_to", value=-52.0, min_value=-80.0, max_value=80.0)
 
     map = app(lon_from=lon_from, lat_from=lat_from, lat_to=lat_to, lon_to=lon_to, network_type=options_map[p])
-    st_folium(map, width=700, height=900)
+    st_folium(map, width=900, height=600)
