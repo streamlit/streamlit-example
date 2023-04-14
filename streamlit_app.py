@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import datetime as dt
+import json
 
 # The code below is for the title and logo for this page.
 st.set_page_config(page_title="Cross Feedback Meetings", page_icon="🥡")
@@ -55,13 +56,21 @@ For more information abaout d3c calture please visit [this wiki page](https://co
     )
 
     st.write("")
-    
+
+people = ["Kumru Orkun"]
 cole, col1, cole, col2, cole = st.columns([0.1, 1, 0.05, 1, 0.1])
-name_slider = ["Kumru"]
+name_slider = people
+
 with col1:
 
-    name_slider = st.selectbox("Pick your name", name_slider)
+    selected_person = st.selectbox("Pick your name", name_slider)
+    
+    box_checked = st.checkbox('I have checked the box for {}'.format(selected_person))
 
+    # Store the checkbox value in the dictionary
+    checkbox_values[selected_person] = box_checked
+
+    
     st.write("")
     
 with col2:
