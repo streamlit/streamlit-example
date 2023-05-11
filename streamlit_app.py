@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 
 """
-# Welcome to Streamlit IC TEAM!
+# Welcome to Streamlit sid TEAM!
 
 Editing `/streamlit_app.py` to customize this app to your heart's desire :heart:
 
