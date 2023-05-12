@@ -1,5 +1,7 @@
 pandas
 numpy
 sklearn
+prediction
+scores
 streamlit
 
