@@ -3,14 +3,10 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import plotly.express as px
-from pathlib import Path
 
-#DATA_URL = (
-#    "/Users/SDI/OneDrive - Allianz/Desktop/ACM/Motor_Vehicle_Collisions_-_Crashes.csv"
-#)
-DATA_URL = Path(__file__).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
-
-
+DATA_URL = (
+    "/Users/SDI/OneDrive - Allianz/Desktop/ACM/Motor_Vehicle_Collisions_-_Crashes.csv"
+)
 
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
