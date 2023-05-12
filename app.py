@@ -8,7 +8,7 @@ from pathlib import Path
 #DATA_URL = (
 #    "/Users/SDI/OneDrive - Allianz/Desktop/ACM/Motor_Vehicle_Collisions_-_Crashes.csv"
 #)
-motor_vehicle_collisions_-_crashes = Path(__file__).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
+DATA_URL = Path(__file__).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
 
 
