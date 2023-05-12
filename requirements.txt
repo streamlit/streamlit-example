@@ -1,8 +1,6 @@
 altair
 pandas
 numpy
-pydeck
-plotly.express
-sklearn.preprocessing
+model
 streamlit
 
