@@ -3,5 +3,6 @@ pandas
 numpy
 pydeck
 plotly.express
+sklearn
 streamlit
 
