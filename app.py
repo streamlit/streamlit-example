@@ -13,8 +13,8 @@ if uploaded_file is not None:
   DATA_URL = DATA_URL.sample(n=300000)
   st.write(DATA_URL)
   
-  st.title("Road Accident in France")
-  st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
+          st.title("Road Accident in France")
+          st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
           @st.cache(persist=True)
           def load_data(nrows):
