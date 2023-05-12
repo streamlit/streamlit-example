@@ -7,10 +7,10 @@ import plotly.express as px
 #DATA_URL = (
 #    "/Users/SDI/OneDrive - Allianz/Desktop/ACM/Motor_Vehicle_Collisions_-_Crashes.csv"
 #)
-DATA_URL = st.file_uploader("Choose a file")
+uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-  df = pd.read_csv(uploaded_file)
-  
+  DATA_URL = pd.read_csv(uploaded_file)
+  st.write(DATA_URL)
   
   st.title("Road Accident in France")
   st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
