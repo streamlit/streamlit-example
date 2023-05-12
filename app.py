@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pydeck as pdk
-import plotly.express as px
+#import plotly.express as px
 
 DATA_URL = (
     "/Users/SDI/OneDrive - Allianz/Mes Documents/BureauFiles/EA 2022/Training/Datascientist/Coursera/Motor_Vehicle_Collisions_-_Crashes.csv"
@@ -62,10 +62,10 @@ st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %
 filtered = data[
      (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
 ]
-hist = np.histogram(filtered['date/time'].dt.minute, bins=60, range=(0,60))[0]
-chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
-fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
-st.write(fig)
+#hist = np.histogram(filtered['date/time'].dt.minute, bins=60, range=(0,60))[0]
+#chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
+#fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
+#st.write(fig)
 
 #st.header("Top 5 dangerous city by injury type")
 #select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
