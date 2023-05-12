@@ -16,8 +16,6 @@ if uploaded_file is not None:
   st.title("Road Accident in France")
   st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
-
-
   @st.cache(persist=True)
   def load_data(nrows):
       data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
@@ -26,7 +24,6 @@ if uploaded_file is not None:
       data.rename(lowercase, axis='columns', inplace=True)
       data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
       return data
-
 
   data = load_data(100000)
   original_data = data
