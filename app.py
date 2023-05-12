@@ -13,32 +13,32 @@ if uploaded_file is not None:
   DATA_URL = DATA_URL.sample(n=300000)
   st.write(DATA_URL)
   
-          st.title("Road Accident in France")
-          st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
+  st.title("Road Accident in France")
+  st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
-          @st.cache(persist=True)
-          def load_data(nrows):
-              data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
-              data.dropna(subset=['LATITUDE', 'LONGITUDE'], inplace=True)
-              lowercase = lambda x: str(x).lower()
-              data.rename(lowercase, axis='columns', inplace=True)
-              data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
-              return data
+  @st.cache(persist=True)
+  def load_data(nrows):
+      data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
+      data.dropna(subset=['LATITUDE', 'LONGITUDE'], inplace=True)
+      lowercase = lambda x: str(x).lower()
+      data.rename(lowercase, axis='columns', inplace=True)
+      data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
+      return data
 
-          data = load_data(100000)
-          original_data = data
+      data = load_data(100000)
+      original_data = data
 
-          st.header("Where are the most people injured in France?")
-          injured_people = st.slider("Number of person injured in road accident",0, 19)
-          st.map(data.query("injured_persons >= @injured_people")[["latitude","longitude"]].dropna(how="any"))
+   st.header("Where are the most people injured in France?")
+   injured_people = st.slider("Number of person injured in road accident",0, 19)
+   st.map(data.query("injured_persons >= @injured_people")[["latitude","longitude"]].dropna(how="any"))
 
 
-          st.header("How many road accident during a given time of the day?")
-          hour = st.slider("Hour to look at", 0, 23)
-          data = data[data['date/time'].dt.hour == hour]
+   st.header("How many road accident during a given time of the day?")
+   hour = st.slider("Hour to look at", 0, 23)
+   data = data[data['date/time'].dt.hour == hour]
 
-          st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
-          midpoint = (np.average(data['latitude']), np.average(data['longitude']))
+   st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
+   midpoint = (np.average(data['latitude']), np.average(data['longitude']))
 
           st.write(pdk.Deck(
                map_style="mapbox://styles/mapbox/light-v9",
