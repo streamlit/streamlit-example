@@ -21,7 +21,7 @@ def load_data(nrows):
     return data
 
 
-data = load_data(100000)
+data = load_data(10000)
 original_data = data
 
 st.header("Where are the most people injured in France?")
