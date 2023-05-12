@@ -1,6 +1,4 @@
 altair
 pandas
 streamlit
-plotly
-numpy
 packages.txt
