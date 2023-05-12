@@ -1,8 +1,6 @@
 pandas
 numpy
-scikit-learn
-prediction
-scores
-conda install -c conda-forge streamlit
+pydeck
+plotly.express
 streamlit
 
