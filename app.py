@@ -75,11 +75,11 @@ st.write(fig)
 st.header("Top 5 dangerous city by injury type")
 select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
 
-if select == 'Pedestrians':
+if select = 'Pedestrians':
     st.write(original_data.query("injured_pedestrians >= 1") [["on_street_name","injured_pedestrians"]].sort_values(by=['injured_pedestrians'], ascending=False).dropna(how='any')[:5]
-if select == 'Cyclists':
+if select = 'Cyclists':
     st.write(original_data.query("injured_cyclists >= 1") [["on_street_name","injured_cyclists"]].sort_values(by=['injured_cyclists'], ascending=False).dropna(how='any')[:5]
-if select == 'Motorists':
+if select = 'Motorists':
     st.write(original_data.query("injured_motorists >= 1") [["on_street_name","injured_motorists"]].sort_values(by=['injured_motorists'], ascending=False).dropna(how='any')[:5]
 
 
