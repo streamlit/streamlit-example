@@ -5,8 +5,7 @@ import pydeck as pdk
 import plotly.express as px
 
 DATA_URL = (
-"C:\Users\SDI\OneDrive - Allianz\Mes Documents\BureauFiles\EA 2022\Training\Datascientist\Coursera\Motor_Vehicle_Collisions_-_Crashes.csv"
-)
+"C:\Users\SDI\OneDrive - Allianz\Mes Documents\BureauFiles\EA 2022\Training\Datascientist\Coursera\Motor_Vehicle_Collisions_-_Crashes.csv")
 
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
