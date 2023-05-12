@@ -3,5 +3,6 @@ numpy
 scikit-learn
 prediction
 scores
+conda install -c conda-forge streamlit
 streamlit
 
