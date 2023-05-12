@@ -25,8 +25,8 @@ if uploaded_file is not None:
       data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
       return data
 
-      data = load_data(100000)
-      original_data = data
+   data = load_data(100000)
+   original_data = data
 
    st.header("Where are the most people injured in France?")
    injured_people = st.slider("Number of person injured in road accident",0, 19)
