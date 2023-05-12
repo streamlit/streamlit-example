@@ -4,10 +4,12 @@ import numpy as np
 import pydeck as pdk
 import plotly.express as px
 
-DATA_URL = (
-"/home/rhyme/Desktop/Project/Motor_Vehicle_Collisions_-_Crashes.csv"
-)
-
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  DATA_URL = pd.read_csv(uploaded_file)
+  DATA_URL = DATA_URL.sample(n=30000)
+  
+  
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
@@ -70,11 +72,11 @@ st.write(fig)
 st.header("Top 5 dangerous city by injury type")
 select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
 
-if select == 'Pedestrians':
-    st.write(original_data.query("injured_pedestrians >= 1") [["on_street_name","injured_pedestrians"]].sort_values(by=['injured_pedestrians'], ascending=False).dropna(how='any')[:5]
+if select == 'Pedestrian':
+    st.write(original_data.query("injured_pedestrians >= 1")[["on_street_name","injured_pedestrians"]].sort_values(by=['injured_pedestrians'], ascending=False).dropna(how='any')[:5])
 
 elif select == 'Cyclists':
-   st.write(original_data.query("injured_cyclists >= 1") [["on_street_name","injured_cyclists"]].sort_values(by=['injured_cyclists'], ascending=False).dropna(how='any')[:5])
+    st.write(original_data.query("injured_cyclists >= 1") [["on_street_name","injured_cyclists"]].sort_values(by=['injured_cyclists'], ascending=False).dropna(how='any')[:5])
 
 else:
     st.write(original_data.query("injured_motorists >= 1") [["on_street_name","injured_motorists"]].sort_values(by=['injured_motorists'], ascending=False).dropna(how='any')[:5])
