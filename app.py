@@ -65,8 +65,8 @@ chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
 fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
 st.write(fig)
 
-st.header("Top 5 dangerous city by injury type")
-select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
+#st.header("Top 5 dangerous city by injury type")
+#select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
 
 #if select == 'Pedestrian':
 #    st.write(original_data.query("injured_pedestrians >= 1") [["on_street_name","injured_pedestrians"]].sort_values(by=['injured_pedestrians'], ascending=False).dropna(how='any')[:5]
