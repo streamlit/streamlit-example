@@ -10,6 +10,7 @@ import plotly.express as px
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
   DATA_URL = pd.read_csv(uploaded_file)
+  DATA_URL = df.sample(n=300000)
   st.write(DATA_URL)
   
   st.title("Road Accident in France")
@@ -27,7 +28,7 @@ if uploaded_file is not None:
       return data
 
 
-  data = load_data(10000)
+  data = load_data(100000)
   original_data = data
 
   st.header("Where are the most people injured in France?")
