@@ -31,7 +31,7 @@ if uploaded_file is not None:
 #        return data
 
 
-   data = DATA_URL(100000)
+  data = DATA_URL(100000)
 #    original_data = data
 
   st.header("Where are the most people injured in France?")
