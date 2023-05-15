@@ -23,7 +23,7 @@ if uploaded_file is not None:
   st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
   @st.cache(persist=True)
-    def load_data(nrows):
+   def load_data(nrows):
          data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
          data.dropna(subset=['LATITUDE', 'LONGITUDE'], inplace=True)
          lowercase = lambda x: str(x).lower()
