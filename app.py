@@ -14,6 +14,7 @@ if uploaded_file is not None:
   csv = pd.read_csv(uploaded_file)
   return csv
   DATA_URL = load_csv()
+  st.write(DATA_URL)
   
 
   st.title("Road Accident in France")
