@@ -37,7 +37,7 @@ if uploaded_file is not None:
 
   st.header("Where are the most people injured in France?")
   injured_people = st.slider("Number of person injured in road accident",0, 19)
-  st.map(data.query("'injured_persons' >= @injured_people")[["latitude","longitude"]].dropna(how="any"))
+  st.map(data.query("injured_persons" >= @injured_people")[["latitude","longitude"]].dropna(how="any"))
 
 
   st.header("How many road accident during a given time of the day?")
