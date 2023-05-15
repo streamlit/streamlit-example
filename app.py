@@ -14,6 +14,7 @@ if uploaded_file is not None:
       csv = pd.read_csv(uploaded_file)
       return csv
   DATA_URL = load_csv()
+  DATA_URL = DATA_URL.sample(n=30000)
   st.write(DATA_URL)
   
 
