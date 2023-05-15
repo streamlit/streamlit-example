@@ -7,7 +7,8 @@ import plotly.express as px
 #DATA_URL = (
 #    "/Users/SDI/OneDrive - Allianz/Desktop/ACM/Motor_Vehicle_Collisions_-_Crashes.csv"
 #)
-uploaded_file = st.file_uploader("Choose a file")
+with st.sidebar.header('1. Upload your CSV file')
+uploaded_file = st.sidebar.file_uploader("Choose your file")
 if uploaded_file is not None:
   @st.cache
   def load_csv():
