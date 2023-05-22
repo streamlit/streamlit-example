@@ -59,9 +59,9 @@ else:
       
 tab1, tab2 = st.tabs(["График А/Н", "График А/Б/Н"])
 with tab1:
-    st.altair_chart(alt.Chart(pd.DataFrame(source2), theme="streamlit", use_container_width=True).mark_bar().encode(x='x', y='y'))
+    st.altair_chart(alt.Chart(pd.DataFrame(source2).mark_bar().encode(x='x', y='y'), theme="streamlit", use_container_width=True))
 with tab2:
-    st.altair_chart(alt.Chart(pd.DataFrame(source1), theme="streamlit", use_container_width=True).mark_bar().encode(x='x', y='y'))
+    st.altair_chart(alt.Chart(pd.DataFrame(source1).mark_bar().encode(x='x', y='y'), theme="streamlit", use_container_width=True))
 #st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
 #                .mark_bar()
 #                .encode(x='x', y='y'))
