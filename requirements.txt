@@ -6,4 +6,3 @@ scikit-learn
 flask
 statsmodels
 plotly
-pickle
