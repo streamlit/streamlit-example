@@ -1,0 +1,144 @@
+
+// @import "/Users/philipp/PayOpt/previse_colors.scss";
+
+// @import "/Users/philipp/PayOpt/react_checkbox_tree.scss";
+
+
+$isYellow050:   #fefdee;
+$isYellow100:   #fef6be;
+$isYellow200:   #feef8f;
+$isYellow300:   #fee95f;
+$isYellow400:   #fee230;
+$isSlate050:   #ebf5fb;
+$isSlate100:   #d1dee5;
+$isSlate200:   #b7c6cf;
+$isSlate300:   #9dafba;
+$isSlate400:   #8398a4;
+$isSlate500:   #68808e;
+$isSlate600:   #4e6978;
+$isSlate700:   #345263;
+$isSlate800:   #1a3a4d;
+$isSlate900:   #002337;
+$isGrey050:   #f4f5f6;
+$isGrey100:   #d6d8d8;
+$isGrey200:   #b9babb;
+$isGrey300:   #9b9d9d;
+$isGrey400:   #7e7f80;
+$isGrey500:   #606262;
+$isGrey600:   #505455;
+$isGrey700:   #404647;
+$isGrey800:   #303739;
+$isGrey900:   #20292c;
+$isJade050:   #ebf5f2;
+$isJade100:   #c4e9e1;
+$isJade200:   #9ddccf;
+$isJade300:   #75d0be;
+$isJade400:   #4ec3ac;
+$isJade500:   #27b79b;
+$isJade600:   #1d9881;
+$isJade700:   #147966;
+$isJade800:   #0a5a4c;
+$isJade900:   #003b32;
+$isBlue050:   #eff3f9;
+$isBlue100:   #ccdfea;
+$isBlue200:   #a9cbdb;
+$isBlue300:   #85b7cc;
+$isBlue400:   #62a3bd;
+$isBlue500:   #3f8fae;
+$isBlue600:   #317893;
+$isBlue700:   #246077;
+$isBlue800:   #16495c;
+$isBlue900:   #083140;
+$isPurple050:   #efedf7;
+$isPurple100:   #d8d0ea;
+$isPurple200:   #c2b2dd;
+$isPurple300:   #ab95d1;
+$isPurple400:   #9577c4;
+$isPurple500:   #7e5ab7;
+$isPurple600:   #6d4d9e;
+$isPurple700:   #5d3f84;
+$isPurple800:   #4c326a;
+$isPurple900:   #3b2451;
+$isRed050:   #f7edf1;
+$isRed100:   #e8c5cf;
+$isRed200:   #d99ead;
+$isRed300:   #c9768c;
+$isRed400:   #ba4f6a;
+$isRed500:   #ab2748;
+$isRed600:   #95213d;
+$isRed700:   #7f1b32;
+$isRed800:   #681527;
+$isRed900:   #520f1c;
+$isOrange050:   #f7e8e7;
+$isOrange100:   #f4c9c5;
+$isOrange200:   #f2aba3;
+$isOrange300:   #ef8c81;
+$isOrange400:   #ed6e5f;
+$isOrange500:   #ea4f3d;
+$isOrange600:   #c44230;
+$isOrange700:   #9e3523;
+$isOrange800:   #772816;
+$isOrange900:   #511b09;
+$black:   #14191c;
+
+
+// ------------------------------------------------------------------------------------------------------------------------
+
+$primary-color: $isBlue600;
+$secondary-color: $isJade600;
+$brand-color: #fedb00;
+$presentation-heading-color: $isBlue700;
+
+// colors
+$body-bg:      #ffffff !default; // white
+$body-color:   #14191c !default; //Previse blackish
+$link-color:   #51483d !default;
+$selection-bg: #26351c !default;
+$previse-grey: #797875 !default;   //Previse grey
+$previse-yellow: #fedb00 !default; // Previse yellow
+
+
+
+$presentation-font-size-root: 18pt;
+
+// fonts
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Raleway:300,400,600,700';
+
+$font-family-sans-serif:     "Source Sans Pro";
+//, "Titillium Web", "Montserrat", "Open Sans", "Roboto", "Raleway";
+
+
+
+// ------------------------------------------------------------------------------------------------------------------------
+html, body {
+  background-color: $body-bg;
+  font-family: $font-family-sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $presentation-heading-color;
+  font-family: $font-family-sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.2em;
+}
+
+
+button {
+  background-color: $primary-color;
+  color: $secondary-color;
+}
