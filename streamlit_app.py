@@ -39,29 +39,29 @@ if st.button("Сравнить"):
     
 # Вывод
 if (result_alc > 0) and (result_drug > 0):
-    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc)))+decimal+1)], delta_color = "inverse")
-    col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
+    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc))) + decimal + 1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
+    col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug))) + decimal + 1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
     source1 = pd.DataFrame({
     'x': ['Безработные', 'Алкаши', 'Наркоши'],
-    'pls': [unseen, result_alc, result_drug]})
+    'Количество людей (в тыс.)': [unseen, result_alc, result_drug]})
     source2 = pd.DataFrame({
     'x': ['Алкаши', 'Наркоши'],
-    'pls': [result_alc, result_drug]})
+    'Количество людей (в тыс.)': [result_alc, result_drug]})
 else:
-    col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc)))+decimal+1)], delta_color = "inverse")
-    col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
+    col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
+    col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
     source1 = pd.DataFrame({
     'x': ['Безработные', 'Алкаши', 'Наркоши'],
-    'pls': [unseen, 0, 0]})
+    'Количество людей (в тыс.)': [unseen, 0, 0]})
     source2 = pd.DataFrame({
     'x': ['Алкаши', 'Наркоши'],
-    'pls': [0, 0]})
+    'Количество людей (в тыс.)': [0, 0]})
       
 tab1, tab2 = st.tabs(["График А/Н", "График А/Б/Н"])
 with tab1:
-    st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x='x', y='pls'), theme="streamlit")
+    st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'x', y = 'Количество людей (в тыс.)'), theme = "streamlit", use_container_width = True)
 with tab2:
-    st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x='x', y='pls'), theme="streamlit")
+    st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'x', y = 'Количество людей (в тыс.)'), theme = "streamlit", use_container_width = True)
 #st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
 #                .mark_bar()
 #                .encode(x='x', y='y'))
