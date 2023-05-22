@@ -4,17 +4,25 @@ import math
 import pandas as pd
 import streamlit as st
 
-"""
-# Welcome to Streamlit!
+# Load the model into memory
+with open('new_model.pkl', 'rb') as model_pkl:
+    lr = pd.read_pickle(model_pkl)
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Create a text input for the user to enter the value for the unseen variable
+unseen = st.text_input('Введите количество безработных (тыс. человек):', 0)
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Convert the input to a float and create a test observation
+X_test_sm = [[float(1.0)], [float(unseen)]]
+X_test_sm = np.squeeze(X_test_sm)
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Make a prediction using the model
+result = lr.predict(X_test_sm)[0]
 
+# Display the result
+if result < 0:
+    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, алкоголиков не будет')
+else:
+    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, количество алкоголиков будет составлять {result} тыс. человек')
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
