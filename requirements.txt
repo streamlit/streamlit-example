@@ -1,3 +1,7 @@
 altair
 pandas
 streamlit
+sass
+base64
+datetime
+math
