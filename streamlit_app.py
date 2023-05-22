@@ -43,27 +43,27 @@ if (result_alc > 0) and (result_drug > 0):
     col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
     if st.button("Вывести на график количество безработных"):
         source = pd.DataFrame({
-        'Прогноз': ['Безработные', 'Алкаши', 'Наркоши'],
-        'Количество людей (в тыс.)': [unseen, result_alc, result_drug]})
+        'x': ['Безработные', 'Алкаши', 'Наркоши'],
+        'y': [unseen, result_alc, result_drug]})
     else:
         source = pd.DataFrame({
-        'Прогноз': ['Алкаши', 'Наркоши'],
-        'Количество людей (в тыс.)': [result_alc, result_drug]})
+        'x': ['Алкаши', 'Наркоши'],
+        'y': [result_alc, result_drug]})
 else:
     col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc)))+decimal+1)], delta_color = "inverse")
     col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
     if st.button("Вывести на график количество безработных"):
         source = pd.DataFrame({
-        'Прогноз': ['Безработные', 'Алкаши', 'Наркоши'],
-        'Количество людей (в тыс.)': [unseen, 0, 0]})
+        'x': ['Безработные', 'Алкаши', 'Наркоши'],
+        'y': [unseen, 0, 0]})
     else:
         source = pd.DataFrame({
-        'Прогноз': ['Алкаши', 'Наркоши'],
-        'Количество людей (в тыс.)': [0, 0]})
+        'x': ['Алкаши', 'Наркоши'],
+        'y': [0, 0]})
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
                 .mark_bar()
-                .encode(x='Прогноз', y='Количество людей (в тыс.)'))
+                .encode(x='x', y='y'))
 
 
 
