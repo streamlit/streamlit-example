@@ -32,7 +32,8 @@ def flags():
     return a, b
 
 delta_alc, delta_drug = flags()
-
+st.write(delta_alc)
+st.write(delta_drug)
 # Вывод
 col1, col2= st.columns(2)
 if (result_alc > 0) and (result_drug > 0):
