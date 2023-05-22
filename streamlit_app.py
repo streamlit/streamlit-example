@@ -32,27 +32,23 @@ def flags():
     return a, b
 
 delta_alc, delta_drug = flags()
-st.write(delta_alc)
-st.write(delta_drug)
-if st.button("Clear All"):
+
+if st.button("Сравнить"):
     st.cache_data.clear()
 # Вывод
 col1, col2= st.columns(2)
 if (result_alc > 0) and (result_drug > 0):
-    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = result_alc-delta_alc)
-    col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = "1.2")
+    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc)))+decimal+1)], delta_color = "inverse")
+    col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
     source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
     'b': [result_alc, result_drug]})
 else:
-    col1.metric(label = "Количество алкоголиков", value = 0, delta = "1.2")
-    col2.metric(label = "Количество наркоманов", value = 0, delta = "1.2")
+    col1.metric(label = "Количество алкоголиков", value = 0, delta = "1.2", delta_color = "inverse")
+    col2.metric(label = "Количество наркоманов", value = 0, delta = "1.2", delta_color = "inverse")
     source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
     'b': [0, 0]})
-
-#delta_alc = result_alc
-#delta_drug = result_drug
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
                 .mark_bar()
