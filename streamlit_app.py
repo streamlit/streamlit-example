@@ -26,8 +26,17 @@ result = lr.predict(X_test_sm)[0]
 
 st.write(f'Количество алкоголиков: {result} (в тыс. человек)')
 
+source = pd.DataFrame({
+    'a': ['Алкаши', 'Наркоши'],
+    'b': [result, 32]
+})
 
+alt.Chart(source).mark_bar().encode(
+    x='',
+    y=''
+)
 
+st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
 
 
 # Display the result
