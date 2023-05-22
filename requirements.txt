@@ -3,6 +3,6 @@ pandas
 streamlit
 numpy
 scikit-learn
-flask
 statsmodels
 plotly
+statsmodels
