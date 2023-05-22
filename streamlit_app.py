@@ -25,7 +25,7 @@ result = lr.predict(X_test_sm)[0]
 if result < 0:
     st.write(f'При количестве безработных в {float(unseen)} тыс. человек, алкоголиков не будет')
 else:
-    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, количество алкоголиков будет составлять {result} тыс. человек')
+    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, количество алкоголиков будет составлять {result[5:]} тыс. человек')
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
