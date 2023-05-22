@@ -14,7 +14,7 @@ with open('new_model.pkl', 'rb') as model_pkl:
 # Create a text input for the user to enter the value for the unseen variable
 #unseen = st.text_input('Введите количество безработных (тыс. человек):', 0)
 
-unseen = st.slider("Количество безработных (в тыс. человек)", 0.1, 1, 100)
+unseen = st.slider("Количество безработных (в тыс. человек)", 1, 1, 100)
 
 
 # Convert the input to a float and create a test observation
