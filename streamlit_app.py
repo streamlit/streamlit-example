@@ -33,9 +33,9 @@ def flags():
 
 delta_alc, delta_drug = flags()
 
-if col1.button("Сравнить"):
+st.write("Нажмите на кнопку, затем укажите данные, которые хотите сравнивать.")
+if st.button("Сравнить"):
     st.cache_data.clear()
-col2.write("Нажмите на кнопку, затем укажите данные, которые будуте сравнивать.")
     
 # Вывод
 if (result_alc > 0) and (result_drug > 0):
