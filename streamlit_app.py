@@ -32,6 +32,7 @@ source = pd.DataFrame({
 })
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
+                .mark_bar()
                 .encode(x='a', y='b'))
 
 
