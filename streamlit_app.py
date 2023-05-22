@@ -8,8 +8,10 @@ import numpy as np
 import plotly.express as px
 
 # Загрузка моделей
-with open('new_model.pkl', 'rb') as model_pkl:
-    lr = pd.read_pickle(model_pkl)
+with open('new_model.pkl', 'rb') as alc_model_pkl:
+    lr_alc = pd.read_pickle(alc_model_pkl)
+with open('drug_model.pkl', 'rb') as drug_model_pkl:
+    lr_drug = pd.read_pickle(drug_model_pkl)
 
 # Данные введенные пользователем
 unseen = st.slider("Количество безработных (в тыс. человек)", min_value = 0.0, max_value = 200.0, step = 0.1)
@@ -18,13 +20,15 @@ X_test_sm = [[float(1.0)], [float(unseen)]]
 X_test_sm = np.squeeze(X_test_sm)
 
 # Прогноз
-result = lr.predict(X_test_sm)[0]
+result_alc = lr_alc.predict(X_test_sm)[0]
+result_drug = lr_drug.predict(X_test_sm)[0]
 
-st.write(f'Количество алкоголиков: {str(result)[:(len(str(int(result)))+decimal+1)]} (в тыс. человек)')
+st.write(f'Количество алкоголиков: {str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]} (в тыс. человек)')
+st.write(f'Количество алкоголиков: {str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]} (в тыс. человек)')
 
 source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
-    'b': [result, 13]
+    'b': [result_alc, result_drug]
 })
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
