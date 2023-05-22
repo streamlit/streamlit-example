@@ -25,13 +25,13 @@ X_test_sm = np.squeeze(X_test_sm)
 result_alc = lr_alc.predict(X_test_sm)[0]
 result_drug = lr_drug.predict(X_test_sm)[0]
 
-@st.cache_resource
-def get_database_session(url):
-    a = 0
-    b = 0
+@st.cache_data
+def flags():
+    a = result_alc
+    b = result_drug
     return a, b
 
-delta_alc, delta_drug = get_database_session(SESSION_URL_1)
+delta_alc, delta_drug = flags()
 
 # Вывод
 col1, col2= st.columns(2)
@@ -48,6 +48,9 @@ else:
     'a': ['Алкаши', 'Наркоши'],
     'b': [0, 0]})
 
+delta_alc = result_alc
+delta_drug = result_drug
+    
 # Подсчет разницы
 if delta_alc != result_alc:
     delta_alc = result_alc
