@@ -40,14 +40,14 @@ if (result_alc > 0) and (result_drug > 0):
     col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = delta_alc-result_alc)
     col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = "1.2")
     source = pd.DataFrame({
-    'a': ['Алкаши', 'Наркоши'],
-    'b': [result_alc, result_drug]})
+    'a': ['Безработные', 'Алкаши', 'Наркоши'],
+    'b': [unseen, result_alc, result_drug]})
 else:
     col1.metric(label = "Количество алкоголиков", value = 0, delta = "1.2")
     col2.metric(label = "Количество наркоманов", value = 0, delta = "1.2")
     source = pd.DataFrame({
-    'a': ['Алкаши', 'Наркоши'],
-    'b': [0, 0]})
+    'a': ['Безработные', 'Алкаши', 'Наркоши'],
+    'b': [unseen, 0, 0]})
 
 delta_alc = result_alc
 delta_drug = result_drug
