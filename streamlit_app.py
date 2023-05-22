@@ -28,8 +28,8 @@ result_drug = lr_drug.predict(X_test_sm)[0]
 
 # Вывод
 if (result_alc > 0) and (result_drug > 0):
-    st.metric(label="Количество алкоголиков", value=str(result_alc)[:(len(int(result_alc))+decimal+1)], delta="1.2")
-    st.metric(label="Количество наркоманов", value=str(str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]), delta="1.2")
+    st.metric(label="Количество алкоголиков", value=str(result_alc)[:len(str(int(result_alc)))+decimal+1)], delta="1.2")
+    st.metric(label="Количество наркоманов", value=str(result_drug)[:len(str(int(result_drug)))+decimal+1)], delta="1.2")
     source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
     'b': [result_alc, result_drug]})
