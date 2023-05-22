@@ -20,7 +20,7 @@ X_test_sm = np.squeeze(X_test_sm)
 # Прогноз
 result = lr.predict(X_test_sm)[0]
 
-st.write(f'Количество алкоголиков: {str(result)[:(len(str(int(result)))+decimal)]} (в тыс. человек)')
+st.write(f'Количество алкоголиков: {str(result)[:(len(str(int(result)))+decimal+1)]} (в тыс. человек)')
 
 source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
