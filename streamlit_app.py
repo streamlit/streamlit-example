@@ -51,8 +51,8 @@ else:
     'a': ['Алкаши', 'Наркоши'],
     'b': [0, 0]})
 
-delta_alc = result_alc
-delta_drug = result_drug
+#delta_alc = result_alc
+#delta_drug = result_drug
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
                 .mark_bar()
