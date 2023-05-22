@@ -32,7 +32,7 @@ source = pd.DataFrame({
 })
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
-                .encode(x='a', y='b')
+                .encode(x='a', y='b'))
 
 
 # Display the result
