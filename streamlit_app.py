@@ -3,6 +3,9 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import pickle
+import numpy as np
+import plotly.express as px
 
 # Load the model into memory
 with open('new_model.pkl', 'rb') as model_pkl:
