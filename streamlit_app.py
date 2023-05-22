@@ -20,12 +20,13 @@ X_test_sm = np.squeeze(X_test_sm)
 
 # Make a prediction using the model
 result = lr.predict(X_test_sm)[0]
+result = result[2:]
 
 # Display the result
 if result < 0:
     st.write(f'При количестве безработных в {float(unseen)} тыс. человек, алкоголиков не будет')
 else:
-    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, количество алкоголиков будет составлять {result[5:]} тыс. человек')
+    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, количество алкоголиков будет составлять {result} тыс. человек')
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
