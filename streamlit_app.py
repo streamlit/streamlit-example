@@ -23,13 +23,19 @@ X_test_sm = np.squeeze(X_test_sm)
 result_alc = lr_alc.predict(X_test_sm)[0]
 result_drug = lr_drug.predict(X_test_sm)[0]
 
-st.write(f'Количество алкоголиков: {str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]} (в тыс. человек)')
-st.write(f'Количество алкоголиков: {str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]} (в тыс. человек)')
-
-source = pd.DataFrame({
+if result_alc > 0:
+    st.write(f'Количество алкоголиков: {str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]} (в тыс. человек)')
+    st.write(f'Количество наркоманов: {str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]} (в тыс. человек)')
+    source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
-    'b': [result_alc, result_drug]
-})
+    'b': [result_alc, result_drug]})
+else:
+    st.write(f'Количество алкоголиков: 0 (в тыс. человек)')
+    st.write(f'Количество наркоманов: 0 (в тыс. человек)')
+    source = pd.DataFrame({
+    'a': ['Алкаши', 'Наркоши'],
+    'b': [0, 0]})
+
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
                 .mark_bar()
