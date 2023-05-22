@@ -1,0 +1,28 @@
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Raleway:300,400,600,700';
+html, body {
+  background-color: #ffffff;
+  font-family: "Source Sans Pro"; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #246077;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400; }
+
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1.2em; }
+
+button {
+  background-color: #317893;
+  color: #1d9881; }
