@@ -1,11 +1,11 @@
-from collections import namedtuple
+#from collections import namedtuple
 import altair as alt
-import math
+#import math
 import pandas as pd
 import streamlit as st
 import pickle
 import numpy as np
-import plotly.express as px
+#import plotly.express as px
 
 # Загрузка моделей
 with open('new_model.pkl', 'rb') as alc_model_pkl:
