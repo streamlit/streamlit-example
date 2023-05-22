@@ -31,11 +31,6 @@ source = pd.DataFrame({
     'b': [result, 32]
 })
 
-alt.Chart(source).mark_bar().encode(
-    x='',
-    y=''
-)
-
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
 
 
