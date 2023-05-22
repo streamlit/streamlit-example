@@ -28,9 +28,9 @@ result_drug = lr_drug.predict(X_test_sm)[0]
 if st.button('Сравнить'):
     delta_alc = result_alc
     delta_drug = result_drug
-else:
-    delta_alc = 0
-    delta_drug = 0
+#else:
+#    delta_alc = 0
+#    delta_drug = 0
 # Вывод
 col1, col2= st.columns(2)
 if (result_alc > 0) and (result_drug > 0):
