@@ -26,12 +26,12 @@ result_alc = lr_alc.predict(X_test_sm)[0]
 result_drug = lr_drug.predict(X_test_sm)[0]
 
 @st.cache_data
-def flags():
+def flags(a, b):
     a = result_alc
     b = result_drug
     return a, b
 
-delta_alc, delta_drug = flags()
+delta_alc, delta_drug = flags(0, 0)
 st.write(delta_alc)
 st.write(delta_drug)
 # Вывод
