@@ -35,7 +35,6 @@ if (result_alc > 0) and (result_drug > 0):
     source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
     'b': [result_alc, result_drug]})
-    de
 else:
     col1.metric(label = "Количество алкоголиков", value = 0, delta = "1.2")
     col2.metric(label = "Количество наркоманов", value = 0, delta = "1.2")
