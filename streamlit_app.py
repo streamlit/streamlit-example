@@ -23,10 +23,11 @@ X_test_sm = np.squeeze(X_test_sm)
 result_alc = lr_alc.predict(X_test_sm)[0]
 result_drug = lr_drug.predict(X_test_sm)[0]
 
+# Вывод
 if result_alc and result_drug > 0:
-    st.write(f'Количество алкоголиков: {str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]} (в тыс. человек)')
-    st.write(f'Количество наркоманов: {str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]} (в тыс. человек)')
-    st.metric(label="Количество алкоголигов", value=str(str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]), delta="1.2 °F")
+    #st.write(f'Количество алкоголиков: {str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]} (в тыс. человек)')
+    #st.write(f'Количество наркоманов: {str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]} (в тыс. человек)')
+    st.metric(label="Количество алкоголигов", value=str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta="1.2 °F")
     st.metric(label="Количество наркоманов", value=str(str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]), delta="1.2 °F")
     source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
@@ -38,16 +39,10 @@ else:
     'a': ['Алкаши', 'Наркоши'],
     'b': [0, 0]})
 
-
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
                 .mark_bar()
                 .encode(x='a', y='b'))
 
 
-# Display the result
-#if result < 0:
-#    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, алкоголиков не будет')
-#else:
-#    st.write(f'При количестве безработных в {float(unseen)} тыс. человек, количество алкоголиков будет составлять {result} тыс. человек')
 
 
