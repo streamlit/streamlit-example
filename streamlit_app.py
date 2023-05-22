@@ -1,5 +1,4 @@
 import streamlit as st
-import sass
 import math
 from datetime import date, datetime, timezone
 import base64
@@ -18,9 +17,9 @@ def get_base64_of_bin_file(bin_file):
 
 # here is where the logo magic happens
 def set_png_as_top_rhs_logo(png_file = "./logo_title.png"):
-# Load the compiled CSS from the SCSS file
-    with open("./style.scss") as f:
-        st.markdown(f"<style>{sass.compile(string=f.read())}</style>", unsafe_allow_html=True)
+# Load the compiled CSS
+    with open("./mystyle.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
     bin_str = get_base64_of_bin_file(png_file)
     footer_bg_img = """
