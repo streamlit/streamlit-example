@@ -41,9 +41,14 @@ if st.button("Сравнить"):
 if (result_alc > 0) and (result_drug > 0):
     col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc)))+decimal+1)], delta_color = "inverse")
     col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
-    source = pd.DataFrame({
-    'a': ['Алкаши', 'Наркоши'],
-    'b': [result_alc, result_drug]})
+    if st.button("Вывести на график количество безработных"):
+        source = pd.DataFrame({
+        'a': ['Безработные', 'Алкаши', 'Наркоши'],
+        'b': [unseen, result_alc, result_drug]})
+    else:
+        source = pd.DataFrame({
+        'a': ['Алкаши', 'Наркоши'],
+        'b': [result_alc, result_drug]})
 else:
     col1.metric(label = "Количество алкоголиков", value = 0, delta = "1.2", delta_color = "inverse")
     col2.metric(label = "Количество наркоманов", value = 0, delta = "1.2", delta_color = "inverse")
