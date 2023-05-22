@@ -24,7 +24,7 @@ result_alc = lr_alc.predict(X_test_sm)[0]
 result_drug = lr_drug.predict(X_test_sm)[0]
 
 # Вывод
-if result_alc and result_drug > 0:
+if (result_alc > 0) and (result_drug > 0):
     #st.write(f'Количество алкоголиков: {str(result_alc)[:(len(str(int(result_alc)))+decimal+1)]} (в тыс. человек)')
     #st.write(f'Количество наркоманов: {str(result_drug)[:(len(str(int(result_drug)))+decimal+1)]} (в тыс. человек)')
     st.metric(label="Количество алкоголигов", value=str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta="1.2 °F")
