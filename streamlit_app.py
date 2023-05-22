@@ -13,7 +13,7 @@ with open('new_model.pkl', 'rb') as alc_model_pkl:
 with open('drug_model.pkl', 'rb') as drug_model_pkl:
     lr_drug = pd.read_pickle(drug_model_pkl)
 
-
+col1, col2= st.columns(2)
 
 # Данные введенные пользователем
 unseen = st.slider("Количество безработных (в тыс. человек)", min_value = 20.0, max_value = 200.0, step = 0.1)
@@ -33,10 +33,11 @@ def flags():
 
 delta_alc, delta_drug = flags()
 
-if st.button("Сравнить"):
+if col1.button("Сравнить"):
     st.cache_data.clear()
+col2.write("Нажмите на кнопку, затем укажите данные, которые будуте сравнивать.")
+    
 # Вывод
-col1, col2= st.columns(2)
 if (result_alc > 0) and (result_drug > 0):
     col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc)))+decimal+1)], delta_color = "inverse")
     col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug)))+decimal+1)], delta_color = "inverse")
