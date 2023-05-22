@@ -14,7 +14,7 @@ with open('drug_model.pkl', 'rb') as drug_model_pkl:
     lr_drug = pd.read_pickle(drug_model_pkl)
 
 # Данные введенные пользователем
-unseen = st.slider("Количество безработных (в тыс. человек)", min_value = 0.0, max_value = 200.0, step = 0.1)
+unseen = st.slider("Количество безработных (в тыс. человек)", min_value = 20.0, max_value = 200.0, step = 0.1)
 decimal = st.slider("Знаки после запятой", min_value = 0, max_value = 10, step = 1)
 X_test_sm = [[float(1.0)], [float(unseen)]]
 X_test_sm = np.squeeze(X_test_sm)
