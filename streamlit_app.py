@@ -63,7 +63,7 @@ else:
 
 st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
                 .mark_bar()
-                .encode(x='', y='Количество людей (в тыс.)'))
+                .encode(x='Количество людей (в тыс.)', y=''))
 
 
 
