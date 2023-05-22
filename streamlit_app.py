@@ -20,7 +20,6 @@ X_test_sm = np.squeeze(X_test_sm)
 
 # Make a prediction using the model
 result = lr.predict(X_test_sm)[0]
-result = result[2:]
 
 # Display the result
 if result < 0:
