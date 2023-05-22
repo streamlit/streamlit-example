@@ -56,7 +56,7 @@ else:
     'a': ['Алкаши', 'Наркоши'],
     'b': [0, 0]})
 
-st.altair_chart(alt.Chart(pd.DataFrame(source), height = 500, width = 500)
+st.altair_chart(alt.Chart(source, height = 500, width = 500)
                 .mark_bar()
                 .encode(x=' ', y='Количество людей (в тыс.)',))
 
