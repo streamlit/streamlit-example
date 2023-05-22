@@ -26,12 +26,12 @@ result_alc = lr_alc.predict(X_test_sm)[0]
 result_drug = lr_drug.predict(X_test_sm)[0]
 
 @st.cache_data
-def flags(a, b):
+def flags():
     a = result_alc
     b = result_drug
     return a, b
 
-delta_alc, delta_drug = flags(0, 0)
+delta_alc, delta_drug = flags()
 st.write(delta_alc)
 st.write(delta_drug)
 if st.button("Clear All"):
@@ -39,7 +39,7 @@ if st.button("Clear All"):
 # Вывод
 col1, col2= st.columns(2)
 if (result_alc > 0) and (result_drug > 0):
-    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = delta_alc-result_alc)
+    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc)))+decimal+1)], delta = result_alc-delta_alc)
     col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug)))+decimal+1)], delta = "1.2")
     source = pd.DataFrame({
     'a': ['Алкаши', 'Наркоши'],
