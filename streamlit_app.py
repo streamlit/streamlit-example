@@ -10,8 +10,8 @@ with open('new_model.pkl', 'rb') as alc_model_pkl:
 with open('drug_model.pkl', 'rb') as drug_model_pkl:
     lr_drug = pd.read_pickle(drug_model_pkl)
 
-col1, col2, col3= st.columns(3)
 
+st.header("Настраиваемые данные")   
 # Данные введенные пользователем
 unseen = st.slider("Количество безработных (в тыс. человек)", min_value = 20.0, max_value = 200.0, step = 0.1)
 decimal = st.slider("Знаки после запятой", min_value = 0, max_value = 10, step = 1)
@@ -35,6 +35,9 @@ st.write("Нажмите на кнопку, затем укажите сверх
 if st.button("Сравнить"):
     st.cache_data.clear()
     
+st.header("Метрика")    
+col1, col2, col3= st.columns(3)    
+
 # Вывод
 if (result_alc > 0) and (result_drug > 0):
     col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc))) + decimal + 1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
