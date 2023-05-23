@@ -51,29 +51,29 @@ with tab_model_1:
         col1.metric(label = "Количество алкоголиков", value = str(result_alc_model1)[:(len(str(int(result_alc_model1))) + decimal + 1)], delta = str(result_alc_model1-delta_alc_model1)[:(len(str(int(result_alc_model1-delta_alc_model1))) + decimal + 1)], delta_color = "inverse")
         col2.metric(label = "Количество наркоманов", value = str(result_drug_model1)[:(len(str(int(result_drug_model1))) + decimal + 1)], delta = str(result_drug_model1-delta_drug_model1)[:(len(str(int(result_drug_model1-delta_drug_model1))) + decimal + 1)], delta_color = "inverse")
         col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model1)[:(len(str(int(unseen-delta_unseen_model1))) + decimal + 1)], delta_color = "inverse")
-        source1 = pd.DataFrame({
+        source1_model1 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
-        'Количество людей в тыс': [unseen, result_alc, result_drug]})
-        source2 = pd.DataFrame({
+        'Количество людей в тыс': [unseen, result_alc_model1, result_drug_model1]})
+        source2_model1 = pd.DataFrame({
         'Прогноз': ['Алк.', 'Нарк.'],
-        'Количество людей в тыс': [result_alc, result_drug]})
+        'Количество людей в тыс': [result_alc_model1, result_drug_model1]})
     else:
         col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc_model1-delta_alc_model1)[:(len(str(int(result_alc_model1-delta_alc_model1))) + decimal + 1)], delta_color = "inverse")
         col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug_model1-delta_drug_model1)[:(len(str(int(result_drug_model1-delta_drug_model1))) + decimal + 1)], delta_color = "inverse")
         col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model1)[:(len(str(int(unseen-delta_unseen_model1))) + decimal + 1)], delta_color = "inverse")
-        source1 = pd.DataFrame({
+        source1_model1 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, 0, 0]})
-        source2 = pd.DataFrame({
+        source2_model1 = pd.DataFrame({
         'Прогноз': ['Алк.', 'Нарк.'],
         'Количество людей в тыс': [0, 0]})
 
     st.header("Столбчатая диаграмма")         
     tab_diagram_1, tab_diagram_2 = st.tabs(["Алк/Нарк", "Алк/Безраб/Нарк"])
     with tab_diagram_1:
-        st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+        st.altair_chart(alt.Chart(pd.DataFrame(source2_model1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
     with tab_diagram_2:
-        st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+        st.altair_chart(alt.Chart(pd.DataFrame(source1_model1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
 
 with tab_model_2:
     st.write('check')
