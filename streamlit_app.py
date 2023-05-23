@@ -37,21 +37,16 @@ result_alc_model2 = gb_alc.predict(X_test_gb)[0]
 result_drug_model2 = gb_drug.predict(X_test_gb)[0]
 
 @st.cache_data
-def delta_model1():
-    a = result_alc_model1
-    b = result_drug_model1
+def delta_calc():
+    a1 = result_alc_model1
+    b1 = result_drug_model1
+    a2 = result_alc_model2
+    b2 = result_drug_model2
     c = unseen
-    return a, b, c
+    return a1, b1, a2, b2, c
 
-@st.cache_data
-def delta_model2():
-    a = result_alc_model2
-    b = result_drug_model2
-    c = unseen
-    return a, b, c
+delta_alc_model1, delta_drug_model1, delta_alc_model2, delta_drug_model2, delta_unseen_model= delta_calc()
 
-delta_alc_model1, delta_drug_model1, delta_unseen_model1 = delta_model1()
-delta_alc_model2, delta_drug_model2, delta_unseen_model2 = delta_model2()
 
 st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
 if st.button("Сравнить"):
@@ -69,7 +64,7 @@ with tab_model_1:
     if (result_alc_model1 > 0) and (result_drug_model1 > 0):
         col1.metric(label = "Количество алкоголиков", value = str(result_alc_model1)[:(len(str(int(result_alc_model1))) + decimal + 1)], delta = str(result_alc_model1-delta_alc_model1)[:(len(str(int(result_alc_model1-delta_alc_model1))) + decimal + 1)], delta_color = "inverse")
         col2.metric(label = "Количество наркоманов", value = str(result_drug_model1)[:(len(str(int(result_drug_model1))) + decimal + 1)], delta = str(result_drug_model1-delta_drug_model1)[:(len(str(int(result_drug_model1-delta_drug_model1))) + decimal + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model1)[:(len(str(int(unseen-delta_unseen_model1))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model)[:(len(str(int(unseen-delta_unseen_model))) + decimal + 1)], delta_color = "inverse")
         source1_model1 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, result_alc_model1, result_drug_model1]})
@@ -79,7 +74,7 @@ with tab_model_1:
     else:
         col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc_model1-delta_alc_model1)[:(len(str(int(result_alc_model1-delta_alc_model1))) + decimal + 1)], delta_color = "inverse")
         col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug_model1-delta_drug_model1)[:(len(str(int(result_drug_model1-delta_drug_model1))) + decimal + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model1)[:(len(str(int(unseen-delta_unseen_model1))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model)[:(len(str(int(unseen-delta_unseen_model))) + decimal + 1)], delta_color = "inverse")
         source1_model1 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, 0, 0]})
@@ -102,7 +97,7 @@ with tab_model_2:
     if (result_alc_model2 > 0) and (result_drug_model2 > 0):
         col1.metric(label = "Количество алкоголиков", value = str(result_alc_model2)[:(len(str(int(result_alc_model2))) + decimal + 1)], delta = str(result_alc_model2-delta_alc_model2)[:(len(str(int(result_alc_model2-delta_alc_model2))) + decimal + 1)], delta_color = "inverse")
         col2.metric(label = "Количество наркоманов", value = str(result_drug_model2)[:(len(str(int(result_drug_model2))) + decimal + 1)], delta = str(result_drug_model2-delta_drug_model2)[:(len(str(int(result_drug_model2-delta_drug_model2))) + decimal + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model2)[:(len(str(int(unseen-delta_unseen_model2))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model)[:(len(str(int(unseen-delta_unseen_model))) + decimal + 1)], delta_color = "inverse")
         source1_model2 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, result_alc_model2, result_drug_model2]})
@@ -112,7 +107,7 @@ with tab_model_2:
     else:
         col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc_model2-delta_alc_model2)[:(len(str(int(result_alc_model2-delta_alc_model2))) + decimal + 1)], delta_color = "inverse")
         col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug_model2-delta_drug_model2)[:(len(str(int(result_drug_model2-delta_drug_model2))) + decimal + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model2)[:(len(str(int(unseen-delta_unseen_model2))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model)[:(len(str(int(unseen-delta_unseen_model))) + decimal + 1)], delta_color = "inverse")
         source1_model2 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, 0, 0]})
