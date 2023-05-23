@@ -64,10 +64,10 @@ else:
     'Количество людей в тыс': [0, 0]})
     
 st.header("Столбчатая диаграмма")         
-tab1, tab2 = st.tabs(["Алк/Нарк", "Алк/Безраб/Нарк"])
-with tab1:
+tab_diagram_1, tab_diagram_2 = st.tabs(["Алк/Нарк", "Алк/Безраб/Нарк"])
+with tab_diagram_1:
     st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
-with tab2:
+with tab_diagram_2:
     st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
 
 st.header("Почему это важно")    
