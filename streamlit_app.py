@@ -105,8 +105,8 @@ with tab_model_2:
     
     st.header("Настраиваемые данные")   
     # Данные введенные пользователем
-    unseen_gb = st.slider("Количество безработных (в тыс. человек)", min_value = 20.0, max_value = 200.0, step = 0.1)
-    decimal_gb = st.slider("Знаки после запятой", min_value = 0, max_value = 10, step = 1)
+    unseen_gb = st.slider("Количество безработных (в тыс. человек)", min_value = 24.0, max_value = 200.0, step = 0.01)
+    decimal_gb = st.slider("Знаки после запятой", min_value = 0, max_value = 12, step = 1)
     
     # Прогноз
     X_test_gb = [[float(unseen_gb)]]
