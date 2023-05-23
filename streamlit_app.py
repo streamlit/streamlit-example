@@ -10,7 +10,7 @@ with open('new_model.pkl', 'rb') as alc_model_pkl:
     lr_alc = pd.read_pickle(alc_model_pkl)
 with open('drug_model.pkl', 'rb') as drug_model_pkl:
     lr_drug = pd.read_pickle(drug_model_pkl)
-image = Image.open('alcohol.jpg')
+image = Image.open('media/alcohol.jpg')
 
 st.header("Настраиваемые данные")   
 # Данные введенные пользователем
