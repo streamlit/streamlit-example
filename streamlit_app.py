@@ -104,26 +104,26 @@ with tab_model_2:
     st.header("Метрика")    
     col1, col2, col3= st.columns(3)    
 
-    if (result_alc_model2 > 0) and (result_drug_model2 > 0):
-        col1.metric(label = "Количество алкоголиков", value = str(result_alc_model2)[:(len(str(int(result_alc_model2))) + decimal_gb + 1)], delta = str(result_alc_model2-delta_alc_model2)[:(len(str(int(result_alc_model2-delta_alc_model2))) + decimal_gb + 1)], delta_color = "inverse")
-        col2.metric(label = "Количество наркоманов", value = str(result_drug_model2)[:(len(str(int(result_drug_model2))) + decimal_gb + 1)], delta = str(result_drug_model2-delta_drug_model2)[:(len(str(int(result_drug_model2-delta_drug_model2))) + decimal_gb + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen_gb)[:(len(str(int(unseen_gb))) + decimal_gb + 1)], delta = str(unseen_gb-delta_unseen_gb)[:(len(str(int(unseen_gb-delta_unseen_gb))) + decimal_gb + 1)], delta_color = "inverse")
-        source1_model2 = pd.DataFrame({
+#    if (result_alc_model2 > 0) and (result_drug_model2 > 0):
+    col1.metric(label = "Количество алкоголиков", value = str(result_alc_model2)[:(len(str(int(result_alc_model2))) + decimal_gb + 1)], delta = str(result_alc_model2-delta_alc_model2)[:(len(str(int(result_alc_model2-delta_alc_model2))) + decimal_gb + 1)], delta_color = "inverse")
+    col2.metric(label = "Количество наркоманов", value = str(result_drug_model2)[:(len(str(int(result_drug_model2))) + decimal_gb + 1)], delta = str(result_drug_model2-delta_drug_model2)[:(len(str(int(result_drug_model2-delta_drug_model2))) + decimal_gb + 1)], delta_color = "inverse")
+    col3.metric(label = "Количество безработных", value = str(unseen_gb)[:(len(str(int(unseen_gb))) + decimal_gb + 1)], delta = str(unseen_gb-delta_unseen_gb)[:(len(str(int(unseen_gb-delta_unseen_gb))) + decimal_gb + 1)], delta_color = "inverse")
+    source1_model2 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen_gb, result_alc_model2, result_drug_model2]})
-        source2_model2 = pd.DataFrame({
+    source2_model2 = pd.DataFrame({
         'Прогноз': ['Алк.', 'Нарк.'],
         'Количество людей в тыс': [result_alc_model2, result_drug_model2]})
-    else:
-        col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc_model2-delta_alc_model2)[:(len(str(int(result_alc_model2-delta_alc_model2))) + decimal_gb + 1)], delta_color = "inverse")
-        col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug_model2-delta_drug_model2)[:(len(str(int(result_drug_model2-delta_drug_model2))) + decimal_gb + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen_gb)[:(len(str(int(unseen_gb))) + decimal_gb + 1)], delta = str(unseen_gb-delta_unseen_gb)[:(len(str(int(unseen_gb-delta_unseen_gb))) + decimal_gb + 1)], delta_color = "inverse")
-        source1_model2 = pd.DataFrame({
-        'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
-        'Количество людей в тыс': [unseen_gb, 0, 0]})
-        source2_model2 = pd.DataFrame({
-        'Прогноз': ['Алк.', 'Нарк.'],
-        'Количество людей в тыс': [0, 0]})
+#    else:
+#        col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc_model2-delta_alc_model2)[:(len(str(int(result_alc_model2-delta_alc_model2))) + decimal_gb + 1)], delta_color = "inverse")
+#        col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug_model2-delta_drug_model2)[:(len(str(int(result_drug_model2-delta_drug_model2))) + decimal_gb + 1)], delta_color = "inverse")
+#        col3.metric(label = "Количество безработных", value = str(unseen_gb)[:(len(str(int(unseen_gb))) + decimal_gb + 1)], delta = str(unseen_gb-delta_unseen_gb)[:(len(str(int(unseen_gb-delta_unseen_gb))) + decimal_gb + 1)], delta_color = "inverse")
+#        source1_model2 = pd.DataFrame({
+#        'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
+#        'Количество людей в тыс': [unseen_gb, 0, 0]})
+#        source2_model2 = pd.DataFrame({
+#        'Прогноз': ['Алк.', 'Нарк.'],
+#        'Количество людей в тыс': [0, 0]})
 
     st.header("Столбчатая диаграмма")         
     tab_diagram_1, tab_diagram_2 = st.tabs(["Алк/Нарк", "Алк/Безраб/Нарк"])
