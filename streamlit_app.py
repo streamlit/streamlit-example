@@ -4,7 +4,7 @@ import streamlit as st
 import pickle
 import numpy as np
 from PIL import Image
-st.title("Курсовая работа Данилова Д. и Федерова А.")
+st.title("Курсовая работа")
 # Загрузка моделей
 with open('new_model.pkl', 'rb') as alc_model_pkl:
     lr_alc = pd.read_pickle(alc_model_pkl)
