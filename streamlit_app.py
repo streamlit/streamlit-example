@@ -34,15 +34,16 @@ image = Image.open('media/alcohol.jpg')
 
 @st.cache_data
 def delta_calc(x):
-    a1 = result_alc_model1
-    b1 = result_drug_model1
-    a2 = result_alc_model2
-    b2 = result_drug_model2
-    c1 = unseen_lr
-    c2 = unseen_gb
+
     if x == "lr":
+        a1 = result_alc_model1
+        b1 = result_drug_model1
+        c1 = unseen_lr
         return a1, b1, c1
     else:
+        a2 = result_alc_model2
+        b2 = result_drug_model2
+        c2 = unseen_gb
         return a2, b2, c2
 
 #delta_alc_model1, delta_drug_model1, delta_alc_model2, delta_drug_model2, delta_unseen_lr, delta_unseen_gb= delta_calc()
