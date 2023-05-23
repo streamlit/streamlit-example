@@ -22,17 +22,17 @@ decimal = st.slider("Знаки после запятой", min_value = 0, max_v
 # Прогноз
 X_test_sm = [[float(1.0)], [float(unseen)]]
 X_test_sm = np.squeeze(X_test_sm)
-result_alc = lr_alc.predict(X_test_sm)[0]
-result_drug = lr_drug.predict(X_test_sm)[0]
+result_alc_model1 = lr_alc.predict(X_test_sm)[0]
+result_drug_model1 = lr_drug.predict(X_test_sm)[0]
 
 @st.cache_data
-def flags():
-    a = result_alc
-    b = result_drug
+def delta_model1():
+    a = result_alc_model1
+    b = result_drug_model1
     c = unseen
     return a, b, c
 
-delta_alc, delta_drug, delta_unseen = flags()
+delta_alc_model1, delta_drug_model1, delta_unseen_model1 = delta_model1()
 
 st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
 if st.button("Сравнить"):
@@ -48,9 +48,9 @@ with tab_model_1:
 
 
     if (result_alc > 0) and (result_drug > 0):
-        col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc))) + decimal + 1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
-        col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug))) + decimal + 1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen)[:(len(str(int(unseen-delta_unseen))) + decimal + 1)], delta_color = "inverse")
+        col1.metric(label = "Количество алкоголиков", value = str(result_alc_model1)[:(len(str(int(result_alc_model1))) + decimal + 1)], delta = str(result_alc_model1-delta_alc_model1)[:(len(str(int(result_alc_model1-delta_alc_model1))) + decimal + 1)], delta_color = "inverse")
+        col2.metric(label = "Количество наркоманов", value = str(result_drug_model1)[:(len(str(int(result_drug_model1))) + decimal + 1)], delta = str(result_drug_model1-delta_drug_model1)[:(len(str(int(result_drug_model1-delta_drug_model1))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model1)[:(len(str(int(unseen-delta_unseen_model1))) + decimal + 1)], delta_color = "inverse")
         source1 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, result_alc, result_drug]})
@@ -58,9 +58,9 @@ with tab_model_1:
         'Прогноз': ['Алк.', 'Нарк.'],
         'Количество людей в тыс': [result_alc, result_drug]})
     else:
-        col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
-        col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
-        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen)[:(len(str(int(unseen-delta_unseen))) + decimal + 1)], delta_color = "inverse")
+        col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc_model1-delta_alc_model1)[:(len(str(int(result_alc_model1-delta_alc_model1))) + decimal + 1)], delta_color = "inverse")
+        col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug_model1-delta_drug_model1)[:(len(str(int(result_drug_model1-delta_drug_model1))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen_model1)[:(len(str(int(unseen-delta_unseen_model1))) + decimal + 1)], delta_color = "inverse")
         source1 = pd.DataFrame({
         'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
         'Количество людей в тыс': [unseen, 0, 0]})
