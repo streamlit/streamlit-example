@@ -4,8 +4,6 @@ import streamlit as st
 import pickle
 import numpy as np
 
-base="dark"
-
 # Загрузка моделей
 with open('new_model.pkl', 'rb') as alc_model_pkl:
     lr_alc = pd.read_pickle(alc_model_pkl)
