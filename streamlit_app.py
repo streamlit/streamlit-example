@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 from PIL import Image
 st.title("Курсовая работа")
-st.write("Выполнили: Данилов Д.С., Федоров А.С.")
+st.write("Выполнили: Данилов Д.С. / Федоров А.С.")
 st.write("Группа: МИИ-22")
 # Загрузка моделей
 with open('new_model.pkl', 'rb') as alc_model_pkl:
