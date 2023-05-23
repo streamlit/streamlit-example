@@ -54,11 +54,11 @@ else:
     'Прогноз': ['Алк.', 'Нарк.'],
     'Количество людей в тыс': [0, 0]})
       
-tab1, tab2 = st.tabs(["График Алк/Нарк", "График Алк/Безраб/Нарк"])
-with tab1:
-    st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
-with tab2:
-    st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+#tab1, tab2 = st.tabs(["График Алк/Нарк", "График Алк/Безраб/Нарк"])
+#with tab1:
+#    st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+#with tab2:
+#    st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
 
 
 
