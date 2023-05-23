@@ -4,6 +4,7 @@ import streamlit as st
 import pickle
 import numpy as np
 from PIL import Image
+st.set_page_config(page_title = "Alcohol/Drug predict")
 st.title("Курсовая работа")
 st.write("Выполнили: Данилов Д.С. / Федоров А.С.")
 st.write("Группа: МИИ-22")
