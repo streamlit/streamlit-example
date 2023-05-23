@@ -49,9 +49,9 @@ def delta_calc(x):
 #delta_alc_model1, delta_drug_model1, delta_alc_model2, delta_drug_model2, delta_unseen_lr, delta_unseen_gb= delta_calc()
 
 
-st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
-if st.button("Сравнить"):
-    st.cache_data.clear()
+#st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
+#if st.button("Сравнить"):
+#    st.cache_data.clear()
     
 # Вывод  
 
@@ -63,6 +63,9 @@ with tab_model_1:
     # Данные введенные пользователем
     unseen_lr = st.slider("Количество безработных (в тыс. человек)", min_value = 20.0, max_value = 200.0, step = 0.1)
     decimal_lr = st.slider("Знаки после запятой", min_value = 0, max_value = 10, step = 1)
+    st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
+    if st.button("Сравнить"):
+        st.cache_data.clear()
     # Прогноз
     X_test_lr = [[float(1.0)], [float(unseen_lr)]]
     X_test_lr = np.squeeze(X_test_lr)
@@ -105,9 +108,11 @@ with tab_model_2:
     
     st.header("Настраиваемые данные")   
     # Данные введенные пользователем
-    unseen_gb = st.slider("Количество безработных (в тыс. человек)", min_value = 24.0, max_value = 200.0, step = 0.01)
+    unseen_gb = st.slider("Количество безработных (в тыс. человек)", min_value = 34.4, max_value = 58.4, step = 0.01)
     decimal_gb = st.slider("Знаки после запятой", min_value = 0, max_value = 12, step = 1)
-    
+    st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
+    if st.button("Сравнить"):
+        st.cache_data.clear()
     # Прогноз
     X_test_gb = [[float(unseen_gb)]]
     X_test_gb = np.squeeze(X_test_gb)
