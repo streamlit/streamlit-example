@@ -8,14 +8,14 @@ st.title("Курсовая работа")
 st.write("Выполнили: Данилов Д.С. / Федоров А.С.")
 st.write("Группа: МИИ-22")
 # Загрузка моделей
-with open('new_model.pkl', 'rb') as alc_model1_pkl:
-    lr_alc1 = pd.read_pickle(alc_model1_pkl)
-with open('drug_model.pkl', 'rb') as drug_model1_pkl:
-    lr_drug1 = pd.read_pickle(drug_model1_pkl)
-with open('.pkl', 'rb') as alc_model2_pkl:
-    lr_alc2 = pd.read_pickle(alc_model2_pkl)
-with open('.pkl', 'rb') as drug_model2_pkl:
-    lr_drug2 = pd.read_pickle(drug_model2_pkl)
+with open('models/lr_alco.pkl', 'rb') as alc_model1_pkl:
+    lr_alc = pd.read_pickle(alc_model1_pkl)
+with open('models/lr_drug.pkl', 'rb') as drug_model1_pkl:
+    lr_drug = pd.read_pickle(drug_model1_pkl)
+with open('models/gboost_alco.pkl', 'rb') as alc_model2_pkl:
+    gb_alc = pd.read_pickle(alc_model2_pkl)
+with open('models/gboost_drug.pkl', 'rb') as drug_model2_pkl:
+    gb_drug = pd.read_pickle(drug_model2_pkl)
     
 image = Image.open('media/alcohol.jpg')
 
@@ -25,12 +25,16 @@ unseen = st.slider("Количество безработных (в тыс. че
 decimal = st.slider("Знаки после запятой", min_value = 0, max_value = 10, step = 1)
 
 # Прогноз
-X_test_sm = [[float(1.0)], [float(unseen)]]
-X_test_sm = np.squeeze(X_test_sm)
-result_alc_model1 = lr_alc1.predict(X_test_sm)[0]
-result_drug_model1 = lr_drug1.predict(X_test_sm)[0]
-result_alc_model2 = lr_acl2.predict()
-result_drug_model2 = lr_drug2.predict()
+X_test_lr = [[float(1.0)], [float(unseen)]]
+X_test_lr = np.squeeze(X_test_lr)
+result_alc_model1 = lr_alc.predict(X_test_lr)[0]
+result_drug_model1 = lr_drug.predict(X_test_lr)[0]
+
+X_test_gb = [[float(unseen)]]
+X_test_gb = np.squeeze(X_test_gb)
+X_test_gb = X_test_gb.reshape(-1,1)
+result_alc_model2 = gb_alc.predict(X_test_gb)[0]
+result_drug_model2 = gb_drug.predict(X_test_gb)[0]
 
 @st.cache_data
 def delta_model1():
@@ -52,6 +56,7 @@ delta_alc_model2, delta_drug_model2, delta_unseen_model2 = delta_model2()
 st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
 if st.button("Сравнить"):
     st.cache_data.clear()
+    
 # Вывод  
 
 tab_model_1, tab_model_2 = st.tabs(["Линейная регрессия", "Градиентный бустинг"])
