@@ -37,38 +37,46 @@ delta_alc, delta_drug, delta_unseen = flags()
 st.write("Нажмите на кнопку, затем укажите сверху данные (количество безработных), которые хотите сравнивать.")
 if st.button("Сравнить"):
     st.cache_data.clear()
-    
-st.header("Метрика")    
-col1, col2, col3= st.columns(3)    
+# Вывод  
 
-# Вывод
-if (result_alc > 0) and (result_drug > 0):
-    col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc))) + decimal + 1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
-    col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug))) + decimal + 1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
-    col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen)[:(len(str(int(unseen-delta_unseen))) + decimal + 1)], delta_color = "inverse")
-    source1 = pd.DataFrame({
-    'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
-    'Количество людей в тыс': [unseen, result_alc, result_drug]})
-    source2 = pd.DataFrame({
-    'Прогноз': ['Алк.', 'Нарк.'],
-    'Количество людей в тыс': [result_alc, result_drug]})
-else:
-    col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
-    col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
-    col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen)[:(len(str(int(unseen-delta_unseen))) + decimal + 1)], delta_color = "inverse")
-    source1 = pd.DataFrame({
-    'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
-    'Количество людей в тыс': [unseen, 0, 0]})
-    source2 = pd.DataFrame({
-    'Прогноз': ['Алк.', 'Нарк.'],
-    'Количество людей в тыс': [0, 0]})
-    
-st.header("Столбчатая диаграмма")         
-tab_diagram_1, tab_diagram_2 = st.tabs(["Алк/Нарк", "Алк/Безраб/Нарк"])
-with tab_diagram_1:
-    st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
-with tab_diagram_2:
-    st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+tab_model_1, tab_model_2 = st.tabs(["Линейная регрессия", "Градиентный бустинг"])
+
+with tab_model_1:
+
+    st.header("Метрика")    
+    col1, col2, col3= st.columns(3)    
+
+
+    if (result_alc > 0) and (result_drug > 0):
+        col1.metric(label = "Количество алкоголиков", value = str(result_alc)[:(len(str(int(result_alc))) + decimal + 1)], delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
+        col2.metric(label = "Количество наркоманов", value = str(result_drug)[:(len(str(int(result_drug))) + decimal + 1)], delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen)[:(len(str(int(unseen-delta_unseen))) + decimal + 1)], delta_color = "inverse")
+        source1 = pd.DataFrame({
+        'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
+        'Количество людей в тыс': [unseen, result_alc, result_drug]})
+        source2 = pd.DataFrame({
+        'Прогноз': ['Алк.', 'Нарк.'],
+        'Количество людей в тыс': [result_alc, result_drug]})
+    else:
+        col1.metric(label = "Количество алкоголиков", value = 0, delta = str(result_alc-delta_alc)[:(len(str(int(result_alc-delta_alc))) + decimal + 1)], delta_color = "inverse")
+        col2.metric(label = "Количество наркоманов", value = 0, delta = str(result_drug-delta_drug)[:(len(str(int(result_drug-delta_drug))) + decimal + 1)], delta_color = "inverse")
+        col3.metric(label = "Количество безработных", value = str(unseen)[:(len(str(int(unseen))) + decimal + 1)], delta = str(unseen-delta_unseen)[:(len(str(int(unseen-delta_unseen))) + decimal + 1)], delta_color = "inverse")
+        source1 = pd.DataFrame({
+        'Прогноз': ['Безраб.', 'Алк.', 'Нарк.'],
+        'Количество людей в тыс': [unseen, 0, 0]})
+        source2 = pd.DataFrame({
+        'Прогноз': ['Алк.', 'Нарк.'],
+        'Количество людей в тыс': [0, 0]})
+
+    st.header("Столбчатая диаграмма")         
+    tab_diagram_1, tab_diagram_2 = st.tabs(["Алк/Нарк", "Алк/Безраб/Нарк"])
+    with tab_diagram_1:
+        st.altair_chart(alt.Chart(pd.DataFrame(source2)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+    with tab_diagram_2:
+        st.altair_chart(alt.Chart(pd.DataFrame(source1)).mark_bar().encode(x = 'Прогноз', y = 'Количество людей в тыс'), use_container_width = True)
+
+with tab_model_2:
+    st.write('check')
 
 st.header("Почему это важно")    
 st.write("<p style='text-align: justify;'><span>Прогнозирование количества людей с алкогольной и наркотической зависимостью от количества безработных имеет большое значение для разработки эффективных социальных программ и мер для борьбы с наркотиками и алкогольной зависимостью.</span></p>", unsafe_allow_html=True)
