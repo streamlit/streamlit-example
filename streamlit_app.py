@@ -4,7 +4,6 @@ import streamlit as st
 import pickle
 import numpy as np
 
-[theme]
 base="dark"
 
 # Загрузка моделей
