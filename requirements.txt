@@ -3,6 +3,6 @@ numpy == 1.21.6
 pydeck == 0.8.0
 plotly.express == 0.4.1
 scikit-learn == 1.0
-sklearn.metrics.classification_report
+scikit-learn.metrics.classification_report
 streamlit == 1.22.0
 xgboost == 1.7.5
