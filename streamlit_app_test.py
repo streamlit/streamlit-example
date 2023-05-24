@@ -6,8 +6,8 @@ st.title('Masterclass Streamlit')
 
 st.header('Prediction of the Titanic Survivors')
 
-choices = ['Random Forest', 'SVC', 'Logistic Regression']
-
+choices = ['Random Forest', 'SVC', 'Logistic Regression','XGBOOST','Gradient Boosting']
+   
 prediction = st.cache(prediction,suppress_st_warning=True)
 
 option = st.selectbox(
@@ -25,4 +25,6 @@ display = st.radio(
 if display == 'Accuracy':
     st.write(scores(clf, display))
 elif display == 'Confusion matrix':
+    st.dataframe(scores(clf, display))
+elif choice == 'Classification report':
     st.dataframe(scores(clf, display))
