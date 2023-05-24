@@ -11,10 +11,10 @@ st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
 @st.cache(persist=True)
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  DATA_URL = pd.read_csv(uploaded_file).sample(n=30000)
-  #DATA_URL = DATA_URL.sample(n=30000)
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+      DATA_URL = pd.read_csv(uploaded_file).sample(n=30000)
+      #DATA_URL = DATA_URL.sample(n=30000)
   
 def load_data(nrows):
     data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
