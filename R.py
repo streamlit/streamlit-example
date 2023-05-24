@@ -5,7 +5,7 @@ import pydeck as pdk
 import plotly.express as px
 
 from pathlib import Path
-DATA_URL = Path(Training\Datascientist\Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
+DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
 #DATA_URL = pd.read_csv('Motor_Vehicle_Collisions_-_Crashes.csv')
     
