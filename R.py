@@ -7,9 +7,16 @@ import plotly.express as px
 #DATA_URL = (
 #"/home/rhyme/Desktop/Project/Motor_Vehicle_Collisions_-_Crashes.csv"
 #)
-DATA_URL = (
-"C:\\Users\\SDI\\OneDrive - Allianz\\Mes Documents\\BureauFiles\\EA 2022\\Training\Datascientist\Coursera\\Motor_Vehicle_Collisions_-_Crashes.csv"
-)
+     <script src="alasql.min.js"></script>
+     <p>Select CSV file to read:</p>
+     <input id="readfile" type="file" onchange="loadFile(event)"/>
+     <script>
+         function loadFile(event) {
+            alasql(['SELECT * FROM FILE(?,{headers:true})',[event]]).then(function(data){
+            	// Process data here
+            });
+         }
+     </script>
 
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
