@@ -7,7 +7,7 @@ import plotly.express as px
 from pathlib import Path
 motor_vehicle_collisions_crashes_csv = Path(__file__).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
-DATA_URL = pd.read_csv('Motor_Vehicle_Collisions_-_Crashes.csv')
+#DATA_URL = pd.read_csv('Motor_Vehicle_Collisions_-_Crashes.csv')
     
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
