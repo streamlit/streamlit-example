@@ -6,9 +6,9 @@ import plotly.express as px
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-  DATA_URL = pd.read_csv(uploaded_file)
-  DATA_URL = DATA_URL.sample(n=30000)
-  
+  DATA_URL = pd.read_csv(uploaded_file).sample(n=30000)
+  #DATA_URL = DATA_URL.sample(n=30000)
+
   
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
