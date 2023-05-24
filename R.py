@@ -4,9 +4,9 @@ import numpy as np
 import pydeck as pdk
 import plotly.express as px
 
-DATA_URL = (
-"OneDrive - Allianz/Mes Documents/BureauFiles/EA 2022/Training/Datascientist/Coursera/Motor_Vehicle_Collisions_-_Crashes.csv"
-)
+#DATA_URL = (
+#"OneDrive - Allianz/Mes Documents/BureauFiles/EA 2022/Training/Datascientist/Coursera/Motor_Vehicle_Collisions_-_Crashes.csv"
+#)
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
