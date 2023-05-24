@@ -47,10 +47,8 @@ def prediction(classifier):
         clf = SVC()
     elif classifier == 'Logistic Regression':
         clf = LogisticRegression()
-    clf.fit(X_train, y_train)
     elif classifier == 'XGBOOST':
         clf = xgb.XGBClassifier()
-    clf.fit(X_train, y_train)
     elif classifier == 'Gradient Boosting':
         clf = GradientBoostingClassifier(
     loss='log_loss',
