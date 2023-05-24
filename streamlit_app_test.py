@@ -26,6 +26,6 @@ if display == 'Accuracy':
     st.write(scores(clf, display))
 elif display == 'Confusion matrix':
     st.dataframe(scores(clf, display))
-elif choice == 'Classification report':
+elif display == 'Classification report':
     #st.table(classification_report(y_test, clf.predict(X_test)))
-    st.text(scores(clf, display))
+    st.table(scores(clf, display))
