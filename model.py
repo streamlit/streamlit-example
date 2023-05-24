@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
-
+import streamlit as st
 
 #df = pd.read_csv('train.csv')
 
