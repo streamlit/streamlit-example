@@ -5,8 +5,8 @@ import pydeck as pdk
 import plotly.express as px
 
 #DATA_URL = (
-"/home/rhyme/Desktop/Project/Motor_Vehicle_Collisions_-_Crashes.csv"
-)
+#"/home/rhyme/Desktop/Project/Motor_Vehicle_Collisions_-_Crashes.csv"
+#)
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
   DATA_URL = pd.read_csv(uploaded_file)
