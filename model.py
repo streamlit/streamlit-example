@@ -2,12 +2,13 @@ import pandas as pd
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix,mean_squared_error,mean_absolute_error,classification_report, recall_score, f1_score
 import streamlit as st
-
+import xgboost as xgb
+from xgboost import XGBClassifier
 #df = pd.read_csv('train.csv')
 
 uploaded_file = st.file_uploader("Choose a file")
@@ -47,6 +48,17 @@ def prediction(classifier):
     elif classifier == 'Logistic Regression':
         clf = LogisticRegression()
     clf.fit(X_train, y_train)
+    elif classifier == 'XGBOOST':
+        clf = xgb.XGBClassifier()
+    clf.fit(X_train, y_train)
+    elif classifier == 'Gradient Boosting':
+        clf = GradientBoostingClassifier(
+    loss='log_loss',
+    n_estimators= 400,
+    max_depth= 4,
+    learning_rate=  0.25)
+    clf.fit(X_train, y_train)
+    
     return clf
 
 def scores(clf, choice):
@@ -54,3 +66,5 @@ def scores(clf, choice):
         return clf.score(X_test, y_test)
     elif choice == 'Confusion matrix':
         return confusion_matrix(y_test, clf.predict(X_test))
+    elif choice == 'Classification report':
+        return classification_report(y_test, clf.predict(X_test))
