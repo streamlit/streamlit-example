@@ -8,7 +8,13 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 
 
-df = pd.read_csv('train.csv')
+#df = pd.read_csv('train.csv')
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  df = pd.read_csv(uploaded_file)
+  
+
 
 df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
