@@ -8,6 +8,12 @@ DATA_URL = (
 "OneDrive - Allianz/Mes Documents/BureauFiles/EA 2022/Training/Datascientist/Coursera/Motor_Vehicle_Collisions_-_Crashes.csv"
 )
 
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  DATA_URL = pd.read_csv(uploaded_file).sample(n=30000)
+
+DATA_URL = (DATA_URL)
+    
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
