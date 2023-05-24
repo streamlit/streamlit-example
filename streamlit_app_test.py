@@ -8,7 +8,7 @@ st.header('Prediction of the Titanic Survivors')
 
 choices = ['Random Forest', 'SVC', 'Logistic Regression','XGBOOST','Gradient Boosting']
    
-prediction = @st.cache(prediction,suppress_st_warning=True)
+prediction = st.cache(prediction,suppress_st_warning=False)
 
 option = st.selectbox(
      'Which model do you want to try ?',
