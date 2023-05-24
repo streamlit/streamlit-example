@@ -28,4 +28,4 @@ elif display == 'Confusion matrix':
     st.dataframe(scores(clf, display))
 elif display == 'Classification report':
     #st.table(classification_report(y_test, clf.predict(X_test)))
-    st.dataframe(scores(clf, display))
+    st.text(scores(clf, display))
