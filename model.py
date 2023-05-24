@@ -50,11 +50,7 @@ def prediction(classifier):
     elif classifier == 'XGBOOST':
         clf = xgb.XGBClassifier()
     elif classifier == 'Gradient Boosting':
-        clf = GradientBoostingClassifier(
-    loss='log_loss',
-    n_estimators= 400,
-    max_depth= 4,
-    learning_rate=  0.25)
+        clf = GradientBoostingClassifier()
     clf.fit(X_train, y_train)
     
     return clf
