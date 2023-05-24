@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix,mean_squared_error,mean_absolute_error,classification_report, recall_score, f1_score
+from sklearn.metrics import confusion_matrix, classification_report
 import streamlit as st
 import xgboost as xgb
 from xgboost import XGBClassifier
