@@ -48,7 +48,7 @@ def prediction(classifier):
     elif classifier == 'Logistic Regression':
         clf = LogisticRegression()
 @st.cache(hash_funcs={'XGBClassifier': id})
-def train_and_predict_regression(X_train, y_train, X_test)
+def train_and_predict_regression(X_train, y_train, X_test):
     elif classifier == 'XGBOOST':
         clf = xgb.XGBClassifier()
     elif classifier == 'Gradient Boosting':
