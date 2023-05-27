@@ -48,7 +48,7 @@ def prediction(classifier):
     elif classifier == 'Logistic Regression':
         clf = LogisticRegression()
     elif classifier == 'XGBOOST':
-        clf = xgb.XGBClassifier()
+        clf = XGBClassifier()
     elif classifier == 'Gradient Boosting':
         clf = GradientBoostingClassifier()
     clf.fit(X_train, y_train)
