@@ -47,6 +47,7 @@ def prediction(classifier):
         clf = SVC()
     elif classifier == 'Logistic Regression':
         clf = LogisticRegression()
+@st.cache(hash_funcs={'xgboost.sklearn.XGBClassifier': id})
     elif classifier == 'XGBOOST':
         clf = xgb.XGBClassifier()
     elif classifier == 'Gradient Boosting':
@@ -54,7 +55,9 @@ def prediction(classifier):
     clf.fit(X_train, y_train)
     
     return clf
+@st.cache(hash_funcs={'xgboost.sklearn.XGBRegressor': id})
 
+  
 def scores(clf, choice):
     if choice == 'Accuracy':
         return clf.score(X_test, y_test)
