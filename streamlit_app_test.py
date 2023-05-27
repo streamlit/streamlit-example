@@ -18,7 +18,7 @@ st.write('You selected :', option)
 
 clf = prediction(option)
 
-display = st.radio(
+display = st.sidebar(
      "What do you want to display ?",
      ('Accuracy', 'Confusion matrix','Classification report'))
 
