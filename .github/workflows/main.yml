@@ -1,0 +1,22 @@
+name: Publish 🚀
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup streamlit
+        uses: actions/setup-streamlit@v3
+        with:
+          python-version: 'x'
+        
+      - name: Build
+        run: py manage.py
