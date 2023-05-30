@@ -6,7 +6,7 @@ st.title('Masterclass Streamlit')
 
 st.header('Prediction of the Titanic Survivors')
 
-choices = ['Random Forest','SVC','Logistic Regression','XGBOOST','Gradient Boosting']
+choices = ['Random Forest','SVC','KNN','XGBOOST','Gradient Boosting']
    
 prediction = st.cache(prediction,suppress_st_warning=True)
 
