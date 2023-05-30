@@ -20,7 +20,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Connect to server
-        run: ssh root@134.209.146.138
+        run: ssh root@134.209.146.138 -o StrictHostKeyChecking=no
 
       - name: Retrieve project folder
         run:  cd /var/www/html/codeholic_product/streamlit-example
