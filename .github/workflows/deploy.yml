@@ -21,7 +21,5 @@ jobs:
 
       - name: Connect to server
         run: 
-          - ssh root@134.209.146.138 -o StrictHostKeyChecking=no
-          - cd /var/www/html/codeholic_product/streamlit-example
-          - git pull
+          - ssh root@134.209.146.138 -o StrictHostKeyChecking=no "cd /var/www/html/codeholic_product/streamlit-example && git pull"
 
