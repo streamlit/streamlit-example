@@ -20,4 +20,4 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to server
-        run: cd /var/www/html/codeholic_product/streamlit-example && git pull
+        run: ssh root@134.209.146.138 cd /var/www/html/codeholic_product/streamlit-example && git pull
