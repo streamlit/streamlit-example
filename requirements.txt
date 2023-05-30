@@ -1,3 +1,5 @@
 altair
+numpy
 pandas
-streamlit
+streamlit 
+openpyxl

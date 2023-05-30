@@ -1,11 +1,29 @@
 import streamlit as st
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 import datetime as dt
 import json
 import csv
+import openpyxl
 
+df = pd.read_excel('crossMeetings.xlsx')
+
+# str format todays date
+today_date = dt.datetime.today().strftime('%d/%m/%Y')
+
+
+today_date_dt = dt.datetime.strptime(today_date, '%d/%m/%Y').date()
+today_date_week_number = today_date_dt.strftime('%U')
+
+# add a week column
+df["Date"] = pd.to_datetime(df['Date'],format="%d/%m/%Y")
+df['Week'] = df['Date'].dt.strftime('%U')
+
+df['Date'].dt.strftime('%d/%m/%Y')
+
+# add a week column
+df['Week'] = df['Date'].dt.strftime('%U')
 
 # The code below is for the title and logo for this page.
 st.set_page_config(page_title="Cross Feedback Meetings", page_icon="🥡")
@@ -60,23 +78,22 @@ For more information abaout d3c calture please visit [this wiki page](https://co
 
     st.write("")
 
-people = ['mert yavuz',
- 'gulsah ersoycelik',
- 'furkanberkan gulkan',
+people = [
+ 'furkan berkan gulkan',
  'dilara sahan',
  'berkay gemici',
  'mehmet kocer',
  'caglar erdiz',
- 'edaayse gurbuz',
- 'sarpali saygi',
+ 'eda ayse gurbuz',
+ 'sarp ali saygi',
  'irem kandemir',
  'ugurcan muftuoglu',
  'mehmet tuzcu',
  'narges valipour',
- 'yunusemre yildiz',
+ 'yunus emre yildiz',
  'safak baris',
- 'emirefe erez',
- 'ragipyusuf yilmaz',
+ 'emir efe erez',
+ 'ragip yusuf yilmaz',
  'aylin akdemir',
  'haktan kocyigit',
  'onur kuyucu',
@@ -86,7 +103,7 @@ people = ['mert yavuz',
  'ugur caglayan',
  'laelae win',
  'selin durmus',
- 'cansu belekcagri',
+ 'cansu belek cagri',
  'yetkin aydemir',
  'kumru orkun']
 
@@ -102,28 +119,39 @@ with col1:
     selected_person = st.selectbox("Pick your name", name_slider)
 
     # If a name has been selected, display a text input
-    if selected_person:
-        # Display a text input for the user to enter their data
-        input_data = st.text_input("Enter your data")
+    for count, person in enumerate(people):
+        if selected_person == person :
+            
+                condition1 = (df['Week'] == today_date_week_number)
+                condition2 = (df['A'] == selected_person)
+                condition3 = (df['B'] == selected_person)
 
-        # Add a button to submit the data
-        if st.button("Submit"):
+                budy1 = df.loc[condition1 & condition2, 'B']
+                budy2 = df.loc[condition1 & condition3, 'A']
+
+                st.write(f"You selected: {person}")
+
+                if not budy1.empty and not budy2.empty:
+                    st.write(f"Today is {today_date} this week you should make a meeting with {budy1.values} {budy2.values}")
+                elif not budy1.empty:
+                    st.write(f"Today is {today_date} this week you should make a meeting with {budy1.values}")
+                elif not budy2.empty:
+                    st.write(f"Today is {today_date} this week you should make a meeting with {budy2.values}")
+                else:
+                    st.write("No meeting")
+
+
+                # Display a text input for the user to enter their data
+                input_data = st.text_input("Did the meeting take place? You can write 'OK'")
+
+    # Add a button to submit the data
+    if st.button("Submit"):
+        if input_data == 'OK':
             with open("data.csv", "a", newline="") as f:
                 writer = csv.writer(f)
-                writer.writerow([selected_person, input_data])
-            # Display a confirmation message
+                writer.writerow([selected_person, input_data, today_date_week_number, today_date])
             st.success("Data submitted!")
+        else: st.warning('You have to write "OK"')
 
 with col2:
-
-    try:
-        name_filter = df["Name"].isin[(name_slider)]
-        date_filter = df["Date"].isin[(name_slider)]
-
-        final_df = df[name_filter & date_filter]
-
-    except IndexError:
-        st.warning("This is throwing an exception, bear with us!")
-        
-
-fig
+        st.balloons()
