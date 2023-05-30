@@ -5,9 +5,11 @@ import pydeck as pdk
 import plotly.express as px
 
 from pathlib import Path
-DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
+#DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
-#DATA_URL = pd.read_csv('Motor_Vehicle_Collisions_-_Crashes.csv')
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  DATA_URL = pd.read_csv(uploaded_file)
     
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
