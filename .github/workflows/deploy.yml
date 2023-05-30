@@ -20,11 +20,8 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Connect to server
-        run: ssh root@134.209.146.138 -o StrictHostKeyChecking=no
-
-      - name: Retrieve project folder
-        run:  cd /var/www/html/codeholic_product/streamlit-example
-
-      - name: Update code
-        run:  git pull
+        run: 
+          - ssh root@134.209.146.138 -o StrictHostKeyChecking=no
+          - cd /var/www/html/codeholic_product/streamlit-example
+          - git pull
 
