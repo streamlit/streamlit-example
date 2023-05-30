@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, classification_report
@@ -45,8 +46,8 @@ def prediction(classifier):
         clf = RandomForestClassifier()
     elif classifier == 'SVC':
         clf = SVC()
-    elif classifier == 'Logistic Regression':
-        clf = LogisticRegression()
+    elif classifier == 'KNN':
+        clf = KNeighborsClassifier()
     elif classifier == 'XGBOOST':
         clf = xgb.XGBClassifier()
     elif classifier == 'Gradient Boosting':
@@ -54,7 +55,6 @@ def prediction(classifier):
     clf.fit(X_train, y_train)
     
     return clf
-@st.cache(hash_funcs={'xgboost.sklearn.XGBRegressor': id})
 
   
 def scores(clf, choice):
