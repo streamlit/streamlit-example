@@ -42,9 +42,16 @@ injured_people = st.slider("Number of person injured in road accident",0, 19)
 st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
 
 
+start_date = st.date_input('CRASH_DATE', value=datetime.datetime(2019,7,6))
+start_time = st.time_input('CRASH_TIME', datetime.time(8, 45))
+start_datetime = datetime.datetime.combine(start_date, start_time)
+data["date/time"] = start_datetime
+
 st.header("How many road accident during a given time of the day?")
 hour = st.slider("Hour to look at", 0, 23)
 data = data[data['date/time'].dt.hour == hour]
+
+
 
 st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
 midpoint = (np.average(data['latitude']), np.average(data['longitude']))
