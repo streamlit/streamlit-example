@@ -18,11 +18,9 @@ from PIL import Image
 st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg",
             width=400 # Manually Adjust the width of the image as per requirement
         )
-#video_file = open('ADOIT.mp4', 'rb')
-#video_bytes = video_file.read()
-st.video("https://youtu.be/exmAamlx53k",
-            width=400
-        )
+video_file = open('https://youtu.be/exmAamlx53k', 'rb')
+video_bytes = video_file.read()
+st.video(video_bytes)
 
 @st.cache(persist=True)
 def load_data(nrows):
