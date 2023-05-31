@@ -22,7 +22,7 @@ st.write('<p style="font-size:100%">&nbsp 8. Get outlier analysis with box plots
 st.write('<p style="font-size:100%">&nbsp 9. Obtain info of target value variance with categorical columns</p>', unsafe_allow_html=True)
 #st.image('header2.png', use_column_width = True)
 
-#functions.space()
+space()
 st.write('<p style="font-size:130%">Import Dataset</p>', unsafe_allow_html=True)
 
 file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
@@ -49,13 +49,13 @@ if dataset:
     all_vizuals = ['Info', 'NA Info', 'Descriptive Analysis', 'Target Analysis', 
                    'Distribution of Numerical Columns', 'Count Plots of Categorical Columns', 
                    'Box Plots', 'Outlier Analysis', 'Variance of Target with Categorical Columns']
-    functions.sidebar_space(3)         
+    sidebar_space(3)         
     vizuals = st.sidebar.multiselect("Choose which visualizations you want to see 👇", all_vizuals)
 
     if 'Info' in vizuals:
         st.subheader('Info:')
         c1, c2, c3 = st.columns([1, 2, 1])
-        c2.dataframe(functions.df_info(df))
+        c2.dataframe(df_info(df))
 
     if 'NA Info' in vizuals:
         st.subheader('NA Value Information:')
@@ -63,8 +63,8 @@ if dataset:
             st.write('There is not any NA value in your dataset.')
         else:
             c1, c2, c3 = st.columns([0.5, 2, 0.5])
-            c2.dataframe(functions.df_isnull(df), width=1500)
-            functions.space(2)
+            c2.dataframe(df_isnull(df), width=1500)
+            space(2)
             
 
     if 'Descriptive Analysis' in vizuals:
@@ -89,7 +89,7 @@ if dataset:
         if len(num_columns) == 0:
             st.write('There is no numerical columns in the data.')
         else:
-            selected_num_cols = functions.sidebar_multiselect_container('Choose columns for Distribution plots:', num_columns, 'Distribution')
+            selected_num_cols = sidebar_multiselect_container('Choose columns for Distribution plots:', num_columns, 'Distribution')
             st.subheader('Distribution of numerical columns')
             i = 0
             while (i < len(selected_num_cols)):
@@ -108,7 +108,7 @@ if dataset:
         if len(cat_columns) == 0:
             st.write('There is no categorical columns in the data.')
         else:
-            selected_cat_cols = functions.sidebar_multiselect_container('Choose columns for Count plots:', cat_columns, 'Count')
+            selected_cat_cols = sidebar_multiselect_container('Choose columns for Count plots:', cat_columns, 'Count')
             st.subheader('Count plots of categorical columns')
             i = 0
             while (i < len(selected_cat_cols)):
@@ -126,7 +126,7 @@ if dataset:
         if len(num_columns) == 0:
             st.write('There is no numerical columns in the data.')
         else:
-            selected_num_cols = functions.sidebar_multiselect_container('Choose columns for Box plots:', num_columns, 'Box')
+            selected_num_cols = sidebar_multiselect_container('Choose columns for Box plots:', num_columns, 'Box')
             st.subheader('Box plots')
             i = 0
             while (i < len(selected_num_cols)):
@@ -143,7 +143,7 @@ if dataset:
     if 'Outlier Analysis' in vizuals:
         st.subheader('Outlier Analysis')
         c1, c2, c3 = st.columns([1, 2, 1])
-        c2.dataframe(functions.number_of_outliers(df))
+        c2.dataframe(number_of_outliers(df))
 
     if 'Variance of Target with Categorical Columns' in vizuals:
         
@@ -166,7 +166,7 @@ if dataset:
         
             st.subheader('Variance of target variable with categorical columns')
             model_type = st.radio('Select Problem Type:', ('Regression', 'Classification'), key = 'model_type')
-            selected_cat_cols = functions.sidebar_multiselect_container('Choose columns for Category Colored plots:', normal_cardi_columns, 'Category')
+            selected_cat_cols = sidebar_multiselect_container('Choose columns for Category Colored plots:', normal_cardi_columns, 'Category')
             
             if 'Target Analysis' not in vizuals:   
                 target_column = st.selectbox("Select target column:", df.columns, index = len(df.columns) - 1)
