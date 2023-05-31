@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import plotly.express as px
+import datetime
 
 from pathlib import Path
 #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
@@ -44,7 +45,7 @@ st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE'
 
 start_date = st.date_input('CRASH_DATE', value=datetime.datetime(2019,7,6))
 start_time = st.time_input('CRASH_TIME', datetime.time(8, 45))
-start_datetime = datetime.datetime.combine(start_date, start_time)
+start_datetime = datetime.combine(start_date, start_time)
 data["date/time"] = start_datetime
 
 st.header("How many road accident during a given time of the day?")
