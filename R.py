@@ -14,6 +14,7 @@ if uploaded_file is not None:
 
 
 df = DATA_URL
+
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
@@ -32,6 +33,8 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_acci
 #    data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
 #    return data
 
+data = pd.read_csv(df,nrows=30000, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
+data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
 
 #data = load_data(20000)
 
@@ -41,8 +44,6 @@ st.header("Where are the most people injured in France?")
 injured_people = st.slider("Number of person injured in road accident",0, 19)
 st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
 
-data = pd.read_csv(df,nrows=30000, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
-data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
 
 st.write(data)
 
