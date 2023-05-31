@@ -20,7 +20,7 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_acci
         )
 #st.video("https://www.youtube.com/shorts/X5CYrFKcvis")
 
-@st.cache(persist=True)
+#@st.cache(persist=True)
 #def load_data(nrows):
     #data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
     #data.dropna(subset=['LATITUDE', 'LONGITUDE'], inplace=True)
@@ -33,9 +33,9 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_acci
 #data = load_data(100000)
 #original_data = data
 
-  st.header("Where are the most people injured in France?")
-  injured_people = st.slider("Number of person injured in road accident",0, 19)
-  st.map(DATA_URL.query("injured_persons >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
+st.header("Where are the most people injured in France?")
+injured_people = st.slider("Number of person injured in road accident",0, 19)
+st.map(DATA_URL.query("injured_persons >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
 
 
 st.header("How many road accident during a given time of the day?")
