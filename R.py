@@ -18,7 +18,7 @@ from PIL import Image
 image = Image.open('sunrise.jpg')
 st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg",
             width=400, # Manually Adjust the width of the image as per requirement)
-st.image(product_img[0]), width = 400, caption='Sunrise by the mountains')
+#st.image(product_img[0]), width = 400, caption='Sunrise by the mountains')
 #st.image(image, caption='Sunrise by the mountains')
 
 video_file = open('ADOIT.mp4', 'rb')
