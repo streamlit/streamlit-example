@@ -53,21 +53,21 @@ data = data[data['date/time'].dt.hour == hour]
 
 
 st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
-midpoint = (np.average(data['latitude']), np.average(data['longitude']))
+midpoint = (np.average(data['LATITUDE']), np.average(data['LONGITUDE']))
 
 st.write(pdk.Deck(
      map_style="mapbox://styles/mapbox/light-v9",
      initial_view_state={
-         "latitude": midpoint[0],
-         "longitude": midpoint[1],
+         "LATITUDE": midpoint[0],
+         "LONGITUDE": midpoint[1],
          "zoom": 11,
          "pitch": 50,
      },
      layers=[
          pdk.Layer(
          "HexagonLayer",
-         data=data[['date/time','latitude','longitude']],
-         get_position=['longitude','latitude'],
+         data=data[['date/time','LATITUDE','LONGITUDE']],
+         get_position=['LONGITUDE','LATITUDE'],
          radius=100,
          extruded=True,
          pickable=True,
