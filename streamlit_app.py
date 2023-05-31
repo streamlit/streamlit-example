@@ -12,6 +12,3 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/9/92/Kim_Kardashian_rwq
             width=600 # Manually Adjust the width of the image as per requirement
         )
 
-
-
-
