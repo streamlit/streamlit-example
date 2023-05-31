@@ -47,6 +47,10 @@ X = df2.drop(['grav_min','grav_max','gravMerged','count'], axis = 1)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test= scaler.transform(X_test)
+
 
 def prediction(classifier):
     if classifier == 'Random Forest':
