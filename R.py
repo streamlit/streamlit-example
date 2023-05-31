@@ -33,7 +33,7 @@ def load_data(nrows):
     return data
 
 
-data = load_data(30000)
+data = load_data(20000)
 
 #original_data = data
 
