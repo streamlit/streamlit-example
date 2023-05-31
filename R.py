@@ -14,6 +14,14 @@ if uploaded_file is not None:
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
+from PIL import Image
+image = Image.open('sunrise.jpg')
+st.image(image, caption='Sunrise by the mountains')
+
+video_file = open('ADOIT.mp4', 'rb')
+video_bytes = video_file.read()
+st.video(video_bytes)
+
 @st.cache(persist=True)
 def load_data(nrows):
     data = pd.read_csv(DATA_URL,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
