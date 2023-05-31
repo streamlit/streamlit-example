@@ -17,7 +17,7 @@ if uploaded_file is not None:
   df = pd.read_csv(uploaded_file)
   
 
- df2 = df
+df2 = df
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
 #X_cat = df[['Pclass', 'Sex',  'Embarked']]
