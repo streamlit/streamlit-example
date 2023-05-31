@@ -44,7 +44,7 @@ st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE'
 
 #start_date = st.date_input('CRASH_DATE', value=datetime.datetime(2019,7,6))
 #start_time = st.time_input('CRASH_TIME', datetime.time(8, 45))
-start_datetime = datetime.combine('CRASH_DATE', 'CRASH_TIME')
+start_datetime = datetime('CRASH_DATE', 'CRASH_TIME')
 data["date/time"] = start_datetime
 
 st.write(data)
