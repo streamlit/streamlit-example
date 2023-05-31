@@ -13,6 +13,6 @@ tqdm==4.49.0
 nltk==3.4.5
 spacy==2.3.2
 textblob==0.15.3
-cython==0.29.3
+cython==0.29.35
 fasttext==0.9.1
 lime==0.1.1.36
