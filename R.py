@@ -10,7 +10,7 @@ from pathlib import Path
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-  DATA_URL = pd.read_csv(uploaded_file).sample(n=30000)
+  DATA_URL = pd.read_csv(uploaded_file).sample(n=300000)
 
 
 df = DATA_URL
@@ -52,6 +52,7 @@ data = data[data['date/time'].dt.hour == hour]
 st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
 midpoint = (np.average(data['LATITUDE']), np.average(data['LONGITUDE']))
 
+
 st.write(pdk.Deck(
      map_style="mapbox://styles/mapbox/light-v9",
      initial_view_state={
@@ -74,6 +75,8 @@ st.write(pdk.Deck(
      ],
 ))
 
+
+
 st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %24))
 filtered = data[
      (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
@@ -82,6 +85,8 @@ hist = np.histogram(filtered['date/time'].dt.minute, bins=60, range=(0,60))[0]
 chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
 fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
 st.write(fig)
+
+
 
 st.header("Top 5 dangerous city by injury type")
 select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
