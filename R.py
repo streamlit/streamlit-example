@@ -33,9 +33,8 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_acci
 #    data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
 #    return data
 
-data = pd.read_csv(df,nrows=30000, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
-data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
-
+df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
+data = df
 #data = load_data(20000)
 
 #original_data = data
