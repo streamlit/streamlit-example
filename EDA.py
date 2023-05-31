@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-import functions
+from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
+#import functions 
 
 st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='EDA')
 
