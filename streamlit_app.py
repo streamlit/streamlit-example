@@ -8,7 +8,7 @@ Bonsoir nia mouah !!!!!
 
 """
 from PIL import Image
-st.image("https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg",
+st.image("https://upload.wikimedia.org/wikipedia/commons/9/92/Kim_Kardashian_rwqhizs6yDFl.jpg",
             width=600 # Manually Adjust the width of the image as per requirement
         )
 
