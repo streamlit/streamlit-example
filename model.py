@@ -17,7 +17,7 @@ if uploaded_file is not None:
   df = pd.read_csv(uploaded_file)
   
 
-df = df[['agg','catr','prof','com','col','larrout','situ','lartpc','int','circ','nbv','atm','grav_min','grav-max','count','gravMerged', 'an','mois','jour','hrmn']]
+ df = df['agg','catr','prof','com','col','larrout','situ','lartpc','int','circ','nbv','atm','grav_min','grav-max','count','gravMerged','an','mois','jour','hrmn']
 
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
