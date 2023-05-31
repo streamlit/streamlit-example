@@ -35,7 +35,6 @@ def load_data(nrows):
 
 data = df
 
-st.write(data)
 #original_data = data
 
 st.header("Where are the most people injured in France?")
@@ -43,10 +42,13 @@ injured_people = st.slider("Number of person injured in road accident",0, 19)
 st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
 
 
-start_date = st.date_input('CRASH_DATE', value=datetime.datetime(2019,7,6))
-start_time = st.time_input('CRASH_TIME', datetime.time(8, 45))
-start_datetime = datetime.combine(start_date, start_time)
+#start_date = st.date_input('CRASH_DATE', value=datetime.datetime(2019,7,6))
+#start_time = st.time_input('CRASH_TIME', datetime.time(8, 45))
+start_datetime = datetime.combine('CRASH_DATE', 'CRASH_TIME')
 data["date/time"] = start_datetime
+
+st.write(data)
+
 
 st.header("How many road accident during a given time of the day?")
 hour = st.slider("Hour to look at", 0, 23)
