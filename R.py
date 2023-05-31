@@ -21,7 +21,8 @@ st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/
 #video_file = open('ADOIT.mp4', 'rb')
 #video_bytes = video_file.read()
 st.video("https://youtu.be/exmAamlx53k",
-            width=400)
+            width=400
+        )
 
 @st.cache(persist=True)
 def load_data(nrows):
