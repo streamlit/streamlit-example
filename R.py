@@ -21,9 +21,9 @@ st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/
 #st.image(product_img[0]), width = 400, caption='Sunrise by the mountains')
 #st.image(image, caption='Sunrise by the mountains')
 
-video_file = open('ADOIT.mp4', 'rb')
-video_bytes = video_file.read()
-st.video(video_bytes)
+#video_file = open('ADOIT.mp4', 'rb')
+#video_bytes = video_file.read()
+#st.video(video_bytes)
 
 @st.cache(persist=True)
 def load_data(nrows):
