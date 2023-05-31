@@ -17,7 +17,8 @@ if uploaded_file is not None:
   df = pd.read_csv(uploaded_file)
   
 
-df2 = df
+df = df[['agg','catr','prof','com','col','larrout','situ','lartpc','int','circ','nbv','atm','grav_min','grav-max','count','gravMerged', 'an','mois','jour','hrmn']]
+
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
 #X_cat = df[['Pclass', 'Sex',  'Embarked']]
@@ -42,8 +43,8 @@ df2 = df
 #X_test[X_quant.columns] = scaler.transform(X_test[X_quant.columns])
 
 #seperating data to 4 datasets
-y =df2['grav']
-X = df2.drop(['grav','gravMerged'], axis = 1)
+y =df['grav_min']
+X = df.drop(['grav_min','grav_max','gravMerged','count'], axis = 1)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
