@@ -16,7 +16,7 @@ st.markdown("This application is a Streamlit dashboard that can be use to analyz
 
 from PIL import Image
 st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
-            width=400 # Manually Adjust the width of the image as per requirement
+            width=600 # Manually Adjust the width of the image as per requirement
         )
 #st.video("https://www.youtube.com/shorts/X5CYrFKcvis")
 
