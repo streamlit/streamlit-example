@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 from model import prediction, scores
 
-st.title('Masterclass Streamlit')
+st.title('Our first Streamlit App')
 
-st.header('Prediction of the Titanic Survivors')
+st.header('Road Accident in France 2005-2016')
 
 choices = ['Random Forest','SVC','KNN','XGBOOST','Gradient Boosting']
    
