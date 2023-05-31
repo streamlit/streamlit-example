@@ -18,7 +18,7 @@ from PIL import Image
 st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg",
             width=400 # Manually Adjust the width of the image as per requirement
         )
-st.video("https://youtu.be/yVV_t_Tewvs")
+st.video("https://www.youtube.com/shorts/X5CYrFKcvis")
 
 @st.cache(persist=True)
 def load_data(nrows):
