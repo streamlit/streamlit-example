@@ -15,16 +15,13 @@ st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
 from PIL import Image
-#image = Image.open('waterfall.jpg')
 st.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg",
             width=400 # Manually Adjust the width of the image as per requirement
         )
-#st.image(product_img[0]), width = 400, caption='Sunrise by the mountains')
-#st.image(image, caption='Sunrise by the mountains')
-
 #video_file = open('ADOIT.mp4', 'rb')
 #video_bytes = video_file.read()
-#st.video(video_bytes)
+st.video("https://youtu.be/exmAamlx53k",
+            width=400)
 
 @st.cache(persist=True)
 def load_data(nrows):
