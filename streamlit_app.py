@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 
 """
-# Welcome to Streamlit sid TEAM!
+# Welcome to YAKOUT TEAM!
 
 Editing `/streamlit_app.py` to customize this app to your heart's desire :heart:
 
@@ -15,6 +15,7 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
+st.image('https://en.wikipedia.org/wiki/Belle_%28Beauty_and_the_Beast%29#/media/File:Belle_disney.png')
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
