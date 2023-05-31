@@ -52,7 +52,6 @@ data = data[data['date/time'].dt.hour == hour]
 st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
 midpoint = (np.average(data['LATITUDE']), np.average(data['LONGITUDE']))
 
-
 st.write(pdk.Deck(
      map_style="mapbox://styles/mapbox/light-v9",
      initial_view_state={
