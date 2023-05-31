@@ -34,7 +34,7 @@ def load_data(nrows):
 
 data = df
 
-   st.write(data)
+st.write(data)
 #original_data = data
 
 st.header("Where are the most people injured in France?")
