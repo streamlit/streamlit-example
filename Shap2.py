@@ -53,3 +53,6 @@ st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:])
 
 # visualize the training set predictions
 st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
+
+
+
