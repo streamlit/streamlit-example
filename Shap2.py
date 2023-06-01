@@ -4,6 +4,7 @@ import streamlit.components.v1 as components
 import xgboost
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
