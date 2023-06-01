@@ -16,33 +16,28 @@ if uploaded_file is not None:
   df = pd.read_csv(uploaded_file)
   
 
-df2 = df
-#df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
+df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
-#X_cat = df[['Pclass', 'Sex',  'Embarked']]
-#X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
-#y = df['Survived']
+X_cat = df[['Pclass', 'Sex',  'Embarked']]
+X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
+y = df['Survived']
 
-#for col in X_cat.columns:
-#    X_cat[col] = X_cat[col].fillna(X_cat[col].mode()[0])
+for col in X_cat.columns:
+    X_cat[col] = X_cat[col].fillna(X_cat[col].mode()[0])
 
-#for col in X_quant.columns:
-#    X_quant[col] = X_quant[col].fillna(X_quant[col].mean())
+for col in X_quant.columns:
+    X_quant[col] = X_quant[col].fillna(X_quant[col].mean())
 
 
-#X_cat_scaled = pd.get_dummies(X_cat, columns=X_cat.columns)
+X_cat_scaled = pd.get_dummies(X_cat, columns=X_cat.columns)
 
-#X = pd.concat([X_cat_scaled, X_quant], axis = 1)
+X = pd.concat([X_cat_scaled, X_quant], axis = 1)
 
-#X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.25)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.25)
 
-#scaler = StandardScaler()
-#X_train[X_quant.columns] = scaler.fit_transform(X_train[X_quant.columns])
-#X_test[X_quant.columns] = scaler.transform(X_test[X_quant.columns])
-
-#seperating data to 4 datasets
-y =df2['grav_min']
-X = df2.drop(['grav_min','grav_max','gravMerged','count'], axis = 1)
+scaler = StandardScaler()
+X_train[X_quant.columns] = scaler.fit_transform(X_train[X_quant.columns])
+X_test[X_quant.columns] = scaler.transform(X_test[X_quant.columns])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
@@ -65,7 +60,6 @@ def prediction(classifier):
     clf.fit(X_train, y_train)
     
     return clf
-
   
 def scores(clf, choice):
     if choice == 'Accuracy':
@@ -74,3 +68,4 @@ def scores(clf, choice):
         return confusion_matrix(y_test, clf.predict(X_test))
     elif choice == 'Classification report':
         return classification_report(y_test, clf.predict(X_test))
+
