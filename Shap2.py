@@ -3,9 +3,15 @@ import streamlit as st
 import streamlit.components.v1 as components
 import xgboost
 
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  df = pd.read_csv(uploaded_file)
+
 @st.cache
 def load_data():
-    return shap.datasets.boston()
+    return shap.df()
+
 
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
