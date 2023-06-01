@@ -5,6 +5,7 @@ import xgboost
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
