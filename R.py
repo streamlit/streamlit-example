@@ -14,7 +14,7 @@ if uploaded_file is not None:
 
 
 df = DATA_URL
-
+df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
@@ -35,6 +35,7 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_acci
 
 df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
 data = df
+
 #data = load_data(20000)
 
 #original_data = data
