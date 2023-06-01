@@ -54,7 +54,7 @@ def prediction(classifier):
     elif classifier == 'KNN':
         clf = KNeighborsClassifier()
     elif classifier == 'XGBOOST':
-        clf = xgb.XGBClassifier(use_label_encoder=False)
+        clf = xgb.XGBClassifier()
     elif classifier == 'Gradient Boosting':
         clf = GradientBoostingClassifier()
     clf.fit(X_train, y_train)
