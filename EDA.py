@@ -7,8 +7,8 @@ from functions import df_info, df_isnull, number_of_outliers, space, sidebar_spa
 
 st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='EDA')
 
-st.header("🎨Exploratory Data Analysis Tool for Data Science Projects")
-
+st.header("Exploratory Data Analysis")
+st.image("https://datos.gob.es/sites/default/files/u322/grafico.jpg",width=600)
 st.write('<p style="font-size:160%">You will be able to✅:</p>', unsafe_allow_html=True)
 
 st.write('<p style="font-size:100%">&nbsp 1. See the whole dataset</p>', unsafe_allow_html=True)
