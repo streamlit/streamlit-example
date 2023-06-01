@@ -12,6 +12,10 @@ if uploaded_file is not None:
   
 df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
+def st_shap(plot, height=None):
+    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+    components.html(shap_html, height=height)
+    
 X_cat = df[['Pclass', 'Sex',  'Embarked']]
 X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
 y = df['Survived']
