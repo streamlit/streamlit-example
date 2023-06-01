@@ -2,6 +2,7 @@ import shap
 import streamlit as st
 import streamlit.components.v1 as components
 import xgboost
+import pandas as pd
 
 
 uploaded_file = st.file_uploader("Choose a file")
