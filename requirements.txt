@@ -12,5 +12,4 @@ cython==0.29.35
 fasttext==0.9.1
 lime==0.1.1.36
 plotly==5.6.0
-xgboost==1.0.2
-numba==0.48.0
+xgboost == 1.6.2
