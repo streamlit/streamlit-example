@@ -45,37 +45,85 @@ def eda():
 
 def data_viz():
     import streamlit as st
-    import time
+    import pandas as pd
     import numpy as np
+    import pydeck as pdk
+    import plotly.express as px
+    import datetime as dt
 
-    st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
-    st.write(
-        """
-        This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!
-"""
-    )
+    from pathlib import Path
+    #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
-    progress_bar = st.sidebar.progress(0)
-    status_text = st.sidebar.empty()
-    last_rows = np.random.randn(1, 1)
-    chart = st.line_chart(last_rows)
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+      DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
 
-    for i in range(1, 101):
-        new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-        status_text.text("%i%% Complete" % i)
-        chart.add_rows(new_rows)
-        progress_bar.progress(i)
-        last_rows = new_rows
-        time.sleep(0.05)
 
-    progress_bar.empty()
+    df = DATA_URL
+    df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
+    st.title("Road Accident in France")
+    st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
-    # Streamlit widgets automatically run the script from top to bottom. Since
-    # this button is not connected to any other logic, it just causes a plain
-    # rerun.
-    st.button("Re-run")
+    from PIL import Image
+    st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
+                width=600 # Manually Adjust the width of the image as per requirement
+            )
+    #st.video("https://www.youtube.com/shorts/X5CYrFKcvis")
+
+    df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
+    data = df
+
+    #data = load_data(20000)
+
+    #original_data = data
+
+    st.header("Where are the most people injured in France?")
+    injured_people = st.slider("Number of person injured in road accident",0, 100)
+    st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
+
+
+    st.header("How many road accident during a given time of the day?")
+    hour = st.slider("Hour to look at", 0, 23)
+    data = data[data['date/time'].dt.hour == hour]
+
+
+    st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
+    midpoint = (np.average(data['LATITUDE']), np.average(data['LONGITUDE']))
+
+    st.pydeck_chart(pdk.Deck(map_style="mapbox://styles/mapbox/streets-v12", initial_view_state={"latitude": midpoint[0],"longitude": midpoint[1],"zoom": 11,"pitch": 50},
+         layers=[pdk.Layer("HexagonLayer", data=data[['date/time','LATITUDE','LONGITUDE']], get_position=['LONGITUDE','LATITUDE'], radius=100, extruded=True, pickable=True,
+             elevation_scale=4, elevation_range=[0,1000])]))
+
+    st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %24))
+    filtered = data[
+         (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
+    ]
+    hist = np.histogram(filtered['date/time'].dt.minute, bins=60, range=(0,60))[0]
+    chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
+    fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
+    st.write(fig)
+
+
+
+    st.header("Top 5 dangerous city by injury type")
+    select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
+
+    if select == 'Pedestrian':
+        st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
+
+    elif select == 'Cyclists':
+        st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:5])
+
+    else:
+        st.write(data.query("INJURED_MOTORISTS >= 1") [["ON_STREET_NAME","INJURED_MOTORISTS"]].sort_values(by=['INJURED_MOTORISTS'], ascending=False).dropna(how='any')[:5])
+
+
+
+
+
+    if st.checkbox("Show Raw Data", False):
+       st.subheader('Raw Data')
+       st.write(data)
 
 
 def modelling():
