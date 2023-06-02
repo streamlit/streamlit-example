@@ -29,7 +29,7 @@ def intro():
     """
     )
 
-def EDA():
+def mapping_demo():
     import streamlit as st
     import pandas as pd
     import pydeck as pdk
@@ -126,7 +126,7 @@ to display geospatial data.
             % e.reason
         )
 
-def Dataviz():
+def plotting_demo():
     import streamlit as st
     import time
     import numpy as np
@@ -161,7 +161,7 @@ Streamlit. We're generating a bunch of random numbers in a loop for around
     st.button("Re-run")
 
 
-def Modelling():
+def data_frame_demo():
     import streamlit as st
     import pandas as pd
     import altair as alt
