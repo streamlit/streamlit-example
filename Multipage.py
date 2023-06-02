@@ -218,10 +218,10 @@ def Modelling():
         """
             % e.reason
         )
-
+st.set_page_config(page_title="exploratory_data", page_icon="📈")
 page_names_to_funcs = {
     "—": intro,
-    "EDA": plotting_demo,
+    "EDA": exploratory_data,
     "Dataviz": data_visualization,
     "Modelling": models_chosen
 }
