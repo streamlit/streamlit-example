@@ -221,9 +221,9 @@ def modelling():
 
 page_names_to_funcs = {
     "—": intro,
-    "Plotting Demo": eda,
-    "Mapping Demo": data_viz,
-    "DataFrame Demo": modelling
+    "Exploratory Data Analysis": eda,
+    "Data Visualization": data_viz,
+    "Machine Learning Models": modelling
 }
 
 page_name = st.sidebar.selectbox("Choose your page", page_names_to_funcs.keys())
