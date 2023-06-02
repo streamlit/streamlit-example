@@ -41,7 +41,7 @@ data = df
 #original_data = data
 
 st.header("Where are the most people injured in France?")
-injured_people = st.slider("Number of person injured in road accident",0, 19)
+injured_people = st.slider("Number of person injured in road accident",0, 100)
 st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
 
 
