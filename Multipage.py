@@ -29,7 +29,7 @@ def intro():
     """
     )
 
-def mapping_demo():
+def EDA():
     import streamlit as st
     import pandas as pd
     import pydeck as pdk
@@ -126,7 +126,7 @@ to display geospatial data.
             % e.reason
         )
 
-def plotting_demo():
+def Dataviz():
     import streamlit as st
     import time
     import numpy as np
@@ -161,7 +161,7 @@ Streamlit. We're generating a bunch of random numbers in a loop for around
     st.button("Re-run")
 
 
-def data_frame_demo():
+def Modelling():
     import streamlit as st
     import pandas as pd
     import altair as alt
@@ -221,10 +221,10 @@ def data_frame_demo():
 
 page_names_to_funcs = {
     "—": intro,
-    "Plotting Demo": plotting_demo,
-    "Mapping Demo": mapping_demo,
-    "DataFrame Demo": data_frame_demo
+    "EDA": exploratory_data_analysis,
+    "Dataviz": data_visualization,
+    "Modelling": models_chosen
 }
 
-demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
-page_names_to_funcs[demo_name]()
+page_name = st.sidebar.selectbox("Choose your page", page_names_to_funcs.keys())
+page_names_to_funcs[page_name]()
