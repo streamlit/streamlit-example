@@ -221,7 +221,7 @@ def Modelling():
 
 page_names_to_funcs = {
     "—": intro,
-    "EDA": exploratory_data_analysis,
+    "EDA": exploratory_data,
     "Dataviz": data_visualization,
     "Modelling": models_chosen
 }
