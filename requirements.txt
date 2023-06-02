@@ -13,4 +13,4 @@ fasttext==0.9.1
 lime==0.1.1.36
 plotly==5.6.0
 xgboost == 1.6.2
-streamlit-pandas-profiling
+streamlit-pandas-profiling==0.1.3
