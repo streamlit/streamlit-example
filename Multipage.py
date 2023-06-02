@@ -3,7 +3,7 @@ import streamlit as st
 def intro():
     import streamlit as st
 
-    st.write("#Welcome to our first App")
+    st.write("# Welcome to our first App")
     st.sidebar.success("Select pages")
 
     st.markdown(
