@@ -129,60 +129,35 @@ def data_viz():
 def modelling():
     import streamlit as st
     import pandas as pd
-    import altair as alt
+    from model import prediction, scores
 
-    from urllib.error import URLError
+    st.title('Our first Streamlit App')
 
-    st.markdown(f"# {list(page_names_to_funcs.keys())[3]}")
-    st.write(
-        """
-        This demo shows how to use `st.write` to visualize Pandas DataFrames.
+    st.header('Road Accident in France 2005-2016')
 
-(Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)
-"""
-    )
+    choices = ['Random Forest','SVC','KNN','XGBOOST','Gradient Boosting']
 
-    @st.cache_data
-    def get_UN_data():
-        AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
-        df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
-        return df.set_index("Region")
+    prediction = st.cache(prediction,suppress_st_warning=True)
 
-    try:
-        df = get_UN_data()
-        countries = st.multiselect(
-            "Choose countries", list(df.index), ["China", "United States of America"]
-        )
-        if not countries:
-            st.error("Please select at least one country.")
-        else:
-            data = df.loc[countries]
-            data /= 1000000.0
-            st.write("### Gross Agricultural Production ($B)", data.sort_index())
+    option = st.selectbox(
+         'Which model do you want to try ?',
+         choices)
 
-            data = data.T.reset_index()
-            data = pd.melt(data, id_vars=["index"]).rename(
-                columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
-            )
-            chart = (
-                alt.Chart(data)
-                .mark_area(opacity=0.3)
-                .encode(
-                    x="year:T",
-                    y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-                    color="Region:N",
-                )
-            )
-            st.altair_chart(chart, use_container_width=True)
-    except URLError as e:
-        st.error(
-            """
-            **This demo requires internet access.**
+    st.write('You selected :', option)
 
-            Connection error: %s
-        """
-            % e.reason
-        )
+    clf = prediction(option)
+
+    display = st.selectbox(
+         "What do you want to display ?",
+         ('Accuracy', 'Confusion matrix','Classification report'))
+
+    if display == 'Accuracy':
+        st.write(scores(clf, display))
+    elif display == 'Confusion matrix':
+        st.dataframe(scores(clf, display))
+    elif display == 'Classification report':
+        #st.table(classification_report(y_test, clf.predict(X_test)))
+        st.text(scores(clf, display))
 
 page_names_to_funcs = {
     "—": intro,
