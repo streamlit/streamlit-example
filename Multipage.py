@@ -38,7 +38,7 @@ def eda():
     
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
-      df = pd.read_csv(uploaded_file)
+      df = pd.read_csv(uploaded_file,low_memory=False)
       pr = df.profile_report()
 
     st_profile_report(pr)
@@ -56,7 +56,7 @@ def data_viz():
 
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
-      DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
+      DATA_URL = pd.read_csv(uploaded_file,low_memory=False).sample(n=100000)
 
 
     df = DATA_URL
