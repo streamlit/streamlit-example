@@ -12,7 +12,6 @@ from pathlib import Path
 #if uploaded_file is not None:
   #DATA_URL = pd.read_csv('https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=sharing') #uploaded_file).sample(n=100000)
 
-
 df = pd.read_csv('https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=drive_link') #DATA_URL
 df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 st.title("Road Accident in France")
