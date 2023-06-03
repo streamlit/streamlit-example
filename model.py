@@ -23,7 +23,7 @@ df = df.drop(['gravMerged'], axis=1)
 #X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
 #y = df['Survived']
 y =df['grav']
-X = df.drop(['grav','gravMerged'], axis = 1)
+X = df.drop(['grav'], axis = 1)
 
 #for col in X_cat.columns:
 #    X_cat[col] = X_cat[col].fillna(X_cat[col].mode()[0])
