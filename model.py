@@ -17,7 +17,7 @@ if uploaded_file is not None:
   
 
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
-df = df.drop(['gravMerged'], axis=1)
+df = df.drop(['gravMerged'], axis=1, inplace=True)
 
 #X_cat = df[['Pclass', 'Sex',  'Embarked']]
 #X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
