@@ -8,14 +8,11 @@ import datetime as dt
 from pathlib import Path
 #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
-#uploaded_file = st.file_uploader("Choose a file")
-#if uploaded_file is not None:
-#  DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
 @st.cache_data
-def get_data():
-    GOOGLE_URL = pd.read_csv("https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=drive_link")
-    df = GOOGLE_URL
-    return df
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
+
 df = DATA_URL
 
 df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
