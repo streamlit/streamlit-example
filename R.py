@@ -13,7 +13,7 @@ from pathlib import Path
   #DATA_URL = pd.read_csv('https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=sharing') #uploaded_file).sample(n=100000)
 
 
-df = pd.read_csv('https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=sharing') #DATA_URL
+df = pd.read_csv('https://drive.google.com/file/d/1-46-MmuLbAv0DL185YMioAy03_uV5fMR/view?usp=sharing') #DATA_URL
 df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
