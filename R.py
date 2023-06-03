@@ -14,12 +14,10 @@ from pathlib import Path
 @st.cache_data
 def get_data():
     GOOGLE_URL = "https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=drive_link"
-    df = pd.read_csv(GOOGLE_URL)
-    return data
+    df = Path(GOOGLE_URL)
+    return df
 
-df = data
-
-df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
+df = df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
