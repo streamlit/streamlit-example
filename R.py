@@ -8,9 +8,9 @@ import datetime as dt
 from pathlib import Path
 #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
+#uploaded_file = st.file_uploader("Choose a file")
+#if uploaded_file is not None:
+  DATA_URL = pd.read_csv('https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=sharing') #uploaded_file).sample(n=100000)
 
 
 df = DATA_URL
