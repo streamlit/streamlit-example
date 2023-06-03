@@ -15,9 +15,9 @@ from pathlib import Path
 def get_data():
     GOOGLE_URL = "https://drive.google.com/file/d/1dhvtJwYe00Bha08Un3-kv4tBZKYGJNF1/view?usp=drive_link"
     df = pd.read_csv(GOOGLE_URL)
-    return df
+    return data
 
-#df = DATA_URL
+df = data
 
 df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 st.title("Road Accident in France")
