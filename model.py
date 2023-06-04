@@ -74,4 +74,4 @@ def scores(clf, choice):
     elif choice == 'Classification report':
         return classification_report(y_test, clf.predict(X_test))
     elif choice == 'rmse':
-        return np.sqrt(((clf.predict(X_train)-y_train)**2).mean()), np.sqrt(((clf.predict(X_test)-y_test)**2).mean()),
+        return np.sqrt(((clf.predict(X_train)-y_train)**2).mean()), np.sqrt(((clf.predict(X_test)-y_test)**2).mean())
