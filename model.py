@@ -9,6 +9,9 @@ from sklearn.metrics import confusion_matrix, classification_report
 import streamlit as st
 import xgboost as xgb
 from xgboost import XGBClassifier
+import joblib
+import pickle
+
 #df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
 uploaded_file = st.file_uploader("Choose a file")
@@ -47,6 +50,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 #X_train = scaler.fit_transform(X_train)
 #X_test= scaler.transform(X_test)
 
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_test, Y_test)
+print(result)
 
 def prediction(classifier):
     if classifier == 'Random Forest':
@@ -56,13 +62,13 @@ def prediction(classifier):
     elif classifier == 'KNN':
         clf = KNeighborsClassifier()
     elif classifier == 'XGBOOST':
-        clf = xgb.XGBClassifier()
+        clf = pickle.load('gbc_model.sav')
     elif classifier == 'Gradient Boosting':
         clf = GradientBoostingClassifier()
     clf.fit(X_train, y_train)
     
     return clf
-  
+
 def scores(clf, choice):
     if choice == 'Accuracy':
         return clf.score(X_test, y_test)
