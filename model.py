@@ -63,6 +63,9 @@ def prediction(classifier):
     
     return clf
   
+#1. rmse function
+def rmse(x,y): return np.sqrt(((x-y)**2).mean())
+  
 def scores(clf, choice):
     if choice == 'Accuracy':
         return clf.score(X_test, y_test)
@@ -70,4 +73,5 @@ def scores(clf, choice):
         return confusion_matrix(y_test, clf.predict(X_test))
     elif choice == 'Classification report':
         return classification_report(y_test, clf.predict(X_test))
-
+    elif choice == 'rmse':
+        return rmse(clf.predict(X_test), y_test), rmse(clf.predict(X_train), y_train))
