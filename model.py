@@ -17,13 +17,13 @@ if uploaded_file is not None:
   
 
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
-df = df.drop(['gravMerged'], axis=1, inplace=True)
+#df = df.drop(['gravMerged'], axis=1, inplace=True)
 
 #X_cat = df[['Pclass', 'Sex',  'Embarked']]
 #X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
 #y = df['Survived']
 y =df['grav']
-X = df.drop(['grav'], axis = 1)
+X = df.drop(['grav','gravMerged'], axis = 1)
 
 #for col in X_cat.columns:
 #    X_cat[col] = X_cat[col].fillna(X_cat[col].mode()[0])
