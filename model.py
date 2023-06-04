@@ -18,7 +18,6 @@ df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZ
 #if uploaded_file is not None:
 #  df = pd.read_csv(uploaded_file)
   
-
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 #df = df.drop(['gravMerged'], axis=1, inplace=True)
 
