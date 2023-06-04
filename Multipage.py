@@ -17,12 +17,10 @@ def intro():
         ### Summary of our main tasks done to use Streamlit /GitHub
 
             - we prepared the data set to gain some memory
-            - we can kept from 2012-2016
-            - we did run the classification non-linear models: GBC - RFC - KNN - SVM
-            - We split the data set to remove 2016 and predicted it to see accurancy of our classification model chosen
-            - After finalizning the classification model using best parameters, we will use the risk scoring to try a regression model.
-            - Then we'll clean-up the codes
-            - If time allows we'll rerun the data visualization with the clean dataset
+            - we select the road accident from 2012-2015
+            - we kept road accident 2016 seperately to compare with our prediction
+            - we did run the classification non-linear models: GBC - RFC - KNN - SVC - (XGBOOST?)
+            - EDA and Dataviz are using road accidents from 2012 to 2016 
             
         ### Team
 
