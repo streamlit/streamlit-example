@@ -64,7 +64,7 @@ def prediction(classifier):
     return clf
   
 #1. rmse function
-def rmse(x,y): return np.sqrt(((x-y)**2).mean())
+def rmse(x,y): return 
   
 def scores(clf, choice):
     if choice == 'Accuracy':
@@ -74,4 +74,4 @@ def scores(clf, choice):
     elif choice == 'Classification report':
         return classification_report(y_test, clf.predict(X_test))
     elif choice == 'rmse':
-        return rmse(clf.predict(X_test), y_test)
+        return np.sqrt(((clf.predict(X_train)-y_train)**2).mean()), np.sqrt(((clf.predict(X_test)-y_test)**2).mean()),
