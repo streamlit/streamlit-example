@@ -39,7 +39,7 @@ X = df.drop(['grav','gravMerged'], axis = 1)
 #X = pd.concat([X_cat_scaled, X_quant], axis = 1)
 
 #X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.25)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 #scaler = StandardScaler()
 #X_train[X_quant.columns] = scaler.fit_transform(X_train[X_quant.columns])
