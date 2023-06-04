@@ -24,8 +24,8 @@ df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZ
 #X_cat = df[['Pclass', 'Sex',  'Embarked']]
 #X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
 #y = df['Survived']
-y =df['grav']
-X = df.drop(['grav','gravMerged'], axis = 1)
+    y =df['grav']
+    X = df.drop(['grav','gravMerged'], axis = 1)
 
 #for col in X_cat.columns:
 #    X_cat[col] = X_cat[col].fillna(X_cat[col].mode()[0])
