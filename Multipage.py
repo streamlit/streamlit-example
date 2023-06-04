@@ -11,21 +11,26 @@ def intro():
         Streamlit is an open-source app framework built specifically for
         Machine Learning and Data Science projects.
 
-        **👈 Select a demo from the dropdown on the left** to see some examples
-        of what Streamlit can do!
+        **👈 Select the page from the dropdown on the left** to EDA, Dataviz, Modelling 
+        and Interpretation!
 
-        ### Want to learn more?
+        ### Summary of our main tasks done to use Streamlit /GitHub
 
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
+            - we prepared the data set to gain some memory
+            - we can kept from 2012-2016
+            - we did run the classification non-linear models: GBC - RFC - KNN - SVM
+            - We split the data set to remove 2016 and predicted it to see accurancy of our classification model chosen
+            - After finalizning the classification model using best parameters, we will use the risk scoring to try a regression model.
+            - Then we'll clean-up the codes
+            - If time allows we'll rerun the data visualization with the clean dataset
+            
+        ### Team
 
-        ### See more complex demos
-
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+        - Deepa
+        - Fan
+        - Sidi
+        Tutoring : Francesco
+        
     """
     )
 
@@ -134,6 +139,11 @@ def modelling():
     st.title('Our first Streamlit App')
 
     st.header('Road Accident in France 2005-2016')
+
+    st.markdown("""Generally speaking we can consider that accuracy scores:
+        - Over 90% - Very good
+        - Between 70% and 90% - Good
+        - Between 60% and 70% - OK""")
 
     choices = ['Random Forest','SVC','KNN','XGBOOST','Gradient Boosting']
 
