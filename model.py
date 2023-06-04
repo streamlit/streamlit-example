@@ -63,9 +63,6 @@ def prediction(classifier):
     
     return clf
   
-#1. rmse function
-def rmse(x,y): return 
-  
 def scores(clf, choice):
     if choice == 'Accuracy':
         return clf.score(X_test, y_test)
