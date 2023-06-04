@@ -12,11 +12,11 @@ from xgboost import XGBClassifier
 import joblib
 import pickle
 
-#df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
+df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  df = pd.read_csv(uploaded_file)
+#uploaded_file = st.file_uploader("Choose a file")
+#if uploaded_file is not None:
+#  df = pd.read_csv(uploaded_file)
   
 
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
