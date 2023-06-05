@@ -10,7 +10,7 @@ def load_data(url):
     return df
 
 df = load_data('https://drive.google.com/file/d/1TvB62joGvnJjfSfQ5GQSOcJ5vZzBxVar/view?usp=sharing')
-st.dataframe(df)
+#st.dataframe(df)
 
 st.button("Rerun")
 
