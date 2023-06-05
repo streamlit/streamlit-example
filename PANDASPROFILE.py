@@ -4,7 +4,7 @@ import streamlit as st
 
 from streamlit_pandas_profiling import st_profile_report
 
-@st.cache_data
+st.cache_data
 def load_data(url):
     df = pd.read_csv(url)
     return df
