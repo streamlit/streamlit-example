@@ -46,7 +46,7 @@ def prediction(classifier):
         
         clf.fit(X_train, y_train)
     
-        return clf
+               return clf
 
 def scores(clf, choice):
     if choice == 'Accuracy':
