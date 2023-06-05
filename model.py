@@ -10,7 +10,6 @@ import streamlit as st
 import xgboost as xgb
 from xgboost import XGBClassifier
 import joblib
-import pickle
 
 #df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
@@ -39,9 +38,9 @@ def prediction(classifier):
     elif classifier == 'KNN':
         clf = KNeighborsClassifier()
     elif classifier == 'XGBOOST':
-        clf = pickle.load("xgb_model.sav")
+        clf = joblib.load("xgb_model.sav")
     elif classifier == 'Gradient Boosting':
-        clf = pickle.load('gbc_model.sav')
+        clf = joblib.load('gbc_model.sav')
     clf.fit(X_train, y_train)
     
     return clf
