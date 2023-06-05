@@ -5,7 +5,7 @@ import pydeck as pdk
 import plotly.express as px
 import datetime as dt
 
-from pathlib import Path
+#from pathlib import Path
 #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
 
 #df = pd.read_csv('https://drive.google.com/file/d/1TvB62joGvnJjfSfQ5GQSOcJ5vZzBxVar/view?usp=sharing')
@@ -15,7 +15,7 @@ if uploaded_file is not None:
 
 df = DATA_URL
 
-df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
+#df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 st.title("Road Accident in France")
 st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
 
