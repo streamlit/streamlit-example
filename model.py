@@ -43,7 +43,8 @@ def prediction(classifier):
     elif classifier == 'Gradient Boosting':
         clf = GradientBoostingClassifier()
         #clf = joblib.load('gbc_model.sav')
-    clf.fit(X_train, y_train)
+        
+        clf.fit(X_train, y_train)
     
     return clf
 
