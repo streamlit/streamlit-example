@@ -44,13 +44,13 @@ def prediction(classifier):
         clf = GradientBoostingClassifier()
         #clf = joblib.load('gbc_model.sav')
         
-        clf.fit(X_train, y_train)
-        return clf
+     clf.fit(X_train, y_train)
+     return clf
     
 def scores(clf, choice):
         if choice == 'Accuracy':
              return clf.score(X_test, y_test)
         elif choice == 'Confusion matrix':
-             return confusion_matrix(y_test, clf.predict(X_test))
+              return confusion_matrix(y_test, clf.predict(X_test))
         elif choice == 'Classification report':
              return classification_report(y_test, clf.predict(X_test))
