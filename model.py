@@ -24,7 +24,7 @@ if uploaded_file is not None:
   y =df['grav']
   X = df.drop(['grav','gravMerged'], axis = 1)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 #loaded_model = pickle.load(open(filename, 'rb'))
 #result = loaded_model.score(X_test, Y_test)
