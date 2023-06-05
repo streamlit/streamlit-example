@@ -48,10 +48,11 @@ model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(X, label=y), 100)
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X)
 
-# visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
+st.write('<p style="font-size:130%">visualize the first prediction explanation </p>', unsafe_allow_html=True)
+#  (use matplotlib=True to avoid Javascript)
 st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
 
-# visualize the training set predictions
+st.write('<p style="font-size:130%">visualize the training set predictions </p>', unsafe_allow_html=True)
 st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
 
 
