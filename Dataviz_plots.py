@@ -18,6 +18,10 @@ st.markdown("""4.1 Visualisation of Accident severity trends across different ye
         - Number of accidents also show a reducing trend over years 
 """)
 
+st.write(df)
+
+st.dataframe(df)
+
 # Extract data for visualisation
 df = pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year'])
 df['AccidentId'] = df['AccidentId']
