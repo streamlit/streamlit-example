@@ -191,14 +191,7 @@ def shap():
         shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
         components.html(shap_html, height=height)
 
-        uploaded_file = st.file_uploader("Choose a file")
-        if uploaded_file is not None:
-          df = pd.read_csv(uploaded_file)
-
-        #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
-        #df = df.drop(['gravMerged'], axis=1, inplace=True)
-
-
+             
         y =df['grav']
         X = df.drop(['grav','gravMerged'], axis = 1)
 
