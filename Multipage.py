@@ -39,16 +39,17 @@ def eda_advanced():
 
     from streamlit_pandas_profiling import st_profile_report
     
+    st.markdown(f"# {list(page_names_to_funcs.keys())[2]}")
     
-    @st.cache_data
-    def load_data(url):
-        df = pd.read_csv(url)
-        return df
+    #@st.cache_data
+    #def load_data(url):
+    #    df = pd.read_csv(url)
+    #    return df
 
-    df = load_data('https://drive.google.com/file/d/12ZlsdtKvWltFDpO9k6Sv1rhcWEDa3XdT/view?usp=sharing')
-    #uploaded_file = st.file_uploader("Choose a file")
-    #if uploaded_file is not None:
-      #df = pd.read_csv(uploaded_file,low_memory=False)
+    #df = load_data('https://drive.google.com/file/d/12ZlsdtKvWltFDpO9k6Sv1rhcWEDa3XdT/view?usp=sharing')
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+      df = pd.read_csv(uploaded_file,low_memory=False)
     pr = df.profile_report()
 
     st_profile_report(pr)
@@ -61,9 +62,9 @@ def data_viz():
     import plotly.express as px
     import datetime as dt
 
-    from pathlib import Path
+    #from pathlib import Path
     #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
-
+    st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
       DATA_URL = pd.read_csv(uploaded_file,low_memory=False).sample(n=100000)
@@ -138,7 +139,7 @@ def modelling():
     import streamlit as st
     import pandas as pd
     from model import prediction, scores
-
+    st.markdown(f'# {list(page_names_to_funcs.keys())[3]}')
     st.title('Our first Streamlit App')
 
     st.header('Road Accident in France 2005-2016')
@@ -176,7 +177,6 @@ def modelling():
 page_names_to_funcs = {
     "—": intro,
     "Exploratory Data Analysis advanced": eda_advanced,
-    "Exploratory Data Analysis basic": eda_basic,
     "Data Visualization": data_viz,
     "Machine Learning Models": modelling
 }
