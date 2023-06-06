@@ -12,12 +12,14 @@ import plotly.express as px
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
   df = pd.read_csv(uploaded_file,low_memory=False).sample(n=100000)
-  st.dataframe(df)
+  
 
 st.markdown("""4.1 Visualisation of Accident severity trends across different years.
         - we can see that death rate in accidents is slightly getting reduced over years
         - Number of accidents also show a reducing trend over years 
 """)
+
+st.dataframe(df)
 
 # Extract data for visualisation
 df = pd.DataFrame(df)
@@ -26,6 +28,7 @@ df = pd.DataFrame(df)
 df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
 df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
+st.dataframe(df)
 # Visualise extracted data
 
 df1 = pd.melt(df, value_vars=['AccidentId'], id_vars=['Year'], var_name='AccidentSeverity')
