@@ -20,25 +20,25 @@ st.markdown("""4.1 Visualisation of Accident severity trends across different ye
 """)
 
 # Extract data for visualisation
-df = pd.DataFrame(df)
-     #df['AccidentId'] = df['AccidentId']
-     #df['Year'] = df['Year'].astype(float)
-df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
-df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
+     df = pd.DataFrame(df)
+          #df['AccidentId'] = df['AccidentId']
+          #df['Year'] = df['Year'].astype(float)
+     df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
+     df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
-st.dataframe(df)
-# Visualise extracted data
+     st.dataframe(df)
+     # Visualise extracted data
 
-df1 = pd.melt(df, value_vars=['AccidentId'], id_vars=['Year'], var_name='AccidentSeverity')
+     df1 = pd.melt(df, value_vars=['AccidentId'], id_vars=['Year'], var_name='AccidentSeverity')
 
-c = px.bar(df1, x="Year", y="AccidentId", color='AccidentSeverity', barmode='stack', height=400)
+     c = px.bar(df1, x="Year", y="AccidentId", color='AccidentSeverity', barmode='stack', height=400)
 
-c.update_layout(paper_bgcolor="white", 
-                plot_bgcolor="white", 
-                yaxis_gridcolor= "black",
-                yaxis_linecolor= "black",
-                xaxis_linecolor= "black")
+     c.update_layout(paper_bgcolor="white", 
+                     plot_bgcolor="white", 
+                     yaxis_gridcolor= "black",
+                     yaxis_linecolor= "black",
+                     xaxis_linecolor= "black")
 
-st.plotly_chart(c)
+     st.plotly_chart(c)
 
 
