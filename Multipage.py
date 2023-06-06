@@ -192,10 +192,10 @@ def shap():
         components.html(shap_html, height=height)
 
              
-        y =df['grav']
-        X = df.drop(['grav','gravMerged'], axis = 1)
+    y =df['grav']
+    X = df.drop(['grav','gravMerged'], axis = 1)
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
     st.title("SHAP Interpretation")
 
