@@ -12,7 +12,7 @@ import plotly.express as px
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
   df = pd.read_csv(uploaded_file,low_memory=False).sample(n=100000)
-  st.write(df)
+  st.dataframe(df)
 #df = DATA_URL
 
 st.markdown("""4.1 Visualisation of Accident severity trends across different years.
@@ -22,7 +22,6 @@ st.markdown("""4.1 Visualisation of Accident severity trends across different ye
 
     
 
-     #st.dataframe(df)
 
 # Extract data for visualisation
 df = pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year'])
