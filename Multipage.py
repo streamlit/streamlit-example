@@ -55,7 +55,7 @@ def eda():
       #df = pd.read_csv(uploaded_file,low_memory=False)
       pr = df.profile_report()
 
-    st_profile_report(pr)
+      st_profile_report(pr)
 
 def data_viz():
     import streamlit as st
