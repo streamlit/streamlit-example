@@ -46,10 +46,6 @@ def eda():
         return df
 
     df = load_data('https://drive.google.com/file/d/12ZlsdtKvWltFDpO9k6Sv1rhcWEDa3XdT/view?usp=sharing')
-    st.dataframe(df)
-
-    st.button("Rerun")
-    
     #uploaded_file = st.file_uploader("Choose a file")
     #if uploaded_file is not None:
       #df = pd.read_csv(uploaded_file,low_memory=False)
