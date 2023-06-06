@@ -19,9 +19,9 @@ st.markdown("""4.1 Visualisation of Accident severity trends across different ye
 """)
 
 # Extract data for visualisation
-  df               = pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year'])
+  df = pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year'])
   df['AccidentId'] = df['AccidentId']
-  df['Year']       = df['Year'].astype(float)
+  df['Year'] = df['Year'].astype(float)
   df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
   df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
