@@ -30,7 +30,7 @@ df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['No
 
 df1 = pd.melt(df, value_vars=['AccidentId'], id_vars=['Year'], var_name='AccidentSeverity')
 
-c = px.bar(df1, x="Year", y="AccidentId", color='AccidentSeverity', barmode='stack', height=400)
+c = px.bar(df1, x="Year", y="value", color='AccidentSeverity', barmode='stack', height=400)
 
 c.update_layout(paper_bgcolor="white", 
                 plot_bgcolor="white", 
