@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import streamlit as st
 import xgboost as xgb
 from xgboost import XGBClassifier
-import joblib
+#import joblib
 
 #df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
