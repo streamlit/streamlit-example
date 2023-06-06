@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import streamlit as st
-import altair as alt
+import plotly.express as px
 
 
 uploaded_file = st.file_uploader("Choose a file")
