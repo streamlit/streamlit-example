@@ -25,8 +25,15 @@ df['Year']       = df['Year']
 df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
 df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
-st.dataframe(df)
+df1 = pd.melt(df, 
+              value_vars=['Not Injured','Died','Injured&Hospitalised','Slightly Injured'], 
+              id_vars=['Year'],
+              var_name='AccidentId'
+              )
+
+st.dataframe(df1)
 # Visualise extracted data
+
 
 c = px.bar(df, x="Year", y="AccidentId",
              color='AccidentSeverity', barmode='stack',
