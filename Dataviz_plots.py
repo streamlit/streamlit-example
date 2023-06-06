@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import streamlit as st
+import altair as alt
 import plotly.express as px
 
      
@@ -27,16 +28,12 @@ st.markdown("""4.1 Visualisation of Accident severity trends across different ye
    df1['AccidentSeverity'] = df1['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
    # Visualise extracted data
-   df1 = pd.melt(df, value_vars=['AccidentId'], id_vars=['Year'], var_name='AccidentSeverity')
-
-   c = px.bar(df1, x="Year", y="AccidentId", color='AccidentSeverity', barmode='stack', height=400)
-
-   c.update_layout(paper_bgcolor="white", 
-                     plot_bgcolor="white", 
-                     yaxis_gridcolor= "black",
-                     yaxis_linecolor= "black",
-                     xaxis_linecolor= "black")
-
-   st.plotly_chart(c)
-
+road_accidents = pd.DataFrame({'AccidentSeverity','AccidentId','Year'})
+ 
+bar_chart = alt.Chart(road_accidents).mark_bar().encode(
+        x="year(Year):O",
+        y="sum(AccidentId):Q",
+        color="AccidentSeverity:N"
+    )
+st.altair_chart(bar_chart, use_container_width=True)
 
