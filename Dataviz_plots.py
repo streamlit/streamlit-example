@@ -27,7 +27,7 @@ df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['No
 
 # Visualise extracted data
 
-st.bar_chart(df, x='Year')
+st.bar_chart(pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year']), x='Year')
 
 
 st.markdown("""4.2 Visualisation of Number of Accidents occured over years
