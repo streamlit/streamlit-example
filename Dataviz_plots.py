@@ -27,7 +27,7 @@ df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['No
 
 # Visualise extracted data
 
-c = px.bar(df, x="Year", y="Accident",
+c = px.bar(df, x="Year", y="AccidentID",
              color='Accident Severity', barmode='stack',
              height=400)
 
