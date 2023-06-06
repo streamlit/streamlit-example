@@ -29,7 +29,7 @@ df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['No
 
 #crosstb = pd.crosstab(df['Year'], df['AccidentSeverity'])
 #bars = crosstb.plot.bar(width=0.9, color=['red','orange','green','cyan'], stacked=True, figsize=(10,5), ylabel='Accidents', title='Accident Severity over years')
-chart bar = pd.DataFrame(width=0.9, color=['red','orange','green','cyan'], stacked=True, figsize=(10,5), ylabel='Accidents', title='Accident Severity over years')
+chart_bar = pd.DataFrame(width=0.9, color=['red','orange','green','cyan'], stacked=True, figsize=(10,5), ylabel='Accidents', title='Accident Severity over years')
 #chart_data = pd.DataFrame(np.random.randn(20, 2),columns=['Year', 'AccidentSeverity'])
 st.bar_chart(chart_data)
 
