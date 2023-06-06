@@ -38,7 +38,7 @@ def prediction(classifier):
     elif classifier == 'KNN':
         clf = KNeighborsClassifier()
     elif classifier == 'XGBOOST':
-        clf = xgb.XGBClassifier()
+        clf = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
         #clf = joblib.load("xgb_model.sav")
     elif classifier == 'Gradient Boosting':
         clf = GradientBoostingClassifier()
