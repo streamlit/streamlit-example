@@ -30,6 +30,11 @@ st.write(df)
 st.dataframe(df)
 # Visualise extracted data
 
+df1 = pd.melt(df, 
+              value_vars=['Widgets','Wodgets','Wudgets'], 
+              id_vars=['Years'],
+              var_name='Name'
+              )
 
 c = px.bar(df1, x="Year", y="AccidentId",
              color='AccidentSeverity', barmode='stack',
