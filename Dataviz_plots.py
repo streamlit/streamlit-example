@@ -27,7 +27,17 @@ df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['No
 
 # Visualise extracted data
 
-st.bar_chart(pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year']), x='Year')
+c = px.bar(df, x="Year", y="Accident",
+             color='Accident Severity', barmode='stack',
+             height=400)
+
+c.update_layout(paper_bgcolor="white", 
+                plot_bgcolor="white", 
+                yaxis_gridcolor= "black",
+                yaxis_linecolor= "black",
+                xaxis_linecolor= "black")
+
+st.plotly_chart(c)
 
 
 st.markdown("""4.2 Visualisation of Number of Accidents occured over years
