@@ -25,6 +25,7 @@ df['Year']       = df['Year']
 df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
 df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
+st.dataframe(df)
 # Visualise extracted data
 
 c = px.bar(df, x="Year", y="AccidentId",
