@@ -185,15 +185,15 @@ plt.title('Impact of AreaZone on Severity')
 st.pyplot(bar_plot)
 
 st.markdown("""4.10 Impact of Type of Collision on Accident severity
-              - Other collsion type has the most fatality"""
+              - Other collsion type has the most fatality""")
 
 # Extract data for visualisation
-    df = pd.DataFrame(columns=['CollisionType','AccidentSeverity'])
-    df = df.groupby(['CollisionType','AccidentSeverity'])['CollisionType'].agg(NrOfAccidents=('count')).reset_index()
-    severityLabels = ['Not Injured', 'Died','Injured and Hospitalised', 'Slightly Injured']
-    collisionLabels = ['Two vehicles frontal','Two vehicles from behind','Two vehicles from the side','Three or more vehicles in a chain','Multiple collision','Other collision','Collision free']
-    df['CollisionType'] = df['CollisionType']. replace([1,2,3,4,5,6,7], collisionLabels)
-    df['AccidentSeverity'] = df['AccidentSeverity']. replace([1,2,3,4], severityLabels)
+df = pd.DataFrame(columns=['CollisionType','AccidentSeverity'])
+df = df.groupby(['CollisionType','AccidentSeverity'])['CollisionType'].agg(NrOfAccidents=('count')).reset_index()
+severityLabels = ['Not Injured', 'Died','Injured and Hospitalised', 'Slightly Injured']
+collisionLabels = ['Two vehicles frontal','Two vehicles from behind','Two vehicles from the side','Three or more vehicles in a chain','Multiple collision','Other collision','Collision free']
+df['CollisionType'] = df['CollisionType']. replace([1,2,3,4,5,6,7], collisionLabels)
+df['AccidentSeverity'] = df['AccidentSeverity']. replace([1,2,3,4], severityLabels)
 
 # Visualise extracted data
 plt.rcParams["figure.figsize"] = [13, 5.50]
