@@ -38,11 +38,11 @@ def prediction(classifier):
     elif classifier == 'KNN':
         clf = KNeighborsClassifier()
     elif classifier == 'XGBOOST':
-        #clf = xgb.XGBClassifier()
-        clf = joblib.load("xgb_model.sav")
+        clf = xgb.XGBClassifier()
+        #clf = joblib.load("xgb_model.sav")
     elif classifier == 'Gradient Boosting':
-        #clf = GradientBoostingClassifier()
-        clf = joblib.load('gbc_model.sav')
+        clf = GradientBoostingClassifier()
+        #clf = joblib.load('gbc_model.sav')
         
     clf.fit(X_train, y_train)
     return clf
