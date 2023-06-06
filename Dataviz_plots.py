@@ -17,7 +17,7 @@ st.markdown("""4.1 Visualisation of Accident severity trends across different ye
         - we can see that death rate in accidents is slightly getting reduced over years
         - Number of accidents also show a reducing trend over years 
 """)
-
+st.write(df)
 # Extract data for visualisation
 df               = pd.DataFrame(columns=['AccidentId', 'AccidentSeverity', 'Year'])
 df['AccidentId'] = df['AccidentId']
@@ -25,11 +25,7 @@ df['Year']       = df['Year']
 df['AccidentSeverity'] = df['AccidentSeverity'].astype(str)
 df['AccidentSeverity'] = df['AccidentSeverity']. replace(['1','2','3','4'], ['Not Injured','Died','Injured&Hospitalised','Slightly Injured'])
 
-df1 = pd.melt(df, 
-              value_vars=['Not Injured','Died','Injured&Hospitalised','Slightly Injured'], 
-              id_vars=['Year'],
-              var_name='AccidentId'
-              )
+
 
 st.dataframe(df1)
 # Visualise extracted data
