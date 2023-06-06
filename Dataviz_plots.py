@@ -35,7 +35,7 @@ st.dataframe(df1)
 # Visualise extracted data
 
 
-c = px.bar(df, x="Year", y="AccidentId",
+c = px.bar(df1, x="Year", y="AccidentId",
              color='AccidentSeverity', barmode='stack',
              height=400)
 
