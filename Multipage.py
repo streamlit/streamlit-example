@@ -186,8 +186,7 @@ def shap():
     if uploaded_file is not None:
       df = pd.read_csv(uploaded_file)
 
-    df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
-
+    
     def st_shap(plot, height=None):
         shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
         components.html(shap_html, height=height)
