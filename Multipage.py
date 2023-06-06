@@ -39,9 +39,20 @@ def eda():
 
     from streamlit_pandas_profiling import st_profile_report
     
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-      df = pd.read_csv(uploaded_file,low_memory=False)
+    
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
+
+    df = load_data('https://drive.google.com/file/d/12ZlsdtKvWltFDpO9k6Sv1rhcWEDa3XdT/view?usp=sharing')
+    st.dataframe(df)
+
+    st.button("Rerun")
+    
+    #uploaded_file = st.file_uploader("Choose a file")
+    #if uploaded_file is not None:
+      #df = pd.read_csv(uploaded_file,low_memory=False)
       pr = df.profile_report()
 
     st_profile_report(pr)
