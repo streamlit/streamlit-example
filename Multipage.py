@@ -8,11 +8,8 @@ def intro():
 
     st.markdown(
         """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-
-        **👈 Select the page from the dropdown on the left** to EDA, Dataviz, Modelling 
-        and Interpretation!
+        **👈 Select the page from the dropdown on the left** to select : EDA, Dataviz, Modelling 
+        or Shap Interpretation!
 
         ### Summary of our main tasks done to use Streamlit /GitHub
 
