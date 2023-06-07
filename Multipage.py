@@ -137,11 +137,9 @@ def modelling():
     import pandas as pd
     from model import prediction, scores
     st.markdown(f'# {list(page_names_to_funcs.keys())[3]}')
-    st.title('Our first Streamlit App')
+    
 
-    st.header('Road Accident in France 2005-2016')
-
-    st.markdown("""Generally speaking we can consider that accuracy scores:
+    st.write("""Generally speaking we can consider that accuracy scores:
         - Over 90% - Very good
         - Between 70% and 90% - Good
         - Between 60% and 70% - OK""")
@@ -194,8 +192,6 @@ def shap():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
-    st.title("SHAP Interpretation")
-
     st.write('train XGBoost model')
     model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(X, label=y), 100)
 
@@ -212,7 +208,7 @@ def shap():
 
         
 page_names_to_funcs = {
-    "—": intro,
+    "Home Page": intro,
     "Exploratory Data Analysis advanced": eda_advanced,
     "Data Visualization": data_viz,
     "Machine Learning Models": modelling,
