@@ -79,9 +79,6 @@ def data_viz():
 
     from PIL import Image
     
-    st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
-
-
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
     data = df
 
