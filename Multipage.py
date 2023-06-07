@@ -418,7 +418,7 @@ def shap():
 page_names_to_funcs = {
     "Home Page": intro,
     "Exploratory Data Analysis advanced": eda_advanced,
-    "Exploratory Data Analysis basic":eda_basic
+    "Exploratory Data Analysis basic":eda_basic,
     "Data Visualization": data_viz,
     "Machine Learning Models": modelling,
     "Shapley Interpretation": shap
