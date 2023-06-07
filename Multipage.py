@@ -40,7 +40,6 @@ def eda_advanced():
     
     st.markdown(f"# {list(page_names_to_funcs.keys())[1]}")
     
-    st.title("Exploratory Data Analysis")
     #@st.cache_data
     #def load_data(url):
     #    df = pd.read_csv(url)
