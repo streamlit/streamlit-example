@@ -38,7 +38,7 @@ def eda_advanced():
 
     from streamlit_pandas_profiling import st_profile_report
     
-    st.markdown(f"# {list(page_names_to_funcs.keys())[2]}")
+    st.markdown(f"# {list(page_names_to_funcs.keys())[1]}")
     
     #@st.cache_data
     #def load_data(url):
@@ -64,6 +64,7 @@ def data_viz():
     #from pathlib import Path
     #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
+    st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
       DATA_URL = pd.read_csv(uploaded_file,low_memory=False).sample(n=100000)
