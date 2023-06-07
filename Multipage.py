@@ -73,9 +73,6 @@ def data_viz():
     df = DATA_URL
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
     
-    st.title("Data Visualition of Road Accident")
-    st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
-
     from PIL import Image
     
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
@@ -136,13 +133,17 @@ def modelling():
     import streamlit as st
     import pandas as pd
     from model import prediction, scores
+    
+    st.title('Modelling')
+    
     st.markdown(f'# {list(page_names_to_funcs.keys())[3]}')
     
 
     st.write("""Generally speaking we can consider that accuracy scores:
-        - Over 90% - Very good
-        - Between 70% and 90% - Good
-        - Between 60% and 70% - OK""")
+    
+                    - Over 90% - Very good
+                    - Between 70% and 90% - Good
+                    - Between 60% and 70% - OK""")
 
     choices = ['Random Forest','SVC','KNN','XGBOOST','Gradient Boosting']
 
