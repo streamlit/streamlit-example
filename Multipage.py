@@ -169,7 +169,7 @@ def modelling():
         #st.table(classification_report(y_test, clf.predict(X_test)))
         st.text(scores(clf, display))
         
-def eda_basic:
+def eda_basic():
     import streamlit as st
     import pandas as pd
     import plotly.express as px
