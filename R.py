@@ -24,7 +24,7 @@ st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_acci
             width=600 # Manually Adjust the width of the image as per requirement
 
         )
-st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg, width=600)
+st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=600)
          
 #st.video("https://www.youtube.com/shorts/X5CYrFKcvis")
 
