@@ -10,7 +10,8 @@ def intro():
             width=700 # Manually Adjust the width of the image as per requirement
 
         )
-    st.markdown(
+
+st.markdown(
         """
         **👈 Select the page from the dropdown on the left** to select : EDA, Dataviz, Modelling 
         or Shap Interpretation!
