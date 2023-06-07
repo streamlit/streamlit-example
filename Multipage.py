@@ -175,6 +175,7 @@ def eda_basic():
     import plotly.express as px
 
     from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
+    
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
 
     st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='EDA')
@@ -418,7 +419,7 @@ def shap():
 page_names_to_funcs = {
     "Home Page": intro,
     "Exploratory Data Analysis advanced": eda_advanced,
-    "Exploratory Data Analysis basic":eda_basic,
+    "Exploratory Data Analysis basic": eda_basic,
     "Data Visualization": data_viz,
     "Machine Learning Models": modelling,
     "Shapley Interpretation": shap
