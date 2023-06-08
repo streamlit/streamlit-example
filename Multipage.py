@@ -26,6 +26,7 @@ def intro():
         - Deepa
         - Fan
         - Sidi
+        
         Tutoring : Francesco
         
     """
@@ -67,13 +68,13 @@ def data_viz():
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
-      DATA_URL = pd.read_csv(uploaded_file,low_memory=False).sample(n=100000)
+      DATA_URL = pd.read_csv(uploaded_file,low_memory=False) #.sample(n=100000)
 
 
     df = DATA_URL
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
     
-    from PIL import Image
+    #from PIL import Image
     
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
     data = df
@@ -110,18 +111,21 @@ def data_viz():
 
 
 
-    st.header("Top 5 dangerous city by injury type")
-    select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
+    st.header("Top 5 dangerous area by zone")
+    #select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
+    select = st.selectbox('Injured people', ['Department','Commune','Street'])
 
     if select == 'Pedestrian':
-        st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
+        #st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
+        st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
 
     elif select == 'Cyclists':
-        st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:5])
+        #st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:5])
+        st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
 
     else:
-        st.write(data.query("INJURED_MOTORISTS >= 1") [["ON_STREET_NAME","INJURED_MOTORISTS"]].sort_values(by=['INJURED_MOTORISTS'], ascending=False).dropna(how='any')[:5])
-
+        #st.write(data.query("INJURED_MOTORISTS >= 1") [["ON_STREET_NAME","INJURED_MOTORISTS"]].sort_values(by=['INJURED_MOTORISTS'], ascending=False).dropna(how='any')[:5])
+        st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
 
         
     if st.checkbox("Show Raw Data", False):
