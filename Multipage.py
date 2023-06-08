@@ -115,11 +115,11 @@ def data_viz():
     #select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
     select = st.selectbox('Injured people', ['Department','Commune','Street'])
 
-    if select == 'Pedestrian':
+    if select == 'Department':
         #st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
         st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
 
-    elif select == 'Cyclists':
+    elif select == 'Commune':
         #st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:5])
         st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
 
