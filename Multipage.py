@@ -1,5 +1,5 @@
 import streamlit as st
-
+st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='Multipage')
 def intro():
     import streamlit as st
 
