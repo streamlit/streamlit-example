@@ -144,7 +144,8 @@ def modelling():
     
 
     st.write("""Generally speaking we can consider that accuracy scores:
-                        - Over 90% - Very good
+    
+                          - Over 90% - Very Good
                     - Between 70% and 90% - Good
                     - Between 60% and 70% - OK""")
 
@@ -176,6 +177,7 @@ def eda_basic():
     import streamlit as st
     import pandas as pd
     import plotly.express as px
+    import functions
     from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
     
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
