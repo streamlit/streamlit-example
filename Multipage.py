@@ -136,11 +136,11 @@ def data_viz():
 def modelling():
     import streamlit as st
     import pandas as pd
+    st.markdown(f'# {list(page_names_to_funcs.keys())[4]}')
     from model import prediction, scores
     
-    st.title('Machine Learning Models')
-    
-    st.markdown(f'# {list(page_names_to_funcs.keys())[4]}')
+     
+
     
 
     st.write("""Generally speaking we can consider that accuracy scores:
