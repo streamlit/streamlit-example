@@ -117,15 +117,15 @@ def data_viz():
 
     if select == 'Department':
         #st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
-        st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
+        st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
 
     elif select == 'Commune':
-        #st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:5])
-        st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
+        #st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:])
+        st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
 
     else:
         #st.write(data.query("INJURED_MOTORISTS >= 1") [["ON_STREET_NAME","INJURED_MOTORISTS"]].sort_values(by=['INJURED_MOTORISTS'], ascending=False).dropna(how='any')[:5])
-        st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:5])
+        st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
 
         
     if st.checkbox("Show Raw Data", False):
@@ -177,12 +177,11 @@ def eda_basic():
     import streamlit as st
     import pandas as pd
     import plotly.express as px
-
     from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
     
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
 
-    st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='EDA')
+    st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='Multipage')
 
     st.header("Exploratory Data Analysis")
     st.image("https://datos.gob.es/sites/default/files/u322/grafico.jpg",width=600)
