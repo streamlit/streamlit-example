@@ -144,8 +144,7 @@ def modelling():
     
 
     st.write("""Generally speaking we can consider that accuracy scores:
-    
-                    - Over 90% - Very good
+                        - Over 90% - Very good
                     - Between 70% and 90% - Good
                     - Between 60% and 70% - OK""")
 
