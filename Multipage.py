@@ -59,7 +59,7 @@ def eda_basic():
     import pandas as pd
     import plotly.express as px
     #import functions
-    #from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
+    from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
     
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
 
@@ -81,6 +81,7 @@ def eda_basic():
     #st.image('header2.png', use_column_width = True)
 
     space()
+    
     st.write('<p style="font-size:130%">Import Dataset</p>', unsafe_allow_html=True)
 
     file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
