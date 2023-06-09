@@ -429,18 +429,18 @@ def shap():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
-    st.write('train XGBoost model')
+    st.write('XGBoost model')
     model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(X, label=y), 100)
 
-    st.markdown('''explain the model's predictions using SHAP
-    same syntax works for LightGBM, CatBoost, scikit-learn and spark models)''')
+    st.markdown('''explain the model's predictions using SHAP''')
+    
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
 
-    st.write('<p style="font-size:130%">visualize the first prediction explanation </p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:130%"> #Visualize the first prediction explanation </p>', unsafe_allow_html=True)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
 
-    st.write('<p style="font-size:130%">visualize the training set predictions </p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:130%"> #Visualize the training set predictions </p>', unsafe_allow_html=True)
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
 
         
