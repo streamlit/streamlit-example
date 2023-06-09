@@ -408,10 +408,16 @@ def shap():
     from sklearn.preprocessing import StandardScaler
     st.markdown(f'# {list(page_names_to_funcs.keys())[5]}')
     
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-      df = pd.read_csv(uploaded_file)
+    #uploaded_file = st.file_uploader("Choose a file")
+    #if uploaded_file is not None:
+    #  df = pd.read_csv(uploaded_file)
 
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
+
+    df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
     
     def st_shap(plot, height=None):
         shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
