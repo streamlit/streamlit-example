@@ -21,7 +21,7 @@ def load_data(url):
     df = pd.read_csv(url)
     return df
 
-    df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
+df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 #df = df.drop(['gravMerged'], axis=1, inplace=True)
 
