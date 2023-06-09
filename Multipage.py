@@ -98,17 +98,17 @@ def eda_basic():
     #        df = pd.read_csv(dataset)
     #    else:
     #        df = pd.read_excel(dataset)
-    @st.cache_data
-    def load_data(url):
-        df = pd.read_csv(url)
-        return df
+        @st.cache_data
+        def load_data(url):
+            df = pd.read_csv(url)
+            return df
 
-    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
-        #
-    st.subheader('Dataframe:')
-    n, m = df.shape
-    st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
-    st.dataframe(df)
+        df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+            #
+        st.subheader('Dataframe:')
+        n, m = df.shape
+        st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
+        st.dataframe(df)
 
 
         all_vizuals = ['Info', 'NA Info', 'Descriptive Analysis', 'Target Analysis', 
