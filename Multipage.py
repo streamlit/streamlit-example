@@ -93,22 +93,22 @@ def eda_basic():
 
     #st.sidebar.header('Import Dataset to Use Available Features: 👉')
 
-    #if dataset:
-    #    if file_format == 'csv':
-    #        df = pd.read_csv(dataset)
-    #    else:
-    #        df = pd.read_excel(dataset)
-        @st.cache_data
-        def load_data(url):
-            df = pd.read_csv(url)
-            return df
+    if dataset:
+        if file_format == 'csv':
+            df = pd.read_csv(dataset)
+        else:
+            df = pd.read_excel(dataset)
+        #@st.cache_data
+        #def load_data(url):
+        #    df = pd.read_csv(url)
+        #    return df
 
-        df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+        #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
             #
-        st.subheader('Dataframe:')
-        n, m = df.shape
-        st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
-        st.dataframe(df)
+            st.subheader('Dataframe:')
+            n, m = df.shape
+            st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
+            st.dataframe(df)
 
 
         all_vizuals = ['Info', 'NA Info', 'Descriptive Analysis', 'Target Analysis', 
