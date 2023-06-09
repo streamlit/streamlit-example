@@ -93,12 +93,18 @@ def eda_basic():
 
     #st.sidebar.header('Import Dataset to Use Available Features: 👉')
 
-    if dataset:
-        if file_format == 'csv':
-            df = pd.read_csv(dataset)
-        else:
-            df = pd.read_excel(dataset)
+    #if dataset:
+    #    if file_format == 'csv':
+    #        df = pd.read_csv(dataset)
+    #    else:
+    #        df = pd.read_excel(dataset)
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
 
+    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+    
         st.subheader('Dataframe:')
         n, m = df.shape
         st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
@@ -275,12 +281,18 @@ def data_viz():
     #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
     st.markdown(f'# {list(page_names_to_funcs.keys())[3]}')
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-      DATA_URL = pd.read_csv(uploaded_file,low_memory=False) #.sample(n=100000)
+    
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
 
+    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+    
+    #uploaded_file = st.file_uploader("Choose a file")
+    #if uploaded_file is not None:
+    #  DATA_URL = pd.read_csv(uploaded_file,low_memory=False) #.sample(n=100000)
 
-    df = DATA_URL
+    #df = DATA_URL
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
     
     #from PIL import Image
