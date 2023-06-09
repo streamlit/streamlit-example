@@ -13,10 +13,15 @@ from xgboost import XGBClassifier
 
 #df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  df = pd.read_csv(uploaded_file)
-  
+#uploaded_file = st.file_uploader("Choose a file")
+#if uploaded_file is not None:
+#  df = pd.read_csv(uploaded_file)
+@st.cache_data
+def load_data(url):
+    df = pd.read_csv(url)
+    return df
+
+    df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 #df = df.drop(['gravMerged'], axis=1, inplace=True)
 
