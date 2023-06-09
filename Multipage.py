@@ -332,7 +332,7 @@ def data_viz():
 
 
 
-    st.header("Top 5 dangerous area by zone")
+    st.header("Top 8 dangerous area by zone")
     #select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
     select = st.selectbox('Injured people', ['Department','Commune','Street'])
 
