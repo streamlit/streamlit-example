@@ -104,8 +104,8 @@ def eda_basic():
         return df
 
     df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
-    
-        st.subheader('Dataframe:')
+        #
+    st.subheader('Dataframe:')
         n, m = df.shape
         st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
         st.dataframe(df)
