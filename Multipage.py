@@ -281,7 +281,7 @@ def data_viz():
     #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
     st.markdown(f'# {list(page_names_to_funcs.keys())[3]}')
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
-    
+    @st.cache_data
     def load_data(url):
         df = pd.read_csv(url)
         return df
