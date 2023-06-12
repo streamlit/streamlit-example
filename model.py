@@ -44,10 +44,10 @@ def prediction(classifier):
     #    clf = KNeighborsClassifier()
     if classifier == 'XGBOOST':
         #clf = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
-        clf = pickle.load("https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/xgb_model.sav")
+        clf = pickle.load(open("https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/xgb_model.sav",'rb'))
     elif classifier == 'Gradient Boosting':
         #clf = GradientBoostingClassifier()
-        clf = pickle.load('https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/gbc_model.sav')
+        clf = pickle.load(open("https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/gbc_model.sav",'rb'))
         
     #clf.fit(X_train, y_train)
     return clf
