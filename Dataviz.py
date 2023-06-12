@@ -43,10 +43,10 @@ st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE'
 #2. Visualization ######################
 st.header("How many road accident during a given time of the day?")
 hour = st.slider("Hour to look at", 0, 23)
-severity = st.radio("Severity",('Not injuzed', 'Injuzed', 'All'))
-if severity=='Not injuzed':
+severity = st.radio("Severity",('Not Severe', 'Severe', 'All'))
+if severity=='Not Severe':
      severity=0
-if severity=='Injuzed':
+if severity=='Severe':
      severity=1
      
 st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
