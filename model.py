@@ -36,20 +36,20 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 #print(result)
 
 def prediction(classifier):
-    if classifier == 'Random Forest':
-        clf = RandomForestClassifier()
-    elif classifier == 'SVC':
-        clf = SVC()
-    elif classifier == 'KNN':
-        clf = KNeighborsClassifier()
-    elif classifier == 'XGBOOST':
-        clf = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
-        #clf = joblib.load("xgb_model.sav")
+    #if classifier == 'Random Forest':
+    #    clf = RandomForestClassifier()
+    #elif classifier == 'SVC':
+    #    clf = SVC()
+    #elif classifier == 'KNN':
+    #    clf = KNeighborsClassifier()
+    if classifier == 'XGBOOST':
+        #clf = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+        clf = joblib.load("https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/xgb_model.sav")
     elif classifier == 'Gradient Boosting':
-        clf = GradientBoostingClassifier()
-        #clf = joblib.load('gbc_model.sav')
+        #clf = GradientBoostingClassifier()
+        clf = joblib.load('https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/gbc_model.sav')
         
-    clf.fit(X_train, y_train)
+    #clf.fit(X_train, y_train)
     return clf
     
 def scores(clf, choice):
