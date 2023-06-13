@@ -45,10 +45,10 @@ def eda_advanced():
         df = pd.read_csv(url)
         return df
 
-    df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
-    #uploaded_file = st.file_uploader("Choose a file")
-    #if uploaded_file is not None:
-      #df = pd.read_csv(uploaded_file,low_memory=False)
+    #df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+      df = pd.read_csv(uploaded_file,low_memory=False)
     pr = df.profile_report()
 
     st_profile_report(pr)
@@ -58,7 +58,6 @@ def eda_basic():
     import streamlit as st
     import pandas as pd
     import plotly.express as px
-    #import functions
     from functions import df_info, df_isnull, number_of_outliers, space, sidebar_space, sidebar_multiselect_container
     
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
@@ -285,12 +284,18 @@ def data_viz():
     # st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg",use_column_width=True)
     # @st.cache_data
 
-    #LOAD Data
-    def load_data(url):
-     df = pd.read_csv(url)
-     return df
+    
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+      df = pd.read_csv(uploaded_file)
 
-    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
+
+  
+    #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
 
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
