@@ -300,22 +300,27 @@ def data_viz():
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
     data = df
 
-    #data = load_data(20000)
-
-    #original_data = data
-
+    #1. Visualization
     st.header("Where are the most people injured in France?")
     injured_people = st.slider("Number of person injured in road accident",0, 100)
     st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
 
-
+    #2. Visualization ######################
     st.header("How many road accident during a given time of the day?")
     hour = st.slider("Hour to look at", 0, 23)
-    data = data[data['date/time'].dt.hour == hour]
-
+    severity = st.radio("Severity",('Not injuzed', 'Injuzed', 'All'))
+    if severity=='Not injuzed':
+         severity=0
+    if severity=='Injuzed':
+         severity=1
 
     st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
-    midpoint = (np.average(data['LATITUDE']), np.average(data['LONGITUDE']))
+
+    chart_data = df[['LATITUDE','LONGITUDE','date/time','severity']].dropna(how="any")
+    chart_data=chart_data.rename(columns={"LATITUDE": "lat", "LONGITUDE": "lon"})
+    if severity!='All':
+         severity=chart_data=chart_data[chart_data['severity'] == severity]
+    vis_data=chart_data[chart_data['date/time'].dt.hour == hour]
 
     st.pydeck_chart(pdk.Deck(map_style="mapbox://styles/mapbox/streets-v12", initial_view_state={"latitude": midpoint[0],"longitude": midpoint[1],"zoom": 11,"pitch": 50},
          layers=[pdk.Layer("HexagonLayer", data=data[['date/time','LATITUDE','LONGITUDE']], get_position=['LONGITUDE','LATITUDE'], radius=100, extruded=True, pickable=True,
