@@ -11,16 +11,14 @@ def intro():
     st.markdown("""
         **👈 Select the page from the dropdown on the left** to select : EDA, Dataviz, Modelling 
         or Shap Interpretation!
-         Summary of our main tasks done to use Streamlit /GitHub
-    st.write('<p style="font-size:100%">&nbsp - we prepared the data set to gain some memory </p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 7. See count plot of categorical columns</p>', unsafe_allow_html=True)
+         ###Summary of our main tasks done to use Streamlit /GitHub
             - we prepared the data set to gain some memory
             - we select the road accident from 2012-2015
             - we kept road accident 2016 seperately to compare with our prediction
             - we did run the classification non-linear models: GBC - RFC - KNN - SVC - (XGBOOST?)
             - EDA and Dataviz are using road accidents from 2012 to 2016 
             
-         Team
+         ###Team
 
         - Deepa
         - Fan
