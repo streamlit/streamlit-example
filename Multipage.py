@@ -4,7 +4,7 @@ def intro():
     import base64
 
     st.write("# Road Accidents in France #")
-    st.sidebar.success("Select pages",st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)"))   
+    st.sidebar.success("Select pages"st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)"))   
     
         
     st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
