@@ -286,11 +286,11 @@ def data_viz():
         df = pd.read_csv(url)
         return df
 
-    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+    #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
     
-    #uploaded_file = st.file_uploader("Choose a file")
-    #if uploaded_file is not None:
-    #  DATA_URL = pd.read_csv(uploaded_file,low_memory=False) #.sample(n=100000)
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+      DATA_URL = pd.read_csv(uploaded_file,low_memory=False)
 
     #df = DATA_URL
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
