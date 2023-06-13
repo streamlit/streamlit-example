@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import streamlit as st
 import xgboost as xgb
 from xgboost import XGBClassifier
-import pickle5 as pickle
+import joblib
 
 #df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
@@ -44,10 +44,10 @@ def prediction(classifier):
     #    clf = KNeighborsClassifier()
     if classifier == 'XGBOOST':
         #clf = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
-        clf = pickle.load(open("https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/xgb_model.sav",'rb'))
+        clf = joblib.load('https://github.com/IsiD11/streamlit-example/blob/314ba6c248287502ab2e61a70598c3b48310cf93/xgb_model.sav')
     elif classifier == 'Gradient Boosting':
         #clf = GradientBoostingClassifier()
-        clf = pickle.load(open("https://github.com/IsiD11/streamlit-example/blob/d77950679148f8c130912de7099f18271c0e7644/gbc_model.sav",'rb'))
+        clf = joblib.load('https://github.com/IsiD11/streamlit-example/blob/314ba6c248287502ab2e61a70598c3b48310cf93/gbc_model.sav')
         
     #clf.fit(X_train, y_train)
     return clf
