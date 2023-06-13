@@ -55,9 +55,9 @@ def eda_advanced():
     
     #if uploaded_file is not None:
     #  df = pd.read_csv(uploaded_file)
-    #pr = df.profile_report()
+    pr = df.profile_report()
 
-    #st_profile_report(pr)
+    st_profile_report(pr)
 
 def eda_basic():
     
