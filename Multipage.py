@@ -6,9 +6,7 @@ def intro():
     st.write("# Road Accidents in France #")
     st.sidebar.success("Select pages")   
   
-    st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
-    #st.markdown("![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)")
-    
+        
     st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
             width=700 # Manually Adjust the width of the image as per requirement
         )
@@ -486,4 +484,5 @@ page_names_to_funcs = {
 }
 
 page_name = st.sidebar.selectbox("Choose your page", page_names_to_funcs.keys())
+st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
 page_names_to_funcs[page_name]()
