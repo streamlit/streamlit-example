@@ -290,9 +290,9 @@ def data_viz():
       df = pd.read_csv(uploaded_file)
 
     @st.cache_data
-    def load_data(url):
-        df = pd.read_csv(url)
-        return df
+    #def load_data(url):
+    #    df = pd.read_csv(url)
+    #    return df
 
   
     #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
