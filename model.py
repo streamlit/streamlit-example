@@ -44,10 +44,10 @@ def prediction(classifier):
     #    clf = KNeighborsClassifier()
     if classifier == 'XGBOOST':
         #clf = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
-        clf = joblib.load('https://github.com/IsiD11/streamlit-example/blob/314ba6c248287502ab2e61a70598c3b48310cf93/xgb_model.sav')
+        clf = joblib.load('xgb_model.sav')
     elif classifier == 'Gradient Boosting':
         #clf = GradientBoostingClassifier()
-        clf = joblib.load('https://github.com/IsiD11/streamlit-example/blob/314ba6c248287502ab2e61a70598c3b48310cf93/gbc_model.sav')
+        clf = joblib.load('gbc_model.sav')
         
     #clf.fit(X_train, y_train)
     return clf
