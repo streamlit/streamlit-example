@@ -64,19 +64,19 @@ def eda_basic():
 
                                     #st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='Multipage')
 
-    st.header("Exploratory Data Analysis")
+    #st.header("Exploratory Data Analysis")
     st.image("https://datos.gob.es/sites/default/files/u322/grafico.jpg",width=600)
     st.write('<p style="font-size:160%">You will be able to✅:</p>', unsafe_allow_html=True)
 
     st.write('<p style="font-size:100%">&nbsp 1. See the whole dataset</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 2. Get column names, data types info</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 3. Get the count and percentage of NA values</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 4. Get descriptive analysis </p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 5. Check inbalance or distribution of target variable:</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 6. See distribution of numerical columns</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 7. See count plot of categorical columns</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 8. Get outlier analysis with box plots</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:100%">&nbsp 9. Obtain info of target value variance with categorical columns</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:100%">&nbsp 2. See the description of the data</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:100%">&nbsp 3. See the count and percentage of empty values</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:100%">&nbsp 4. See the statistical analysis </p>', unsafe_allow_html=True)
+    #st.write('<p style="font-size:100%">&nbsp 5. Check inbalance or distribution of target variable:</p>', unsafe_allow_html=True)
+    #st.write('<p style="font-size:100%">&nbsp 6. See distribution of numerical columns</p>', unsafe_allow_html=True)
+    #st.write('<p style="font-size:100%">&nbsp 7. See count plot of categorical columns</p>', unsafe_allow_html=True)
+    #st.write('<p style="font-size:100%">&nbsp 8. Get outlier analysis with box plots</p>', unsafe_allow_html=True)
+    #st.write('<p style="font-size:100%">&nbsp 9. Obtain info of target value variance with categorical columns</p>', unsafe_allow_html=True)
     #st.image('header2.png', use_column_width = True)
 
     space()
