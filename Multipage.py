@@ -1,11 +1,13 @@
 import streamlit as st
 def intro():
     import streamlit as st
+    import base64
 
     st.write("# Road Accidents in France #")
-    st.sidebar.success("Select pages")
-    
+    st.sidebar.success("Select pages")   
+  
     st.markdown("![Alt Text](https://tenor.com/en-GB/view/car-crash-accident-balloons-gif-13625445)")
+    
     st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
             width=700 # Manually Adjust the width of the image as per requirement
         )
