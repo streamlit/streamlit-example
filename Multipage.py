@@ -2,7 +2,7 @@ import streamlit as st
 def intro():
     import streamlit as st
 
-    st.write("#      Road Accidents in France #")
+    st.write("###      Road Accidents in France ###")
     st.sidebar.success("Select pages")
     
     st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
