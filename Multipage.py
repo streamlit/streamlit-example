@@ -284,7 +284,7 @@ def data_viz():
     # st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg",use_column_width=True)
     # @st.cache_data
 
-    uploaded_file = st.file_uploader("Choose a file")
+   uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
       df = pd.read_csv(uploaded_file)
     
