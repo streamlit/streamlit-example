@@ -97,7 +97,7 @@ def eda_basic():
     #        df = pd.read_csv(dataset)
     #    else:
     #        df = pd.read_excel(dataset)
-        #@st.cache_data
+        @st.cache_data
         def load_data(url):
             df = pd.read_csv(url)
             return df
