@@ -277,26 +277,25 @@ def data_viz():
     import plotly.express as px
     import datetime as dt
 
-    #from pathlib import Path
-    #DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
-    st.markdown(f'# {list(page_names_to_funcs.keys())[3]}')
+    st.header('Data Visualization')
+
+    #from PIL import Image
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
     @st.cache_data
+    # st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg",use_column_width=True)
+    # @st.cache_data
+
+    #LOAD Data
     def load_data(url):
-        df = pd.read_csv(url)
-        return df
+     df = pd.read_csv(url)
+     return df
 
-    #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
-    
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-      DATA_URL = pd.read_csv(uploaded_file,low_memory=False)
+    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
 
-    #df = DATA_URL
+    #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
-    
-    #from PIL import Image
-    
+
+
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
     data = df
 
@@ -322,42 +321,55 @@ def data_viz():
          severity=chart_data=chart_data[chart_data['severity'] == severity]
     vis_data=chart_data[chart_data['date/time'].dt.hour == hour]
 
-    st.pydeck_chart(pdk.Deck(map_style="mapbox://styles/mapbox/streets-v12", initial_view_state={"latitude": midpoint[0],"longitude": midpoint[1],"zoom": 11,"pitch": 50},
-         layers=[pdk.Layer("HexagonLayer", data=data[['date/time','LATITUDE','LONGITUDE']], get_position=['LONGITUDE','LATITUDE'], radius=100, extruded=True, pickable=True,
-             elevation_scale=4, elevation_range=[0,1000])]))
+    def pychart(dataframe):
+         st.pydeck_chart(pdk.Deck(
+              map_style=None,
+              initial_view_state=pdk.ViewState(
+                   latitude=48.85,
+                   longitude=2.35,
+                   zoom=6,
+                   pitch=50,
+              ),
+              layers=[pdk.Layer(
+                   'HexagonLayer',
+                   data=dataframe,
+                   get_position='[lon, lat]',
+                   radius=50,
+                   elevation_scale=10,
+                   elevation_range=[20, 500],
+                   pickable=True,
+                   extruded=True,),],
+         ))
 
+    pychart(vis_data)
+    #######################
+
+    #4. Visualization
     st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %24))
-    filtered = data[
-         (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
-    ]
-    hist = np.histogram(filtered['date/time'].dt.minute, bins=60, range=(0,60))[0]
+    # filtered = data[
+    #  (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
+    # ]
+    hist = np.histogram(data['date/time'].dt.minute, bins=60, range=(0,60))[0]
     chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
     fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
     st.write(fig)
 
-
-
+    #5. Visualization
     st.header("Top 8 dangerous area by zone")
     #select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
     select = st.selectbox('Injured people', ['Department','Commune','Street'])
 
     if select == 'Department':
-        #st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
-        st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
-
+         st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
     elif select == 'Commune':
-        #st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:])
-        st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
-
+         st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
     else:
-        #st.write(data.query("INJURED_MOTORISTS >= 1") [["ON_STREET_NAME","INJURED_MOTORISTS"]].sort_values(by=['INJURED_MOTORISTS'], ascending=False).dropna(how='any')[:5])
-        st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
+         st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
 
-        
+
     if st.checkbox("Show Raw Data", False):
        st.subheader('Raw Data')
        st.write(data)
-
 
 def modelling():
     import streamlit as st
