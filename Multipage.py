@@ -40,10 +40,10 @@ def eda_advanced():
     
     st.markdown(f"# {list(page_names_to_funcs.keys())[1]}")
     
-    @st.cache_data
-    def load_data(url):
-        df = pd.read_csv(url)
-        return df
+    #@st.cache_data
+    #def load_data(url):
+    #    df = pd.read_csv(url)
+    #    return df
 
     #df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
     uploaded_file = st.file_uploader("Choose a file")
@@ -285,8 +285,8 @@ def data_viz():
     # @st.cache_data
 
     
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
+   uploaded_file = st.file_uploader("Choose a file")
+   if uploaded_file is not None:
       df = pd.read_csv(uploaded_file)
 
     @st.cache_data
