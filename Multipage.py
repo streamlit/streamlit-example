@@ -31,7 +31,7 @@ def intro():
     """
     )
 
-    #st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
+    st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
     
 def eda_advanced():
     import pandas as pd
@@ -486,5 +486,5 @@ page_names_to_funcs = {
 }
 
 page_name = st.sidebar.selectbox("Choose your page", page_names_to_funcs.keys())
-st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
+
 page_names_to_funcs[page_name]()
