@@ -62,7 +62,7 @@ def eda_basic():
     
     st.markdown(f'# {list(page_names_to_funcs.keys())[2]}')
 
-    #st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='Multipage')
+                                    #st.set_page_config(layout = "wide", page_icon = 'logo.png', page_title='Multipage')
 
     st.header("Exploratory Data Analysis")
     st.image("https://datos.gob.es/sites/default/files/u322/grafico.jpg",width=600)
@@ -79,37 +79,37 @@ def eda_basic():
     st.write('<p style="font-size:100%">&nbsp 9. Obtain info of target value variance with categorical columns</p>', unsafe_allow_html=True)
     #st.image('header2.png', use_column_width = True)
 
-    #space()
+    space()
     
-    #st.write('<p style="font-size:130%">Import Dataset</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:130%">Import Dataset</p>', unsafe_allow_html=True)
 
-    #file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
-    #dataset = st.file_uploader(label = '')
+    file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
+    dataset = st.file_uploader(label = '')
 
     #use_defo = st.checkbox('Use example Dataset')
     #if use_defo:
     #    dataset = 'CarPrice_Assignment.csv'
 
-    #st.sidebar.header('Import Dataset to Use Available Features: 👉')
+    st.sidebar.header('Import Dataset to Use Available Features: 👉')
 
-    #if dataset:
-    #    if file_format == 'csv':
-    #        df = pd.read_csv(dataset)
-    #    else:
-    #        df = pd.read_excel(dataset)
-    @st.cache_data
-    def load_data(url):
-       df = pd.read_csv(url)
-       return df
+    if dataset:
+        if file_format == 'csv':
+            df = pd.read_csv(dataset)
+        else:
+            df = pd.read_excel(dataset)
+    #@st.cache_data
+    #def load_data(url):
+    #   df = pd.read_csv(url)
+    #   return df
 
-       df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+    #   df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
             #
-       st.subheader('Dataframe:')
-       n, m = df.shape
-       st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
-       st.dataframe(df)
-            #
-
+            st.subheader('Dataframe:')
+            n, m = df.shape
+            st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
+            st.dataframe(df)
+            #repère former codes
+        #repère former codes
         all_vizuals = ['Info', 'NA Info', 'Descriptive Analysis', 'Target Analysis', 
                        'Distribution of Numerical Columns', 'Count Plots of Categorical Columns', 
                        'Box Plots', 'Outlier Analysis', 'Variance of Target with Categorical Columns']
