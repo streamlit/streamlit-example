@@ -31,7 +31,7 @@ def intro():
     """
     )
 
-    st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
+    #st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
     
 def eda_advanced():
     import pandas as pd
