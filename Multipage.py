@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 def intro():
     import streamlit as st
     import base64
