@@ -6,7 +6,7 @@ def intro():
     st.write("# Road Accidents in France #")
     st.sidebar.success("Select pages")   
   
-    st.markdown("![Alt Text](https://tenor.com/5kLp.gif)")
+    st.markdown("![Alt Text](https://giphy.com/clips/thefastsaga-fast-and-furious-saga-fate-of-the-0HR6cjY8Q1XQlmjVVa)")
     st.markdown("![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)")
     
     st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
