@@ -8,7 +8,6 @@ def intro():
     st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
             width=700 # Manually Adjust the width of the image as per requirement
         )
-
     st.markdown("""
         **👈 Select the page from the dropdown on the left** to select : EDA, Dataviz, Modelling 
         or Shap Interpretation!
@@ -45,6 +44,8 @@ def eda_advanced():
     #    df = pd.read_csv(url)
     #    return df
     space()
+    
+    st.image('https://editor.analyticsvidhya.com/uploads/74223Pandas%20Profiling.png',width=700)
     
     #df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
     uploaded_file = st.file_uploader("Choose a file")
