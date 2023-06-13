@@ -100,7 +100,7 @@ def eda_basic():
     @st.cache_data
     def load_data(url):
        df = pd.read_csv(url)
-            return df
+       return df
 
             df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
             #
