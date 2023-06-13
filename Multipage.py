@@ -79,12 +79,12 @@ def eda_basic():
     st.write('<p style="font-size:100%">&nbsp 9. Obtain info of target value variance with categorical columns</p>', unsafe_allow_html=True)
     #st.image('header2.png', use_column_width = True)
 
-    space()
+    #space()
     
-    st.write('<p style="font-size:130%">Import Dataset</p>', unsafe_allow_html=True)
+    #st.write('<p style="font-size:130%">Import Dataset</p>', unsafe_allow_html=True)
 
-    file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
-    dataset = st.file_uploader(label = '')
+    #file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
+    #dataset = st.file_uploader(label = '')
 
     #use_defo = st.checkbox('Use example Dataset')
     #if use_defo:
@@ -92,17 +92,17 @@ def eda_basic():
 
     #st.sidebar.header('Import Dataset to Use Available Features: 👉')
 
-    if dataset:
-        if file_format == 'csv':
-            df = pd.read_csv(dataset)
-        else:
-            df = pd.read_excel(dataset)
+    #if dataset:
+    #    if file_format == 'csv':
+    #        df = pd.read_csv(dataset)
+    #    else:
+    #        df = pd.read_excel(dataset)
         #@st.cache_data
-        #def load_data(url):
-        #    df = pd.read_csv(url)
-        #    return df
+        def load_data(url):
+            df = pd.read_csv(url)
+            return df
 
-        #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+        df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
             #
             st.subheader('Dataframe:')
             n, m = df.shape
@@ -284,18 +284,18 @@ def data_viz():
     # st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg",use_column_width=True)
     # @st.cache_data
 
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-      DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
+    #uploaded_file = st.file_uploader("Choose a file")
+    #if uploaded_file is not None:
+    # df = pd.read_csv(uploaded_file).sample(n=100000)
 
-    df = DATA_URL    
+            
     @st.cache_data
-    #def load_data(url):
-    #    df = pd.read_csv(url)
-    #    return df
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
 
   
-    #df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
 
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
