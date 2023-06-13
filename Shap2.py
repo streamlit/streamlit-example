@@ -6,37 +6,25 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  df = pd.read_csv(uploaded_file)
+#uploaded_file = st.file_uploader("Choose a file")
+#if uploaded_file is not None:
+#  df = pd.read_csv(uploaded_file)
   
-df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
-
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
     
-X_cat = df[['Pclass', 'Sex',  'Embarked']]
-X_quant = df[['Age', 'Fare', 'SibSp', 'Parch']]
-y = df['Survived']
+@st.cache_data
+def load_data(url):
+    df = pd.read_csv(url)
+    return df
 
-for col in X_cat.columns:
-    X_cat[col] = X_cat[col].fillna(X_cat[col].mode()[0])
+df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
 
-for col in X_quant.columns:
-    X_quant[col] = X_quant[col].fillna(X_quant[col].mean())
+y =df['grav']
+X = df.drop(['grav','gravMerged'], axis = 1)
 
-
-X_cat_scaled = pd.get_dummies(X_cat, columns=X_cat.columns)
-
-X = pd.concat([X_cat_scaled, X_quant], axis = 1)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.25)
-
-scaler = StandardScaler()
-X_train[X_quant.columns] = scaler.fit_transform(X_train[X_quant.columns])
-X_test[X_quant.columns] = scaler.transform(X_test[X_quant.columns])
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 st.title("SHAP Interpretation")
 
@@ -44,7 +32,6 @@ st.title("SHAP Interpretation")
 model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(X, label=y), 100)
 
 # explain the model's predictions using SHAP
-# (same syntax works for LightGBM, CatBoost, scikit-learn and spark models)
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X)
 
