@@ -38,7 +38,9 @@ def eda_advanced():
     from streamlit_pandas_profiling import st_profile_report
     
     st.markdown(f"# {list(page_names_to_funcs.keys())[1]}")
+    
     st.image('https://editor.analyticsvidhya.com/uploads/74223Pandas%20Profiling.png',width=700)
+    
     @st.cache_data
     def load_data(url):
         df = pd.read_csv(url)
@@ -49,9 +51,6 @@ def eda_advanced():
         
     df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
     #uploaded_file = st.file_uploader(label = '')
-    
-    
-    space()
     
     
     #if uploaded_file is not None:
