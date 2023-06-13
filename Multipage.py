@@ -29,8 +29,10 @@ def intro():
         
     """
     )
+    space()
     st.markdown("![Alt Text](https://media.tenor.com/tuArNck3bKwAAAAC/car-crash.gif)")
-def eda_advanced():
+
+    def eda_advanced():
     import pandas as pd
     import pandas_profiling
     import streamlit as st
