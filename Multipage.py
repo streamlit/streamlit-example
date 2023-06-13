@@ -43,12 +43,13 @@ def eda_advanced():
     #def load_data(url):
     #    df = pd.read_csv(url)
     #    return df
-    space()
     
     
     
+        
     #df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
     uploaded_file = st.file_uploader("Choose a file")
+    space()
     if uploaded_file is not None:
       df = pd.read_csv(uploaded_file,low_memory=False)
     pr = df.profile_report()
