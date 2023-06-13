@@ -97,12 +97,12 @@ def eda_basic():
     #        df = pd.read_csv(dataset)
     #    else:
     #        df = pd.read_excel(dataset)
-    @st.cache_data
-    def load_data(url):
-       df = pd.read_csv(url)
-       return df
+            @st.cache_data
+            def load_data(url):
+               df = pd.read_csv(url)
+               return df
 
-    df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
+            df = load_data('https://bol.mondial-assistance.gr/Files/Eda_basic/Eda_basic_Dataviz_07_06_2023.csv')
             #
             st.subheader('Dataframe:')
             n, m = df.shape
