@@ -39,26 +39,26 @@ def eda_advanced():
     
     st.markdown(f"# {list(page_names_to_funcs.keys())[1]}")
     st.image('https://editor.analyticsvidhya.com/uploads/74223Pandas%20Profiling.png',width=700)
-    #@st.cache_data
-    #def load_data(url):
-    #    df = pd.read_csv(url)
-    #    return df
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
     
     
     
         
-    #df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
-    uploaded_file = st.file_uploader(label = '')
+    df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_07062023.csv')
+    #uploaded_file = st.file_uploader(label = '')
     
     
     space()
     
     
-    if uploaded_file is not None:
-      df = pd.read_csv(uploaded_file,low_memory=False)
-    pr = df.profile_report()
+    #if uploaded_file is not None:
+    #  df = pd.read_csv(uploaded_file)
+    #pr = df.profile_report()
 
-    st_profile_report(pr)
+    #st_profile_report(pr)
 
 def eda_basic():
     
