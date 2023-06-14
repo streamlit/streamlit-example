@@ -95,9 +95,6 @@ def eda_basic():
     file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
     dataset = st.file_uploader(label = '')
 
-    #use_defo = st.checkbox('Use example Dataset')
-    #if use_defo:
-    #    dataset = 'CarPrice_Assignment.csv'
 
     st.sidebar.header('Import Dataset to Use Available Features: 👉')
 
@@ -287,11 +284,8 @@ def data_viz():
 
     st.header('Data Visualization')
 
-    #from PIL import Image
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
     @st.cache_data
-    # st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg",use_column_width=True)
-    # @st.cache_data
 
     #uploaded_file = st.file_uploader("Choose a file")
     #if uploaded_file is not None:
@@ -391,7 +385,6 @@ def modelling():
     st.markdown(f'# {list(page_names_to_funcs.keys())[4]}')
     from model import prediction, scores
     
-     
 
     
 
@@ -424,8 +417,6 @@ def modelling():
     elif display == 'Classification report':
         #st.table(classification_report(y_test, clf.predict(X_test)))
         st.text(scores(clf, display))
-        
-        
         
         
         
