@@ -6,20 +6,20 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-#uploaded_file = st.file_uploader("Choose a file")
-#if uploaded_file is not None:
-#  df = pd.read_csv(uploaded_file)
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  df = pd.read_csv(uploaded_file)
   
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
     
-@st.cache_data
-def load_data(url):
-    df = pd.read_csv(url)
-    return df
+#@st.cache_data
+#def load_data(url):
+#    df = pd.read_csv(url)
+#    return df
 
-df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
+#df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
 
 y =df['grav']
 X = df.drop(['grav','gravMerged'], axis = 1)
@@ -36,7 +36,7 @@ explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X)
 
 st.write('<p style="font-size:130%">visualize the first prediction explanation </p>', unsafe_allow_html=True)
-#  (use matplotlib=True to avoid Javascript)
+
 st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
 
 st.write('<p style="font-size:130%">visualize the training set predictions </p>', unsafe_allow_html=True)
