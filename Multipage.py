@@ -97,7 +97,7 @@ def eda_basic():
     dataset = st.file_uploader(label = '')
 
 
-    st.sidebar.header('Import Dataset to Use Available Features: 👉')
+    #st.sidebar.header('Import Dataset to Use Available Features: 👉')
 
     if dataset:
         if file_format == 'csv':
