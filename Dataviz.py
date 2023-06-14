@@ -1,93 +1,103 @@
-import streamlit as st
-import pandas as pd
-import numpy as np
-import pydeck as pdk
-import plotly.express as px
-import datetime as dt
+    import streamlit as st
+    import pandas as pd
+    import numpy as np
+    import pydeck as pdk
+    import plotly.express as px
+    import datetime as dt
 
-#from pathlib import Path
-#DATA_URL = Path(Training/Datascientist/Coursera).parents[1] / 'Motor_Vehicle_Collisions_-_Crashes.csv'
+    st.header('Data Visualization')
 
-#df = pd.read_csv('https://drive.google.com/file/d/1TvB62joGvnJjfSfQ5GQSOcJ5vZzBxVar/view?usp=sharing')
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  DATA_URL = pd.read_csv(uploaded_file).sample(n=100000)
+    st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
+    @st.cache_data
 
-df = DATA_URL
+    #uploaded_file = st.file_uploader("Choose a file")
+    #if uploaded_file is not None:
+    # df = pd.read_csv(uploaded_file).sample(n=100000)
 
-df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
-st.title("Data Visualition of Road Accident")
-st.markdown("This application is a Streamlit dashboard that can be use to analyze road accident in France🗼🥐🇫🇷🥖🚗💥🚙")
+            
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
 
-from PIL import Image
-#st.image("https://upload.wikimedia.org/wikipedia/commons/2/2f/Multi_vehicle_accident_-_M4_Motorway%2C_Sydney%2C_NSW_%288076208846%29.jpg",
-#            width=600 # Manually Adjust the width of the image as per requirement
+  
+    df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
 
-#        )
-st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
-         
-#st.video("https://www.youtube.com/shorts/X5CYrFKcvis")
-
-#@st.cache(persist=True)
-#def load_data(nrows):
-#    data = pd.read_csv(df,nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
-#    data.dropna(subset=['LATITUDE', 'LONGITUDE'], inplace=True)
-#    lowercase = lambda x: str(x).lower()
-#    data.rename(lowercase, axis='columns', inplace=True)
-#    data.rename(columns={'crash_date_crash_time': 'date/time'}, inplace=True)
-#    return data
-
-df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
-data = df
-
-#data = load_data(20000)
-
-#original_data = data
-
-st.header("Where are the most people injured in France?")
-injured_people = st.slider("Number of person injured in road accident",0, 100)
-st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
+    #dropna
+    df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
 
-st.header("How many road accident during a given time of the day?")
-hour = st.slider("Hour to look at", 0, 23)
-data = data[data['date/time'].dt.hour == hour]
+    df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
+    data = df
+
+    #1. Visualization
+    st.header("Where are the most people injured in France?")
+    injured_people = st.slider("Number of person injured in road accident",0, 100)
+    st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
+
+    #2. Visualization ######################
+    st.header("How many road accident during a given time of the day?")
+    hour = st.slider("Hour to look at", 0, 23)
+    severity = st.radio("Severity",('Not Severe', 'Severe', 'All'))
+    if severity=='Not Severe':
+         severity=0
+    if severity=='Severe':
+         severity=1
+
+    st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
+
+    chart_data = df[['LATITUDE','LONGITUDE','date/time','severity']].dropna(how="any")
+    chart_data=chart_data.rename(columns={"LATITUDE": "lat", "LONGITUDE": "lon"})
+    if severity!='All':
+         severity=chart_data=chart_data[chart_data['severity'] == severity]
+    vis_data=chart_data[chart_data['date/time'].dt.hour == hour]
+
+    def pychart(dataframe):
+         st.pydeck_chart(pdk.Deck(
+              map_style=None,
+              initial_view_state=pdk.ViewState(
+                   latitude=48.85,
+                   longitude=2.35,
+                   zoom=6,
+                   pitch=50,
+              ),
+              layers=[pdk.Layer(
+                   'HexagonLayer',
+                   data=dataframe,
+                   get_position='[lon, lat]',
+                   radius=50,
+                   elevation_scale=10,
+                   elevation_range=[20, 500],
+                   pickable=True,
+                   extruded=True,),],
+         ))
+
+    pychart(vis_data)
+    #######################
+
+    #4. Visualization
+    st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %24))
+    # filtered = data[
+    #  (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
+    # ]
+    hist = np.histogram(data['date/time'].dt.minute, bins=60, range=(0,60))[0]
+    chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
+    fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
+    st.write(fig)
+
+    #5. Visualization
+    st.header("Top 8 dangerous area by zone")
+    #select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
+    select = st.selectbox('Injured people', ['Department','Commune','Street'])
+
+    if select == 'Department':
+         st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
+    elif select == 'Commune':
+         st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
+    else:
+         st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
 
 
-st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
-midpoint = (np.average(data['LATITUDE']), np.average(data['LONGITUDE']))
-
-st.pydeck_chart(pdk.Deck(map_style="mapbox://styles/mapbox/streets-v12", initial_view_state={"latitude": midpoint[0],"longitude": midpoint[1],"zoom": 11,"pitch": 50},
-     layers=[pdk.Layer("HexagonLayer", data=data[['date/time','LATITUDE','LONGITUDE']], get_position=['LONGITUDE','LATITUDE'], radius=100, extruded=True, pickable=True,
-         elevation_scale=4, elevation_range=[0,1000])]))
-
-st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %24))
-filtered = data[
-     (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
-]
-hist = np.histogram(filtered['date/time'].dt.minute, bins=60, range=(0,60))[0]
-chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
-fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
-st.write(fig)
-
-
-
-st.header("Top 5 dangerous city by injury type")
-select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
-
-if select == 'Pedestrian':
-    st.write(data.query("INJURED_PEDESTRIANS >= 1")[["ON_STREET_NAME","INJURED_PEDESTRIANS"]].sort_values(by=['INJURED_PEDESTRIANS'], ascending=False).dropna(how='any')[:5])
-
-elif select == 'Cyclists':
-    st.write(data.query("INJURED_CYCLISTS >= 1") [["ON_STREET_NAME","INJURED_CYCLISTS"]].sort_values(by=['INJURED_CYCLISTS'], ascending=False).dropna(how='any')[:5])
-
-else:
-    st.write(data.query("INJURED_MOTORISTS >= 1") [["ON_STREET_NAME","INJURED_MOTORISTS"]].sort_values(by=['INJURED_MOTORISTS'], ascending=False).dropna(how='any')[:5])
-
-
-
-
-
-if st.checkbox("Show Raw Data", False):
-   st.subheader('Raw Data')
-   st.write(data)
+    if st.checkbox("Show Raw Data", False):
+       st.subheader('Raw Data')
+       st.write(data)
