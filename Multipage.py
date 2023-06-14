@@ -300,7 +300,7 @@ def data_viz():
 
   
     df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
-    df = df.sample(n=1000)
+    df = df.sample(n=100)
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
