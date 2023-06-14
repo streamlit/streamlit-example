@@ -53,7 +53,7 @@ def eda_advanced():
     
         
     df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_12062023.csv')
-    df = df.sample(n=100)
+    
     #uploaded_file = st.file_uploader(label = '')
     
     
@@ -288,21 +288,21 @@ def data_viz():
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
     #@st.cache_data
 
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-     df = pd.read_csv(uploaded_file).sample(n=100000)
+    #uploaded_file = st.file_uploader("Choose a file")
+    #if uploaded_file is not None:
+    # df = pd.read_csv(uploaded_file).sample(n=100000)
 
             
-    #@st.cache_data
-    #def load_data(url):
-    #    df = pd.read_csv(url)
-    #    return df
+    @st.cache_data
+    def load_data(url):
+        df = pd.read_csv(url)
+        return df
 
   
-    #df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
-    #df = df.sample(n=100)
+    df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
+    
     #dropna
-    #df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
+    df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
 
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
