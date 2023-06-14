@@ -286,21 +286,21 @@ def data_viz():
     st.header('Data Visualization')
 
     st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
-    @st.cache_data
+    #@st.cache_data
 
-    #uploaded_file = st.file_uploader("Choose a file")
-    #if uploaded_file is not None:
-    # df = pd.read_csv(uploaded_file).sample(n=100000)
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+     df = pd.read_csv(uploaded_file).sample(n=100000)
 
             
-    @st.cache_data
-    def load_data(url):
-        df = pd.read_csv(url)
-        return df
+    #@st.cache_data
+    #def load_data(url):
+    #    df = pd.read_csv(url)
+    #    return df
 
   
-    df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
-    df = df.sample(n=100)
+    #df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
+    #df = df.sample(n=100)
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
