@@ -13,15 +13,15 @@ import joblib
 
 #df = pd.read_csv('https://drive.google.com/file/d/1dLzhkMdx58uzJIjhqyFSQBFPKAIiZXhT/view?usp=sharing')
 
-#uploaded_file = st.file_uploader("Choose a file")
-#if uploaded_file is not None:
-#  df = pd.read_csv(uploaded_file)
-@st.cache_data
-def load_data(url):
-    df = pd.read_csv(url)
-    return df
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+  df = pd.read_csv(uploaded_file)
+#@st.cache_data
+#def load_data(url):
+#    df = pd.read_csv(url)
+#    return df
 
-df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
+#df = load_data('https://bol.mondial-assistance.gr/Files/modelling/modelling_shap_2012_2015.csv')
 #df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 #df = df.drop(['gravMerged'], axis=1, inplace=True)
 
@@ -43,11 +43,11 @@ def prediction(classifier):
     #elif classifier == 'KNN':
     #    clf = KNeighborsClassifier()
     if classifier == 'XGBOOST':
-        clf = xgb.XGBClassifier()
-        clf.load_model('xgb_model.sav')
+        #clf = xgb.XGBClassifier()
+        clf = joblib.load('xgb_model.sav')
     elif classifier == 'Gradient Boosting':
-        clf = GradientBoostingClassifier()
-        clf.load_model('gbc_model.sav')
+        #clf = GradientBoostingClassifier()
+        clf = joblib.load('gbc_model.sav')
         
     #clf.fit(X_train, y_train)
     return clf
