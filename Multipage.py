@@ -302,7 +302,7 @@ def data_viz():
     #df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
     #df = df.sample(n=100)
     #dropna
-    df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
+    #df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
 
     df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
