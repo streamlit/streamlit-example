@@ -31,7 +31,7 @@ intersectionType = st.number_input("Intersection Type")
 #Loading up the XGBoost model we created
 
 xgb_cl = xgb.XGBClassifier()
-xgb_cl.load_model('xgb_model.json')
+xgb_cl.load_model('https://github.com/IsiD11/streamlit-example/blob/443116d2ccb9e7becd5adbbe936123c125b93370/xgb_model.json')
 
 
 if st.button('Predict Accident Severity'):
