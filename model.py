@@ -21,7 +21,7 @@ def load_data(url):
     df = pd.read_csv(url)
     return df
 
-df = load_data('https://github.com/IsiD11/streamlit-example/blob/cfa041b2e14a6c27ff96b673381e0ea88333367b/modelling_shap_2012_2015.csv')
+df = load_data('modelling_shap_2012_2015.csv')
 
 
 y =df['grav']
