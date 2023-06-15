@@ -52,7 +52,7 @@ def eda_advanced():
     
     
         
-    df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_12062023.csv')
+    df = load_data('https://bol.mondial-assistance.gr/Files/EDA_advanced/EDA_advanced_sample_12062023.csv').sample(n=1000)
     
     #uploaded_file = st.file_uploader(label = '')
     
@@ -101,9 +101,9 @@ def eda_basic():
 
     if dataset:
         if file_format == 'csv':
-            df = pd.read_csv(dataset).sample(n=100)
+            df = pd.read_csv(dataset).sample(n=1000)
         else:
-            df = pd.read_excel(dataset).sample(n=100)
+            df = pd.read_excel(dataset).sample(n=1000)
     #@st.cache_data
     #def load_data(url):
     #   df = pd.read_csv(url)
@@ -299,7 +299,7 @@ def data_viz():
         return df
 
   
-    df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv')
+    df = load_data('https://bol.mondial-assistance.gr/Files/Dataviz/Dataviz_12_06_2023.csv').sample(n=1000)
     
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
