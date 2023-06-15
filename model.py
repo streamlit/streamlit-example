@@ -44,7 +44,7 @@ def prediction(classifier):
         clf = GradientBoostingClassifier()
         #clf = joblib.load('gbc_model.sav')
         
-    #clf.fit(X_train, y_train)
+    clf.fit(X_train, y_train)
     return clf
     
 def scores(clf, choice):
