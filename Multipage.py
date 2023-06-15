@@ -52,7 +52,7 @@ def eda_advanced():
     
     
         
-    df = load_data('EDA_advanced_sample_07062023.csv').sample(n=1000)
+    df = load_data('EDA_advanced_sample_12062023.csv')
     
     #uploaded_file = st.file_uploader(label = '')
     
