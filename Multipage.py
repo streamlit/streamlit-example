@@ -52,7 +52,7 @@ def eda_advanced():
     
     
         
-    df = load_data('https://github.com/IsiD11/streamlit-example/blob/cfa041b2e14a6c27ff96b673381e0ea88333367b/EDA_advanced_sample_07062023.csv').sample(n=1000)
+    df = load_data('EDA_advanced_sample_07062023.csv').sample(n=1000)
     
     #uploaded_file = st.file_uploader(label = '')
     
@@ -299,7 +299,7 @@ def data_viz():
         return df
 
   
-    df = load_data('https://github.com/IsiD11/streamlit-example/blob/cfa041b2e14a6c27ff96b673381e0ea88333367b/Dataviz_12_06_2023.csv').sample(n=1000)
+    df = load_data('Dataviz_12_06_2023.csv').sample(n=1000)
     
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
@@ -440,7 +440,7 @@ def shap():
         df = pd.read_csv(url)
         return df
 
-    df = load_data('https://github.com/IsiD11/streamlit-example/blob/cfa041b2e14a6c27ff96b673381e0ea88333367b/modelling_shap_2012_2015.csv')
+    df = load_data('modelling_shap_2012_2015.csv')
     df = df.sample(n=1000)
     def st_shap(plot, height=None):
         shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
