@@ -33,7 +33,7 @@ year = st.number_input("year")
 month = st.number_input("month")
 day = st.number_input("day")
 hrmm = st.number_input("hrmm")
-dfpredict = pd.DataFrame([[agg, catr, prof, com, col, larrout, situ, dep, lartpc, ints, circ, nbv, atm, severity, year, month, day, hrmn]], columns=[agg, catr, prof, com, col, larrout, situ, dep, lartpc, int, circ, nbv, atm, severity, year, month, day, hrmn]))
+dfpredict = pd.DataFrame([[agg, catr, prof, com, col, larrout, situ, dep, lartpc, ints, circ, nbv, atm, severity, year, month, day, hrmn]], columns=[agg, catr, prof, com, col, larrout, situ, dep, lartpc, int, circ, nbv, atm, severity, year, month, day, hrmn])
 
 
 def results(model):
