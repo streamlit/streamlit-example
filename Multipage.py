@@ -7,7 +7,7 @@ def models():
     from sklearn.model_selection import train_test_split
     import streamlit as st
     import pandas as pd
-    import joblib import dump, load
+    from joblib import dump, load
     import sklearn
     st.markdown(f'# {list(page_names_to_funcs.keys())[6]}')
 
