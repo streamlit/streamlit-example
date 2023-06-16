@@ -299,7 +299,7 @@ def data_viz():
         return df
 
   
-    df = load_data('Dataviz_12_06_2023.csv').sample(n=1000)
+    df = load_data('Dataviz_12_06_2023.csv')
     
     #dropna
     df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
