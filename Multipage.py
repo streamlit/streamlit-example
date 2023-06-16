@@ -58,24 +58,24 @@ def models():
 
     if option=='Gradient Boosting':
        st.write('Gradient Boosting score train 73.127 rmse train 0.518')
-       GBC=joblib.load('streamlit-example/GBC_model.joblib')
+       GBC=joblib.load('Modelling\\GBC_model.joblib')
        results(GBC)
 
     if option=='Gradient Boosting improved':
        st.write('Gradient Boosting score train 78.535 rmse train 0.463')
-       GBCi=joblib.load('streamlit-example/GBC_improved_model.joblib')
+       GBCi=joblib.load('Modelling\\GBC_improved_model.joblib')
        results(GBCi)
 
 
     if option=='XGBOOST':
        st.write('XGBOOST score train 78.733 rmse train 0.461')
-       xgb = joblib.load('streamlit-example/xgb_model.joblib')
+       xgb = joblib.load('Modelling\\xgb_model.joblib')
        results(xgb)
 
 
     if option=='XGBOOST improved':
        st.write('XGBOOST score train 78.733 rmse train 0.461')
-       xgbi = joblib.load('streamlit-example/xgb_model.joblib')
+       xgbi = joblib.load('Modelling\\streamlit-example/xgb_model.joblib')
        results(xgbi)
 
 
