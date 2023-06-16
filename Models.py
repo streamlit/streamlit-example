@@ -58,19 +58,19 @@ if option=='Gradient Boosting':
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
-   GBCi=joblib.load('Models/GBC_improved_model.joblib')
+   GBCi=joblib.load('GBC_improved_model.plk')
    results(GBCi)
 
 
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733')
-   xgb = joblib.load('Models/xgb_model.joblib')
+   xgb = joblib.load('Models/xgb_model.plk')
    results(xgb)
 
 
 if option=='XGBOOST improved':
    st.write('XGBOOST score train 78.733')
-   xgbi = joblib.load('Models/xgb_model.joblib')
+   xgbi = joblib.load('Models/xgb_model.plk')
    results(xgbi)
 
 
