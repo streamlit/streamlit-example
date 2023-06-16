@@ -1,7 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
-from sklearn.externals import joblib
 import streamlit as st
 import pandas as pd
 import joblib
@@ -54,24 +53,24 @@ if df is not None:
 
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127')
-   GBC = joblib.load('GBC_model.joblib')
+   GBC = joblib.load('Modelling\\GBC_model.plk')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
-   GBCi = joblib.load('GBC_improved_model.plk')
+   GBCi = joblib.load('Modelling\\GBC_improved_model.plk')
    results(GBCi)
 
 
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733')
-   xgb = joblib.load('xgb_model.plk')
+   xgb = joblib.load('Modelling\\xgb_model.plk')
    results(xgb)
 
 
 if option=='XGBOOST improved':
    st.write('XGBOOST score train 78.733')
-   xgbi = joblib.load('xgb_model.plk')
+   xgbi = joblib.load('Modelling\\xgb_model.plk')
    results(xgbi)
 
 
