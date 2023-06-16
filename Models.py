@@ -53,18 +53,18 @@ if df is not None:
 
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127 rmse train 0.518')
-   GBC=joblib.load('GBC_model.joblib')
+   GBC=joblib.load('https://github.com/IsiD11/streamlit-example/blob/03641fd8202d2fba3b43fb4ddcfc2d28adfb488d/GBC_model.joblib')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535 rmse train 0.463')
-   GBCi=joblib.load('GBC_improved_model.joblib')
+   GBCi=joblib.load('https://github.com/IsiD11/streamlit-example/blob/03641fd8202d2fba3b43fb4ddcfc2d28adfb488d/GBC_improved_model.joblib')
    results(GBCi)
 
 
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733 rmse train 0.461')
-   xgb = joblib.load('xgb_model.joblib')
+   xgb = joblib.load('https://github.com/IsiD11/streamlit-example/blob/03641fd8202d2fba3b43fb4ddcfc2d28adfb488d/xgb_model.joblib')
    results(xgb)
 
 
