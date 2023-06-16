@@ -36,7 +36,7 @@ option = st.selectbox(
 
 st.write('You selected :', option)
 
-df = pd.read_csv('C:\\python\\roadAccidentInFrance\\dataset\\test_sample_15_06_2023.csv')
+df = pd.read_csv('test_sample_15_06_2023.csv')
 
 if df is not None:
     y_test =df['severity']
@@ -46,24 +46,24 @@ if df is not None:
 
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127 rmse train 0.518')
-   GBC=joblib.load('C:\\python\\roadAccidentInFrance\\models\\GBC_model.joblib')
+   GBC=joblib.load('GBC_model.joblib')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535 rmse train 0.463')
-   GBCi=joblib.load('C:\\python\\roadAccidentInFrance\\models\\GBC_improved_model.joblib')
+   GBCi=joblib.load('GBC_improved_model.joblib')
    results(GBCi)
 
 
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733 rmse train 0.461')
-   xgb = joblib.load('C:\\python\\roadAccidentInFrance\\models\\xgb_model.joblib')
+   xgb = joblib.load('xgb_model.joblib')
    results(xgb)
 
 
 if option=='XGBOOST improved':
    st.write('XGBOOST score train 78.733 rmse train 0.461')
-   xgbi = joblib.load('C:\\python\\roadAccidentInFrance\\models\\xgb_model.joblib')
+   xgbi = joblib.load('xgb_model.joblib')
    results(xgbi)
 
 # if option=='Random Forest':
