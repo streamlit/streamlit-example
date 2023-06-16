@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import sklearn
+import gzip
 
 
 def results(model):
@@ -51,27 +52,30 @@ if df is not None:
 
  
 
-if option=='Gradient Boosting':
-   st.write('Gradient Boosting score train 73.127')
-   GBC = joblib.load('Models/GBC_model.joblib')
-   results(GBC)
+# if option=='Gradient Boosting':
+#    st.write('Gradient Boosting score train 73.127')
+#    GBC = joblib.load('Models/GBC_model.joblib')
+#    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
-   GBCi = joblib.load('MModels/GBC_improved_model.joblib')
-   results(GBCi)
+   with gzip.GzipFile('MModels/GBC_improved_model.joblib'+ '.gz', 'rb') as f:  
+   joblib.load(f)
+   #GBCi = joblib.load('MModels/GBC_improved_model.joblib')
+   #results(GBCi)
+   results(f)
 
 
-if option=='XGBOOST':
-   st.write('XGBOOST score train 78.733')
-   xgb = joblib.load('Models/xgb_model.joblib')
-   results(xgb)
+# if option=='XGBOOST':
+#    st.write('XGBOOST score train 78.733')
+#    xgb = joblib.load('Models/xgb_model.joblib')
+#    results(xgb)
 
 
-if option=='XGBOOST improved':
-   st.write('XGBOOST score train 78.733')
-   xgbi = joblib.load('Models/xgboost_improved.joblib')
-   results(xgbi)
+# if option=='XGBOOST improved':
+#    st.write('XGBOOST score train 78.733')
+#    xgbi = joblib.load('Models/xgboost_improved.joblib')
+#    results(xgbi)
 
 
 
