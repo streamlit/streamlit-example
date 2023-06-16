@@ -62,7 +62,7 @@ def models():
 
     if option=='Gradient Boosting improved':
        st.write('Gradient Boosting score train 78.535 rmse train 0.463')
-       GBCi=joblib.load('GBC_improved_model.joblib',, mmap_mode=None)
+       GBCi=joblib.load('GBC_improved_model.joblib', mmap_mode=None)
        results(GBCi)
 
 
