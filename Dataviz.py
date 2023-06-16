@@ -5,98 +5,99 @@ import pydeck as pdk
 import plotly.express as px
 import datetime as dt
 
-# Set page title
-st.set_page_config(
-    page_title="France Road Accident Data Analysis - Visualization",
-    layout='wide'
-)
+st.header('Data Visualization')
 
-st.markdown(f'<b><h0 style="color:#00008B;font-size:35px;">{"Data Visualizations:"}</h0><br>', unsafe_allow_html=True)
+st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Visualization_Tools.jpg", width=700)
+#@st.cache_data
 
-# Content of the page
-option = st.selectbox(
-    'Choose a data visualization:',
-    ('Accident severity over years', 'Accidents reported over years', 'Accidents happened in day of week',
-     'Impact of lighting on road accidents', 'Impact of atmospheric conditions on road accidents',
-    'Impact of road category on accidents','Impact of intersection type on accidents','Impact of accident time on severity',
-    'Impact of area zone on severity','Impact of collision type on severity','Impact of surface condition on severity',
-    'Impact of accident situation on severity'))
+#uploaded_file = st.file_uploader("Choose a file")
+#if uploaded_file is not None:
+#    df = pd.read_csv(uploaded_file).sample(n=100000)
 
-st.markdown(f'<br>', unsafe_allow_html=True)
-if option == 'Accident severity over years':
-    # List down the observations
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Death rate in accidents is slightly getting reduced over years."}</p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Number of accidents also show a reducing trend over years."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Accident Severity over years.png')
-elif option == 'Accidents reported over years':
-    # List down the observations
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- The number of accidents reported show a downward trend over years."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Accident reported over years.png')
-elif option == 'Accidents happened in day of week':
-    # List down the observations
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Friday is more prone to accidents while Sunday is the day with least number of accidents."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Accident happened in day of week - Copy.png')
-elif option == 'Impact of lighting on road accidents':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Lighting does not have an impact on the number of accidents as most of the accidents happened during day time."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of lighting on accidents.png')
-elif option == 'Impact of atmospheric conditions on road accidents':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Could not see much impact of atmospheric condition on accidents, as most of the accidents happened during normal atmospheric condition."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of atmospheric condition on accidents.png')
-elif option == 'Impact of road category on accidents':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Communal Roads are more prone to accidents and then comes the Departmental Roads."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of road category on accidents.png')    
-elif option == 'Impact of intersection type on accidents':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Among the intersection types Out of the intersection, X-intersection and T-junction are more prone to accidents."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of intersection type on accidents.png')   
-elif option == 'Impact of accident time on severity':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- It looks like 16:00 PM till 20:00 PM is the most accident prone time."}</p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Also morning till 7:00 AM , the number of accidents are very less."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of accident time severity.png')
-elif option == 'Impact of area zone on severity':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- It looks areazone In built up areas is more prone to accidents."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of areazone on severity.png')
-elif option == 'Impact of collision type on severity':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Other collsion type has the most fatality."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of collission type on severity.png')
-elif option == 'Impact of surface condition on severity':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Most of the accidents happened in normal surface condition."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of surface condition on severity.png')
-elif option == 'Impact of accident situation on severity':
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;"><b>{"Observations:"}</b></p>', unsafe_allow_html=True)
-    st.markdown(f'<p align="justify" font-family: "Times New Roman" style="color:#000000;">{"- Most of the accidents happened in road."}</p>', unsafe_allow_html=True)
-    st.image('visualizations/Impact of accident situation on severity.png')
+            
+@st.cache_data
+def load_data(url):
+    df = pd.read_csv(url)
+    return df
 
-# To set the background image of the page
-st.markdown(
-         f"""
-         <style>
-         .stApp {{
-             background-image: url("https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-63452.jpg?size=626&ext=jpg");
-             background-attachment: fixed;
-             background-size: cover
-         }}
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
+  
+df = load_data('Dataviz_12_06_2023.csv')
+    
+df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
 
+df['date/time'] = pd.to_datetime(df['CRASH_DATE'] + ' ' + df['CRASH_TIME'])
+data = df
+
+#1. Visualization
+st.header("Where are the most people injured in France?")
+injured_people = st.slider("Number of person injured in road accident",0, 100)
+st.map(data.query("INJURED_PERSONS >= @injured_people")[['LATITUDE', 'LONGITUDE']].dropna(how="any"))
+
+#2. Visualization ######################
+st.header("How many road accident during a given time of the day?")
+hour = st.slider("Hour to look at", 0, 23)
+severity = st.radio("Severity",('Not Severe', 'Severe', 'All'))
+if severity=='Not Severe':
+     severity=0
+if severity=='Severe':
+     severity=1
+
+st.markdown("road accident between %i:00 and %i:00" % (hour, (hour + 1) % 24))
+
+chart_data = df[['LATITUDE','LONGITUDE','date/time','severity']].dropna(how="any")
+chart_data=chart_data.rename(columns={"LATITUDE": "lat", "LONGITUDE": "lon"})
+if severity!='All':
+     severity=chart_data=chart_data[chart_data['severity'] == severity]
+vis_data=chart_data[chart_data['date/time'].dt.hour == hour]
+
+def pychart(dataframe):
+     st.pydeck_chart(pdk.Deck(
+          map_style=None,
+            initial_view_state=pdk.ViewState(
+                 latitude=48.85,
+                 longitude=2.35,
+                 zoom=6,
+                 pitch=50,
+            ),
+            layers=[pdk.Layer(
+                 'HexagonLayer',
+                 data=dataframe,
+                 get_position='[lon, lat]',
+                 radius=50,
+                 elevation_scale=10,
+                 elevation_range=[20, 500],
+                 pickable=True,
+                 extruded=True,),],
+       ))
+
+pychart(vis_data)
+    #######################
+
+#4. Visualization
+st.subheader("Breakdown by minute between %i:00 and %i:00" % (hour, (hour + 1) %24))
+# filtered = data[
+#  (data['date/time'].dt.hour >= hour) & (data['date/time'].dt.hour < (hour +1))
+# ]
+hist = np.histogram(data['date/time'].dt.minute, bins=60, range=(0,60))[0]
+chart_data = pd.DataFrame({'minute':range(60), 'crashes':hist})
+fig = px.bar(chart_data, x='minute',y='crashes', hover_data=['minute','crashes'], height=400)
+st.write(fig)
+
+#5. Visualization
+st.header("Top 8 dangerous area by zone")
+#select = st.selectbox('Injured people', ['Pedestrian','Cyclists','Motorists'])
+select = st.selectbox('Injured people', ['Department','Commune','Street'])
+
+if select == 'Department':
+     st.write(data.query("INJURED_PERSONS >= 1")[["dep","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
+elif select == 'Commune':
+       st.write(data.query("INJURED_PERSONS >= 1")[["com","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
+else:
+       st.write(data.query("INJURED_PERSONS >= 1")[["ON_STREET_NAME","INJURED_PERSONS"]].sort_values(by=['INJURED_PERSONS'], ascending=False).dropna(how='any')[:8])
 
 
-
-
-
-
-
+if st.checkbox("Show Raw Data", False):
+   st.subheader('Raw Data')
+   st.write(data)
 
