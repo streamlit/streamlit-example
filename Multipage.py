@@ -1,14 +1,13 @@
 import streamlit as st
 import pandas as pd
 
-
 def models():
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import classification_report, confusion_matrix
     from sklearn.model_selection import train_test_split
     import streamlit as st
     import pandas as pd
-    import joblib
+    import joblib import dump, load
     import sklearn
     st.markdown(f'# {list(page_names_to_funcs.keys())[6]}')
 
@@ -58,24 +57,24 @@ def models():
 
     if option=='Gradient Boosting':
        st.write('Gradient Boosting score train 73.127 rmse train 0.518')
-       GBC=joblib.load('GBC_model.joblib')
+       GBC=joblib.load('GBC_model.joblib', mmap_mode=None)
        results(GBC)
 
     if option=='Gradient Boosting improved':
        st.write('Gradient Boosting score train 78.535 rmse train 0.463')
-       GBCi=joblib.load('GBC_improved_model.joblib')
+       GBCi=joblib.load('GBC_improved_model.joblib',, mmap_mode=None)
        results(GBCi)
 
 
     if option=='XGBOOST':
        st.write('XGBOOST score train 78.733 rmse train 0.461')
-       xgb = joblib.load('xgb_model.joblib')
+       xgb = joblib.load('xgb_model.joblib', mmap_mode=None)
        results(xgb)
 
 
     if option=='XGBOOST improved':
        st.write('XGBOOST score train 78.733 rmse train 0.461')
-       xgbi = joblib.load('xgb_model.joblib')
+       xgbi = joblib.load('xgb_model.joblib', mmap_mode=None)
        results(xgbi)
 
 
