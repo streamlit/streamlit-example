@@ -10,7 +10,7 @@ def models():
     import pandas as pd
     import joblib
     import sklearn
-st.markdown(f'# {list(page_names_to_funcs.keys())[6]}')
+    st.markdown(f'# {list(page_names_to_funcs.keys())[6]}')
 
     def results(model):
         st.markdown('## Accuracy')
