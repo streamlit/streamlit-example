@@ -53,24 +53,24 @@ if df is not None:
 
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127 rmse train 0.518')
-   GBC=joblib.load('Modelling/GBC_model.joblib')
+   GBC=joblib.load('Modelling/GBC_model.joblib','rb')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535 rmse train 0.463')
-   GBCi=joblib.load('Modelling/GBC_improved_model.joblib')
+   GBCi=joblib.load('Modelling/GBC_improved_model.joblib','rb')
    results(GBCi)
 
 
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733 rmse train 0.461')
-   xgb = joblib.load('Modelling/xgb_model.joblib')
+   xgb = joblib.load('Modelling/xgb_model.joblib','rb')
    results(xgb)
 
 
 if option=='XGBOOST improved':
    st.write('XGBOOST score train 78.733 rmse train 0.461')
-   xgbi = joblib.load('Modelling/xgb_model.joblib')
+   xgbi = joblib.load('Modelling/xgb_model.joblib','rb')
    results(xgbi)
 
 # if option=='Random Forest':
