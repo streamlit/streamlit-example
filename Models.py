@@ -36,7 +36,14 @@ option = st.selectbox(
 
 st.write('You selected :', option)
 
-df = pd.read_csv('test_sample_15_06_2023.csv')
+@st.cache_data
+def load_data(url):
+    df = pd.read_csv(url)
+    return df
+
+
+
+df = load_data('test_sample_15_06_2023.csv')
 
 if df is not None:
     y_test =df['severity']
