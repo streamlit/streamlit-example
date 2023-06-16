@@ -53,24 +53,24 @@ if df is not None:
 
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127')
-   GBC = joblib.load('Modelling/GBC_model.pkl')
+   GBC = joblib.load('Models/GBC_model.joblib')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
-   GBCi = joblib.load('Modelling/GBC_improved_model (1).pkl')
+   GBCi = joblib.load('MModels/GBC_improved_model.joblib')
    results(GBCi)
 
 
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733')
-   xgb = joblib.load('Modelling/xgb_model.pkl')
+   xgb = joblib.load('Models/xgb_model.joblib')
    results(xgb)
 
 
 if option=='XGBOOST improved':
    st.write('XGBOOST score train 78.733')
-   xgbi = joblib.load('Modelling/xgboost_improved.pkl')
+   xgbi = joblib.load('Models/xgboost_improved.joblib')
    results(xgbi)
 
 
