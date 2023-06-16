@@ -66,10 +66,10 @@ def models():
        results(GBCi)
 
 
-    if option=='XGBOOST':
-       st.write('XGBOOST score train 78.733 rmse train 0.461')
-       xgb = joblib.load('xgb_model.joblib', mmap_mode=None)
-       results(xgb)
+#     if option=='XGBOOST':
+#        st.write('XGBOOST score train 78.733 rmse train 0.461')
+#        xgb = joblib.load('xgb_model.joblib', mmap_mode=None)
+#        results(xgb)
 
 
 #     if option=='XGBOOST improved':
