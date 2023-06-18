@@ -1,4 +1,6 @@
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier
+import xgboost as xgb
+from xgboost import XGBClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 import streamlit as st
@@ -54,25 +56,27 @@ if df is not None:
 
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127')
-   GBC = joblib.load('Models/GBC_model.joblib')
+   GBC = GradientBoostingClassifier()
+   GBC = GBC.load_model('Models/GBC_model.joblib')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
-   GBCi = joblib.load('MModels/GBC_improved_model.joblib')
+   GBCi = GradientBoostingClassifier()
+   GBCi = GBCi.load_model('MModels/GBC_improved_model.joblib')
    results(GBCi)
    
 
-
 if option=='XGBOOST':
    st.write('XGBOOST score train 78.733')
-   xgb = joblib.load('Models/xgb_model.joblib')
+   xgb = xgb.XGBClassifier()
+   xgb = xgb.load_model('Models/xgb_model.joblib')
    results(xgb)
-
 
 if option=='XGBOOST improved':
    st.write('XGBOOST score train 78.733')
-   xgbi = joblib.load('Models/xgboost_improved.joblib')
+   xgbi = xgb.XGBClassifier()
+   xgbi = xgbi.load_model('Models/xgboost_improved.joblib')
    results(xgbi)
 
 
