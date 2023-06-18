@@ -21,7 +21,7 @@ def load_data(url):
     return df
 
   
-df = load_data('Dataviz_12_06_2023.csv').sample(n=25000)
+df = load_data('Dataviz_12_06_2023.csv').sample(n=12500)
     
 df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
