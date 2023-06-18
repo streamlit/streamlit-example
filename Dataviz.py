@@ -15,13 +15,13 @@ st.image("https://www.simplilearn.com/ice9/free_resources_article_thumb/Data_Vis
 #    df = pd.read_csv(uploaded_file).sample(n=100000)
 
             
-@st.cache_data
+@st.cache_resource
 def load_data(url):
     df = pd.read_csv(url)
     return df
 
   
-df = load_data('Dataviz_12_06_2023 light.csv')
+df = load_data('Dataviz_12_06_2023.csv')
     
 df.dropna(subset=['LATITUDE', 'LONGITUDE','CRASH_DATE','CRASH_TIME'], inplace=True)
 
