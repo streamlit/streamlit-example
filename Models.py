@@ -63,21 +63,21 @@ if option=='Gradient Boosting':
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
    GBCi = GradientBoostingClassifier()
-   GBCi = GBCi.load('MModels/GBC_improved_model.joblib')
+   GBCi = GBCi.load('Models/GBC_improved_model.joblib')
    results(GBCi)
    
 
-if option=='XGBOOST':
-   st.write('XGBOOST score train 78.733')
-   xgb = xgb.XGBClassifier()
-   xgb = xgb.load('Models/xgb_model.joblib')
-   results(xgb)
+# if option=='XGBOOST':
+#    st.write('XGBOOST score train 78.733')
+#    xgb = xgb.XGBClassifier()
+#    xgb = xgb.load('Models/xgb_model.joblib')
+#    results(xgb)
 
-if option=='XGBOOST improved':
-   st.write('XGBOOST score train 78.733')
-   xgbi = xgb.XGBClassifier()
-   xgbi = xgbi.load('Models/xgboost_improved.joblib')
-   results(xgbi)
+# if option=='XGBOOST improved':
+#    st.write('XGBOOST score train 78.733')
+#    xgbi = xgb.XGBClassifier()
+#    xgbi = xgbi.load('Models/xgboost_improved.joblib')
+#    results(xgbi)
 
 
 
