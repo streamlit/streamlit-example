@@ -57,13 +57,13 @@ if df is not None:
 if option=='Gradient Boosting':
    st.write('Gradient Boosting score train 73.127')
    GBC = GradientBoostingClassifier()
-   GBC = GBC.load_model('Models/GBC_model.joblib')
+   GBC = joblib.load('Models/GBC_model.joblib')
    results(GBC)
 
 if option=='Gradient Boosting improved':
    st.write('Gradient Boosting score train 78.535')
    GBCi = GradientBoostingClassifier()
-   GBCi = GBCi.load_model('Models/GBC_improved_model.joblib')
+   GBCi = joblib.load('Models/GBC_improved_model.joblib')
    results(GBCi)
    
 
