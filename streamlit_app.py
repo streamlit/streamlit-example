@@ -14,23 +14,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
-@st.cache_data
-def load_model():
-    with open('Students_model.pkl', 'rb') as f:
-        model = pickle.load(f)
-    return model
+
 
 def main():
     global all_features
     st.write("# CustomRF Model Prediction App")
     st.write("This app predicts using the CustomRF model!")
-
-    model = load_model()
-
     st.sidebar.header('User Input Parameters')
-
-
-
     st.sidebar.write("### Upload Excel File")
     uploaded_file = st.sidebar.file_uploader("Choose an Excel file", type=["xlsx"])
 
