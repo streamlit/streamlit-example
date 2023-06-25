@@ -2,7 +2,6 @@ import numpy
 import streamlit as st
 import pandas as pd
 import pickle
-import seaborn as sns
 import json
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
