@@ -17,11 +17,10 @@ from sklearn.linear_model import LinearRegression
 
 def main():
     global all_features
-    st.write("# CustomRF Model Prediction App")
-    st.write("This app predicts using the CustomRF model!")
-    st.sidebar.header('User Input Parameters')
-    st.sidebar.write("### Upload Excel File")
-    uploaded_file = st.sidebar.file_uploader("Choose an Excel file", type=["xlsx"])
+    st.write("Модель 'Mega-Z 1.0'")
+    st.sidebar.header('Пользовательский ввод')
+    st.sidebar.write("### Загрузите Excel файл")
+    uploaded_file = st.sidebar.file_uploader("Выберите Excel файл", type=["xlsx"])
 
     if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
