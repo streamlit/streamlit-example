@@ -1,3 +1,5 @@
+import random
+
 import numpy
 import streamlit as st
 import pandas as pd
@@ -18,8 +20,11 @@ from sklearn.linear_model import LinearRegression
 def main():
     global all_features
     st.write("Модель 'Mega-Z 1.0'")
+    st.image("intro.png")  # Add the path to your image file here
     st.sidebar.header('Пользовательский ввод')
     st.sidebar.write("### Загрузите Excel файл")
+    test_size = st.sidebar.slider("Выборка вопросов для модели", 0.1, 0.5, 0.2, 0.1)
+    degree = st.sidebar.slider("Максимальная степень полиномиальных признаков", 1, 5, 4, 1)
     uploaded_file = st.sidebar.file_uploader("Выберите Excel файл", type=["xlsx"])
 
     if uploaded_file is not None:
@@ -46,8 +51,8 @@ def main():
         for pair in cluster1_pairs:
             print(pair)
 
-        df_cluster2 = df[['Химия', 'Экономика и менеджмент', 'Биология',
-                          'Иностранные языки', 'Медицина', 'Технические и инженерные дисциплины (уроки)',
+        df_cluster2 = df[['Химия', 'Экономика и менеджмент','Биология',
+                          'Иностранные языки','Медицина','Технические и инженерные дисциплины (уроки)',
                           'Социально-экономические и гуманитарные дисциплины (уроки)']]
 
         cluster2_pairs = []  # Список для хранения пар вопросов и булевых значений
@@ -273,7 +278,7 @@ def main():
 
                 # Display the boxplot in Streamlit
                 st.pyplot(fig)
-                st.write("Boxplot after removing outliers")
+                st.write("Гистограммы после удаления усов")
 
                 # Calculate the quartiles and IQR
                 Q1 = data.quantile(0.25)
@@ -301,7 +306,7 @@ def main():
         if st.button('Показать важность фичей:'):
 
             questions = ['Я подумываю переехать из моего города, когда это станет возможным',
-                        'Я не рассматриваю вариантов переехать из моего города']
+                         'Я не рассматриваю вариантов переехать из моего города']
             boolean_values = [False, True]
 
             # Фильтрация данных по условию, когда оба ответа выше 3 или ниже 3
@@ -324,6 +329,7 @@ def main():
             # Построение круговой диаграммы
             labels = ['Хочет уехать', 'Не хочет уехать', 'Сомневается']
             sizes = [count_want_to_leave, count_dont_want_to_leave, count_satisfy_condition]
+            print(sizes)
             fig, ax = plt.subplots()
             ax.pie(sizes, labels=labels, autopct='%1.1f%%')
             ax.axis('equal')
@@ -340,16 +346,15 @@ def main():
             clusters = [df_cluster1, df_cluster2, df_cluster3, df_cluster4, df_cluster5, df_cluster6, df_cluster7,
                         df_cluster8, df_cluster9]
 
-
             for i, X in enumerate(clusters):
                 st.write(f"Гистограмма для кластера {i + 1}")
                 y = df['target']
 
                 # Разделение данных на тренировочный и тестовый наборы
-                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
 
                 # Создание полиномиальных признаков
-                polynomial_features = PolynomialFeatures(degree=2)
+                polynomial_features = PolynomialFeatures(degree=degree)
                 X_train_poly = polynomial_features.fit_transform(X_train)
                 X_test_poly = polynomial_features.transform(X_test)
 
@@ -363,16 +368,20 @@ def main():
                 # Оценка модели
                 mse = mean_squared_error(y_test, y_pred)
                 r2 = r2_score(y_test, y_pred)
-
+                # Округление значений
+                mse_rounded = round(mse, 2)
+                r2_rounded = round(r2, 2)
                 # Вывод результатов
-                st.write("Mean Squared Error:", mse)
-                st.write("R2 Score:", r2)
+                st.write("Среднеквадратичная ошибка:", mse_rounded)
+                st.write("Коэффициент детерминации:", r2_rounded)
+                print("средняя ошибка")
+                print(f"{mse_rounded}\n")
+                print("Коэффициент детерминации:")
+                print(f"{r2_rounded}\n")
 
-
-                # Получение важности фичей
                 coefficients = model.coef_
                 feature_names = polynomial_features.get_feature_names_out(X.columns)
-                feature_importances = {name: abs(coef) for name, coef in zip(feature_names, coefficients)}
+                feature_importances = {name: abs(coef) for name, coef in zip(feature_names[1:], coefficients[1:])}
 
                 # Создание гистограммы важности фичей с разными цветами для каждого вопроса
                 fig, ax = plt.subplots(figsize=(20, 8))
@@ -401,26 +410,32 @@ def main():
 
                 # Рекомендации для кластера
                 recommendation = ""
-                print("важность фичей\n")
-                print(feature_importances)
+                #print("важность фичей\n")
+                #print(feature_importances)
                 sorted_importances = sorted(feature_importances.items(), key=lambda x: x[1], reverse=True)
                 top_features = []
-                print("важность с сортировкой фичей\n")
-                print(sorted_importances)
+                #print("важность с сортировкой фичей\n")
+                #print(sorted_importances)
                 all_features.append(sorted_importances)
                 # Set the initial threshold value
 
-
-
                 # Вывод важности фичей с сортировкой
                 sorted_features = sorted(feature_importances.items(), key=lambda x: x[1], reverse=True)
+                influential_questions = []
+
                 for feature, importance in sorted_features:
                     if importance > threshold:
                         feature_question = feature  # Фича является названием вопроса
-                        st.write(f"Фича: {feature_question}")
-                        st.write(f"Обратите внимание, этот вопрос повлиял сильнее всего!")
-                        st.write('---')
+                        influential_questions.append(feature_question)
 
+                if influential_questions:
+                    st.write("Список влияющих вопросов:")
+                    for question in influential_questions:
+                        st.write(question)
+                else:
+                    st.write("Нет влияющих вопросов.")
+
+                st.write('---')
 
                 #print("важность с сортировкой фичей все\n")
                 #print(all_features)
