@@ -21,6 +21,12 @@ def main():
     global all_features
     st.write("Модель 'Mega-Z 1.0'")
     st.image("intro.png")  # Add the path to your image file here
+
+    # Add the author picture
+    author_image = "photo_5269480532511674295_y.jpg"  # Add the path to your author picture file here
+    st.sidebar.text("Сделано Ильей Осиповым")
+    st.sidebar.image(author_image, use_column_width=True)
+
     st.sidebar.header('Пользовательский ввод')
     st.sidebar.write("### Загрузите Excel файл")
     test_size = st.sidebar.slider("Выборка вопросов для модели", 0.1, 0.5, 0.2, 0.1)
