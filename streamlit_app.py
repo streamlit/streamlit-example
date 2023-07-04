@@ -405,9 +405,6 @@ def main():
                                    Patch(facecolor='green', edgecolor='black', label='Не рассматриваю переезд')]
                 ax.legend(handles=legend_elements, loc='lower right', fontsize=12)  # Увеличение размера шрифта
 
-                # Display the bar chart for feature importance
-                st.pyplot(fig)
-
                 # Рекомендации для кластера
                 recommendation = ""
                 #print("важность фичей\n")
@@ -429,6 +426,7 @@ def main():
                         influential_questions.append(feature_question)
 
                 if influential_questions:
+                    st.pyplot(fig)
                     st.write("Список влияющих вопросов:")
                     for question in influential_questions:
                         st.write(question)
