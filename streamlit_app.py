@@ -55,7 +55,7 @@ def main():
             cluster1_pairs.append(pair)
 
         for pair in cluster1_pairs:
-            print(pair)
+            ###print(pair)
 
         df_cluster2 = df[['Химия', 'Экономика и менеджмент','Биология',
                           'Иностранные языки','Медицина','Технические и инженерные дисциплины (уроки)',
@@ -75,7 +75,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster2
         for pair in cluster2_pairs:
-            print(pair)
+            ###print(pair)
 
         df_cluster3 = df[['Написание стихов и рассказов']]
 
@@ -94,7 +94,7 @@ def main():
 
         # Вывод списка пар вопросов и булеввых значений для кластера df_cluster3
         for pair in cluster3_pairs:
-            print(pair)
+            ###print(pair)
 
         # Повторите аналогичные шаги для остальных кластеров (df_cluster4, df_cluster5, df_cluster6, df_cluster7)...
 
@@ -118,7 +118,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster4
         for pair in cluster4_pairs:
-            print(pair)
+            ###print(pair)
 
         # Продолжите аналогичные шаги для остальных кластеров (df_cluster5, df_cluster6, df_cluster7)...
 
@@ -140,7 +140,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster4
         for pair in cluster5_pairs:
-            print(pair)
+            ###print(pair)
 
         df_cluster6 = df[['Я бы хотел работать в своём городе','В моём городе много безработных',
         'В моём городе много учебных заведений','Мой город создаёт возможности для моего развития и творчества']]
@@ -159,7 +159,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster4
         for pair in cluster6_pairs:
-            print(pair)
+            ##print(pair)
 
         df_cluster7 = df[['В моём городе много исторических достопримечательностей',
         'Мой город – это высокоразвитая культура его жителей','В моём городе большие пробки',
@@ -180,7 +180,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster4
         for pair in cluster7_pairs:
-            print(pair)
+            ##print(pair)
 
         df_cluster8 = df[['Много зарабатывать', 'Работать не по специальности', 'Заниматься бизнесом',
                           'Работать на государственной службе', 'Заниматься волонтерством',
@@ -202,7 +202,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster6
         for pair in cluster8_pairs:
-            print(pair)
+            ##print(pair)
 
         df_cluster9 = df[['У меня в городе есть что посмотреть даже бывалым туристам и путешественникам',
                           'Я периодически устаю от своего города и хочется сменить обстановку',
@@ -223,7 +223,7 @@ def main():
 
         # Вывод списка пар вопросов и булевых значений для кластера df_cluster7
         for pair in cluster9_pairs:
-            print(pair)
+            ##print(pair)
 
 
         cluster1_pairs = [('История', True), ('Психология', True), ('Математика и/или физика', True),
@@ -328,14 +328,14 @@ def main():
             count_want_to_leave = len(df[df[questions[0]] > 3])
             count_dont_want_to_leave = len(df[df[questions[1]] < 3])
 
-            print(count_want_to_leave)
-            print(count_dont_want_to_leave)
-            print(count_satisfy_condition)
+            ##print(count_want_to_leave)
+            ##print(count_dont_want_to_leave)
+            ##print(count_satisfy_condition)
 
             # Построение круговой диаграммы
             labels = ['Хочет уехать', 'Не хочет уехать', 'Сомневается']
             sizes = [count_want_to_leave, count_dont_want_to_leave, count_satisfy_condition]
-            print(sizes)
+            ##print(sizes)
             fig, ax = plt.subplots()
             ax.pie(sizes, labels=labels, autopct='%1.1f%%')
             ax.axis('equal')
@@ -380,10 +380,10 @@ def main():
                 # Вывод результатов
                 st.write("Среднеквадратичная ошибка:", mse_rounded)
                 st.write("Коэффициент детерминации:", r2_rounded)
-                print("средняя ошибка")
-                print(f"{mse_rounded}\n")
-                print("Коэффициент детерминации:")
-                print(f"{r2_rounded}\n")
+                ##print("средняя ошибка")
+                ##print(f"{mse_rounded}\n")
+                ##print("Коэффициент детерминации:")
+                ##print(f"{r2_rounded}\n")
 
                 coefficients = model.coef_
                 feature_names = polynomial_features.get_feature_names_out(X.columns)
@@ -413,12 +413,12 @@ def main():
 
                 # Рекомендации для кластера
                 recommendation = ""
-                #print("важность фичей\n")
-                #print(feature_importances)
+                ###print("важность фичей\n")
+                ###print(feature_importances)
                 sorted_importances = sorted(feature_importances.items(), key=lambda x: x[1], reverse=True)
                 top_features = []
-                #print("важность с сортировкой фичей\n")
-                #print(sorted_importances)
+                ###print("важность с сортировкой фичей\n")
+                ###print(sorted_importances)
                 all_features.append(sorted_importances)
                 # Set the initial threshold value
 
@@ -441,8 +441,8 @@ def main():
 
                 st.write('---')
 
-                #print("важность с сортировкой фичей все\n")
-                #print(all_features)
+                ###print("важность с сортировкой фичей все\n")
+                ###print(all_features)
 
 
 
