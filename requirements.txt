@@ -1,7 +1,7 @@
 altair
-streamlit==0.84.1
-pandas==1.3.0
-dask[dataframe]==2021.7.0
+streamlit
+pandas
+dask[dataframe]
 matplotlib==3.4.3
 statsmodels==0.12.2
 pmdarima==1.8.3
