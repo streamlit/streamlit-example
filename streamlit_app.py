@@ -21,6 +21,7 @@ def custom_date_parser(x):
     return pd.to_datetime(x, format='%Y-%m-%d %H:%M:%S')
 
 # 讀取資料
+@st.cache_data
 def load_data():
     # 創建一個包含所有文件的列表
     filenames = ['ETH_1min_{:02d}.csv'.format(i) for i in range(20)]
