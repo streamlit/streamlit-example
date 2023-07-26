@@ -1,3 +1,13 @@
 altair
 pandas
 streamlit
+openai
+numpy==1.24.2
+redis==4.5.1
+requests==2.28.2
+streamlit_chat
+termcolor==2.2.0
+jupyter
+ipykernel
+textract
+tiktoken
