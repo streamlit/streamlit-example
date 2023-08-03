@@ -1,7 +1,9 @@
 import streamlit as st
 import pickle
 
-file_name = 'evaluation_asherlishlomo-011.txt.p.p'
+file_list = os.listdir('test_files')
+file_name = st.selectbox('Select File', file_list)
+
 with open(file_name, 'rb') as file:
     data = pickle.load(file)
 text = data['text']
