@@ -5,7 +5,7 @@ import os
 file_list = os.listdir('test_files')
 file_name = st.selectbox('Select File', file_list)
 
-with open(file_name, 'rb') as file:
+with open('test_files/' + file_name, 'rb') as file:
     data = pickle.load('test_files/' + file_name)
 text = data['text']
 html = f'<div style="direction: rtl; text-align: right;">{text}</div>'
