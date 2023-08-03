@@ -4,7 +4,7 @@ import os
 
 
 def main():
-    file_list = os.listdir('files_from_streamlit')
+    file_list = os.listdir('test_files')
     file_name = st.selectbox('Select File', file_list)
 
     with open('test_files/' + file_name, 'rb') as file:
