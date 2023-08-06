@@ -1,38 +1,105 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
+#pip install hugchat
+
 import streamlit as st
+from hugchat import hugchat
+from hugchat.login import Login
 
-"""
-# Welcome to Streamlit!
+# App title
+st.set_page_config(page_title="😊 UsCHAT 💬")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+EMAIL = st.secrets["DB_EMAIL"]
+PASSWD = st.secrets["DB_PASS"]
+COOKIE_STORE_PATH = "./usercookies"
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+# Hugging Face Credentials
+with st.sidebar:
+    st.title('😊 UsCHAT 💬')
+    st.header('UsCHAT Login')
+    sign = HUG.getSign(EMAIL, PASSWD)
+    cookies = sign.login(save=True, cookie_dir_path=COOKIE_STORE_PATH)
+    cookies = sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
+    
+    #if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
+    #    st.success('HuggingFace Login credentials already provided !', icon='✅')
+    #    hf_email = st.secrets['EMAIL']
+    #    hf_pass = st.secrets['PASS']
+    #else:
+    #    hf_email = st.text_input('Enter E-mail:', type='default')
+    #    hf_pass = st.text_input('Enter password:', type='password')
+    #    if not (hf_email and hf_pass):
+    #        st.warning('Please enter your credentials!', icon='⚠')
+    #    else:
+    #        st.success('Proceed to your chat!', icon='👉')
+    #st.markdown('Contact me for enquiries [here](https://myportfolio.com)!')
 
-    Point = namedtuple('Point', 'x y')
-    data = []
 
-    points_per_turn = total_points / num_turns
+# Store LLM Generated responses
+if "messages" not in st.session_state():
+    st.session_state.messages = []
+    #st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+# Display  chat messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+
+# Funtion genrating LLM response
+def generate_response(dialog_history):
+    #Hugging face login
+    #sign = Login(st.secrets["email"], st.secrets["passwd"])
+    #cookies = sign.login()
+    # Create ChatBot
+    chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
+    response = chatbot.chat(dialogue_history, stream=True)
+    if isinstance(response, str):
+        return response
+    else:
+        return response.delta.get("content", "")
+    #return chatbot.chat(prompt_input)
+
+
+# User-provided prompt
+if prompt := st.chat_input("How may I help you ?"):
+    # Add user message to chat history
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    # Append the dialogue history to the user's prompt
+    dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
+    # Display user message in chat message container
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+
+# Genrate a new response if last message not from the assistant(chatbot)
+#if st.session_state.messages[-1]["role"] != "assistant":
+with st.chat_message("assistant"):
+    with st.spinner("Thinking..."):
+        message_placeholder = st.empty()
+        full_response = ""
+
+        try:
+            for response in generate_response(dialog_history):
+                full_response += response
+                message_placeholder.markdown(full_response + " ")
+                sleep(0.01)
+            message_placeholder.markdown(full_response)
+
+            #checking if there are follow-up questions
+            if "?" in prompt:
+                #Update the chat history with the bot's response
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                #Clear the chat input box
+                st.session_state.prompt = ""
+                #set the chat input box value to the assistant's response
+                st.chat_input("Follow-up question", value=full_response)
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
+            st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
+            
+        #response = generate_response(prompt, hf_email, hf_pass)
+        #st.write(response)
+    #message = {"role": "assistant", "content": response}
+    #st.session_state.messages.append(message)
