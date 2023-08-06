@@ -1,4 +1,4 @@
-!pip install hugchat
+pip install hugchat
 
 import streamlit as st
 from hugchat import hugchat
