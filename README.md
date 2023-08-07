@@ -1,6 +1,8 @@
-# Welcome to Streamlit!
+# Welcome to UsCHAT!
+## Your new AI powered best friend! Ask him anything, he knows everything!
+### He will help you with every work you have, just ask him!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+I'm sure you'll love having him, and what's best is he's completely free! :heart:
+
+If you have any questions, contact us [here](https://docs.streamlit.io) and [here too!](https://discuss.streamlit.io).
