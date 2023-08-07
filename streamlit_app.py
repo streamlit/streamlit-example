@@ -17,7 +17,7 @@ COOKIE_STORE_PATH = "./usercookies"
 
 # Hugging Face Credentials
 with st.sidebar:
-    st.title('😊 UsCHAT 💬')
+    st.title('😊 LCHAT 💬')
     #st.header('UsCHAT Login')
     #sign = Login(EMAIL, PASSWD)
     #cookies = sign.login()
@@ -34,7 +34,7 @@ with st.sidebar:
     #        st.warning('Please enter your credentials!', icon='⚠')
     #    else:
     #        st.success('Proceed to your chat!', icon='👉')
-    st.markdown('Contact me for enquiries [here](https://myportfolio.com)!')
+    st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
 
 
 # Store LLM Generated responses
