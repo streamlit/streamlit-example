@@ -5,6 +5,10 @@ from hugchat.login import Login
 # App title
 st.set_page_config(page_title="🤗 UsCHAT 💬")
 
+    # Hugging Face Login
+sign = Login()
+cookies = sign.login()
+
 # Hugging Face Credentials
 with st.sidebar:
     st.title('🤗 UsCHAT 💬')
@@ -31,10 +35,7 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 # Function for generating LLM response
-def generate_response(prompt_input, hf_email, hf_pass):
-    # Hugging Face Login
-    sign = Login(hf_email, hf_pass)
-    cookies = sign.login()
+def generate_response(prompt_input):
     # Create ChatBot                        
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     return chatbot.chat(prompt_input)
