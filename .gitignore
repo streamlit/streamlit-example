@@ -6,6 +6,17 @@ __pycache__/
 # C extensions
 *.so
 
+#
+__pycache__
+.venv
+cookies.json
+test.py
+dist/*
+*.egg-info
+
+.idea/
+usercookies/
+
 # Distribution / packaging
 .Python
 build/
