@@ -39,8 +39,8 @@ with st.sidebar:
 
 # Store LLM Generated responses
 if "messages" not in st.session_state:
-    #st.session_state.messages = []
-    st.session_state.messages = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
+    st.session_state.messages = []
+    #st.session_state.messages = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
 
 
 # Display  chat messages
@@ -84,7 +84,7 @@ with st.chat_message("assistant"):
         full_response = ""
 
         try:
-            for response in generate_response():
+            for response in generate_response(dialogue_history):
                 full_response += response
                 message_placeholder.markdown(full_response + " ")
                 sleep(0.01)
