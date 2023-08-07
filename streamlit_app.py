@@ -44,7 +44,7 @@ if "messages" not in st.session_state:
 
 
 # Display  chat messages
-for message in st.session_state.messages:
+for message in st.session_state.messages():
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
