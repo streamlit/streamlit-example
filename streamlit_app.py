@@ -24,7 +24,7 @@ with st.sidebar:
     
 
 # Store LLM generated responses
-if "messages" not in st.session_state.keys():
+if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
 
 # Display chat messages
