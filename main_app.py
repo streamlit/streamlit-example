@@ -20,7 +20,7 @@ def main():
         - Hey there i'm AllTalk 💬, your new AI friend 😊.
         - I may produce inacurate information about people, places, or facts
         - I have limited knowledge of the world and events after 2021 but i'm trained to help you the best i can and soon with more training i'll be a knowItAll !
-        - Stick with me until then to be aware of everything befor every one 💡 ! 
+        - Stick with me until then to be aware of everything before everyone 💡 ! 
          ''')
             
         EMAIL = st.secrets["DB_EMAIL"]
