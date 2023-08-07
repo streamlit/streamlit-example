@@ -20,7 +20,7 @@ with st.sidebar:
     st.title('😊 UsCHAT 💬')
     st.header('UsCHAT Login')
     sign = HUG.getSign(EMAIL, PASSWD)
-    cookies = sign.login(save=True, cookie_dir_path=COOKIE_STORE_PATH)
+    cookies = sign.login()
     #cookies = sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
     
     #if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
