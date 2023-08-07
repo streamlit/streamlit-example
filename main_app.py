@@ -9,7 +9,7 @@ import os
 
 with st.sidebar:
     ti=st.title("Welcome to 😃AllTalK💬!")
-    st.write('Developed By [Jordy](https://www.linkedin.com/in/manye-jordana-0315731b1)')
+    st.write('Developed By [Jordana](https://www.linkedin.com/in/manye-jordana-0315731b1)')
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
 page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualsuer"))
 
