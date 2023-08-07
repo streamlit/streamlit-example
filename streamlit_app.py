@@ -3,13 +3,13 @@ from hugchat import hugchat
 from hugchat.login import Login
 
 # App title
-st.set_page_config(page_title="🤗💬 HugChat")
+st.set_page_config(page_title="🤗 UsCHAT 💬")
 
 # Hugging Face Credentials
 with st.sidebar:
-    st.title('🤗💬 HugChat')
+    st.title('🤗 UsCHAT 💬')
     if ('DB_EMAIL' in st.secrets) and ('DB_PASS' in st.secrets):
-        st.success('HuggingFace Login credentials already provided!', icon='✅')
+        st.success('UsCHAT Login credentials already provided!', icon='✅')
         hf_email = st.secrets['DB_EMAIL']
         hf_pass = st.secrets['DB_PASS']
     else:
@@ -19,7 +19,7 @@ with st.sidebar:
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
-    st.markdown('📖 Learn how to build this app in this [blog](https://blog.streamlit.io/how-to-build-an-llm-powered-chatbot-with-streamlit/)!')
+    st.markdown('📖 For enquiries contact us [here](https://blog.streamlit.io/how-to-build-an-llm-powered-chatbot-with-streamlit/)!')
     
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
