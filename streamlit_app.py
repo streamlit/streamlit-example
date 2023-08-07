@@ -22,10 +22,7 @@ with st.sidebar:
             st.success('Proceed to entering your prompt message!', icon='👉')
     st.markdown('📖 For enquiries contact us [here](https://blog.streamlit.io/how-to-build-an-llm-powered-chatbot-with-streamlit/)!')
     
- # Hugging Face Login
-sign = Login(hf_email, hf_pass)
-cookies = sign.login()
-   
+
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
@@ -36,7 +33,10 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 # Function for generating LLM response
-def generate_response(prompt_input):
+def generate_response(prompt_input, email, passwd):
+     # Hugging Face Login
+    sign = Login(email, passwd)
+    cookies = sign.login()
     # Create ChatBot                        
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     return chatbot.chat(prompt_input)
