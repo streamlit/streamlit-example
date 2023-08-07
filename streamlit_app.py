@@ -51,7 +51,7 @@ for message in st.session_state.messages:
 
 
 # Funtion genrating LLM response
-def generate_response():
+def generate_response(dialogue_history):
     #Hugging face login
     sign = Login(EMAIL, PASSWD)
     cookies = sign.login()
@@ -85,7 +85,7 @@ with st.chat_message("assistant"):
         full_response = ""
 
         try:
-            for response in generate_response(dialogue_history):
+            for response in generate_response():
                 full_response += response
                 message_placeholder.markdown(full_response + " ")
                 sleep(0.01)
