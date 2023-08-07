@@ -57,10 +57,11 @@ def generate_response(dialogue_history):
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     response = chatbot.chat(dialogue_history, stream=True)
-    if isinstance(response):
-        return response
-    else:
-        return response.delta.get("content", "")
+    return response
+    #if isinstance(response, str):
+        #return response
+    #else:
+        #return response.delta.get("content", "")
     #return chatbot.chat(prompt_input)
 
 
