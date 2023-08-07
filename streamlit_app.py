@@ -7,7 +7,7 @@ from time import sleep
 from hugchat_api import HuggingChat
 
 # App title
-st.set_page_config(page_title="😊 UsCHAT 💬")
+st.set_page_config(page_title="😊 AllTalK 💬")
 
 EMAIL = st.secrets["DB_EMAIL"]
 PASSWD = st.secrets["DB_PASS"]
@@ -17,7 +17,7 @@ COOKIE_STORE_PATH = "./usercookies"
 
 # Hugging Face Credentials
 with st.sidebar:
-    st.title('😊 LCHAT 💬')
+    st.title('😊 AllTalK 💬')
     #st.header('UsCHAT Login')
     #sign = Login(EMAIL, PASSWD)
     #cookies = sign.login()
