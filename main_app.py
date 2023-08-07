@@ -101,17 +101,14 @@ def main():
                     st.error(f"An error occurred: {str(e)}")
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
 
-
     def visualizer():
-        st.page_title("😊 AllVisuals 📈")
-        st.title("😊 AllVisuals 📈")
+        st.header("😊 AllVisuals 📈")
         st.markdown('''
         - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
-        - I produce answers and stunning visuals from the data you give me
+        - I produce answers and stunning visuals from the data you give me.
         - Just Upload your dataset and ask your questions 💡 !
-         ''')
-
-        # Load CSV file
+        ''')
+        
         def load_csv(input_csv):
             df = pd.read_csv(input_csv)
             with st.expander('See DataFrame'):
