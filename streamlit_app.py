@@ -3,6 +3,8 @@
 import streamlit as st
 from hugchat import hugchat
 from hugchat.login import Login
+from time import sleep
+from hugchat_api import HuggingChat
 
 # App title
 st.set_page_config(page_title="😊 UsCHAT 💬")
@@ -11,6 +13,7 @@ EMAIL = st.secrets["DB_EMAIL"]
 PASSWD = st.secrets["DB_PASS"]
 COOKIE_STORE_PATH = "./usercookies"
 
+HUG= HuggingChat(max_thread=1)
 
 # Hugging Face Credentials
 with st.sidebar:
@@ -80,7 +83,7 @@ with st.chat_message("assistant"):
         full_response = ""
 
         try:
-            for response in generate_response(dialog_history):
+            for response in generate_response(prompt):
                 full_response += response
                 message_placeholder.markdown(full_response + " ")
                 sleep(0.01)
