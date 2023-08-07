@@ -41,15 +41,15 @@ with st.sidebar:
 
 # Store LLM Generated responses
 if "messages" not in st.session_state.keys():
-    #st.session_state.messages = []
-    st.session_state.messages = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
+    st.session_state.messages = []
+    #st.session_state.messages = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
 
 
 # Display  chat messages
 for message in st.session_state.messages:
     #st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
     with st.chat_message(message["role"]):
-        st.write(message["content"])
+        st.markdown(message["content"])
 
 
 # Funtion genrating LLM response
