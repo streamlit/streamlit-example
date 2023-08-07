@@ -5,9 +5,6 @@ from hugchat.login import Login
 # App title
 st.set_page_config(page_title="🤗 UsCHAT 💬")
 
-    # Hugging Face Login
-sign = Login()
-cookies = sign.login()
 
 # Hugging Face Credentials
 with st.sidebar:
@@ -25,6 +22,10 @@ with st.sidebar:
             st.success('Proceed to entering your prompt message!', icon='👉')
     st.markdown('📖 For enquiries contact us [here](https://blog.streamlit.io/how-to-build-an-llm-powered-chatbot-with-streamlit/)!')
     
+ # Hugging Face Login
+sign = Login(hf_email, hf_pass)
+cookies = sign.login()
+   
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
