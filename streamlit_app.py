@@ -51,13 +51,13 @@ for message in st.session_state.messages:
 
 
 # Funtion genrating LLM response
-def generate_response(dialogue_history):
+def generate_response():
     #Hugging face login
     sign = Login(EMAIL, PASSWD)
     cookies = sign.login()
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-    response = chatbot.chat(stream=True)
+    response = chatbot.chat(dialogue_history, stream=True)
     return response
     #if isinstance(response, str):
         #return response
