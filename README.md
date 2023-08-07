@@ -1,4 +1,4 @@
-# Welcome to UsCHAT!
+# Welcome to 😃UsCHAT💬!
 ## Your new AI powered best friend! Ask him anything, he knows everything!
 ### He will help you with every work you have, just ask him!
 
