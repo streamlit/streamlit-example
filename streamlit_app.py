@@ -59,13 +59,13 @@ def generate_response(dialogue_history):
     cookies = sign.login()
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-    response = chatbot.chat(dialogue_history, stream=True)
+    #response = chatbot.chat(dialogue_history, stream=True)
     #return response
-    if isinstance(response, str):
-        return response
-    else:
-        return response.delta.get("content", "")
-    #return chatbot.chat(prompt_input)
+    #if isinstance(response, str):
+    #    return response
+    #else:
+    #    return response.delta.get("content", "")
+    return chatbot.chat(dialogue_history)
 
 
 # User-provided prompt
@@ -73,7 +73,7 @@ if prompt := st.chat_input("How may I help you ?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
     # Append the dialogue history to the user's prompt
-    dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
+    dialogue_history = "\n".join([message["content"] for message in st.session_state])
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
