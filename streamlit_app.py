@@ -18,7 +18,7 @@ COOKIE_STORE_PATH = "./usercookies"
 # Hugging Face Credentials
 with st.sidebar:
     st.title('😊 UsCHAT 💬')
-    st.header('UsCHAT Login')
+    #st.header('UsCHAT Login')
     #sign = Login(EMAIL, PASSWD)
     #cookies = sign.login()
     #cookies = sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
