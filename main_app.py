@@ -103,6 +103,7 @@ def main():
 
 
     def visualizer():
+        st.page_title("😊 AllVisuals 📈")
         st.title("😊 AllVisuals 📈")
         st.markdown('''
         - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
