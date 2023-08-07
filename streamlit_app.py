@@ -19,7 +19,7 @@ COOKIE_STORE_PATH = "./usercookies"
 
 # Hugging Face Credentials
 with st.sidebar:
-    st.title('😊 AllTalK 💬')
+    (_main.title)('😊 AllTalK 💬')
     #st.header('UsCHAT Login')
     #sign = Login(EMAIL, PASSWD)
     #cookies = sign.login()

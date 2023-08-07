@@ -103,9 +103,9 @@ def main():
 
 
     def visualizer():
-        st.title("😊 AllVisuals 📊")
+        st.title("😊 AllVisuals 📈")
         st.markdown('''
-        - Hey there i'm AllVisual 💬, your new AI dashboard 😊.
+        - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
         - I produce answers and stunning visuals from the data you give me
         - Just Upload your dataset and ask your questions 💡 !
          ''')
