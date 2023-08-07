@@ -11,8 +11,8 @@ with st.sidebar:
     st.title('🤗 UsCHAT 💬')
     if ('DB_EMAIL' in st.secrets) and ('DB_PASS' in st.secrets):
         st.success('UsCHAT Login credentials already provided!', icon='✅')
-        hf_email = st.secrets['DB_EMAIL']
-        hf_pass = st.secrets['DB_PASS']
+        hf_email = st.secrets["DB_EMAIL"]
+        hf_pass = st.secrets["DB_PASS"]
     else:
         hf_email = st.text_input('Enter E-mail:', type='password')
         hf_pass = st.text_input('Enter password:', type='password')
