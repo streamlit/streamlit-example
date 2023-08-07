@@ -3,3 +3,5 @@ pandas
 streamlit
 hugchat>=0.1.0
 hugchat_api
+langchain
+openai
