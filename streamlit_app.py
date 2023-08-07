@@ -40,7 +40,7 @@ with st.sidebar:
 # Store LLM Generated responses
 if "messages" not in st.session_state:
     #st.session_state.messages = []
-    st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
+    st.session_state.messages = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
 
 
 # Display  chat messages
@@ -52,7 +52,7 @@ for message in st.session_state.messages:
 # Funtion genrating LLM response
 def generate_response(dialog_history):
     #Hugging face login
-    sign = Login(st.secrets["DB_EMAIL"], st.secrets["DB_PASS"])
+    sign = Login(EMAIL, PASSWD)
     cookies = sign.login()
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
