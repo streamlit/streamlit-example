@@ -7,20 +7,20 @@ st.set_page_config(page_title="🤗 UsCHAT 💬")
 
 
 # Hugging Face Credentials
-#with st.sidebar:
-#    st.title('🤗 UsCHAT 💬')
-#    if ('DB_EMAIL' in st.secrets) and ('DB_PASS' in st.secrets):
-#        st.success('UsCHAT Login credentials already provided!', icon='✅')
-#        hf_email = st.secrets["DB_EMAIL"]
-#        hf_pass = st.secrets["DB_PASS"]
-#    else:
-#        hf_email = st.text_input('Enter E-mail:', type='password')
-#        hf_pass = st.text_input('Enter password:', type='password')
-#        if not (hf_email and hf_pass):
-#            st.warning('Please enter your credentials!', icon='⚠️')
-#        else:
-#            st.success('Proceed to entering your prompt message!', icon='👉')
-#    st.markdown('📖 For enquiries contact us [here](https://blog.streamlit.io/how-to-build-an-llm-powered-chatbot-with-streamlit/)!')
+with st.sidebar:
+    st.title('🤗 UsCHAT 💬')
+    if ('DB_EMAIL' in st.secrets) and ('DB_PASS' in st.secrets):
+        st.success('UsCHAT Login credentials already provided!', icon='✅')
+        hf_email = st.secrets["DB_EMAIL"]
+        hf_pass = st.secrets["DB_PASS"]
+    else:
+        hf_email = st.text_input('Enter E-mail:', type='password')
+        hf_pass = st.text_input('Enter password:', type='password')
+        if not (hf_email and hf_pass):
+            st.warning('Please enter your credentials!', icon='⚠️')
+        else:
+            st.success('Proceed to entering your prompt message!', icon='👉')
+    st.markdown('📖 For enquiries contact us [here](https://blog.streamlit.io/how-to-build-an-llm-powered-chatbot-with-streamlit/)!')
     
 
 # Store LLM generated responses
@@ -33,12 +33,12 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 # Function for generating LLM response
-def generate_response(prompt_input):#, email, passwd):
+def generate_response(prompt_input, email, passwd):
      # Hugging Face Login
-    #sign = Login(email, passwd)
-    #cookies = sign.login()
+    sign = Login(email, passwd)
+    cookies = sign.login()
     # Create ChatBot                        
-    chatbot = hugchat.ChatBot()
+    chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     return chatbot.chat(prompt_input)
 
 # User-provided prompt
@@ -51,7 +51,7 @@ if prompt := st.chat_input():
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            response = generate_response(prompt)#, hf_email, hf_pass) 
+            response = generate_response(prompt, hf_email, hf_pass) 
             st.write(response) 
     message = {"role": "assistant", "content": response}
     st.session_state.messages.append(message)
