@@ -44,8 +44,8 @@ def get_text():
 with input_container:
     user_input = get_text()
 # Log in to huggingface and grant authorization to huggingchat
-email=
-passwd=
+email="manyejordana@gmail.com"
+passwd="Analeticia21@"
 sign = Login(email, passwd)
 cookies = sign.login()
 
