@@ -95,7 +95,7 @@ def main():
                 except Exception as e:
                     st.error(f"An error occurred: {str(e)}")
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
-                
+                    
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
