@@ -31,10 +31,10 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 # Function for generating LLM response
-def generate_response(prompt_input, email, passwd):
+def generate_response(prompt_input, hf_email, hf_pass):
     # Hugging Face Login
-    sign = Login(email, passwd)
-    cookies = sign.login(save=True)
+    sign = Login(hf_email, hf_pass)
+    cookies = sign.login()
     # Create ChatBot                        
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     return chatbot.chat(prompt_input)
