@@ -110,7 +110,7 @@ if user_input:
 # Display the user input prompt
 st.text_area("User Prompt", value=user_input, height=100)
 
-https://chat.openai.com/share/94495184-6ce3-443d-b397-d94e74fabeb3
+#https://chat.openai.com/share/94495184-6ce3-443d-b397-d94e74fabeb3
     
 import streamlit as st
 import hug
