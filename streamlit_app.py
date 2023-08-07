@@ -73,18 +73,18 @@ if prompt := st.chat_input("How may I help you ?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
     # Append the dialogue history to the user's prompt
-    #dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
+    dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
 
 
 # Genrate a new response if last message not from the assistant(chatbot)
-#if st.session_state.messages[-1]["role"] != "assistant":
-with st.chat_message("assistant"):
-    with st.spinner("Thinking..."):
-        message_placeholder = st.empty()
-        full_response = ""
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            message_placeholder = st.empty()
+            full_response = ""
 
         try:
             for response in generate_response(dialogue_history):
