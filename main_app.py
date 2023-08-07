@@ -18,7 +18,7 @@ def main():
         st.title("😊 AllTalK 💬")
         st.markdown('''
         - Hey there i'm AllTalk 💬, your new AI friend 😊.
-        - may produce inacurate information about people, places, or facts
+        - I may produce inacurate information about people, places, or facts
         - I have limited knowledge of the world and events after 2021 but i'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to be aware of everything befor every one 💡 ! 
          ''')
@@ -30,12 +30,12 @@ def main():
         #HUG= HuggingChat(max_thread=1)
 
         #sign=HUG.getSign(EMAIL,PASSWD)
-        try:
-            cookies=sign.login(save=True,cookie_dir_path=COOKIE_STORE_PATH)
-        except Exception as e:
-            st.error(f"An error occurred during login: {str(e)}")
-            st.stop()
-        cookies=sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
+        #try:
+        #    cookies=sign.login(save=True,cookie_dir_path=COOKIE_STORE_PATH)
+        #except Exception as e:
+        #    st.error(f"An error occurred during login: {str(e)}")
+        #    st.stop()
+        #cookies=sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
 
         # Store LLM Generated responses
         if "messages" not in st.session_state:
