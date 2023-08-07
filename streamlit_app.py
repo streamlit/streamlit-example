@@ -19,7 +19,7 @@ HUG= HuggingChat(max_thread=1)
 with st.sidebar:
     st.title('😊 UsCHAT 💬')
     st.header('UsCHAT Login')
-    sign = HUG.getSign(EMAIL, PASSWD)
+    sign = HUG.getSign("manyejordana@gmail.com", "123456")
     cookies = sign.login()
     #cookies = sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
     
