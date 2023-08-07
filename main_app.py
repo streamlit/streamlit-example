@@ -135,7 +135,7 @@ def main():
         openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
 
         # App logic
-        if query_text is 'Other':
+        if query_text == 'Other':
             query_text = st.text_input('Enter your query:', placeholder = 'Enter query here ...', disabled=not uploaded_file)
         if not openai_api_key.startswith('sk-'):
             st.warning('Please enter your OpenAI API key!', icon='⚠')
