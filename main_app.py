@@ -150,7 +150,7 @@ def main():
         chatbot()
     #else:
     #    summarizer()
-    else:
+    elif page == "AI Visualizer":
         visualizer()  
   
 if __name__=='__main__':
