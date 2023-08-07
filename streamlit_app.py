@@ -96,15 +96,15 @@ with st.chat_message("assistant"):
             #checking if there are follow-up questions
             if "?" in prompt:
                 #Update the chat history with the bot's response
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                st.session_state.append({"role": "assistant", "content": full_response})
                 #Clear the chat input box
                 st.session_state.prompt = ""
                 #set the chat input box value to the assistant's response
                 st.chat_input("Follow-up question", value=full_response)
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
+            st.session_state.append({"role": "assistant", "content": full_response})
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
-            st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
+            st.session_state.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
             
         #response = generate_response(prompt, hf_email, hf_pass)
         #st.write(response)
