@@ -1,7 +1,10 @@
-# Welcome to 😃UsCHAT💬!
+# Welcome to 😃AllTalK💬!
+
 ## Your new AI powered best friend! Ask him anything, he knows everything!
+
 ### He will help you with every work you have, just ask him!
 
+He has an intergrated chatbot, pdf and/or text sumarizer, data visualizer.
 
 I'm sure you'll love having him, and what's best is he's completely free! :heart:
 
