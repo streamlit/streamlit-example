@@ -34,7 +34,7 @@ for message in st.session_state.messages:
 def generate_response(prompt_input, email, passwd):
     # Hugging Face Login
     sign = Login(email, passwd)
-    cookies = sign.login()
+    cookies = sign.login(save=True)
     # Create ChatBot                        
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     return chatbot.chat(prompt_input)
