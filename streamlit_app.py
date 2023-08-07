@@ -50,7 +50,7 @@ for message in st.session_state.messages:
 
 
 # Funtion genrating LLM response
-def generate_response(dialog_history):
+def generate_response(dialogue_history):
     #Hugging face login
     sign = Login(EMAIL, PASSWD)
     cookies = sign.login()
