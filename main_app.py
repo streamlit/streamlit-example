@@ -103,9 +103,12 @@ def main():
 
 
     def visualizer():
-        # Page title
-        st.set_page_config(page_title='🦜🔗 Ask the Data App')
-        st.title('🦜🔗 Ask the Data App')
+        st.title("😊 AllTalK 💬")
+        st.markdown('''
+        - Hey there i'm AllVisual 💬, your new AI dashboard 😊.
+        - I produce answers and stunning visuals from the data you give me
+        - Just Upload your dataset and ask your questions 💡 !
+         ''')
 
         # Load CSV file
         def load_csv(input_csv):
