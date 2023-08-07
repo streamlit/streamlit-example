@@ -52,8 +52,8 @@ for message in st.session_state.messages:
 # Funtion genrating LLM response
 def generate_response(dialog_history):
     #Hugging face login
-    #sign = Login(st.secrets["email"], st.secrets["passwd"])
-    #cookies = sign.login()
+    sign = Login(st.secrets["DB_EMAIL"], st.secrets["DB_PASS"])
+    cookies = sign.login()
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     response = chatbot.chat(dialogue_history, stream=True)
