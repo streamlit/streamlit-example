@@ -38,7 +38,7 @@ with st.sidebar:
 
 
 # Store LLM Generated responses
-if "messages" not in st.session_state():
+if "messages" not in st.session_state:
     st.session_state.messages = []
     #st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
 
