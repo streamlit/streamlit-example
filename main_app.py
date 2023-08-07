@@ -7,10 +7,10 @@ from time import sleep
 from hugchat_api import HuggingChat
 import os
 
-
-ti=st.title("Welcome to 😃AllTalK💬!")
-st.write('Developed By [Jordy](https://www.linkedin.com/in/manye-jordana-0315731b1)')
-page=st.selectbox("What I offer",("Select","AI ChatBot","AI Summarizer","AI Visualsuer"))
+with st.sidebar:
+    ti=st.title("Welcome to 😃AllTalK💬!")
+    st.write('Developed By [Jordy](https://www.linkedin.com/in/manye-jordana-0315731b1)')
+page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualsuer"))
 
 
 def main():
