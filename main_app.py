@@ -8,7 +8,7 @@ from hugchat_api import HuggingChat
 import os
 
 
-ti=st.title("AI Utility Services 📇")
+ti=st.title("Welcome to 😃AllTalK💬!")
 st.write('Developed By [Jordy](https://www.linkedin.com/in/manye-jordana-0315731b1)')
 page=st.selectbox("What I offer",("Select","AI ChatBot","AI Summarizer","AI Visualsuer"))
 
@@ -98,9 +98,9 @@ def main():
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
-        streamlit_app.py()
+        chatbot()
     else:
-        summary_app.py()
+        summarizer()
     #else:
     #    chatbot()  
   
