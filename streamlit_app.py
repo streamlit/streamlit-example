@@ -34,7 +34,7 @@ with st.sidebar:
     #        st.warning('Please enter your credentials!', icon='⚠')
     #    else:
     #        st.success('Proceed to your chat!', icon='👉')
-    #st.markdown('Contact me for enquiries [here](https://myportfolio.com)!')
+    st.markdown('Contact me for enquiries [here](https://myportfolio.com)!')
 
 
 # Store LLM Generated responses
@@ -57,7 +57,7 @@ def generate_response(dialogue_history):
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     response = chatbot.chat(dialogue_history, stream=True)
-    if isinstance(response, str):
+    if isinstance(response):
         return response
     else:
         return response.delta.get("content", "")
