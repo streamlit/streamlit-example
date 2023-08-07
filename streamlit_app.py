@@ -57,7 +57,7 @@ def generate_response(dialogue_history):
     cookies = sign.login()
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-    response = chatbot.chat(dialogue_history, stream=True)
+    response = chatbot.chat(stream=True)
     return response
     #if isinstance(response, str):
         #return response
