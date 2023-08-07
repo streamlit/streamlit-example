@@ -142,7 +142,9 @@ def main():
             st.warning('Please enter your OpenAI API key!', icon='⚠')
         if openai_api_key.startswith('sk-') and (uploaded_file is not None):
             st.header('Output')
-            generate_response(uploaded_file, query_text) 
+            generate_response(uploaded_file, query_text)
+            
+             
 
 
     if page == "Select":
