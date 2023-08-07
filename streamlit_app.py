@@ -39,12 +39,7 @@ def generate_response(prompt_input, email, passwd):
     cookies = sign.login()
     # Create ChatBot                        
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-    response = chatbot.chat(dialogue_history, stream=True)
-    if isinstance(response, str):
-        return response
-    else:
-        return response.delta.get("content", "")
-    #return chatbot.chat(prompt_input)
+    return chatbot.chat(prompt_input)
 
 # User-provided prompt
 if prompt := st.chat_input():
