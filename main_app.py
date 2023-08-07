@@ -103,7 +103,7 @@ def main():
 
 
     def visualizer():
-        st.title("😊 AllTalK 💬")
+        st.title("😊 AllVisuals 📊")
         st.markdown('''
         - Hey there i'm AllVisual 💬, your new AI dashboard 😊.
         - I produce answers and stunning visuals from the data you give me
