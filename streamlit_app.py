@@ -13,14 +13,14 @@ EMAIL = st.secrets["DB_EMAIL"]
 PASSWD = st.secrets["DB_PASS"]
 COOKIE_STORE_PATH = "./usercookies"
 
-HUG= HuggingChat(max_thread=1)
+#HUG= HuggingChat(max_thread=1)
 
 # Hugging Face Credentials
 with st.sidebar:
     st.title('😊 UsCHAT 💬')
     st.header('UsCHAT Login')
-    sign = HUG.getSign("manyejordana@gmail.com", "123456")
-    cookies = sign.Login()
+    sign = Login(EMAIL, PASSWD)
+    cookies = sign.login()
     #cookies = sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
     
     #if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
