@@ -12,6 +12,9 @@ st.set_page_config(page_title="😊 AllTalK 💬")
 EMAIL = st.secrets["DB_EMAIL"]
 PASSWD = st.secrets["DB_PASS"]
 COOKIE_STORE_PATH = "./usercookies"
+dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
+
+
 
 #HUG= HuggingChat(max_thread=1)
 
@@ -51,13 +54,13 @@ for message in st.session_state.messages:
 
 
 # Funtion genrating LLM response
-def generate_response():
+def generate_response(dialogue_history):
     #Hugging face login
     sign = Login(EMAIL, PASSWD)
     cookies = sign.login()
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-    response = chatbot.chat(stream=True)
+    response = chatbot.chat(dialogue_history, stream=True)
     return response
     #if isinstance(response, str):
         #return response
