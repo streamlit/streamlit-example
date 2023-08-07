@@ -12,7 +12,6 @@ st.set_page_config(page_title="😊 AllTalK 💬")
 EMAIL = st.secrets["DB_EMAIL"]
 PASSWD = st.secrets["DB_PASS"]
 COOKIE_STORE_PATH = "./usercookies"
-dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
 
 
 
@@ -61,11 +60,11 @@ def generate_response(dialogue_history):
     # Create ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     response = chatbot.chat(dialogue_history, stream=True)
-    return response
-    #if isinstance(response, str):
-        #return response
-    #else:
-        #return response.delta.get("content", "")
+    #return response
+    if isinstance(response, str):
+        return response
+    else:
+        return response.delta.get("content", "")
     #return chatbot.chat(prompt_input)
 
 
