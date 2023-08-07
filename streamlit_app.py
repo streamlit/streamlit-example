@@ -47,9 +47,9 @@ if "messages" not in st.session_state:
 
 # Display  chat messages
 for message in st.session_state:
-    #st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+    st.session_state = [{"role": "assistant", "content": "How may I help you?"}]
+    #with st.chat_message(message["role"]):
+    #    st.write(message["content"])
 
 
 # Funtion genrating LLM response
