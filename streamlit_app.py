@@ -75,15 +75,14 @@ with response_container:
   #Response--------
 import streamlit as st
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
-import time
 
 # Load the pre-trained model and tokenizer
 model = GPT2LMHeadModel.from_pretrained("gpt2")
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
 # Function to generate a response using the model
-def generate_response(prompt):
-    input_ids = tokenizer.encode(prompt, return_tensors="pt")
+def generate_response(prompt, conversation_history):
+    input_ids = tokenizer.encode(conversation_history + prompt, return_tensors="pt")
     output = model.generate(input_ids, max_length=100, num_return_sequences=1)
     response = tokenizer.decode(output[0], skip_special_tokens=True)
     return response
@@ -91,25 +90,24 @@ def generate_response(prompt):
 # Streamlit App
 st.title("Chatbot")
 
+# Conversation history
+conversation_history = ""
+
 # User input
 user_input = st.text_input("User Input")
 
 # Check if user input is provided
 if user_input:
     # Generate response using the model
-    response_placeholder = st.empty()
-    response_placeholder.text("Generated Result: ")
+    response = generate_response(user_input, conversation_history)
 
-    response = generate_response(user_input)
+    # Update conversation history
+    conversation_history += user_input + "\n"
+    conversation_history += response + "\n"
 
-    # Typewriter effect for the generated response
-    words = response.split()
-    for word in words:
-        response_placeholder.text("Generated Result: " + " ".join(words[:words.index(word) + 1]))
-        time.sleep(0.1)  # Adjust the sleep time for the desired typing speed
+    # Display conversation history
+    st.text_area("Conversation History", value=conversation_history, height=200)
 
-# Display the user input prompt
-st.text_area("User Prompt", value=user_input, height=100)
 
 #https://chat.openai.com/share/94495184-6ce3-443d-b397-d94e74fabeb3#
     
