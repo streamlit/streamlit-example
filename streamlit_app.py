@@ -84,7 +84,7 @@ with st.chat_message("assistant"):
         full_response = ""
 
         try:
-            for response in generate_response(prompt):
+            for response in generate_response():
                 full_response += response
                 message_placeholder.markdown(full_response + " ")
                 sleep(0.01)
