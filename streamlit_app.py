@@ -8,10 +8,10 @@ st.set_page_config(page_title="🤗💬 HugChat")
 # Hugging Face Credentials
 with st.sidebar:
     st.title('🤗💬 HugChat')
-    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
+    if ('DB_EMAIL' in st.secrets) and ('DB_PASS' in st.secrets):
         st.success('HuggingFace Login credentials already provided!', icon='✅')
-        hf_email = st.secrets['EMAIL']
-        hf_pass = st.secrets['PASS']
+        hf_email = st.secrets['DB_EMAIL']
+        hf_pass = st.secrets['DB_PASS']
     else:
         hf_email = st.text_input('Enter E-mail:', type='password')
         hf_pass = st.text_input('Enter password:', type='password')
