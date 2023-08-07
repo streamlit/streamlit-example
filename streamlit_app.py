@@ -40,16 +40,16 @@ with st.sidebar:
 
 
 # Store LLM Generated responses
-if "messages" not in st.session_state:
+if "messages" not in st.session_state.keys():
     #st.session_state.messages = []
-    st.session_state = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
+    st.session_state.messages = [{"role": "assistant", "content": "Hey there, how can I help you?"}]
 
 
 # Display  chat messages
-for message in st.session_state:
-    st.session_state = [{"role": "assistant", "content": "How may I help you?"}]
-    #with st.chat_message(message["role"]):
-    #    st.write(message["content"])
+for message in st.session_state.messages:
+    #st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
 
 
 # Funtion genrating LLM response
@@ -73,7 +73,7 @@ if prompt := st.chat_input("How may I help you ?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
     # Append the dialogue history to the user's prompt
-    dialogue_history = "\n".join([message["content"] for message in st.session_state])
+    dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -96,15 +96,15 @@ with st.chat_message("assistant"):
             #checking if there are follow-up questions
             if "?" in prompt:
                 #Update the chat history with the bot's response
-                st.session_state.append({"role": "assistant", "content": full_response})
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
                 #Clear the chat input box
                 st.session_state.prompt = ""
                 #set the chat input box value to the assistant's response
                 st.chat_input("Follow-up question", value=full_response)
-            st.session_state.append({"role": "assistant", "content": full_response})
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
-            st.session_state.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
+            st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
             
         #response = generate_response(prompt, hf_email, hf_pass)
         #st.write(response)
