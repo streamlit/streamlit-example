@@ -155,6 +155,7 @@ def main():
         - Just Upload your dataset and ask your questions 💡 !
         ''')
 
+        st.sidebar.caption("(https://doi.org/10.1109/ACCESS.2023.3274199)")
 
     if page == "Select":
         st.write("Please select the services")
