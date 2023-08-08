@@ -161,7 +161,8 @@ def main():
             st.header('Output')
             generate_response(uploaded_file, query_text)
         
-        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+        #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+        available_models = {"ChatGPT-3.5": "gpt-3.5-turbo",}
 
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
@@ -187,9 +188,9 @@ def main():
             # Create model, run the request and print the results
 
         # Create model, run the request and print the results
-        for plot_num, model_type in enumerate(llm):
+        for plot_num, model_type in enumerate(model_list):
             with plots[plot_num]:
-                st.subheader(llm)
+                st.subheader(model_list)
                 try:
                     # Run the question
                     answer=""
