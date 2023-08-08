@@ -172,9 +172,9 @@ def main():
             # Create model, run the request and print the results
 
         # Create model, run the request and print the results
-        for plot_num, model_type in enumerate(model_name):
+        for plot_num, model_type in enumerate(llm):
             with plots[plot_num]:
-                st.subheader(model_name)
+                st.subheader(llm)
                 try:
                     # Run the question
                     answer=""
