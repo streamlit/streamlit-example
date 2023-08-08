@@ -232,20 +232,14 @@ def main():
 
 
     def summarizer():
+        st.title("😊 AllSummary 💬")
+        st.markdown('''
+        - Hey there i'm AllSummary 🧾, my name says it all, I summarize everything 😊.
+        - text, pdf's, just write or upload your document and let me do the rest !
+        - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
+        - Stick with me until then to have everything before everyone 💡 ! 
+         ''')
 
-        # Hide menu and footer
-        hide_streamlit_style = """
-                    <style>
-                    #MainMenu {visibility: hidden;}
-                    footer {visibility: hidden;}
-                    </style>
-                    """
-        st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-        
-        # Insert footer to reference dataset origin  
-        footer="""<style>.footer {position: fixed;left: 0;bottom: 0;width: 100%;text-align: center;}</style><div class="footer">
-        <p> <a style='display: block; text-align: center;'> Datasets courtesy of NL4DV, nvBench and ADVISor </a></p></div>"""
-        st.caption("Datasets courtesy of NL4DV, nvBench and ADVISor")
 
 
 
