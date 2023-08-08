@@ -172,6 +172,13 @@ def main():
 
         if "datasets" not in st.session_state:
             datasets = {}
+            datasets["Movies"] = pd.read_csv("movies.csv")
+            datasets["Housing"] =pd.read_csv("housing.csv")
+            datasets["Cars"] =pd.read_csv("cars.csv")
+            datasets["Colleges"] =pd.read_csv("colleges.csv")
+            datasets["Customers & Products"] =pd.read_csv("customers_and_products_contacts.csv")
+            datasets["Department Store"] =pd.read_csv("department_store.csv")
+            datasets["Energy Production"] =pd.read_csv("energy_production.csv")
             st.session_state["datasets"] = datasets
         else:
             # use the list already loaded
@@ -241,6 +248,28 @@ def main():
         # Display the datasets in a list of tabs
         # Create the tabs
         tab_list = st.tabs(datasets.keys())
+
+        # Load up each tab with a dataset
+        for dataset_num, tab in enumerate(tab_list):
+            with tab:
+                # Can't get the name of the tab! Can't index key list. So convert to list and index
+                dataset_name = list(datasets.keys())[dataset_num]
+                st.subheader(dataset_name)
+                st.dataframe(datasets[dataset_name],hide_index=True)
+
+        # Hide menu and footer
+        hide_streamlit_style = """
+                    <style>
+                    #MainMenu {visibility: hidden;}
+                    footer {visibility: hidden;}
+                    </style>
+                    """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+        
+# Insert footer to reference dataset origin  
+footer="""<style>.footer {position: fixed;left: 0;bottom: 0;width: 100%;text-align: center;}</style><div class="footer">
+<p> <a style='display: block; text-align: center;'> Datasets courtesy of NL4DV, nvBench and ADVISor </a></p></div>"""
+st.caption("Datasets courtesy of NL4DV, nvBench and ADVISor")
 
 
 
