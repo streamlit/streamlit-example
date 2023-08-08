@@ -11,7 +11,7 @@ import pandas as pd
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
-#from classes import get_primer,format_question,run_request 
+from classes import get_primer,format_question,run_request 
 
 
 with st.sidebar:
@@ -178,6 +178,9 @@ def main():
             datasets = st.session_state["datasets"]
 
         my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
+
+        # First we want to choose the dataset, but we will fill it with choices once we've loaded one
+        dataset_container = st.empty()
 
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
