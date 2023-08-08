@@ -170,6 +170,17 @@ def main():
             # Default for the radio buttons
             index_no = len(datasets)-1
 
+        my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
+
+        # Check boxes for model choice
+        st.write(":brain: Choose your model(s):")
+        # Keep a dictionary of whether models are selected or not
+        use_model = {}
+        for model_desc,model_name in available_models.items():
+            label = f"{model_desc} ({model_name})"
+            key = f"key_{model_desc}"
+            use_model[model_desc] = st.checkbox(label,value=True,key=key)
+
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
