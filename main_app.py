@@ -154,9 +154,7 @@ def main():
         - I produce answers and stunning visuals from the data you give me.
         - Just Upload your dataset and ask your questions 💡 !
         ''')
-        st.sidebar.markdown("<h4  style='text-align: center;font-size:small;color:grey;padding-top: 0rem;padding-bottom: .2rem;'>Chat2VIS: Generating Data \
-                    Visualisations via Natural Language using ChatGPT, Codex and GPT-3 \
-                 Large Language Models </h4>", unsafe_allow_html=True)
+
 
     if page == "Select":
         st.write("Please select the services")
