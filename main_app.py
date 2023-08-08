@@ -154,7 +154,7 @@ def main():
             generate_response(uploaded_file, query_text)
         
         #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-        available_models = {"ChatGPT-3.5": "gpt-3.5-turbo",}
+        available_models = ChatOpenAI[{"ChatGPT-3.5": "gpt-3.5-turbo",}]
 
         #my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
 
