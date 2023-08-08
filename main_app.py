@@ -139,7 +139,7 @@ def main():
 
         # Text area for query
         question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
-        go_btn = st.button("Go...")
+        go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
 
         # Execute chatbot query
         if go_btn > 0:
