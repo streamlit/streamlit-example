@@ -165,6 +165,8 @@ def main():
 
         if "datasets" not in st.session_state:
             datasets = {}
+            #preloaded dataset
+            datasets["data"] = uploaded_file
             st.session_state["datasets"] = datasets
         else:
             # Radio buttons for dataset choice
