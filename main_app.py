@@ -142,6 +142,8 @@ def main():
 
 #____________________________________________________________________________#
 
+        dataset_container = st.empty()
+
         # App logic
         if query_text == 'Other':
             query_text = st.text_input('Enter your query:', placeholder = 'Enter query here ...', disabled=not uploaded_file)
@@ -166,7 +168,7 @@ def main():
             key = f"key_{model_desc}"
             use_model[model_desc] = st.checkbox(label,value=True,key=key)
 
-# Text area for query
+        # Text area for query
         question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
         go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
 
