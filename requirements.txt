@@ -7,3 +7,4 @@ langchain
 openai
 classes
 tabulate
+tiktoken
