@@ -181,6 +181,23 @@ def main():
             key = f"key_{model_desc}"
             use_model[model_desc] = st.checkbox(label,value=True,key=key)
 
+        # Text area for query
+        question = st.text_area(":eyes: What would you like to visualise?",height=10)
+        go_btn = st.button("Go...")
+
+        # Make a list of the models which have been selected
+        model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
+        model_count = len(model_list)
+
+        # Execute chatbot query
+        if go_btn and model_count > 0:
+            # Place for plots depending on how many models
+            plots = st.columns(model_count)
+            # Get the primer for this dataset
+            primer1,primer2 = get_primer(datasets[chosen_dataset],'datasets["'+ chosen_dataset + '"]')
+            # Format the question
+            question_to_ask = format_question(primer1,primer2 , question)
+
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
