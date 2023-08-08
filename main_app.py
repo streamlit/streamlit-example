@@ -140,17 +140,7 @@ def main():
         query_text = st.selectbox('Select an example query:', question_list, disabled=not uploaded_file)
         openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
 
-        # Text area for query
-        question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
-        go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
-
-        # Execute chatbot query
-        if go_btn > 0:
-            # Place for plots depending on how many models
-            plots = st.columns()
-        
-            # Format the question
-            question_to_ask = format_question(primer1,primer2 , question)
+#____________________________________________________________________________#
 
         # App logic
         if query_text == 'Other':
@@ -164,6 +154,9 @@ def main():
         #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
         available_models = {"ChatGPT-3.5": "gpt-3.5-turbo",}
 
+        # Radio buttons for dataset choice
+        chosen_dataset = dataset_container.radio(":bar_chart: Choose your data:",datasets.keys(),index=index_no)#,horizontal=True,)
+
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
         # Keep a dictionary of whether models are selected or not
@@ -173,6 +166,17 @@ def main():
             key = f"key_{model_desc}"
             use_model[model_desc] = st.checkbox(label,value=True,key=key)
 
+# Text area for query
+        question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
+        go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
+
+        # Execute chatbot query
+        if go_btn > 0:
+            # Place for plots depending on how many models
+            plots = st.columns()
+        
+            # Format the question
+            question_to_ask = format_question(primer1,primer2 , question)
 
         model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
         model_count = len(model_list)
