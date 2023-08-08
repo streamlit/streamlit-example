@@ -163,7 +163,7 @@ def main():
 
 
         # Create model, run the request and print the results
-        for plot_num, model_name():
+        for plot_num:
             with plots[plot_num]:
                 st.subheader(model_name)
                 try:
