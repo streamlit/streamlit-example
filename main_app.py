@@ -155,7 +155,20 @@ def main():
         - Just Upload your dataset and ask your questions 💡 !
         ''')
 
-        st.sidebar.caption("(https://doi.org/10.1109/ACCESS.2023.3274199)")
+        available_models = {"ChatGPT-4": "gpt-4","ChatGPT-3.5": "gpt-3.5-turbo","GPT-3": "text-davinci-003",}
+        with st.sidebar:
+            # First we want to choose the dataset, but we will fill it with choices once we've loaded one
+            dataset_container = st.empty()
+
+            # Add facility to upload a dataset
+            uploaded_file = st.file_uploader(":computer: Load a CSV file:", type="csv")
+            index_no=0
+        if uploaded_file is not None:
+        # Read in the data, add it to the list of available datasets
+            file_name = uploaded_file.name[:-4].capitalize()
+            datasets[file_name] = pd.read_csv(uploaded_file)
+            # Default for the radio buttons
+            index_no = len(datasets)-1
 
     if page == "Select":
         st.write("Please select the services")
