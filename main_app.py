@@ -172,7 +172,7 @@ def main():
     
         dataset_container = st.empty()
             # Radio buttons for dataset choice
-        chosen_dataset = dataset_container.radio(datasets.keys())
+        chosen_dataset = dataset_container.radio(":bar_chart: Choose your data:", datasets.keys())
 
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
