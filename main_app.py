@@ -145,9 +145,6 @@ def main():
         query_text = st.selectbox('Select an example query:', question_list, disabled=not uploaded_file)
         openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
 
-#____________________________________________________________________________#
-
-
         # App logic
         if query_text == 'Other':
             query_text = st.text_input('Enter your query:', placeholder = 'Enter query here ...', disabled=not uploaded_file)
@@ -156,90 +153,6 @@ def main():
         if openai_api_key.startswith('sk-') and (uploaded_file is not None):
             st.header('Output')
             generate_response(uploaded_file, query_text)
-        
-        #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-        available_models = {"ChatGPT-3.5": "gpt-3.5-turbo",}
-
-        #my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
-
-        if "datasets" not in st.session_state:
-            datasets = {}
-            #preloaded dataset
-            datasets["data"] = pd.read_csv("")
-            st.session_state["datasets"] = datasets
-        else:
-            datasets = st.session_state["datasets"]
-    
-        dataset_container = st.empty()
-            # Radio buttons for dataset choice
-        chosen_dataset = dataset_container.radio(datasets.keys(), ":bar_chart: Choose your data:")
-
-        # Check boxes for model choice
-        st.write(":brain: Choose your model(s):")
-        # Keep a dictionary of whether models are selected or not
-        use_model = {}
-        for model_desc,model_name in available_models.items():
-            label = f"{model_desc} ({model_name})"
-            key = f"key_{model_desc}"
-            use_model[model_desc] = st.checkbox(label,value=True,key=key)
-
-        model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
-        model_count = len(model_list)
-
-        # Text area for query
-        question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
-        go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
-
-
-        # Execute chatbot query
-        if go_btn and model_count > 0:
-            # Place for plots depending on how many models
-            plots = st.columns(model_count)
-            # Get the primer for this dataset
-            primer1,primer2 = classes(chosen_dataset)
-            # Format the question
-            question_to_ask = classes.format_question(primer1,primer2, question)    
-            # Create model, run the request and print the results
-            for plot_num, model_type in enumerate(model_list):
-                with plots[plot_num]:
-                    st.subheader(model_list)
-                    try:
-                        # Run the question
-                        answer=""
-                        answer = classes.run_request(question_to_ask, available_models[model_type], key=openai_api_key)
-                        # the answer is the completed Python script so add to the beginning of the script to it.
-                        answer = primer2 + answer
-                        plot_area = st.empty()
-                        plot_area.pyplot(exec(answer))           
-                    except Exception as e:
-                        if type(e) == openai.error.APIError:
-                            st.error("OpenAI API Error. Please try again a short time later.")
-                        elif type(e) == openai.error.Timeout:
-                            st.error("OpenAI API Error. Your request timed out. Please try again a short time later.")
-                        elif type(e) == openai.error.RateLimitError:
-                            st.error("OpenAI API Error. You have exceeded your assigned rate limit.")
-                        elif type(e) == openai.error.APIConnectionError:
-                            st.error("OpenAI API Error. Error connecting to services. Please check your network/proxy/firewall settings.")
-                        elif type(e) == openai.error.InvalidRequestError:
-                            st.error("OpenAI API Error. Your request was malformed or missing required parameters.")
-                        elif type(e) == openai.error.AuthenticationError:
-                            st.error("Please enter a valid OpenAI API Key.")
-                        elif type(e) == openai.error.ServiceUnavailableError:
-                            st.error("OpenAI Service is currently unavailable. Please try again a short time later.")                   
-                        else:
-                            st.error("Unfortunately the code generated from the model contained errors and was unable to execute. ")
-            
-        # Display the datasets in a list of tabs
-        # Create the tabs
-        #tab_list = st.tabs(chosen_dataset)
-
-        # Load up each tab with a dataset
-        #for dataset_num, tab in enumerate(tab_list):
-            #with tab:
-                # Can't get the name of the tab! Can't index key list. So convert to list and index
-                #dataset_name = list(datasets.keys())[dataset_num]
-                #st.subheader(dataset_name)
-                #st.dataframe(datasets[dataset_name],hide_index=True)
 
 
     def summarizer():
