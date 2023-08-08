@@ -198,6 +198,24 @@ def main():
             # Format the question
             question_to_ask = format_question(primer1,primer2 , question)
 
+        # Create model, run the request and print the results
+        for plot_num, model_type in enumerate(model_list):
+            with plots[plot_num]:
+                st.subheader(model_type)
+                try:
+                    # Run the question
+                    answer=""
+                    answer = run_request(question_to_ask, available_models[model_type], key=my_key)
+                    # the answer is the completed Python script so add to the beginning of the script to it.
+                    answer = primer2 + answer
+                    plot_area = st.empty()
+                    plot_area.pyplot(exec(answer))           
+
+
+
+
+
+
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
