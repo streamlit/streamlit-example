@@ -147,7 +147,6 @@ def main():
 
 #____________________________________________________________________________#
 
-        #dataset_container = st.empty()
 
         # App logic
         if query_text == 'Other':
@@ -169,8 +168,11 @@ def main():
             datasets["data"] = pd.read_csv("")
             st.session_state["datasets"] = datasets
         else:
+            datasets = st.session_state["datasets"]
+    
+        dataset_container = st.empty()
             # Radio buttons for dataset choice
-            chosen_dataset = st.session_state["uploaded_file"]
+        chosen_dataset = dataset_container.radio(datasets.keys())
 
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
