@@ -170,6 +170,13 @@ def main():
             # Default for the radio buttons
             index_no = len(datasets)-1
 
+        if "datasets" not in st.session_state:
+            datasets = {}
+            st.session_state["datasets"] = datasets
+        else:
+            # use the list already loaded
+            datasets = st.session_state["datasets"]
+
         my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
 
         # Check boxes for model choice
