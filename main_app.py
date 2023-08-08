@@ -180,7 +180,7 @@ def main():
         # Execute chatbot query
         if go_btn and model_count > 0:
             # Place for plots depending on how many models
-            plots = st.columns()
+            plots = st.columns(model_count)
         
             # Format the question
             question_to_ask = format_question(primer1,primer2 , question)
