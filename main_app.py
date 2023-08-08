@@ -225,15 +225,15 @@ def main():
             
         # Display the datasets in a list of tabs
         # Create the tabs
-        tab_list = st.tabs(datasets.keys())
+        #tab_list = st.tabs(chosen_dataset)
 
         # Load up each tab with a dataset
-        for dataset_num, tab in enumerate(tab_list):
-            with tab:
+        #for dataset_num, tab in enumerate(tab_list):
+            #with tab:
                 # Can't get the name of the tab! Can't index key list. So convert to list and index
-                dataset_name = list(datasets.keys())[dataset_num]
-                st.subheader(dataset_name)
-                st.dataframe(datasets[dataset_name],hide_index=True)
+                #dataset_name = list(datasets.keys())[dataset_num]
+                #st.subheader(dataset_name)
+                #st.dataframe(datasets[dataset_name],hide_index=True)
 
 
     def summarizer():
