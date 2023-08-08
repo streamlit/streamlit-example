@@ -13,6 +13,7 @@ from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 import requests
 import tabulate
+import classes
 
  
 
@@ -161,12 +162,10 @@ def main():
             generate_response(uploaded_file, query_text)
 
 
-    def summarizer():
-
         # Create model, run the request and print the results
-        for plot_num, model_type in enumerate(model_list):
+        for plot_num, model_name:
             with plots[plot_num]:
-                st.subheader(model_type)
+                st.subheader(model_name)
                 try:
                     # Run the question
                     answer=""
@@ -204,6 +203,9 @@ def main():
                 dataset_name = list(datasets.keys())[dataset_num]
                 st.subheader(dataset_name)
                 st.dataframe(datasets[dataset_name],hide_index=True)
+
+
+    def summarizer():
 
         # Hide menu and footer
         hide_streamlit_style = """
