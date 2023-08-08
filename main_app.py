@@ -164,7 +164,7 @@ def main():
         #my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
 
         # Radio buttons for dataset choice
-        chosen_dataset = uploaded_file
+        chosen_dataset = st.session_state["uploaded_file"]
 
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
