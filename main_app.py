@@ -11,6 +11,8 @@ import pandas as pd
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
+from classes import get_primer,format_question,run_request 
+
 
 with st.sidebar:
     ti=st.title("Welcome to 😃AllTalK💬!")
@@ -143,18 +145,27 @@ def main():
         if openai_api_key.startswith('sk-') and (uploaded_file is not None):
             st.header('Output')
             generate_response(uploaded_file, query_text)
-            
-             
 
+
+    def summarizer():
+        st.title("😊 AllVisuals 📈")
+        st.markdown('''
+        - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
+        - I produce answers and stunning visuals from the data you give me.
+        - Just Upload your dataset and ask your questions 💡 !
+        ''')
+        st.sidebar.markdown("<h4  style='text-align: center;font-size:small;color:grey;padding-top: 0rem;padding-bottom: .2rem;'>Chat2VIS: Generating Data \
+                    Visualisations via Natural Language using ChatGPT, Codex and GPT-3 \
+                 Large Language Models </h4>", unsafe_allow_html=True)
 
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
         chatbot()
-    #else:
-    #    summarizer()
     elif page == "AI Visualizer":
         visualizer()  
+    else:
+        summarizer()
   
 if __name__=='__main__':
     main()
