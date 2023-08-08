@@ -165,7 +165,6 @@ def main():
 
         if "datasets" not in st.session_state:
             datasets = {}
-
             st.session_state["datasets"] = datasets
         else:
             # Radio buttons for dataset choice
