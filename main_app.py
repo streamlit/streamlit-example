@@ -137,6 +137,18 @@ def main():
         query_text = st.selectbox('Select an example query:', question_list, disabled=not uploaded_file)
         openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
 
+        # Text area for query
+        question = st.text_area(":eyes: What would you like to visualise?",height=10)
+        go_btn = st.button("Go...")
+
+        # Execute chatbot query
+        if go_btn > 0:
+            # Place for plots depending on how many models
+            plots = st.columns()
+        
+            # Format the question
+            question_to_ask = format_question(primer1,primer2 , question)
+
         # App logic
         if query_text == 'Other':
             query_text = st.text_input('Enter your query:', placeholder = 'Enter query here ...', disabled=not uploaded_file)
@@ -148,72 +160,6 @@ def main():
 
 
     def summarizer():
-        st.title("😊 AllVisuals 📈")
-        st.markdown('''
-        - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
-        - I produce answers and stunning visuals from the data you give me.
-        - Just Upload your dataset and ask your questions 💡 !
-        ''')
-
-        available_models = {"ChatGPT-4": "gpt-4","ChatGPT-3.5": "gpt-3.5-turbo","GPT-3": "text-davinci-003",}
-        #with st.sidebar:
-        # First we want to choose the dataset, but we will fill it with choices once we've loaded one
-        dataset_container = st.empty()
-
-            # Add facility to upload a dataset
-        uploaded_file = st.file_uploader(":computer: Load your dataset in a CSV format:", type="csv")
-        index_no=0
-        if uploaded_file is not None:
-        # Read in the data, add it to the list of available datasets
-            file_name = uploaded_file.name[:-4].capitalize()
-            datasets[file_name] = pd.read_csv(uploaded_file)
-            # Default for the radio buttons
-            index_no = len(datasets)-1
-
-        if "datasets" not in st.session_state:
-            datasets = {}
-            datasets["Movies"] = pd.read_csv("movies.csv")
-            datasets["Housing"] =pd.read_csv("housing.csv")
-            datasets["Cars"] =pd.read_csv("cars.csv")
-            datasets["Colleges"] =pd.read_csv("colleges.csv")
-            datasets["Customers & Products"] =pd.read_csv("customers_and_products_contacts.csv")
-            datasets["Department Store"] =pd.read_csv("department_store.csv")
-            datasets["Energy Production"] =pd.read_csv("energy_production.csv")
-            st.session_state["datasets"] = datasets
-        else:
-            # use the list already loaded
-            datasets = st.session_state["datasets"]
-
-        my_key = st.text_input(label = ":key: OpenAI Key:", help="Please ensure you have an OpenAI API account with credit. ChatGPT Plus subscription does not include API access.",type="password")
-
-        # First we want to choose the dataset, but we will fill it with choices once we've loaded one
-        dataset_container = st.empty()
-
-        # Check boxes for model choice
-        st.write(":brain: Choose your model(s):")
-        # Keep a dictionary of whether models are selected or not
-        use_model = {}
-        for model_desc,model_name in available_models.items():
-            label = f"{model_desc} ({model_name})"
-            key = f"key_{model_desc}"
-            use_model[model_desc] = st.checkbox(label,value=True,key=key)
-
-        # Text area for query
-        question = st.text_area(":eyes: What would you like to visualise?",height=10)
-        go_btn = st.button("Go...")
-
-        # Make a list of the models which have been selected
-        model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
-        model_count = len(model_list)
-
-        # Execute chatbot query
-        if go_btn and model_count > 0:
-            # Place for plots depending on how many models
-            plots = st.columns(model_count)
-            # Get the primer for this dataset
-            primer1,primer2 = get_primer(datasets[chosen_dataset],'datasets["'+ chosen_dataset + '"]')
-            # Format the question
-            question_to_ask = format_question(primer1,primer2 , question)
 
         # Create model, run the request and print the results
         for plot_num, model_type in enumerate(model_list):
