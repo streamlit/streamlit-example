@@ -177,14 +177,6 @@ def main():
         question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
         go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
 
-        # Execute chatbot query
-        if go_btn and model_count > 0:
-            # Place for plots depending on how many models
-            plots = st.columns(model_count)
-        
-            # Format the question
-            question_to_ask = format_question(primer1,primer2 , question)
-
 
         # Execute chatbot query
         if go_btn and model_count > 0:
