@@ -157,7 +157,7 @@ def main():
         available_models = {"ChatGPT-3.5": "gpt-3.5-turbo",}
 
         # Radio buttons for dataset choice
-        chosen_dataset = dataset_container.radio(":bar_chart: Choose your data:",datasets.keys(),index=index_no)#,horizontal=True,)
+        chosen_dataset = dataset_container.radio(":bar_chart: Choose your data:", df, index=index_no)#,horizontal=True,)
 
         # Check boxes for model choice
         st.write(":brain: Choose your model(s):")
