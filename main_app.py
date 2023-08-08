@@ -246,57 +246,57 @@ def main():
 
             return colored_text
 
-    def main():
-        st.set_page_config(layout="wide")
-        st.title("Custom Summarization App")
-        llm = st.sidebar.selectbox("LLM",["ChatGPT", "GPT4", "Other (open source in the future)"])
-        chain_type = st.sidebar.selectbox("Chain Type", ["map_reduce", "stuff", "refine"])
-        chunk_size = st.sidebar.slider("Chunk Size", min_value=20, max_value = 10000,
-                                    step=10, value=2000)
-        chunk_overlap = st.sidebar.slider("Chunk Overlap", min_value=5, max_value = 5000,
-                                    step=10, value=200)
-        
-        if st.sidebar.checkbox("Debug chunk size"):
-            st.header("Interactive Text Chunk Visualization")
-
-            text_input = st.text_area("Input Text", "This is a test text to showcase the functionality of the interactive text chunk visualizer.")
-
-            # Set the minimum to 1, the maximum to 5000 and default to 100
-            html_code = color_chunks(text_input, chunk_size, chunk_overlap)
-            st.markdown(html_code, unsafe_allow_html=True)
-
+        def main():
+            st.set_page_config(layout="wide")
+            st.title("Custom Summarization App")
+            llm = st.sidebar.selectbox("LLM",["ChatGPT", "GPT4", "Other (open source in the future)"])
+            chain_type = st.sidebar.selectbox("Chain Type", ["map_reduce", "stuff", "refine"])
+            chunk_size = st.sidebar.slider("Chunk Size", min_value=20, max_value = 10000,
+                                        step=10, value=2000)
+            chunk_overlap = st.sidebar.slider("Chunk Overlap", min_value=5, max_value = 5000,
+                                        step=10, value=200)
             
-        else:
-            user_prompt = st.text_input("Enter the custom summary prompt")
-            pdf_file_path = st.text_input("Enther the pdf file path")
-            
-            temperature = st.sidebar.number_input("Set the ChatGPT Temperature",
-                                                min_value = 0.0,
-                                                max_value=1.0,
-                                                step=0.1,
-                                                value=0.5)
-            num_summaries = st.sidebar.number_input("Number of summaries",
-                                                    min_value = 1, 
-                                                    max_value = 10,
-                                                    step = 1,
-                                                    value=1)
-        if pdf_file_path != "":
-            docs = setup_documents(pdf_file_path, chunk_size, chunk_overlap)
-            st.write("PDF loaded successfully")
-        
-            if llm=="ChatGPT":
-                llm = ChatOpenAI(temperature=temperature)
-            elif llm=="GPT4":
-                llm = ChatOpenAI(model_name="gpt-4",temperature=temperature)
+            if st.sidebar.checkbox("Debug chunk size"):
+                st.header("Interactive Text Chunk Visualization")
+
+                text_input = st.text_area("Input Text", "This is a test text to showcase the functionality of the interactive text chunk visualizer.")
+
+                # Set the minimum to 1, the maximum to 5000 and default to 100
+                html_code = color_chunks(text_input, chunk_size, chunk_overlap)
+                st.markdown(html_code, unsafe_allow_html=True)
+
+                
             else:
-                st.write("Using ChatGPT while open source models are not implemented!")
-                llm = ChatOpenAI(temperature=temperature)
+                user_prompt = st.text_input("Enter the custom summary prompt")
+                pdf_file_path = st.text_input("Enther the pdf file path")
+                
+                temperature = st.sidebar.number_input("Set the ChatGPT Temperature",
+                                                    min_value = 0.0,
+                                                    max_value=1.0,
+                                                    step=0.1,
+                                                    value=0.5)
+                num_summaries = st.sidebar.number_input("Number of summaries",
+                                                        min_value = 1, 
+                                                        max_value = 10,
+                                                        step = 1,
+                                                        value=1)
+            if pdf_file_path != "":
+                docs = setup_documents(pdf_file_path, chunk_size, chunk_overlap)
+                st.write("PDF loaded successfully")
+            
+                if llm=="ChatGPT":
+                    llm = ChatOpenAI(temperature=temperature)
+                elif llm=="GPT4":
+                    llm = ChatOpenAI(model_name="gpt-4",temperature=temperature)
+                else:
+                    st.write("Using ChatGPT while open source models are not implemented!")
+                    llm = ChatOpenAI(temperature=temperature)
 
-        if st.button("Summarize"):
-                result = custom_summary(docs, llm, user_prompt, chain_type, num_summaries)
-                st.write("Summary:")
-                for summary in result:
-                    st.write(summary)
+            if st.button("Summarize"):
+                    result = custom_summary(docs, llm, user_prompt, chain_type, num_summaries)
+                    st.write("Summary:")
+                    for summary in result:
+                        st.write(summary)
 
 
 
