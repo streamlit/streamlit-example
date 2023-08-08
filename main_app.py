@@ -11,8 +11,10 @@ import pandas as pd
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
-from classes import get_primer,format_question,run_request 
-
+from classes import get_primer
+from classes import format_question
+from classes import run_request 
+ 
 
 with st.sidebar:
     ti=st.title("Welcome to 😃AllTalK💬!")
