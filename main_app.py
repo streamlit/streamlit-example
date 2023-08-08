@@ -163,6 +163,19 @@ def main():
         
         llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
 
+        # Check boxes for model choice
+        st.write(":brain: Choose your model(s):")
+        # Keep a dictionary of whether models are selected or not
+        use_model = {}
+        for model_desc,model_name in available_models.items():
+            label = f"{model_desc} ({model_name})"
+            key = f"key_{model_desc}"
+            use_model[model_desc] = st.checkbox(label,value=True,key=key)
+
+
+        model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
+        model_count = len(model_list)
+
         # Execute chatbot query
         if go_btn and model_count > 0:
             # Place for plots depending on how many models
@@ -175,7 +188,7 @@ def main():
 
         # Create model, run the request and print the results
         for plot_num, model_type in enumerate(llm):
-            if plots[plot_num]:
+            with plots[plot_num]:
                 st.subheader(llm)
                 try:
                     # Run the question
