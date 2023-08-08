@@ -175,6 +175,7 @@ def main():
 
         # Create model, run the request and print the results
         for plot_num, model_type in enumerate(llm):
+            global plots
             with plots[plot_num]:
                 st.subheader(llm)
                 try:
