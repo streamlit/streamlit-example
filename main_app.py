@@ -166,7 +166,7 @@ def main():
         if "datasets" not in st.session_state:
             datasets = {}
             #preloaded dataset
-            datasets["data"] = uploaded_file
+            datasets["data"] = pd.read_csv("")
             st.session_state["datasets"] = datasets
         else:
             # Radio buttons for dataset choice
