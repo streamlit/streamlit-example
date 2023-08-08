@@ -266,10 +266,10 @@ def main():
                     """
         st.markdown(hide_streamlit_style, unsafe_allow_html=True)
         
-# Insert footer to reference dataset origin  
-footer="""<style>.footer {position: fixed;left: 0;bottom: 0;width: 100%;text-align: center;}</style><div class="footer">
-<p> <a style='display: block; text-align: center;'> Datasets courtesy of NL4DV, nvBench and ADVISor </a></p></div>"""
-st.caption("Datasets courtesy of NL4DV, nvBench and ADVISor")
+        # Insert footer to reference dataset origin  
+        footer="""<style>.footer {position: fixed;left: 0;bottom: 0;width: 100%;text-align: center;}</style><div class="footer">
+        <p> <a style='display: block; text-align: center;'> Datasets courtesy of NL4DV, nvBench and ADVISor </a></p></div>"""
+        st.caption("Datasets courtesy of NL4DV, nvBench and ADVISor")
 
 
 
