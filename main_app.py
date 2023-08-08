@@ -193,36 +193,36 @@ def main():
             question_to_ask = classes.format_question(primer1,primer2 , question)    
             # Create model, run the request and print the results
 
-        # Create model, run the request and print the results
-        for plot_num, model_type in enumerate(model_list):
-            with plots[plot_num]:
-                st.subheader(model_list)
-                try:
-                    # Run the question
-                    answer=""
-                    answer = classes.run_request(question_to_ask, available_models[model_type], key=my_key)
-                    # the answer is the completed Python script so add to the beginning of the script to it.
-                    answer = primer2 + answer
-                    plot_area = st.empty()
-                    plot_area.pyplot(exec(answer))           
-                except Exception as e:
-                    if type(e) == openai.error.APIError:
-                        st.error("OpenAI API Error. Please try again a short time later.")
-                    elif type(e) == openai.error.Timeout:
-                        st.error("OpenAI API Error. Your request timed out. Please try again a short time later.")
-                    elif type(e) == openai.error.RateLimitError:
-                        st.error("OpenAI API Error. You have exceeded your assigned rate limit.")
-                    elif type(e) == openai.error.APIConnectionError:
-                        st.error("OpenAI API Error. Error connecting to services. Please check your network/proxy/firewall settings.")
-                    elif type(e) == openai.error.InvalidRequestError:
-                        st.error("OpenAI API Error. Your request was malformed or missing required parameters.")
-                    elif type(e) == openai.error.AuthenticationError:
-                        st.error("Please enter a valid OpenAI API Key.")
-                    elif type(e) == openai.error.ServiceUnavailableError:
-                        st.error("OpenAI Service is currently unavailable. Please try again a short time later.")                   
-                    else:
-                        st.error("Unfortunately the code generated from the model contained errors and was unable to execute. ")
-        
+            # Create model, run the request and print the results
+            for plot_num, model_type in enumerate(model_list):
+                with plots[plot_num]:
+                    st.subheader(model_list)
+                    try:
+                        # Run the question
+                        answer=""
+                        answer = classes.run_request(question_to_ask, available_models[model_type], key=my_key)
+                        # the answer is the completed Python script so add to the beginning of the script to it.
+                        answer = primer2 + answer
+                        plot_area = st.empty()
+                        plot_area.pyplot(exec(answer))           
+                    except Exception as e:
+                        if type(e) == openai.error.APIError:
+                            st.error("OpenAI API Error. Please try again a short time later.")
+                        elif type(e) == openai.error.Timeout:
+                            st.error("OpenAI API Error. Your request timed out. Please try again a short time later.")
+                        elif type(e) == openai.error.RateLimitError:
+                            st.error("OpenAI API Error. You have exceeded your assigned rate limit.")
+                        elif type(e) == openai.error.APIConnectionError:
+                            st.error("OpenAI API Error. Error connecting to services. Please check your network/proxy/firewall settings.")
+                        elif type(e) == openai.error.InvalidRequestError:
+                            st.error("OpenAI API Error. Your request was malformed or missing required parameters.")
+                        elif type(e) == openai.error.AuthenticationError:
+                            st.error("Please enter a valid OpenAI API Key.")
+                        elif type(e) == openai.error.ServiceUnavailableError:
+                            st.error("OpenAI Service is currently unavailable. Please try again a short time later.")                   
+                        else:
+                            st.error("Unfortunately the code generated from the model contained errors and was unable to execute. ")
+            
         # Display the datasets in a list of tabs
         # Create the tabs
         tab_list = st.tabs(datasets.keys())
