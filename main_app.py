@@ -170,20 +170,21 @@ def main():
             key = f"key_{model_desc}"
             use_model[model_desc] = st.checkbox(label,value=True,key=key)
 
+        model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
+        model_count = len(model_list)
+
         # Text area for query
         question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
         go_btn = st.button("Go...", disabled=not (uploaded_file and query_text and openai_api_key and question))
 
         # Execute chatbot query
-        if go_btn > 0:
+        if go_btn and model_count > 0:
             # Place for plots depending on how many models
             plots = st.columns()
         
             # Format the question
             question_to_ask = format_question(primer1,primer2 , question)
 
-        model_list = [model_name for model_name, choose_model in use_model.items() if choose_model]
-        model_count = len(model_list)
 
         # Execute chatbot query
         if go_btn and model_count > 0:
