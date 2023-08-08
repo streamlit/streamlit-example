@@ -107,7 +107,7 @@ def main():
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
 
     def visualizer():
-        st.header("😊 AllVisuals 📈")
+        st.title("😊 AllVisuals 📈")
         st.markdown('''
         - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
         - I produce answers and stunning visuals from the data you give me.
