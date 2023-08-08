@@ -138,7 +138,7 @@ def main():
         openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
 
         # Text area for query
-        question = st.text_area(":eyes: What would you like to visualise?",height=10)
+        question = st.text_area(":eyes: What would you like to visualise?", disabled=not (uploaded_file and query_text and openai_api_key), height=10)
         go_btn = st.button("Go...")
 
         # Execute chatbot query
