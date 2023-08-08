@@ -6,3 +6,4 @@ hugchat_api
 langchain
 openai
 classes
+tabulate
