@@ -133,9 +133,9 @@ def main():
         # Input widgets
         uploaded_file = st.file_uploader('Upload a CSV file', type=['csv'])
         question_list = [
-            'How many rows are there?',
-            'What is the range of values for MolWt with logS greater than 0?',
-            'How many rows have MolLogP value greater than 0.',
+            'How many rows are there ?',
+            'What is the datatype of each column ?',
+            'Are they missing values ?',
             'Other']
         query_text = st.selectbox('Select an example query:', question_list, disabled=not uploaded_file)
         openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
@@ -163,7 +163,7 @@ def main():
 
 
         # Create model, run the request and print the results
-        for plot_num, model_name:
+        for plot_num, model_name():
             with plots[plot_num]:
                 st.subheader(model_name)
                 try:
