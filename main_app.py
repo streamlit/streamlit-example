@@ -188,9 +188,9 @@ def main():
             # Place for plots depending on how many models
             plots = st.columns(model_count)
             # Get the primer for this dataset
-            primer1,primer2 = classes.primer(chosen_dataset,'datasets["'+ chosen_dataset + '"]')
+            primer1,primer2 = classes(chosen_dataset,'datasets["'+ chosen_dataset + '"]')
             # Format the question
-            question_to_ask = classes.format_question(primer1,primer2 , question)    
+            question_to_ask = classes.format_question(primer1,primer2, question)    
             # Create model, run the request and print the results
 
             # Create model, run the request and print the results
