@@ -13,6 +13,7 @@ from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 import requests
 import tabulate
+import openai
 import classes
 from langchain import OpenAI
 from langchain.docstore.document import Document
@@ -187,7 +188,7 @@ def main():
             # Place for plots depending on how many models
             plots = st.columns(model_count)
             # Get the primer for this dataset
-            primer1,primer2 = classes.primer(datasets[chosen_dataset],'datasets["'+ chosen_dataset + '"]')
+            primer1,primer2 = classes.primer(chosen_dataset,'datasets["'+ chosen_dataset + '"]')
             # Format the question
             question_to_ask = classes.format_question(primer1,primer2 , question)    
             # Create model, run the request and print the results
