@@ -160,6 +160,8 @@ def main():
         if openai_api_key.startswith('sk-') and (uploaded_file is not None):
             st.header('Output')
             generate_response(uploaded_file, query_text)
+        
+        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
 
         # Execute chatbot query
         if go_btn and model_count > 0:
