@@ -161,7 +161,7 @@ def main():
         dataset_container = st.empty()
 
             # Add facility to upload a dataset
-        uploaded_file = st.file_uploader(":computer: Load a CSV file:", type="csv")
+        uploaded_file = st.file_uploader(":computer: Load your dataset in a CSV format:", type="csv")
         index_no=0
         if uploaded_file is not None:
         # Read in the data, add it to the list of available datasets
