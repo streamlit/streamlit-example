@@ -13,6 +13,7 @@ from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 import requests
 import tabulate
+import classes
 
  
 
