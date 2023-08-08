@@ -161,15 +161,24 @@ def main():
             st.header('Output')
             generate_response(uploaded_file, query_text)
 
+        # Execute chatbot query
+        if go_btn and model_count > 0:
+            # Place for plots depending on how many models
+            plots = st.columns(model_count)
+            # Get the primer for this dataset
+            primer1,primer2 = classes.get_primer(datasets[chosen_dataset],'datasets["'+ chosen_dataset + '"]')
+            # Format the question
+            question_to_ask = classes.format_question(primer1,primer2 , question)    
+            # Create model, run the request and print the results
 
         # Create model, run the request and print the results
-        for plot_num:
+        for plot_num, model_type in enumerate(model_name):
             with plots[plot_num]:
                 st.subheader(model_name)
                 try:
                     # Run the question
                     answer=""
-                    answer = run_request(question_to_ask, available_models[model_type], key=my_key)
+                    answer = classes.run_request(question_to_ask, available_models[model_type], key=my_key)
                     # the answer is the completed Python script so add to the beginning of the script to it.
                     answer = primer2 + answer
                     plot_area = st.empty()
