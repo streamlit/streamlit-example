@@ -2,7 +2,7 @@ import streamlit as st
 
 # Define a dictionary of valid usernames and passwords
 VALID_USERS = {
-    'lukeisgreat': 'password1',
+    'user1': 'password1',
     'user2': 'password2',
     'user3': 'password3'
 }
@@ -10,10 +10,10 @@ VALID_USERS = {
 # Fake data for candidate profiles
 candidate_profiles = [
     {
-        'Name': 'John Doe',
+        'Name': 'Luke Singham',
         'Age': 30,
         'Experience': '5 years',
-        'Skills': 'Python, SQL, Machine Learning',
+        'Skills': 'Python, Data, Goldeneye, Mario Kart Battle',
         'Education': 'MSc in Computer Science'
     },
     {
