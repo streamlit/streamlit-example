@@ -8,3 +8,5 @@ openai
 classes
 tabulate
 tiktoken
+faiss-cpu
+pypdf2
