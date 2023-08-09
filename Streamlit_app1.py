@@ -23,14 +23,16 @@ def login():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
 
-    if st.button("Login"):
+    login_button = st.button("Login")
+
+    if login_button:
         if username in VALID_USERS and password == VALID_USERS[username]:
             st.success("Login successful!")
-            show_dashboard()
+            dashboard()
         else:
             st.error("Invalid username or password")
 
-def show_dashboard():
+def dashboard():
     st.title("Dashboard")
     st.write("Welcome to the Dashboard! Here are some fake numbers:")
 
