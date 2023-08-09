@@ -7,6 +7,15 @@ VALID_USERS = {
     'user3': 'password3'
 }
 
+# Fake data for the dashboard
+fake_data = {
+    'Total Sales': 123456,
+    'Profit': 54321,
+    'Expenses': 98765,
+    'Customers': 789,
+    'Products': 456
+}
+
 def login():
     st.title("Login Page")
 
@@ -17,9 +26,16 @@ def login():
     if st.button("Login"):
         if username in VALID_USERS and password == VALID_USERS[username]:
             st.success("Login successful!")
-            # You can redirect to another page or show other content here after successful login
+            show_dashboard()
         else:
             st.error("Invalid username or password")
+
+def show_dashboard():
+    st.title("Dashboard")
+    st.write("Welcome to the Dashboard! Here are some fake numbers:")
+
+    for metric, value in fake_data.items():
+        st.metric(label=metric, value=value)
 
 def main():
     login()
