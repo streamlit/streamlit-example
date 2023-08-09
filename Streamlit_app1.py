@@ -2,7 +2,7 @@ import streamlit as st
 
 # Define a dictionary of valid usernames and passwords
 VALID_USERS = {
-    'user1': 'password1',
+    'lukeisgreat': 'password1',
     'user2': 'password2',
     'user3': 'password3'
 }
