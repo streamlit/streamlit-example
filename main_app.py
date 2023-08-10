@@ -190,7 +190,6 @@ def main():
 
         #Single page summarization
         if page_selection == "Single page":
-            pages = loader.load_and_split()
             page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
             view = pages[page_number - 1]
             texts = text_splitter.split_text(view.page_content)
