@@ -21,7 +21,7 @@
   },
   "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade && sudo xargs apt install -y <packages.txt; pip3 install --user -r requirements.txt",
   "postAttachCommand": {
-    "server": "streamlit run streamlit_app.py --server.enableCORS false --server.enableXsrfProtection false"
+    "server": "ls;streamlit run streamlit_app.py --server.enableCORS false --server.enableXsrfProtection false"
   },
   "portsAttributes": {
     "8501": {
