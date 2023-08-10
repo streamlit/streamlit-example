@@ -176,6 +176,9 @@ def main():
         #Creating user interface
         pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
 
+        if not openai_api_key.startswith('sk-'):
+            st.warning('Please enter your OpenAI API key!', icon='⚠')
+
         #Initializing OpenAI and text spliter        
         openai_api_key = st.text_input('OpenAI API Key')
 
