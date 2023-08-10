@@ -163,9 +163,6 @@ def main():
         - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to have everything before everyone 💡 ! 
          ''')
-        
-        #Initializing OpenAI and text spliter        
-        openai_api_key = st.text_input('OpenAI API Key', type='password')
 
 
         
@@ -178,7 +175,10 @@ def main():
         )
 
         #Creating user interface
-        pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
+        pdf_file = st.file_uploader("Upload a PDF file", type="pdf", disabled=not openai_api_key)
+
+        #Initializing OpenAI and text spliter        
+        openai_api_key = st.text_input('OpenAI API Key', type='password')
 
         #Handling the uploaded pdf
         if pdf_file is not None:
