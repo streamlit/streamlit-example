@@ -234,7 +234,7 @@ def main():
             question = st.text_input("Enter your question", value="Enter your question here...")
             combined_content = ''.join([p.page_content for p in pages])
             texts = text_splitter.split_text(combined_content)
-            embedding = OpenAIEmbeddings(openai_api_key)
+            embedding = OpenAIEmbeddings(openai_api_key = st.text_input('OpenAI API Key'))
             document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
             chain = load_qa_chain(llm, chain_type="stuff")
             docs = document_search.similarity_search(question)
