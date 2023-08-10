@@ -1,4 +1,6 @@
 import streamlit as st
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Define a dictionary of valid usernames and passwords
 VALID_USERS = {
@@ -10,10 +12,10 @@ VALID_USERS = {
 # Fake data for candidate profiles
 candidate_profiles = [
     {
-        'Name': 'Luke Singham',
+        'Name': 'John Doe',
         'Age': 30,
         'Experience': '5 years',
-        'Skills': 'Python, Data, Goldeneye, Mario Kart Battle',
+        'Skills': 'Python, SQL, Machine Learning',
         'Education': 'MSc in Computer Science'
     },
     {
@@ -32,18 +34,25 @@ candidate_profiles = [
     }
 ]
 
+# Google Sheets setup
+SCOPE = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+CREDS = ServiceAccountCredentials.from_json_keyfile_name('path/to/your/credentials.json', SCOPE)
+CLIENT = gspread.authorize(CREDS)
+SHEET = CLIENT.open('Your Google Sheet Name')
+
 def login():
     st.title("Login Page")
 
-    # Input fields for username and password
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+    login_placeholder = st.empty()
+    username = login_placeholder.text_input("Username")
+    password = login_placeholder.text_input("Password", type="password")
 
-    login_button = st.button("Login")
+    login_button = login_placeholder.button("Login")
 
     if login_button:
         if username in VALID_USERS and password == VALID_USERS[username]:
             st.success("Login successful!")
+            login_placeholder.empty()
             dashboard()
         else:
             st.error("Invalid username or password")
@@ -76,7 +85,13 @@ def dashboard():
             'Education': education
         }
         candidate_profiles.append(new_profile)
+        write_to_google_sheet(new_profile)
         st.success("Profile uploaded successfully!")
+
+def write_to_google_sheet(profile):
+    worksheet = SHEET.get_worksheet(0)  # Assuming the data goes to the first worksheet
+    values = [profile['Name'], profile['Age'], profile['Experience'], profile['Skills'], profile['Education']]
+    worksheet.append_row(values)
 
 def main():
     login()
