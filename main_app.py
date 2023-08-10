@@ -184,7 +184,6 @@ def main():
 
         #Handling the uploaded pdf
         if pdf_file is not None:
-            pages = loader.load_and_split()
             with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
                 tmp_file.write(pdf_file.read())
                 pdf_path = tmp_file.name
@@ -194,6 +193,7 @@ def main():
 
 
         #User input for page selection
+        pages = loader.load_and_split()
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
 
         #Single page summarization
