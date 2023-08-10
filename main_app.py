@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
+
+###Chatbot Imports###
 from hugchat import hugchat
 from hugchat.login import Login
 from time import sleep
@@ -8,21 +10,23 @@ from hugchat_api import HuggingChat
 import os
 import streamlit as st
 import pandas as pd
+
+###Visualizer imports###
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
-import requests
-import tabulate
-import openai
-import classes
-from langchain import OpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
+
+###Summarizer imports###
+import tempfile
+import time
+from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
 from langchain.document_loaders import PyPDFLoader
-from langchain import PromptTemplate
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.chains.summarize import load_summarize_chain
+from langchain.vectorstores import FAISS
+from langchain.chains.question_answering import load_qa_chain
 
  
 
@@ -47,15 +51,6 @@ def main():
         PASSWD = st.secrets["DB_PASS"]
         COOKIE_STORE_PATH = "./usercookies"
 
-        #HUG= HuggingChat(max_thread=1)
-
-        #sign=HUG.getSign(EMAIL,PASSWD)
-        #try:
-        #    cookies=sign.login(save=True,cookie_dir_path=COOKIE_STORE_PATH)
-        #except Exception as e:
-        #    st.error(f"An error occurred during login: {str(e)}")
-        #    st.stop()
-        #cookies=sign.loadCookiesFromDir(cookie_dir_path=COOKIE_STORE_PATH)
 
         # Store LLM Generated responses
         if "messages" not in st.session_state:
@@ -167,6 +162,83 @@ def main():
         - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to have everything before everyone 💡 ! 
          ''')
+        
+        #Initializing OpenAI and text spliter
+        llm = OpenAI(openai_api_key = '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', temperature=0)
+        
+        #Split text using character text split so it should increase token size
+        text_splitter = CharacterTextSplitter(
+            separator= "\n",
+            chunk_size = 800,
+            chunk_overlap = 200,
+            length_function = len,
+        )
+
+        #Creating user interface
+        pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
+
+        #Handling the uploaded pdf
+        if pdf_file is not None:
+            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                tmp_file.write(pdf_file.read())
+                pdf_path = tmp_file.name
+                loader = PyPDFLoader(pdf_path)
+                pages = loader.load_and_split()
+
+        #User input for page selection
+        page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"])
+
+        #Single page summarization
+        if page_selection == "Single page":
+            page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
+            view = pages[page_number - 1]
+            texts = text_splitter.split_text(view.page_content)
+            docs = [Document(page_content=t) for t in texts]
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
+            summaries = chain.run(docs)
+
+            st.subheader("Summary")
+            st.write(summaries)
+
+        elif page_selection == "Page range":
+            start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
+            end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
+
+            texts = []
+            for page_number in range(start_page, end_page+1):
+                view = pages[page_number-1]
+                page_texts =text_splitter.split_text(view.page_content)
+                texts.extend(page_texts)
+            docs = [Document(page_content=t)for t in texts]
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
+            summaries = chain.run(docs)
+            st.subheader("Summary")
+            st.write(summaries)
+        
+        elif page_selection == "Overall Summary":
+            combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
+            texts = text_splitter.split_text(combined_content)
+            docs = [Document(page_content=t) for t in texts]
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
+            summaries = chain.run(docs)
+            st.subheader("Summary")
+            st.write(summaries)
+
+        #Question andd answering criterion
+        elif page_selection =="Question":
+            question = st.text_input("Enter your question", value="Enter your question here...")
+            combined_content = ''.join([p.page_content for p in pages])
+            texts = text_splitter.split_text(combined_content)
+            embedding = OpenAIEmbeddings(openai_api_key = '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')
+            document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
+            chain = load_qa_chain(llm, chain_type="stuff")
+            docs = document_search.similarity_search(question)
+            summaries = chain.run(input_documents=docs, question=question)
+            st.write(summaries)
+
+        else:
+            time.sleep(30)
+            st.warning("No PDF file uploaded!")
 
 
 
