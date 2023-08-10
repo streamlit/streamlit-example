@@ -13,4 +13,4 @@ pypdf2
 pypdf
 transformers
 tensorflow
-pytorch
+torch
