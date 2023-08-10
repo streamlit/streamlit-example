@@ -213,7 +213,7 @@ def main():
                 # st.write(result[0]['summary_text'])
                 st.write(text)
 
-        
+    #PDF Uploader function    
         #Split text using character text split so it should increase token size
         text_splitter = CharacterTextSplitter(
             separator= "\n",
