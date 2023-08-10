@@ -163,35 +163,6 @@ def main():
         - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to have everything before everyone 💡 ! 
          ''')
-        
-        def generate_response(txt):
-            # Instantiate the LLM model
-            llm = OpenAI(temperature=0, openai_api_key=openai_api_key)
-            ## Split text
-            text_splitter = CharacterTextSplitter()
-            texts = text_splitter.split_text(txt)
-            # Create multiple documents
-            docs = [Document(page_content=t) for t in texts]
-            # Text summarization
-            chain = load_summarize_chain(llm, chain_type='map_reduce')
-            return chain.run(docs)
-
-        # Text input
-        txt_input = st.text_area('Enter your text', '', height=200)
-
-        # Form to accept user's text input for summarization
-        result = []
-        with st.form('summarize_form', clear_on_submit=True):
-            #openai_api_key = st.text_input('OpenAI API Key', type = 'password', disabled=not txt_input)
-            submitted = st.form_submit_button('Submit')
-            if submitted:
-                with st.spinner('Calculating...'):
-                    response = generate_response(txt_input)
-                    result.append(response)
-                    del openai_api_key
-
-        if len(result):
-            st.info(response)
 
         
         #Split text using character text split so it should increase token size
