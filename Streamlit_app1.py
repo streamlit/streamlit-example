@@ -36,7 +36,7 @@ candidate_profiles = [
 
 # Google Sheets setup
 SCOPE = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-CREDS = ServiceAccountCredentials.from_json_keyfile_name('path/to/your/credentials.json', SCOPE)
+CREDS = ServiceAccountCredentials.from_json_keyfile_name('/Users/hectorstanley/Downloads/spring-395512-5bef0d0d2984.json', SCOPE)
 CLIENT = gspread.authorize(CREDS)
 SHEET = CLIENT.open('Your Google Sheet Name')
 
