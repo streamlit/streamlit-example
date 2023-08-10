@@ -185,8 +185,8 @@ def main():
         #Handling the uploaded pdf
         if pdf_file is not None:
             with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                tmp_file.write(pdf_file.read())
-                pdf_path = tmp_file.name
+                #tmp_file.write(pdf_file.read())
+                #pdf_path = tmp_file.name
                 #loader = PyPDFLoader(pdf_path)
                 #pages = loader.load_and_split()
                 llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
@@ -197,6 +197,8 @@ def main():
 
         #Single page summarization
         if page_selection == "Single page":
+            tmp_file.write(pdf_file.read())
+            pdf_path = tmp_file.name
             loader = PyPDFLoader(pdf_path)
             pages = loader.load_and_split()
             page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
