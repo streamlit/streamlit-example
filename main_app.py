@@ -20,6 +20,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 ###Summarizer imports###
 import tempfile
 import time
+import openai
 from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
