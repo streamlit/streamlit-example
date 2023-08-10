@@ -177,7 +177,7 @@ def main():
         pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
 
         #Initializing OpenAI and text spliter        
-        openai_api_key = st.text_input('OpenAI API Key')
+        openai_api_key = st.text_input('OpenAI API Key', type='password')
 
         if not openai_api_key.startswith('sk-'):
             st.warning('Please enter your OpenAI API key!', icon='⚠')
@@ -236,7 +236,7 @@ def main():
             question = st.text_input("Enter your question")
             combined_content = ''.join([p.page_content for p in pages])
             texts = text_splitter.split_text(combined_content)
-            embedding = OpenAIEmbeddings('OpenAI API Key')
+            embedding = OpenAIEmbeddings(openai_api_key = st.text_input('OpenAI API Key'))
             document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
             chain = load_qa_chain(llm, chain_type="stuff")
             docs = document_search.similarity_search(question)
