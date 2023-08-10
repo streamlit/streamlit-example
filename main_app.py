@@ -164,9 +164,8 @@ def main():
         - Stick with me until then to have everything before everyone 💡 ! 
          ''')
         
-        #Initializing OpenAI and text spliter
-        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-
+        #Initializing OpenAI and text spliter        
+        openai_api_key = st.text_input('OpenAI API Key', type='password')
 
 
         
@@ -188,7 +187,8 @@ def main():
                 pdf_path = tmp_file.name
                 loader = PyPDFLoader(pdf_path)
                 pages = loader.load_and_split()
-                openai_api_key = st.text_input('OpenAI API Key', type='password')
+                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+
 
         #User input for page selection
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
