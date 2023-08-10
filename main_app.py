@@ -214,7 +214,7 @@ def main():
                 st.write(text)
 
     #PDF Uploader function    
-        #Split text using character text split so it should increase token size
+        # Split text using character text split so it should increase token size
         text_splitter = CharacterTextSplitter(
             separator= "\n",
             chunk_size = 800,
