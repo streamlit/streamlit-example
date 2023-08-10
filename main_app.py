@@ -165,7 +165,10 @@ def main():
          ''')
         
         #Initializing OpenAI and text spliter
+        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
         openai_api_key = st.text_input('OpenAI API Key', type='password')
+
+
         
         #Split text using character text split so it should increase token size
         text_splitter = CharacterTextSplitter(
@@ -195,7 +198,7 @@ def main():
             view = pages[page_number - 1]
             texts = text_splitter.split_text(view.page_content)
             docs = [Document(page_content=t) for t in texts]
-            chain = load_summarize_chain(openai_api_key, chain_type="map_reduce")
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
             summaries = chain.run(docs)
 
             st.subheader("Summary")
@@ -211,7 +214,7 @@ def main():
                 page_texts =text_splitter.split_text(view.page_content)
                 texts.extend(page_texts)
             docs = [Document(page_content=t)for t in texts]
-            chain = load_summarize_chain(openai_api_key, chain_type="map_reduce")
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
             summaries = chain.run(docs)
             st.subheader("Summary")
             st.write(summaries)
@@ -220,7 +223,7 @@ def main():
             combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
             texts = text_splitter.split_text(combined_content)
             docs = [Document(page_content=t) for t in texts]
-            chain = load_summarize_chain(openai_api_key, chain_type="map_reduce")
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
             summaries = chain.run(docs)
             st.subheader("Summary")
             st.write(summaries)
@@ -232,7 +235,7 @@ def main():
             texts = text_splitter.split_text(combined_content)
             embedding = OpenAIEmbeddings(openai_api_key)
             document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
-            chain = load_qa_chain(openai_api_key, chain_type="stuff")
+            chain = load_qa_chain(llm, chain_type="stuff")
             docs = document_search.similarity_search(question)
             summaries = chain.run(input_documents=docs, question=question)
             st.write(summaries)
