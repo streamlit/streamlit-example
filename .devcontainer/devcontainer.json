@@ -20,7 +20,7 @@
     }
   },
   "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade && sudo xargs apt install -y <packages.txt; pip3 install --user -r requirements.txt",
-  "postCreateCommand": "git clone https://github.com/yourusername/your-repo.git /workspace/your-repo",
+  "postCreateCommand": "git clone https://github.com/tloen/alpaca-lora.git",
   "postAttachCommand": {
     "server": "streamlit run streamlit_app.py --server.enableCORS false --server.enableXsrfProtection false"
   },
