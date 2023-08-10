@@ -164,7 +164,7 @@ def main():
          ''')
         
         #Initializing OpenAI and text spliter
-        llm = OpenAI(openai_api_key = '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', temperature=0)
+        llm = OpenAI(openai_api_key = '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', temperature=0)
         
         #Split text using character text split so it should increase token size
         text_splitter = CharacterTextSplitter(
@@ -229,7 +229,7 @@ def main():
             question = st.text_input("Enter your question", value="Enter your question here...")
             combined_content = ''.join([p.page_content for p in pages])
             texts = text_splitter.split_text(combined_content)
-            embedding = OpenAIEmbeddings(openai_api_key = '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')
+            embedding = OpenAIEmbeddings(openai_api_key = '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')
             document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
             chain = load_qa_chain(llm, chain_type="stuff")
             docs = document_search.similarity_search(question)
