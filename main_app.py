@@ -165,7 +165,7 @@ def main():
         - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to have everything before everyone 💡 ! 
          ''')
-        #@st.cache_data(1)
+        #@st.cache_data()
         def load_summarizer():
             model = pipeline("summarization", device=0)
             return model
