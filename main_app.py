@@ -188,57 +188,57 @@ def main():
         #User input for page selection
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"])
 
-                #Single page summarization
-                if page_selection == "Single page":
-                    page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
-                    view = pages[page_number - 1]
-                    texts = text_splitter.split_text(view.page_content)
-                    docs = [Document(page_content=t) for t in texts]
-                    chain = load_summarize_chain(llm, chain_type="map_reduce")
-                    summaries = chain.run(docs)
+        #Single page summarization
+        if page_selection == "Single page":
+            page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
+            view = pages[page_number - 1]
+            texts = text_splitter.split_text(view.page_content)
+            docs = [Document(page_content=t) for t in texts]
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
+            summaries = chain.run(docs)
 
-                    st.subheader("Summary")
-                    st.write(summaries)
+            st.subheader("Summary")
+            st.write(summaries)
 
-                elif page_selection == "Page range":
-                    start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
-                    end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
+        elif page_selection == "Page range":
+            start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
+            end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
-                    texts = []
-                    for page_number in range(start_page, end_page+1):
-                        view = pages[page_number-1]
-                        page_texts =text_splitter.split_text(view.page_content)
-                        texts.extend(page_texts)
-                    docs = [Document(page_content=t)for t in texts]
-                    chain = load_summarize_chain(llm, chain_type="map_reduce")
-                    summaries = chain.run(docs)
-                    st.subheader("Summary")
-                    st.write(summaries)
-                
-                elif page_selection == "Overall Summary":
-                    combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
-                    texts = text_splitter.split_text(combined_content)
-                    docs = [Document(page_content=t) for t in texts]
-                    chain = load_summarize_chain(llm, chain_type="map_reduce")
-                    summaries = chain.run(docs)
-                    st.subheader("Summary")
-                    st.write(summaries)
+            texts = []
+            for page_number in range(start_page, end_page+1):
+                view = pages[page_number-1]
+                page_texts =text_splitter.split_text(view.page_content)
+                texts.extend(page_texts)
+            docs = [Document(page_content=t)for t in texts]
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
+            summaries = chain.run(docs)
+            st.subheader("Summary")
+            st.write(summaries)
+        
+        elif page_selection == "Overall Summary":
+            combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
+            texts = text_splitter.split_text(combined_content)
+            docs = [Document(page_content=t) for t in texts]
+            chain = load_summarize_chain(llm, chain_type="map_reduce")
+            summaries = chain.run(docs)
+            st.subheader("Summary")
+            st.write(summaries)
 
-                #Question andd answering criterion
-                elif page_selection =="Question":
-                    question = st.text_input("Enter your question", value="Enter your question here...")
-                    combined_content = ''.join([p.page_content for p in pages])
-                    texts = text_splitter.split_text(combined_content)
-                    embedding = OpenAIEmbeddings(openai_api_key = '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')
-                    document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
-                    chain = load_qa_chain(llm, chain_type="stuff")
-                    docs = document_search.similarity_search(question)
-                    summaries = chain.run(input_documents=docs, question=question)
-                    st.write(summaries)
+        #Question andd answering criterion
+        elif page_selection =="Question":
+            question = st.text_input("Enter your question", value="Enter your question here...")
+            combined_content = ''.join([p.page_content for p in pages])
+            texts = text_splitter.split_text(combined_content)
+            embedding = OpenAIEmbeddings(openai_api_key = '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')
+            document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
+            chain = load_qa_chain(llm, chain_type="stuff")
+            docs = document_search.similarity_search(question)
+            summaries = chain.run(input_documents=docs, question=question)
+            st.write(summaries)
 
-                else:
-                    time.sleep(30)
-                    st.warning("No PDF file uploaded!")
+        else:
+            time.sleep(30)
+            st.warning("No PDF file uploaded!")
 
 
 
