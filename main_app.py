@@ -189,7 +189,7 @@ def main():
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
 
         #Single page summarization
-        if page_selection == "Single page" disabled=not pdf_file:
+        if page_selection == "Single page":
             page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
             view = pages[page_number - 1]
             texts = text_splitter.split_text(view.page_content)
@@ -199,6 +199,7 @@ def main():
 
             st.subheader("Summary")
             st.write(summaries)
+            disabled=not pdf_file
 
         elif page_selection == "Page range":
             start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
