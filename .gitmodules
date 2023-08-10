@@ -1,0 +1,3 @@
+[submodule "alpaca-lora"]
+	path = alpaca-lora
+	url = ./alpaca-lora/
