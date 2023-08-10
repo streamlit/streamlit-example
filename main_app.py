@@ -186,7 +186,7 @@ def main():
                 pages = loader.load_and_split()
 
         #User input for page selection
-        page_selection = st.radio([ "Page selection", "Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
+        page_selection = st.radio(["Page selection", "Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
 
         #Single page summarization
         if page_selection == "Single page":
