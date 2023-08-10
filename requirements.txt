@@ -11,3 +11,4 @@ tiktoken
 faiss-cpu
 pypdf2
 pypdf
+transformers
