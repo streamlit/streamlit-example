@@ -199,7 +199,7 @@ def main():
 
             st.subheader("Summary")
             st.write(summaries)
-            disabled=not pdf_file
+            disabled=not page_selection
 
         elif page_selection == "Page range":
             start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
