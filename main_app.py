@@ -177,7 +177,7 @@ def main():
         pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
 
         #Initializing OpenAI and text spliter        
-        openai_api_key = st.text_input('OpenAI API Key', type='password')
+        openai_api_key = st.text_input('OpenAI API Key')
 
         #Handling the uploaded pdf
         if pdf_file is not None:
