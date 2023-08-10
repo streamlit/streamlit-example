@@ -189,7 +189,7 @@ def main():
                 pdf_path = tmp_file.name
                 loader = PyPDFLoader(pdf_path)
                 pages = loader.load_and_split()
-                llm = OpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
 
 
         #User input for page selection
