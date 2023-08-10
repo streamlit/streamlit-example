@@ -166,8 +166,8 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            model = pipeline("summarization", device=0)
-            return model
+            #model = pipeline("summarization", device=0)
+            #return model
 
 
         def generate_chunks(inp_str):
