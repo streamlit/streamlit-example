@@ -165,7 +165,7 @@ def main():
          ''')
         
         #Initializing OpenAI and text spliter
-        llm = OpenAI(openai_api_key = st.text_input('OpenAI API Key', type='password', temperature=0))
+        llm = OpenAI(openai_api_key = st.text_input('OpenAI API Key', type='password'), temperature=0)
         
         #Split text using character text split so it should increase token size
         text_splitter = CharacterTextSplitter(
