@@ -195,7 +195,7 @@ def main():
 
 
         summarizer = load_summarizer()
-        st.title("Summarize Text")
+        #st.title("Summarize Text")
         sentence = st.text_area('Please paste your article :', height=30)
         button = st.button("Summarize")
 
