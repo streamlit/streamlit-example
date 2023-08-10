@@ -192,8 +192,8 @@ def main():
                 llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
 
 
-        #User input for page selection
-        page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
+            #User input for page selection
+            page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
 
         #Single page summarization
         if page_selection == "Single page":
