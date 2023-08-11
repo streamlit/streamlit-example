@@ -23,6 +23,9 @@ import tempfile
 import time
 import openai
 import torch
+import requests
+from streamlit_lottie import st_lottie
+from streamlit_lottie import st_lottie_spinner
 from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
@@ -40,6 +43,19 @@ with st.sidebar:
     st.write('Developed By [Jordana](https://www.linkedin.com/in/manye-jordana-0315731b1)')
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
 page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
+
+def load_lottier(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+lottie_url_hello = "https://assets5.lottiefiles.com/packages/lf20_V9t630.json"
+lottie_url_download = "https://assets4.lottiefiles.com/private_files/lf30_t26law.json"
+lottie_hello = load_lottier(lottie_url_hello)
+lottie_download = load_lottier(lottie_url_download)
+
+st_lottie(lottie_hello, key="hello")
 
 #Hide main menu and footer
 hide_default_format = """
@@ -215,6 +231,10 @@ def main():
         do_sample = st.sidebar.checkbox("Do sample", value=False)
         with st.spinner("Generating Summary.."):
             if button and sentence:
+                with st_lottie_spinner(lottie_download, key="download"):
+                    time.sleep(5)
+                    st.balloons()
+
                 chunks = generate_chunks(sentence)
                 res = summarizer(chunks,
                                 max_length=max, 
