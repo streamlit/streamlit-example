@@ -148,7 +148,10 @@ def main():
         - Just Upload your dataset and ask your questions 💡 !
         ''')
         with st.sidebar:
-            st_lottie(lottie_download, key="chart")
+            #st_lottie(lottie_download, key="chart")
+            with st_lottie_spinner(lottie_download, key="download"):
+                    time.sleep(5)
+                    st.balloons()
 
         def load_csv(input_csv):
             df = pd.read_csv(input_csv)
