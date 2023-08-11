@@ -167,8 +167,9 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            model = pipeline("summarization", device=0)
-            return model
+            model_id = "tuner007/pegasus_summarizer"
+            mod = pipeline("summarization", model=model_id, device=0)
+            return mod
 
 
         def generate_chunks(inp_str):
