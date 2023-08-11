@@ -5,8 +5,7 @@ hugchat>=0.1.0
 hugchat_api
 langchain
 openai
-classes
-tabulate
+streamlit-lottie
 tiktoken
 faiss-cpu
 pypdf2
