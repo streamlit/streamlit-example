@@ -1,22 +1,8 @@
 import streamlit as st
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
-# Setting up Google Sheets API authentication
-def init_sheet():
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
-             "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
-    
-    creds = ServiceAccountCredentials.from_json_keyfile_name('/Users/hectorstanley/Downloads/spring-395512-5bef0d0d2984.json', scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("Your_Google_Sheet_Name").sheet1  # Change the sheet name accordingly
-    return sheet
-
-sheet = init_sheet()
-
 # Streamlit app starts here
-st.title("Streamlit Google Sheets Integration")
+st.title("Streamlit Form Demo")
 
 # Login Page (Simple authentication for demonstration, not secure for production)
 username = st.sidebar.text_input("Username")
@@ -39,8 +25,7 @@ if username == "admin" and password == "admin":  # For demo purpose, you can int
             submit = st.form_submit_button("Submit")
 
             if submit:
-                sheet.append_row([first_name, last_name, role_title, dev_goals, salary])
-                st.success("Data added to Google Sheet!")
+                st.success("Personal Information Submitted!")
 
     # Second Form: Role Information
     elif form_option == "Role Information":
@@ -53,8 +38,7 @@ if username == "admin" and password == "admin":  # For demo purpose, you can int
             submit = st.form_submit_button("Submit")
 
             if submit:
-                sheet.append_row([role_name, start_date, end_date, requirements, salary])
-                st.success("Data added to Google Sheet!")
+                st.success("Role Information Submitted!")
 else:
     st.sidebar.warning("Please enter username and password")
 
