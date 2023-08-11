@@ -319,12 +319,12 @@ def main():
             return None
         return r.json()
 
-    lottie_url_hello = "https://lottie.host/c82ba938-2193-472f-8d9b-a4ae676e34b0/5hNKV40V8E.json"
+    lottie_url_hello = "https://lottie.host/056f7af6-f742-4fd8-84ab-1f77690fe0eb/7HXVl4uGgU.json"
     lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
     lottie_hello = load_lottier(lottie_url_hello)
     lottie_download = load_lottier(lottie_url_download)
 
-    #st_lottie(lottie_hello, key="hello")
+    st_lottie(lottie_hello, key="hello")
 
 
 
