@@ -167,7 +167,7 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            summary = pipeline("summarization", model="facebook/bart-large-cnn", device=0)
+            summary = pipeline(task="summarization", model="t5-small", device=0)
             return summary
 
 
