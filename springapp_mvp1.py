@@ -8,7 +8,7 @@ def init_sheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
              "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
     
-    creds = ServiceAccountCredentials.from_json_keyfile_name(/Users/hectorstanley/Downloads/spring-395512-5bef0d0d2984.json, scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('/Users/hectorstanley/Downloads/spring-395512-5bef0d0d2984.json', scope)
     client = gspread.authorize(creds)
     sheet = client.open("Your_Google_Sheet_Name").sheet1  # Change the sheet name accordingly
     return sheet
