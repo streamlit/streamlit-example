@@ -41,6 +41,15 @@ with st.sidebar:
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
 page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
 
+#Hide main menu and footer
+hide_default_format = """
+    <style>
+    #MainMenu {visibility: hidden; }
+    footer {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_default_format, unsafe_allow_html=True)
+
 
 def main():
     def chatbot():
