@@ -43,4 +43,4 @@ else:
     st.sidebar.warning("Please enter username and password")
 
 if __name__ == "__main__":
-    st.write("Welcome to the Streamlit App!")
+    st.write("Thank you for completing the form")
