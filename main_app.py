@@ -219,7 +219,7 @@ def main():
         do_sample = st.sidebar.checkbox("Do sample", value=False)
         with st.spinner("Generating Summary.."):
             if button and sentence:
-                with st_lottie_spinner():
+                with st_lottie_spinner(lottie_download, key="download"):
                     time.sleep(5)
                     st.balloons()
 
@@ -320,7 +320,7 @@ def main():
         return r.json()
 
     lottie_url_hello = "https://lottie.host/c82ba938-2193-472f-8d9b-a4ae676e34b0/5hNKV40V8E.json"
-    lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
+    lottie_url_download = ""
     lottie_hello = load_lottier(lottie_url_hello)
     lottie_download = load_lottier(lottie_url_download)
 
