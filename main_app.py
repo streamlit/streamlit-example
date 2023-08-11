@@ -115,6 +115,7 @@ def main():
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
 
     def visualizer():
+        backgroundColor = "#F0F0F0"
         st.title("😊 AllVisuals 📈")
         st.markdown('''
         - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
