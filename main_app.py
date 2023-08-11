@@ -324,7 +324,7 @@ def main():
     lottie_hello = load_lottier(lottie_url_hello)
     lottie_download = load_lottier(lottie_url_download)
 
-    st_lottie(lottie_hello, key="hello")
+    #st_lottie(lottie_hello, key="hello")
 
 
 
