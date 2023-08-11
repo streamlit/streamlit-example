@@ -44,18 +44,6 @@ with st.sidebar:
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
 page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
 
-def load_lottier(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-lottie_url_hello = "https://lottie.host/c82ba938-2193-472f-8d9b-a4ae676e34b0/5hNKV40V8E.json"
-lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
-lottie_hello = load_lottier(lottie_url_hello)
-lottie_download = load_lottier(lottie_url_download)
-
-st_lottie(lottie_hello, key="hello")
 
 #Hide main menu and footer
 hide_default_format = """
@@ -325,7 +313,18 @@ def main():
             st.warning("No PDF file uploaded!")
 
 
+    def load_lottier(url: str):
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
 
+    lottie_url_hello = "https://lottie.host/c82ba938-2193-472f-8d9b-a4ae676e34b0/5hNKV40V8E.json"
+    lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
+    lottie_hello = load_lottier(lottie_url_hello)
+    lottie_download = load_lottier(lottie_url_download)
+
+    st_lottie(lottie_hello, key="hello")
 
 
 
