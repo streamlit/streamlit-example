@@ -148,7 +148,7 @@ def main():
         - Just Upload your dataset and ask your questions 💡 !
         ''')
         
-        st_lottie(lottie_download, key="chart")
+        #st_lottie(lottie_download, key="chart")
 
         def load_csv(input_csv):
             df = pd.read_csv(input_csv)
