@@ -42,6 +42,19 @@ with st.sidebar:
     ti=st.title("Welcome to 😃AllTalK💬!")
     st.write('Developed By [Jordana](https://www.linkedin.com/in/manye-jordana-0315731b1)')
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
+    
+    def load_lottier(url: str):
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+
+    lottie_url_hello = "https://lottie.host/056f7af6-f742-4fd8-84ab-1f77690fe0eb/7HXVl4uGgU.json"
+    lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
+    lottie_hello = load_lottier(lottie_url_hello)
+    lottie_download = load_lottier(lottie_url_download)
+
+    st_lottie(lottie_hello, key="hello")
 page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
 
 
@@ -311,20 +324,6 @@ def main():
         else:
             time.sleep(30)
             st.warning("No PDF file uploaded!")
-
-
-    def load_lottier(url: str):
-        r = requests.get(url)
-        if r.status_code != 200:
-            return None
-        return r.json()
-
-    lottie_url_hello = "https://lottie.host/056f7af6-f742-4fd8-84ab-1f77690fe0eb/7HXVl4uGgU.json"
-    lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
-    lottie_hello = load_lottier(lottie_url_hello)
-    lottie_download = load_lottier(lottie_url_download)
-
-    st_lottie(lottie_hello, key="hello")
 
 
 
