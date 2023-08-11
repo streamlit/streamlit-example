@@ -219,7 +219,7 @@ def main():
         do_sample = st.sidebar.checkbox("Do sample", value=False)
         with st.spinner("Generating Summary.."):
             if button and sentence:
-                with st_lottie_spinner(lottie_download, key="download"):
+                with st_lottie_spinner():
                     time.sleep(5)
                     st.balloons()
 
