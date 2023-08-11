@@ -167,7 +167,7 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            model_id = "tuner007/pegasus_summarizer"
+            model_id = "facebook/bart-large-cnnand"
             mod = pipeline("summarization", model=model_id, device=0)
             return mod
 
