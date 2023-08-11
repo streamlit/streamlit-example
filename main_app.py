@@ -167,7 +167,7 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            model = pipeline("summarization", model_name = 'tuner007/pegasus_summarizer', device=0)
+            model = pipeline("summarization", device=0)
             return model
 
 
