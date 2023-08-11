@@ -198,7 +198,7 @@ def main():
 
         summarizer = load_summarizer()
         #st.title("Summarize Text")
-        sentence = st.text_area('Input your text here++++++++++ :', height=200)
+        sentence = st.text_area('Input your text here:', height=200)
         button = st.button("Summarize")
 
         max = st.sidebar.slider('Select max', 50, 500, step=10, value=150)
