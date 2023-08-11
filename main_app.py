@@ -135,7 +135,7 @@ def main():
                         #Clear the chat input box
                         st.session_state.prompt = ""
                         #set the chat input box value to the assistant's response
-                        st.chat_input("Follow-up question", value=full_response)
+                        st.chat_input("Follow-up question", value="full_response")
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
                 except Exception as e:
                     st.error(f"An error occurred: {str(e)}")
