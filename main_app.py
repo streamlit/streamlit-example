@@ -44,16 +44,10 @@ with st.sidebar:
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
 page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
 
-def load_lottier(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
 
-lottie_url_hello = "https://assets5.lottiefiles.com/packages/lf20_V9t630.json"
-lottie_url_download = "https://assets4.lottiefiles.com/private_files/lf30_t26law.json"
-lottie_hello = load_lottier(lottie_url_hello)
-lottie_download = load_lottier(lottie_url_download)
+
+lottie_hello = "animation_ll7075vx.json"
+lottie_download = "animation_ll70kw1m.json"
 
 st_lottie(lottie_hello, key="hello")
 
