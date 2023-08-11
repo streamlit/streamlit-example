@@ -22,6 +22,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 import tempfile
 import time
 import openai
+import torch
 from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
@@ -167,7 +168,7 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            summary = pipeline(task="summarization", model="t5-small", device=0)
+            summary = pipeline(task="summarization", model="t5-small", device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
             return summary
 
 
@@ -197,7 +198,7 @@ def main():
 
         summarizer = load_summarizer()
         #st.title("Summarize Text")
-        sentence = st.text_area('Please paste your article :', height=30)
+        sentence = st.text_area('Input your text here :', height=200)
         button = st.button("Summarize")
 
         max = st.sidebar.slider('Select max', 50, 500, step=10, value=150)
