@@ -167,7 +167,7 @@ def main():
          ''')
         @st.cache_data()
         def load_summarizer():
-            model = pipeline("summarization", device=0)
+            model = pipeline('summarization')
             return model
 
 
