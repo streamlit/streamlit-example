@@ -12,10 +12,10 @@ if username == "admin" and password == "admin":  # For demo purpose, you can int
 
     st.header("Forms")
 
-    form_option = st.selectbox("Select Form", ["Personal Information", "Role Information"])
+    form_option = st.selectbox("Select Form", ["Candidate Info", "Placement Info"])
 
-    # First Form: Personal Information
-    if form_option == "Personal Information":
+    # First Form: Candidate Info
+    if form_option == "Candidate Info":
         with st.form("personal_info"):
             first_name = st.text_input("First Name")
             last_name = st.text_input("Last Name")
@@ -25,10 +25,10 @@ if username == "admin" and password == "admin":  # For demo purpose, you can int
             submit = st.form_submit_button("Submit")
 
             if submit:
-                st.success("Personal Information Submitted!")
+                st.success("Candidate Info Submitted!")
 
-    # Second Form: Role Information
-    elif form_option == "Role Information":
+    # Second Form: Placement Info
+    elif form_option == "Placement Info":
         with st.form("role_info"):
             role_name = st.text_input("Role Name")
             start_date = st.date_input("Start Date", datetime.now())
@@ -38,7 +38,7 @@ if username == "admin" and password == "admin":  # For demo purpose, you can int
             submit = st.form_submit_button("Submit")
 
             if submit:
-                st.success("Role Information Submitted!")
+                st.success("Placement Info Submitted!")
 else:
     st.sidebar.warning("Please enter username and password")
 
