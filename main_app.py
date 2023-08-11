@@ -50,7 +50,7 @@ with st.sidebar:
         return r.json()
 
     lottie_url_hello = "https://lottie.host/056f7af6-f742-4fd8-84ab-1f77690fe0eb/7HXVl4uGgU.json"
-    lottie_url_download = "https://lottie.host/c71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
+    lottie_url_download = "https://lottie.host/eac077c4-86e8-43b1-b41f-142af05db24d/SrwORZwZZV.json"
     lottie_hello = load_lottier(lottie_url_hello)
     lottie_download = load_lottier(lottie_url_download)
 
@@ -147,7 +147,9 @@ def main():
         - I produce answers and stunning visuals from the data you give me.
         - Just Upload your dataset and ask your questions 💡 !
         ''')
-        
+        with st.sidebar:
+            st_lottie(lottie_download, key="chart")
+
         def load_csv(input_csv):
             df = pd.read_csv(input_csv)
             with st.expander('See DataFrame'):
