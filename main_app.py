@@ -35,6 +35,7 @@ from transformers import pipeline
  
 
 with st.sidebar:
+    st.set_page_config(page_title="AllTalK")
     ti=st.title("Welcome to 😃AllTalK💬!")
     st.write('Developed By [Jordana](https://www.linkedin.com/in/manye-jordana-0315731b1)')
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
