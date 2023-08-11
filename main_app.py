@@ -320,7 +320,7 @@ def main():
         return r.json()
 
     lottie_url_hello = "https://lottie.host/c82ba938-2193-472f-8d9b-a4ae676e34b0/5hNKV40V8E.json"
-    lottie_url_download = ""
+    lottie_url_download = "https://lottie.host/71db42e-89bb-4836-8934-66ba321b5c63/rwHwFSqlSW.json"
     lottie_hello = load_lottier(lottie_url_hello)
     lottie_download = load_lottier(lottie_url_download)
 
