@@ -101,7 +101,7 @@ def main():
             cookies = sign.login()
             # Create ChatBot
             chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-            return chatbot.chat(dialogue_history)
+            return chatbot.chat("Hello!")
         
         # User-provided prompt
         if prompt := st.chat_input("How may I help you ?"):
@@ -117,7 +117,6 @@ def main():
         # Genrate a new response if last message not from the assistant(chatbot)
         if st.session_state.messages[-1]["role"] != "assistant":
             with st.chat_message("assistant"):
-                st.chat_input("Hello !")
                 with st.spinner("Thinking..."):
                     message_placeholder = st.empty()
                     full_response = ""
