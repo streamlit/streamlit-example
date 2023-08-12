@@ -104,7 +104,7 @@ def main():
             return chatbot.chat(dialogue_history)
         
         # User-provided prompt
-        if prompt := st.chat_input("Good Morning ?"):
+        if prompt := st.chat_input("How may I help you ?"):
             # Add user message to chat history
             st.session_state.messages.append({"role": "user", "content": prompt})
             # Append the dialogue history to the user's prompt
@@ -117,6 +117,7 @@ def main():
         # Genrate a new response if last message not from the assistant(chatbot)
         if st.session_state.messages[-1]["role"] != "assistant":
             with st.chat_message("assistant"):
+                st.chat_input("Hello !")
                 with st.spinner("Thinking..."):
                     message_placeholder = st.empty()
                     full_response = ""
