@@ -55,7 +55,7 @@ with st.sidebar:
     lottie_download = load_lottier(lottie_url_download)
 
     st_lottie(lottie_hello, key="hello")
-page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
+page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Analyser"))
 
 
 #Hide main menu and footer
@@ -142,7 +142,7 @@ def main():
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
 
     def visualizer():
-        st.title("😊 AllVisuals 📈")
+        st.title("😊 AllAnalysis 📈")
         st.markdown('''
         - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
         - I produce answers and stunning visuals from the data you give me.
@@ -331,7 +331,7 @@ def main():
         st.write("Please select the services")
     elif page == "AI ChatBot":
         chatbot()
-    elif page == "AI Visualizer":
+    elif page == "AI Analyser":
         visualizer()  
     else:
         summarizer()
