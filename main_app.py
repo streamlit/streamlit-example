@@ -331,7 +331,7 @@ def main():
         st.write("Please select the services")
     elif page == "AI ChatBot":
         chatbot()
-    elif page == "AI Analyser":
+    elif page == "AI Analyst":
         visualizer()  
     else:
         summarizer()
