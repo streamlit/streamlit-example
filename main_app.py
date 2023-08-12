@@ -91,7 +91,7 @@ def main():
         # Display  chat messages
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
-                st.markdown("Hello!")
+                st.markdown("Hello !")
 
 
         # Funtion genrating LLM response
@@ -104,7 +104,7 @@ def main():
             return chatbot.chat(dialogue_history)
         
         # User-provided prompt
-        if prompt := st.chat_input("Hello! how can i help ?"):
+        if prompt := st.chat_input("How can i help ?"):
             # Add user message to chat history
             st.session_state.messages.append({"role": "user", "content": prompt})
             # Append the dialogue history to the user's prompt
