@@ -106,7 +106,7 @@ def main():
         # User-provided prompt
         if prompt := st.chat_input("Hello! how can i help ?"):
             # Add user message to chat history
-            st.session_state.messages.append({"role": "user", "content": 'Hello'})
+            st.session_state.messages.append({"role": "user", "content": prompt})
             # Append the dialogue history to the user's prompt
             dialogue_history = "\n".join([message["content"] for message in st.session_state.messages])
             # Display user message in chat message container
