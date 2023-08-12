@@ -91,7 +91,7 @@ def main():
         # Display  chat messages
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+                st.markdown(message["Hello!"])
 
 
         # Funtion genrating LLM response
@@ -101,7 +101,6 @@ def main():
             cookies = sign.login()
             # Create ChatBot
             chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-            chatbot.chat.__name__("Hello")
             return chatbot.chat(dialogue_history)
         
         # User-provided prompt
