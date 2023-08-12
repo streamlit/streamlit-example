@@ -100,7 +100,7 @@ def main():
             sign = Login(EMAIL, PASSWD)
             cookies = sign.login()
             # Create ChatBot
-            chatbot = hugchat.ChatBot(prompt="Hello!",cookies=cookies.get_dict())
+            chatbot = hugchat.ChatBot("Hello!",cookies=cookies.get_dict())
             return chatbot.chat(dialogue_history)
         
         # User-provided prompt
