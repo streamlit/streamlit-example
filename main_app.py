@@ -55,7 +55,7 @@ with st.sidebar:
     lottie_download = load_lottier(lottie_url_download)
 
     st_lottie(lottie_hello, key="hello")
-page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Analyser"))
+page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Analyst"))
 
 
 #Hide main menu and footer
