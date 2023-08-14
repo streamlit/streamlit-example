@@ -13,3 +13,5 @@ pypdf
 transformers
 tensorflow
 torch
+google_trans_new
+typing
