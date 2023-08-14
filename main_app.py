@@ -11,6 +11,8 @@ from hugchat_api import HuggingChat
 import os
 import streamlit as st
 import pandas as pd
+from typing import Text
+from google_trans_new import google_translator
 
 ###Visualizer imports###
 from langchain.chat_models import ChatOpenAI
@@ -22,6 +24,10 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 import tempfile
 import time
 import openai
+import torch
+import requests
+from streamlit_lottie import st_lottie
+from streamlit_lottie import st_lottie_spinner
 from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
@@ -34,10 +40,35 @@ from transformers import pipeline
  
 
 with st.sidebar:
+    st.set_page_config(page_title="AllTalK")
     ti=st.title("Welcome to 😃AllTalK💬!")
     st.write('Developed By [Jordana](https://www.linkedin.com/in/manye-jordana-0315731b1)')
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
-page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Visualizer"))
+
+    
+    def load_lottier(url: str):
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+
+    lottie_url_hello = "https://lottie.host/056f7af6-f742-4fd8-84ab-1f77690fe0eb/7HXVl4uGgU.json"
+    lottie_url_download = "https://lottie.host/eac077c4-86e8-43b1-b41f-142af05db24d/SrwORZwZZV.json"
+    lottie_hello = load_lottier(lottie_url_hello)
+    lottie_download = load_lottier(lottie_url_download)
+
+    st_lottie(lottie_hello, key="hello")
+page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI Analyst"))
+
+
+#Hide main menu and footer
+hide_default_format = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_default_format, unsafe_allow_html=True)
 
 
 def main():
@@ -63,7 +94,7 @@ def main():
         # Display  chat messages
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+                st.markdown("Hello !")
 
 
         # Funtion genrating LLM response
@@ -76,7 +107,7 @@ def main():
             return chatbot.chat(dialogue_history)
         
         # User-provided prompt
-        if prompt := st.chat_input("How may I help you ?"):
+        if prompt := st.chat_input("How can i help ?"):
             # Add user message to chat history
             st.session_state.messages.append({"role": "user", "content": prompt})
             # Append the dialogue history to the user's prompt
@@ -107,20 +138,22 @@ def main():
                         #Clear the chat input box
                         st.session_state.prompt = ""
                         #set the chat input box value to the assistant's response
-                        st.chat_input("Follow-up question", value=full_response)
+                        #st.chat_input("Follow up question"value=full_response)
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
                 except Exception as e:
                     st.error(f"An error occurred: {str(e)}")
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
 
     def visualizer():
-        st.title("😊 AllVisuals 📈")
+        st.title("😊 AllAnalysis 📈")
         st.markdown('''
         - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
         - I produce answers and stunning visuals from the data you give me.
         - Just Upload your dataset and ask your questions 💡 !
         ''')
         
+        #st_lottie(lottie_download, key="chart")
+
         def load_csv(input_csv):
             df = pd.read_csv(input_csv)
             with st.expander('See DataFrame'):
@@ -158,7 +191,7 @@ def main():
 
 
     def summarizer():
-        st.title("😊 AllSummary 💬")
+        st.title("😊 AllSummary 🧾")
         st.markdown('''
         - Hey there i'm AllSummary 🧾, my name says it all, I summarize everything 😊.
         - text, pdf's, just write or upload your document and let me do the rest !
@@ -167,7 +200,8 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            mod = pipeline("summarization", model="facebook/bart-large-cnn", device=0)
+            model_id = "tuner007/pegasus_summarizer"
+            mod = pipeline("summarization", model=model_id, device=0)
             return mod
 
 
@@ -197,7 +231,7 @@ def main():
 
         summarizer = load_summarizer()
         #st.title("Summarize Text")
-        sentence = st.text_area('Please paste your article :', height=30)
+        sentence = st.text_area('Input your text here:', height=200)
         button = st.button("Summarize")
 
         max = st.sidebar.slider('Select max', 50, 500, step=10, value=150)
@@ -296,18 +330,16 @@ def main():
 
 
 
-
-
-
-
     if page == "Select":
         st.write("Please select the services")
     elif page == "AI ChatBot":
         chatbot()
-    elif page == "AI Visualizer":
+    elif page == "AI Analyst":
         visualizer()  
     else:
         summarizer()
+
   
 if __name__=='__main__':
     main()
+
