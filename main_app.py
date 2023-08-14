@@ -11,6 +11,8 @@ from hugchat_api import HuggingChat
 import os
 import streamlit as st
 import pandas as pd
+from typing import Text
+from google_trans_new import google_translator
 
 ###Visualizer imports###
 from langchain.chat_models import ChatOpenAI
