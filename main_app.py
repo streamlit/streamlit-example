@@ -328,11 +328,6 @@ def main():
             st.warning("No PDF file uploaded!")
 
 
-    with st.sidebar:
-        translator = google_translator()
-        text = st.text_input("tr")
-        translate = translator.translate(text, lang_tgt="fr")
-        st.write(translate)
 
 
     if page == "Select":
@@ -343,6 +338,13 @@ def main():
         visualizer()  
     else:
         summarizer()
+
+    with st.sidebar:
+        translator = google_translator()
+        text = chatbot()
+        translate = translator.translate(text, lang_tgt="fr")
+        st.write(translate)
   
 if __name__=='__main__':
     main()
+
