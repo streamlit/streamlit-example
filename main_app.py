@@ -328,11 +328,11 @@ def main():
             st.warning("No PDF file uploaded!")
 
 
-with st.sidebar:
-    translator = google_translator()
-    text = st.text_input("tr")
-    translate = translator.translate(text, lang_tgt="fr")
-    st.write(translate)
+    with st.sidebar:
+        translator = google_translator()
+        text = st.text_input("tr")
+        translate = translator.translate(text, lang_tgt="fr")
+        st.write(translate)
 
 
     if page == "Select":
