@@ -44,6 +44,7 @@ with st.sidebar:
     ti=st.title("Welcome to 😃AllTalK💬!")
     st.write('Developed By [Jordana](https://www.linkedin.com/in/manye-jordana-0315731b1)')
     st.markdown('For any enquiries contact me [here](https://myportfolio.com)!')
+
     
     def load_lottier(url: str):
         r = requests.get(url)
@@ -327,6 +328,11 @@ def main():
             st.warning("No PDF file uploaded!")
 
 
+with st.sidebar:
+    translator = google_translator()
+    text = st.text_input("tr")
+    translate = translator.translate(text, lang_tgt="fr")
+    st.write(translate)
 
 
     if page == "Select":
