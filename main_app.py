@@ -338,11 +338,6 @@ def main():
     else:
         summarizer()
 
-    with st.sidebar:
-        translator = google_translator()
-        text = st.text_input("tr")
-        translate = translator.translate(text, lang_tgt="fr")
-        st.write(translate)
   
 if __name__=='__main__':
     main()
