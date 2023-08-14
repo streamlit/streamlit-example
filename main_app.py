@@ -191,7 +191,7 @@ def main():
 
 
     def summarizer():
-        st.title("😊 AllSummary 💬")
+        st.title("😊 AllSummary 🧾")
         st.markdown('''
         - Hey there i'm AllSummary 🧾, my name says it all, I summarize everything 😊.
         - text, pdf's, just write or upload your document and let me do the rest !
