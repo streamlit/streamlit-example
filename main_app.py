@@ -330,16 +330,19 @@ def main():
 
 
 
-    if page == "Select":
-        st.write("Please select the services")
-    elif page == "AI ChatBot":
+    if page == "AI ChatBot":
         chatbot()
     elif page == "AI Analyst":
         visualizer()  
     else:
         summarizer()
 
-  
+
+
+    with st.sidebar:
+        if page == "Select":
+            st.write("Please select the services")  
+            
 if __name__=='__main__':
     main()
 
