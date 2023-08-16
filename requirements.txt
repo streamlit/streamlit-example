@@ -1,3 +1,9 @@
-altair
-pandas
-streamlit
+altair==4.2.2
+streamlit==1.22.0
+pandas==1.4.4
+dask==2023.5.1
+matplotlib==3.4.3
+statsmodels==0.14.0
+pmdarima==1.8.3
+numpy==1.21.0
+scikit-learn==0.24.2
