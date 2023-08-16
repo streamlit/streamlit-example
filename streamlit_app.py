@@ -7,7 +7,9 @@ import pyproj
 import io
 
 """
-# Welcome to Streamlit!
+# Coordinate transformation utility
+# Developed by Andre Broekman
+# Last modified: 2023-08-16
 
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
 
@@ -17,50 +19,14 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
-"""
-# Import libraries
-import pyproj  # https://pyproj4.github.io/pyproj/stable/examples.html
-import pandas as pd
-from time import time
-
-start_time = time()
-df = pd.read_csv('MN01 PANEL COORDINATES.csv')
-print('Imported data')
-points_x = df.loc[:, 'Coordinates - Survey: Point_X']
-points_y = df.loc[:, 'Coordinates - Survey: Point_Y']
-points_x /= 1000.0  # convert mm to m
-points_y /= 1000.0  # convert mm to m
-
-src_crs = pyproj.CRS('EPSG:7856')  # https://epsg.io/7856; GDA2020 / MGA zone 56
-target_crs = pyproj.CRS('EPSG:4979')  # WGS84; https://epsg.io/4979
-transformer = pyproj.Transformer.from_crs(src_crs, target_crs)  # the transformer
-
-points_x = points_x.values.tolist()
-points_y = points_y.values.tolist()
-ls_lon, ls_lat = transformer.transform(points_x, points_y)
-print('Completed transformations')
-
-# Assign new columns to the DataFrame
-df['Latitude'] = ls_lat
-df['Longitude'] = ls_lon
-
-# Save DataFrame to csv file
-df.to_csv('test_output.csv')
-print('Exported data to CSV')
-delta_time = time() - start_time
-print('Completed script in %.3f seconds' % delta_time)
-"""
-
 def main():
-    st.title("GPS Data Tool")
+    st.title("Data ingestion")
 
     # Create a file uploader widget
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 
     if uploaded_file is not None:
         # Read the uploaded CSV file
-        df = pd.read_csv(uploaded_file)
-
         df = pd.read_csv(uploaded_file)
 
         # Get the column names from the CSV file
@@ -104,6 +70,7 @@ def main():
                 file_name="transformed_data.csv",
                 mime="text/csv"
             )
+
 
 if __name__ == "__main__":
     main()
