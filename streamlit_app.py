@@ -4,7 +4,7 @@ import math
 import pandas as pd
 import streamlit as st
 import pyproj
-import base64
+import io
 
 """
 # Welcome to Streamlit!
@@ -94,11 +94,16 @@ def main():
 
         # Add a button to download the transformed data as CSV
         if st.button("Download Transformed CSV"):
-            transformed_csv = df.to_csv(index=False)
-            b64 = base64.b64encode(transformed_csv.encode()).decode()
-            href = f'<a href="data:file/csv;base64,{b64}" download="transformed_data.csv">Click here to download</a>'
-            st.markdown(href, unsafe_allow_html=True)
-
+            # Create a downloadable link without using base64
+            output = io.StringIO()
+            df.to_csv(output, index=False)
+            output.seek(0)
+            st.download_button(
+                label="Download Transformed CSV",
+                data=output,
+                file_name="transformed_data.csv",
+                mime="text/csv"
+            )
 
 if __name__ == "__main__":
     main()

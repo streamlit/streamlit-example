@@ -2,4 +2,3 @@ altair
 pandas
 streamlit
 pyproj
-base64
