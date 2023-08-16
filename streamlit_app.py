@@ -27,16 +27,19 @@ def main():
         column_names = df.columns.tolist()
 
         # Create dropdown menus for latitude and longitude column selection
+
         latitude_column = st.selectbox("Select Latitude Column", column_names)
         longitude_column = st.selectbox("Select Longitude Column", column_names)
-
-        points_x = df.loc[:, longitude_column].astype(float)
-        points_y = df.loc[:, latitude_column].astype(float)
-        points_x /= 1000.0  # convert mm to m
-        points_y /= 1000.0  # convert mm to m
-
         if st.button("Process data"):
-                
+
+            try:  # Streamlit throws errors before the use has even selected the columns they want to use
+                points_x = df.loc[:, longitude_column].astype(float)
+                points_y = df.loc[:, latitude_column].astype(float)
+                points_x /= 1000.0  # convert mm to m
+                points_y /= 1000.0  # convert mm to m
+            except:
+                pass
+
             src_crs = pyproj.CRS('EPSG:7856')  # https://epsg.io/7856; GDA2020 / MGA zone 56
             target_crs = pyproj.CRS('EPSG:4979')  # WGS84; https://epsg.io/4979
             transformer = pyproj.Transformer.from_crs(src_crs, target_crs)  # the transformer
