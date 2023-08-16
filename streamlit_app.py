@@ -35,35 +35,37 @@ def main():
         points_x /= 1000.0  # convert mm to m
         points_y /= 1000.0  # convert mm to m
 
-        src_crs = pyproj.CRS('EPSG:7856')  # https://epsg.io/7856; GDA2020 / MGA zone 56
-        target_crs = pyproj.CRS('EPSG:4979')  # WGS84; https://epsg.io/4979
-        transformer = pyproj.Transformer.from_crs(src_crs, target_crs)  # the transformer
+        if st.button("Process data"):
+                
+            src_crs = pyproj.CRS('EPSG:7856')  # https://epsg.io/7856; GDA2020 / MGA zone 56
+            target_crs = pyproj.CRS('EPSG:4979')  # WGS84; https://epsg.io/4979
+            transformer = pyproj.Transformer.from_crs(src_crs, target_crs)  # the transformer
 
-        points_x = points_x.values.tolist()
-        points_y = points_y.values.tolist()
-        ls_lon, ls_lat = transformer.transform(points_x, points_y)
+            points_x = points_x.values.tolist()
+            points_y = points_y.values.tolist()
+            ls_lon, ls_lat = transformer.transform(points_x, points_y)
 
-        df['Latitude'] = ls_lat
-        df['Longitude'] = ls_lon
+            df['Latitude'] = ls_lat
+            df['Longitude'] = ls_lon
 
-        # Perform your calculations on df (modify this part according to your calculations)
-        # Example: df['new_column'] = df['old_column'] * 2
+            # Perform your calculations on df (modify this part according to your calculations)
+            # Example: df['new_column'] = df['old_column'] * 2
 
-        st.subheader("Transformed Data")
-        st.dataframe(df)
+            st.subheader("Transformed Data")
+            st.dataframe(df)
 
-        # Add a button to download the transformed data as CSV
-        if st.button("Download Transformed CSV"):
-            # Create a downloadable link without using base64
-            output = io.StringIO()
-            df.to_csv(output, index=False)
-            output.seek(0)
-            st.download_button(
-                label="Download Transformed CSV",
-                data=output,
-                file_name="transformed_data.csv",
-                mime="text/csv"
-            )
+            # Add a button to download the transformed data as CSV
+            if st.button("Download Transformed CSV"):
+                # Create a downloadable link without using base64
+                output = io.StringIO()
+                df.to_csv(output, index=False)
+                output.seek(0)
+                st.download_button(
+                    label="Download Transformed CSV",
+                    data=output,
+                    file_name="transformed_data.csv",
+                    mime="text/csv"
+                )
 
 
 if __name__ == "__main__":
