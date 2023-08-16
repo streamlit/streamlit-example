@@ -3,6 +3,8 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import pyproj
+import base64
 
 """
 # Welcome to Streamlit!
@@ -15,24 +17,89 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
+"""
+# Import libraries
+import pyproj  # https://pyproj4.github.io/pyproj/stable/examples.html
+import pandas as pd
+from time import time
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+start_time = time()
+df = pd.read_csv('MN01 PANEL COORDINATES.csv')
+print('Imported data')
+points_x = df.loc[:, 'Coordinates - Survey: Point_X']
+points_y = df.loc[:, 'Coordinates - Survey: Point_Y']
+points_x /= 1000.0  # convert mm to m
+points_y /= 1000.0  # convert mm to m
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+src_crs = pyproj.CRS('EPSG:7856')  # https://epsg.io/7856; GDA2020 / MGA zone 56
+target_crs = pyproj.CRS('EPSG:4979')  # WGS84; https://epsg.io/4979
+transformer = pyproj.Transformer.from_crs(src_crs, target_crs)  # the transformer
 
-    points_per_turn = total_points / num_turns
+points_x = points_x.values.tolist()
+points_y = points_y.values.tolist()
+ls_lon, ls_lat = transformer.transform(points_x, points_y)
+print('Completed transformations')
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+# Assign new columns to the DataFrame
+df['Latitude'] = ls_lat
+df['Longitude'] = ls_lon
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+# Save DataFrame to csv file
+df.to_csv('test_output.csv')
+print('Exported data to CSV')
+delta_time = time() - start_time
+print('Completed script in %.3f seconds' % delta_time)
+"""
+
+def main():
+    st.title("GPS Data Tool")
+
+    # Create a file uploader widget
+    uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+
+    if uploaded_file is not None:
+        # Read the uploaded CSV file
+        df = pd.read_csv(uploaded_file)
+
+        df = pd.read_csv(uploaded_file)
+
+        # Get the column names from the CSV file
+        column_names = df.columns.tolist()
+
+        # Create dropdown menus for latitude and longitude column selection
+        latitude_column = st.selectbox("Select Latitude Column", column_names)
+        longitude_column = st.selectbox("Select Longitude Column", column_names)
+
+        points_x = df.loc[:, longitude_column]
+        points_y = df.loc[:, latitude_column]
+        points_x /= 1000.0  # convert mm to m
+        points_y /= 1000.0  # convert mm to m
+
+        src_crs = pyproj.CRS('EPSG:7856')  # https://epsg.io/7856; GDA2020 / MGA zone 56
+        target_crs = pyproj.CRS('EPSG:4979')  # WGS84; https://epsg.io/4979
+        transformer = pyproj.Transformer.from_crs(src_crs, target_crs)  # the transformer
+
+        points_x = points_x.values.tolist()
+        points_y = points_y.values.tolist()
+        ls_lon, ls_lat = transformer.transform(points_x, points_y)
+
+        df['Latitude'] = ls_lat
+        df['Longitude'] = ls_lon
+
+        # Perform your calculations on df (modify this part according to your calculations)
+        # Example: df['new_column'] = df['old_column'] * 2
+
+        st.subheader("Transformed Data")
+        st.dataframe(df)
+
+        # Add a button to download the transformed data as CSV
+        if st.button("Download Transformed CSV"):
+            transformed_csv = df.to_csv(index=False)
+            b64 = base64.b64encode(transformed_csv.encode()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="transformed_data.csv">Click here to download</a>'
+            st.markdown(href, unsafe_allow_html=True)
+
+
+if __name__ == "__main__":
+    main()
+
