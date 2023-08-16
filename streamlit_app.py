@@ -17,7 +17,7 @@ def main():
     st.title("Data ingestion")
 
     # Create a file uploader widget
-    uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+    uploaded_file = st.file_uploader("Upload your CSV file that contains geographic information", type=["csv"])
 
     if uploaded_file is not None:
         # Read the uploaded CSV file
@@ -30,8 +30,8 @@ def main():
         latitude_column = st.selectbox("Select Latitude Column", column_names)
         longitude_column = st.selectbox("Select Longitude Column", column_names)
 
-        points_x = df.loc[:, longitude_column]
-        points_y = df.loc[:, latitude_column]
+        points_x = df.loc[:, longitude_column].astype(float)
+        points_y = df.loc[:, latitude_column].astype(float)
         points_x /= 1000.0  # convert mm to m
         points_y /= 1000.0  # convert mm to m
 
