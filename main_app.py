@@ -62,7 +62,7 @@ page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI An
 #Hide main menu and footer
 hide_default_format = """
     <style>
-    
+    #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     </style>
 """
