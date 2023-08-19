@@ -86,13 +86,13 @@ def main():
 
         # Store LLM Generated responses
         if "messages" not in st.session_state:
-            st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
+            st.session_state.messages = [{"role": "assistant", "content": "Hey There !"}]
 
 
-        # Display  chat messages
+        # Display chat messages
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
-                st.markdown("Hello !")
+                st.markdown("content")
 
 
         # Funtion genrating LLM response
