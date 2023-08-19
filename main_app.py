@@ -92,7 +92,7 @@ def main():
         # Display chat messages
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
-                st.markdown("content")
+                st.markdown(["content"])
 
 
         # Funtion genrating LLM response
