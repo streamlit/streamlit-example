@@ -71,9 +71,9 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 def main():
     def chatbot():
-        st.title("😊 AllTalK 💬")
+        st.title("😊 ChitChat 💬")
         st.markdown('''
-        - Hey there i'm AllTalk 💬, your new AI friend 😊.
+        - Hey there i'm ChitChat 💬, your new AI friend 😊.
         - I may produce inacurate information about people, places, or facts
         - I have limited knowledge of the world and events after 2021 but i'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to be aware of everything before everyone 💡 ! 
@@ -143,9 +143,9 @@ def main():
                     st.session_state.messages.append({"role": "assistant", "content": f"An error occurred: {str(e)}"})
 
     def visualizer():
-        st.title("😊 AllAnalysis 📈")
+        st.title("😊 Analyst 📈")
         st.markdown('''
-        - Hey there i'm AllVisuals 📈, your new AI Exploratory data analyst 😊.
+        - Hey there i'm Analyst 📈, your new AI Exploratory data analyst 😊.
         - I produce answers and stunning visuals from the data you give me.
         - Just Upload your dataset and ask your questions 💡 !
         ''')
@@ -189,11 +189,11 @@ def main():
 
 
     def summarizer():
-        st.title("😊 AllSummary 🧾")
+        st.title("😊 CheatSheet 🧾")
         st.markdown('''
-        - Hey there i'm AllSummary 🧾, my name says it all, I summarize everything 😊.
+        - Hey there i'm CheatSheet 🧾, my name says it all, I have everything you need 😊.
         - text, pdf's, just write or upload your document and let me do the rest !
-        - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
+        - I'm trained to help you the best i can and soon with more training i'll be a DoItAll !
         - Stick with me until then to have everything before everyone 💡 ! 
          ''')
         #@st.cache_data()
