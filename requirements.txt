@@ -1,3 +1,5 @@
-altair
-pandas
 streamlit
+joblib
+pandas
+numpy
+scikit-learn
