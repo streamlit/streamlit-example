@@ -20,6 +20,7 @@ with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
     num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
 
+    text = st.text_input('Enter your text: ', 'John Doe')
     Point = namedtuple('Point', 'x y')
     data = []
 
@@ -36,3 +37,4 @@ with st.echo(code_location='below'):
     st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
         .mark_circle(color='#0068c9', opacity=0.5)
         .encode(x='x:Q', y='y:Q'))
+    st.write('Your name is ', text)
