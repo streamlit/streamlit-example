@@ -1,3 +1,7 @@
-altair
+scikit-learn
+streamlit-option-menu
+joblib
 pandas
-streamlit
+shap
+numpy
+matplotlib
