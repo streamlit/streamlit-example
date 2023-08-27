@@ -1,3 +1,55 @@
+# import streamlit as st
+
+# # Assuming you have a function that takes an image and returns similar image IDs
+# def get_similar_images(image):
+#     # Your similarity model logic here
+#     similar_image_ids = your_model(image)
+#     return similar_image_ids
+
+# # Assuming you have a function that retrieves the images based on their IDs
+# def get_image_by_id(image_id):
+#     # Your image retrieval logic here
+#     image = your_image_retrieval_function(image_id)
+#     return image
+
+# def main():
+#     st.title("Image Similarity Search")
+
+#     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+
+#     if uploaded_image is not None:
+#         # Process the uploaded image and get similar image IDs
+#         similar_image_ids = get_similar_images(uploaded_image)
+
+#         st.write(f"Found {len(similar_image_ids)} similar images.")
+
+#         images_per_page = 20
+#         num_pages = (len(similar_image_ids) + images_per_page - 1) // images_per_page
+
+#         page_num = st.slider("Select Page", min_value=1, max_value=num_pages)
+
+#         start_idx = (page_num - 1) * images_per_page
+#         end_idx = min(start_idx + images_per_page, len(similar_image_ids))
+
+#         for i in range(start_idx, end_idx):
+#             similar_image_id = similar_image_ids[i]
+#             similar_image = get_image_by_id(similar_image_id)
+#             st.image(similar_image, caption=f"Similar Image {i+1}", use_column_width=True)
+
+# if __name__ == "__main__":
+#     main()
+
+
+
+
+
+
+
+
+
+
+
+
 from collections import namedtuple
 import altair as alt
 import math
@@ -17,7 +69,8 @@ In the meantime, below is an example of what you can do with just a few lines of
 
 
 with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
+    
+    total_points = st.slider("Number of points in spiral HAAAAA", 1, 5000, 2000)
     num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
 
     Point = namedtuple('Point', 'x y')
