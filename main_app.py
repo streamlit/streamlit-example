@@ -74,8 +74,8 @@ def main():
         st.title("😊 ChitChat 💬")
         st.markdown('''
         - Hey there i'm ChitChat 💬, your new AI friend 😊.
-        - I may produce inacurate information about people, places, or facts
-        - I have limited knowledge of the world and events after 2021 but i'm trained to help you the best i can and soon with more training i'll be a knowItAll !
+        - I may produce inacurate information about people, places, or facts sometimes
+        - I'm trained to help you the best i can and soon with more training i'll be a knowItAll !
         - Stick with me until then to be aware of everything before everyone 💡 ! 
          ''')
             
