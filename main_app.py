@@ -295,75 +295,78 @@ def main():
         
 
         elif page_selection == "Page range":
-            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                tmp_file.write(pdf_file.read())
-                pdf_path = tmp_file.name
-                loader = PyPDFLoader(pdf_path)
-                pages = loader.load_and_split()
-                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
-                end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
+            if pdf_file is not None:
+                    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                        tmp_file.write(pdf_file.read())
+                        pdf_path = tmp_file.name
+                        loader = PyPDFLoader(pdf_path)
+                        pages = loader.load_and_split()
+                        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                        start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
+                        end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
-                texts = []
-                for page_number in range(start_page, end_page+1):
-                    view = pages[page_number-1]
-                    page_texts =text_splitter.split_text(view.page_content)
-                    texts.extend(page_texts)
-                docs = [Document(page_content=t)for t in texts]
-                chain = load_summarize_chain(llm, chain_type="map_reduce")
-                summaries = chain.run(docs)
-                st.subheader("Summary")
-                st.write(summaries)
-    
-        elif page_selection == "Overall Summary":
-            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                tmp_file.write(pdf_file.read())
-                pdf_path = tmp_file.name
-                loader = PyPDFLoader(pdf_path)
-                pages = loader.load_and_split()
-                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
-                texts = text_splitter.split_text(combined_content)
-                docs = [Document(page_content=t) for t in texts]
-                chain = load_summarize_chain(llm, chain_type="map_reduce")
-                summaries = chain.run(docs)
-                st.subheader("Summary")
-                st.write(summaries)
+                        texts = []
+                        for page_number in range(start_page, end_page+1):
+                            view = pages[page_number-1]
+                            page_texts =text_splitter.split_text(view.page_content)
+                            texts.extend(page_texts)
+                        docs = [Document(page_content=t)for t in texts]
+                        chain = load_summarize_chain(llm, chain_type="map_reduce")
+                        summaries = chain.run(docs)
+                        st.subheader("Summary")
+                        st.write(summaries)
+        
+            elif page_selection == "Overall Summary":
+                if pdf_file is not None:
+                    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                        tmp_file.write(pdf_file.read())
+                        pdf_path = tmp_file.name
+                        loader = PyPDFLoader(pdf_path)
+                        pages = loader.load_and_split()
+                        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                        combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
+                        texts = text_splitter.split_text(combined_content)
+                        docs = [Document(page_content=t) for t in texts]
+                        chain = load_summarize_chain(llm, chain_type="map_reduce")
+                        summaries = chain.run(docs)
+                        st.subheader("Summary")
+                        st.write(summaries)
 
-        #Question andd answering criterion
-        elif page_selection =="Question":
-            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                tmp_file.write(pdf_file.read())
-                pdf_path = tmp_file.name
-                loader = PyPDFLoader(pdf_path)
-                pages = loader.load_and_split()                    
-                #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                question = st.text_input("Enter your question")
-                combined_content = ''.join([p.page_content for p in pages])
-                texts = text_splitter.split_text(combined_content)
-                #embedding = OpenAIEmbeddings(llm)
-                embedding = HuggingFaceEmbeddings(
-                    model_name="Sentence-tranformers/all-MiniLM-L6-v2"
+            #Question andd answering criterion
+            elif page_selection =="Question":
+                if pdf_file is not None:
+                with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                    tmp_file.write(pdf_file.read())
+                    pdf_path = tmp_file.name
+                    loader = PyPDFLoader(pdf_path)
+                    pages = loader.load_and_split()                    
+                    #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                    question = st.text_input("Enter your question")
+                    combined_content = ''.join([p.page_content for p in pages])
+                    texts = text_splitter.split_text(combined_content)
+                    #embedding = OpenAIEmbeddings(llm)
+                    embedding = HuggingFaceEmbeddings(
+                        model_name="Sentence-tranformers/all-MiniLM-L6-v2"
+                        )
+                    db = Chroma.from_documents(texts, embedding, persist_directory="db")
+                    llm = GPT4ALL(
+                        model="./ggml-gpt4all-j-v1.3-groovy.bin",
+                        n_ctx=1000,
+                        backened="gptj",
+                        verbose=False 
+                        )
+                    chain = RetrievalQA.from_chain_type(
+                        llm=llm,
+                        chain_type="stuff",
+                        retriever = db.as_retriever(search_kwargs={"k": 3}),
+                        return_source_documents=True,
+                        verbose=False,
                     )
-                db = Chroma.from_documents(texts, embedding, persist_directory="db")
-                llm = GPT4ALL(
-                    model="./ggml-gpt4all-j-v1.3-groovy.bin",
-                    n_ctx=1000,
-                    backened="gptj",
-                    verbose=False 
-                    )
-                chain = RetrievalQA.from_chain_type(
-                    llm=llm,
-                    chain_type="stuff",
-                    retriever = db.as_retriever(search_kwargs={"k": 3}),
-                    return_source_documents=True,
-                    verbose=False,
-                )
-                document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
-                #chain = load_qa_chain(llm, chain_type="stuff")
-                docs = document_search.similarity_search(question)
-                summaries = chain.run(input_documents=docs, question=question)
-                st.write(summaries)
+                    document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
+                    #chain = load_qa_chain(llm, chain_type="stuff")
+                    docs = document_search.similarity_search(question)
+                    summaries = chain.run(input_documents=docs, question=question)
+                    st.write(summaries)
 
         else:
             time.sleep(30)
