@@ -160,7 +160,7 @@ def main():
         #st_lottie(lottie_download, key="chart")
 
         def load_csv(input_csv):
-            df = pd.read_csv(input_csv)
+            df = pd.read_csv(input_csv, sep=',', encoding='Latin-1')
             with st.expander('See DataFrame'):
                 st.write(df)
             return df
