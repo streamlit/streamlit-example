@@ -266,9 +266,10 @@ def main():
         #User input for page selection
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
 
+        global pages
+
         #Single page summarization
         if page_selection == "Single page":
-            global pages
             if pdf_file is not None:
                 with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
                     tmp_file.write(pdf_file.read())
@@ -302,7 +303,6 @@ def main():
             st.write(summaries)
         
         elif page_selection == "Overall Summary":
-            
             combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
             texts = text_splitter.split_text(combined_content)
             docs = [Document(page_content=t) for t in texts]
