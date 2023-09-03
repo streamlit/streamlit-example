@@ -324,15 +324,21 @@ def main():
 
         #Question andd answering criterion
         elif page_selection =="Question":
-            question = st.text_input("Enter your question")
-            combined_content = ''.join([p.page_content for p in pages])
-            texts = text_splitter.split_text(combined_content)
-            embedding = OpenAIEmbeddings(llm)
-            document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
-            chain = load_qa_chain(llm, chain_type="stuff")
-            docs = document_search.similarity_search(question)
-            summaries = chain.run(input_documents=docs, question=question)
-            st.write(summaries)
+            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                tmp_file.write(pdf_file.read())
+                pdf_path = tmp_file.name
+                loader = PyPDFLoader(pdf_path)
+                pages = loader.load_and_split()                    
+                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                question = st.text_input("Enter your question")
+                combined_content = ''.join([p.page_content for p in pages])
+                texts = text_splitter.split_text(combined_content)
+                embedding = OpenAIEmbeddings(llm)
+                document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
+                chain = load_qa_chain(llm, chain_type="stuff")
+                docs = document_search.similarity_search(question)
+                summaries = chain.run(input_documents=docs, question=question)
+                st.write(summaries)
 
         else:
             time.sleep(30)
