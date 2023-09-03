@@ -17,6 +17,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.llms import GPT4ALL
 
 ###Summarizer imports###
 import tempfile
@@ -329,7 +330,8 @@ def main():
                 pdf_path = tmp_file.name
                 loader = PyPDFLoader(pdf_path)
                 pages = loader.load_and_split()                    
-                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                llm = GPT4ALL(model="ggml-gpt4all-j-v1.3-groovy")
                 question = st.text_input("Enter your question")
                 combined_content = ''.join([p.page_content for p in pages])
                 texts = text_splitter.split_text(combined_content)
