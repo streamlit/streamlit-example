@@ -347,7 +347,7 @@ def main():
                     texts = text_splitter.split_text(combined_content)
                     #embedding = OpenAIEmbeddings(llm)
                     embedding = HuggingFaceEmbeddings(
-                        model_name="Sentence-tranformers/all-MiniLM-L6-v2"
+                        model_name="sentence-tranformers/all-MiniLM-L6-v2"
                         )
                     db = Chroma.from_documents(texts, embedding, persist_directory="db")
                     llm = GPT4ALL(
