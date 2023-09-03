@@ -338,17 +338,19 @@ def main():
                 loader = PyPDFLoader(pdf_path)
                 pages = loader.load_and_split()                    
                 #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                llm = GPT4ALL(
-                    model="./ggml-gpt4all-j-v1.3-groovy.bin")
                 question = st.text_input("Enter your question")
                 combined_content = ''.join([p.page_content for p in pages])
                 texts = text_splitter.split_text(combined_content)
                 #embedding = OpenAIEmbeddings(llm)
                 embedding = HuggingFaceEmbeddings(
-                    model_name="Sentence-tranformers/all-MiniLM-L6-v2",
+                    model_name="Sentence-tranformers/all-MiniLM-L6-v2"
+                    )
+                db = Chroma.from_documents(texts, embedding, persist_directory="db")
+                llm = GPT4ALL(
+                    model="./ggml-gpt4all-j-v1.3-groovy.bin",
                     n_ctx=1000,
                     backened="gptj",
-                    verbose=False
+                    verbose=False 
                     )
                 chain = RetrievalQA.from_chain_type(
                     llm=llm,
@@ -357,7 +359,6 @@ def main():
                     return_source_documents=True,
                     verbose=False,
                 )
-                db = Chroma.from_documents(texts, embedding, persist_directory="db")
                 document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
                 #chain = load_qa_chain(llm, chain_type="stuff")
                 docs = document_search.similarity_search(question)
