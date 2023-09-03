@@ -16,8 +16,7 @@ import pandas as pd
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.llms import GPT4ALL
+
 
 ###Summarizer imports###
 import tempfile
@@ -31,10 +30,18 @@ from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader
 from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from transformers import pipeline
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.llms import GPT4ALL
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA
+from pdf2image import convert_from_path
+
 
  
 
@@ -331,13 +338,28 @@ def main():
                 loader = PyPDFLoader(pdf_path)
                 pages = loader.load_and_split()                    
                 #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                llm = GPT4ALL(model="ggml-gpt4all-j-v1.3-groovy")
+                llm = GPT4ALL(
+                    model="./ggml-gpt4all-j-v1.3-groovy.bin")
                 question = st.text_input("Enter your question")
                 combined_content = ''.join([p.page_content for p in pages])
                 texts = text_splitter.split_text(combined_content)
-                embedding = OpenAIEmbeddings(llm)
+                #embedding = OpenAIEmbeddings(llm)
+                embedding = HuggingFaceEmbeddings(
+                    model_name="Sentence-tranformers/all-MiniLM-L6-v2",
+                    n_ctx=1000,
+                    backened="gptj",
+                    verbose=False
+                    )
+                chain = RetrievalQA.from_chain_type(
+                    llm=llm,
+                    chain_type="stuff",
+                    retriever = db.as_retriever(search_kwargs={"k": 3}),
+                    return_source_documents=True,
+                    verbose=False,
+                )
+                db = Chroma.from_documents(texts, embedding, persist_directory="db")
                 document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
-                chain = load_qa_chain(llm, chain_type="stuff")
+                #chain = load_qa_chain(llm, chain_type="stuff")
                 docs = document_search.similarity_search(question)
                 summaries = chain.run(input_documents=docs, question=question)
                 st.write(summaries)
