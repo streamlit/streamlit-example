@@ -291,7 +291,7 @@ def main():
                 tmp_file.write(pdf_file.read())
                 pdf_path = tmp_file.name
                 loader = PyPDFLoader(pdf_path)
-                pages = loader.load_and_plit()
+                pages = loader.load_and_split()
                 start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
                 end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
