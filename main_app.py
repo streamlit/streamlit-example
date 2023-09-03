@@ -37,11 +37,11 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from transformers import pipeline
 from langchain.embeddings.openai import OpenAIEmbeddings
-#from langchain.llms import GPT4ALL
+from langchain.llms import GPT4ALL
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-from pdf2image import convert_from_path
+
 
 
  
