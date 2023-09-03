@@ -330,9 +330,9 @@ def main():
                 summaries = chain.run(input_documents=docs, question=question)
                 st.write(summaries)
 
-            else:
-                time.sleep(30)
-                st.warning("No PDF file uploaded!")
+        else:
+            time.sleep(30)
+            st.warning("No PDF file uploaded!")
 
 
 
