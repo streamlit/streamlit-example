@@ -266,9 +266,7 @@ def main():
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
         
         
-        pdf_path = tmp_file.name
-        loader = PyPDFLoader(pdf_path)
-        pages = loader.load_and_split()
+
 
         #Single page summarization
         if page_selection == "Single page":
@@ -285,7 +283,10 @@ def main():
 
                     st.subheader("Summary")
                     st.write(summaries)
-        
+
+            pdf_path = tmp_file.name
+            loader = PyPDFLoader(pdf_path)
+            pages = loader.load_and_split()
 
         elif page_selection == "Page range":
             start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
