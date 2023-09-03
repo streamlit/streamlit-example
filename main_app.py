@@ -62,7 +62,6 @@ page=st.selectbox("WHAT I OFFER !",("Select","AI ChatBot","AI Summarizer","AI An
 #Hide main menu and footer
 hide_default_format = """
     <style>
-    #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     </style>
 """
@@ -274,7 +273,7 @@ def main():
                     tmp_file.write(pdf_file.read())
                     pdf_path = tmp_file.name
                     loader = PyPDFLoader(pdf_path)
-                    #pages = loader.load_and_split()
+                    pages = loader.load_and_split()
                     llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
                     page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
                     view = pages[page_number - 1]
@@ -288,7 +287,8 @@ def main():
 
 
         elif page_selection == "Page range":
-            pages = loader.load_and_split()
+            loader = PyPDFLoader(pdf_path)
+            pages = loader.load_and_split() 
             start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
             end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
