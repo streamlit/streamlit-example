@@ -294,43 +294,43 @@ def main():
                     st.write(summaries)
         
 
-        elif page_selection == "Page range":
-            if pdf_file is not None:
-                    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                        tmp_file.write(pdf_file.read())
-                        pdf_path = tmp_file.name
-                        loader = PyPDFLoader(pdf_path)
-                        pages = loader.load_and_split()
-                        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                        start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
-                        end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
-
-                        texts = []
-                        for page_number in range(start_page, end_page+1):
-                            view = pages[page_number-1]
-                            page_texts =text_splitter.split_text(view.page_content)
-                            texts.extend(page_texts)
-                        docs = [Document(page_content=t)for t in texts]
-                        chain = load_summarize_chain(llm, chain_type="map_reduce")
-                        summaries = chain.run(docs)
-                        st.subheader("Summary")
-                        st.write(summaries)
-        
-            elif page_selection == "Overall Summary":
+            elif page_selection == "Page range":
                 if pdf_file is not None:
-                    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                        tmp_file.write(pdf_file.read())
-                        pdf_path = tmp_file.name
-                        loader = PyPDFLoader(pdf_path)
-                        pages = loader.load_and_split()
-                        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
-                        combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
-                        texts = text_splitter.split_text(combined_content)
-                        docs = [Document(page_content=t) for t in texts]
-                        chain = load_summarize_chain(llm, chain_type="map_reduce")
-                        summaries = chain.run(docs)
-                        st.subheader("Summary")
-                        st.write(summaries)
+                        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                            tmp_file.write(pdf_file.read())
+                            pdf_path = tmp_file.name
+                            loader = PyPDFLoader(pdf_path)
+                            pages = loader.load_and_split()
+                            llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                            start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
+                            end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
+
+                            texts = []
+                            for page_number in range(start_page, end_page+1):
+                                view = pages[page_number-1]
+                                page_texts =text_splitter.split_text(view.page_content)
+                                texts.extend(page_texts)
+                            docs = [Document(page_content=t)for t in texts]
+                            chain = load_summarize_chain(llm, chain_type="map_reduce")
+                            summaries = chain.run(docs)
+                            st.subheader("Summary")
+                            st.write(summaries)
+            
+                elif page_selection == "Overall Summary":
+                    if pdf_file is not None:
+                        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                            tmp_file.write(pdf_file.read())
+                            pdf_path = tmp_file.name
+                            loader = PyPDFLoader(pdf_path)
+                            pages = loader.load_and_split()
+                            llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                            combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
+                            texts = text_splitter.split_text(combined_content)
+                            docs = [Document(page_content=t) for t in texts]
+                            chain = load_summarize_chain(llm, chain_type="map_reduce")
+                            summaries = chain.run(docs)
+                            st.subheader("Summary")
+                            st.write(summaries)
 
             #Question andd answering criterion
             elif page_selection =="Question":
