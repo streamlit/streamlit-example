@@ -333,7 +333,7 @@ def main():
                 question = st.text_input("Enter your question")
                 combined_content = ''.join([p.page_content for p in pages])
                 texts = text_splitter.split_text(combined_content)
-                embedding = OpenAIEmbeddings(llm)
+                embedding = OpenAIEmbeddings(model_name='gpt-3.5-turbo-0613')
                 document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
                 chain = load_qa_chain(llm, chain_type="stuff")
                 docs = document_search.similarity_search(question)
