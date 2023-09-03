@@ -186,7 +186,7 @@ def main():
             st.header('Output')
             generate_response(uploaded_file, query_text)
 
-    @st.cache
+    @st.cache_data
     def summarizer():
         st.title("😊 CheatSheet 🧾")
         st.markdown('''
