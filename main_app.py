@@ -304,6 +304,8 @@ def main():
             st.write(summaries)
         
         elif page_selection == "Overall Summary":
+            loader = PyPDFLoader(pdf_path)
+            pages = loader.load_and_split() 
             combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
             texts = text_splitter.split_text(combined_content)
             docs = [Document(page_content=t) for t in texts]
