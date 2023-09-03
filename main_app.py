@@ -252,13 +252,19 @@ def main():
             length_function = len,
         )
 
+        #Creating user interface
+        pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
 
+        #Initializing OpenAI and text spliter        
+        openai_api_key = st.text_input('OpenAI API Key', type='password')
+
+        if not openai_api_key.startswith('sk-'):
+            st.warning('Please enter your OpenAI API key!', icon='⚠')
 
         #User input for page selection
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"], disabled=not pdf_file)
         
         
-
 
         #Single page summarization
         if page_selection == "Single page":
@@ -278,15 +284,6 @@ def main():
 
                     st.subheader("Summary")
                     st.write(summaries)
-
-        #Creating user interface
-        pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
-
-        #Initializing OpenAI and text spliter        
-        openai_api_key = st.text_input('OpenAI API Key', type='password')
-
-        if not openai_api_key.startswith('sk-'):
-            st.warning('Please enter your OpenAI API key!', icon='⚠')
         
 
         elif page_selection == "Page range":
