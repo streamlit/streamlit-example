@@ -254,7 +254,7 @@ def main():
     #PDF Uploader function    
         # Split text using character text split so it should increase token size
         text_splitter = RecursiveCharacterTextSplitter(
-            separator= "\n",
+            #separator= "\n",
             chunk_size = 800,
             chunk_overlap = 200,
             length_function = len,
