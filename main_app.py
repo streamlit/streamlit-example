@@ -292,6 +292,7 @@ def main():
                 pdf_path = tmp_file.name
                 loader = PyPDFLoader(pdf_path)
                 pages = loader.load_and_split()
+                llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
                 start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
                 end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
