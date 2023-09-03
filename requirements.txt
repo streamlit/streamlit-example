@@ -14,3 +14,4 @@ transformers
 tensorflow
 torch
 pdf2image
+tabulate
