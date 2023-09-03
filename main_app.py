@@ -205,7 +205,7 @@ def main():
          ''')
         #@st.cache_data()
         def load_summarizer():
-            summary = pipeline(task="summarization", model="t5-small", device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+            summary = pipeline(task="summarization", model="t5-small", device=torch.device('cuda' if torch.cuda.is_available() else "cpu"))
             return summary
 
 
