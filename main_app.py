@@ -273,7 +273,9 @@ def main():
             if pdf_file is not None:
                 with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
                     tmp_file.write(pdf_file.read())
-                    llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                    pdf_path = tmp_file.name
+                    loader = PyPDFLoader(pdf_path)
+                    pages = loader.load_and_split()                    llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
                     page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
                     view = pages[page_number - 1]
                     texts = text_splitter.split_text(view.page_content)
@@ -283,12 +285,13 @@ def main():
 
                     st.subheader("Summary")
                     st.write(summaries)
-
-            pdf_path = tmp_file.name
-            loader = PyPDFLoader(pdf_path)
-            pages = loader.load_and_split()
+        
 
         elif page_selection == "Page range":
+            tmp_file.write(pdf_file.read())
+            pdf_path = tmp_file.name
+            loader = PyPDFLoader(pdf_path)
+            pages = loader.load_and_split()   
             start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
             end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
