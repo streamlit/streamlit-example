@@ -351,7 +351,7 @@ def main():
                         )
                     db = Chroma.from_documents(texts, embedding, persist_directory="db")
                     llm = GPT4ALL(
-                        model="./ggml-gpt4all-j-v1.3-groovy.bin",
+                        model=r"C:/Users/johnd/Downloads/ggml-model-gpt4all-falcon-q4_0.bin",
                         n_ctx=1000,
                         backened="gptj",
                         verbose=False 
