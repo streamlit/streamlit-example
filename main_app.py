@@ -17,7 +17,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 import tabulate
-import sentence_transformers
+from sentence_transformers import SentenceTransformer
 import sentencepiece
 #from pygpt4all import GPT4All
 
