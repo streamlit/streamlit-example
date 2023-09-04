@@ -17,6 +17,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 import tabulate
+#from pygpt4all import GPT4All
 
 
 ###Summarizer imports###
@@ -37,7 +38,7 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from transformers import pipeline
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.llms import GPT4ALL
+from langchain.llms import GPT4All
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
@@ -350,7 +351,7 @@ def main():
                         model_name="sentence-tranformers/all-MiniLM-L6-v2"
                         )
                     db = Chroma.from_documents(texts, embedding, persist_directory="db")
-                    llm = GPT4ALL(
+                    llm = GPT4All(
                         model=r"C:/Users/johnd/Downloads/ggml-model-gpt4all-falcon-q4_0.bin",
                         n_ctx=1000,
                         backened="gptj",
