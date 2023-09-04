@@ -15,4 +15,6 @@ tensorflow
 torch
 pdf2image
 tabulate
+sentencepiece
 sentence_transformers
+sentence-transformers
