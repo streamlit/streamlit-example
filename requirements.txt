@@ -15,3 +15,4 @@ tensorflow
 torch
 pdf2image
 tabulate
+sentence_transformers
