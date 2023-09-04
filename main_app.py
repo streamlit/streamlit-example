@@ -20,7 +20,7 @@ import tabulate
 from sentence_transformers import SentenceTransformer
 import sentencepiece
 #from pygpt4all import GPT4All
-
+import sys
 
 ###Summarizer imports###
 import tempfile
@@ -47,7 +47,7 @@ from langchain.chains import RetrievalQA
 
 
 
- 
+sys.path.append("c:/users/johnd/appdata/local/programs/python/python310/lib/site-packages") 
 
 with st.sidebar:
     st.set_page_config(page_title="AllTalK")
