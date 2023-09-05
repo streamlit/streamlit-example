@@ -276,7 +276,7 @@ def main():
             st.warning('No OpenAI API key! availaible !', icon='⚠')
 
         #User input for page selection
-        page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"])
+        page_selection = st.radio("Page selection", ["None","Single page", "Page range", "Overall Summary", "Question"])
         
         
 
