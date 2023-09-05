@@ -269,10 +269,11 @@ def main():
         pdf_file = st.file_uploader("Upload a PDF file", type="pdf")
 
         #Initializing OpenAI and text spliter        
-        openai_api_key = st.text_input('OpenAI API Key', type='password')
+        #openai_api_key = st.text_input('OpenAI API Key', type='password')
+        openai.api_key = st.secrets['OPENAI_API_KEY']
 
-        if not openai_api_key.startswith('sk-'):
-            st.warning('Please enter your OpenAI API key!', icon='⚠')
+        if not openai.api_key.startswith('sk-'):
+            st.warning('No OpenAI API key! availaible !', icon='⚠')
 
         #User input for page selection
         page_selection = st.radio("Page selection", ["Single page", "Page range", "Overall Summary", "Question"])
@@ -287,7 +288,7 @@ def main():
                     pdf_path = tmp_file.name
                     loader = PyPDFLoader(pdf_path)
                     pages = loader.load_and_split()                    
-                    llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.2, openai_api_key=openai_api_key)
+                    llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.2, openai_api_key=openai.api_key)
                     page_number = st.number_input("Enter page number", min_value=1, max_value=len(pages), value=1, step=1)
                     view = pages[page_number - 1]
                     texts = text_splitter.split_text(view.page_content)
@@ -306,7 +307,7 @@ def main():
                         pdf_path = tmp_file.name
                         loader = PyPDFLoader(pdf_path)
                         pages = loader.load_and_split()
-                        llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                        llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.2, openai_api_key=openai.api_key)
                         start_page = st.number_input("Enter start page", min_value=1, max_value=len(pages), value=1, step=1)
                         end_page = st.number_input("Enter end page", min_value=start_page, max_value=len(pages), value=start_page, step=1)
 
@@ -328,7 +329,7 @@ def main():
                     pdf_path = tmp_file.name
                     loader = PyPDFLoader(pdf_path)
                     pages = loader.load_and_split()
-                    llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                    llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.2, openai_api_key=openai.api_key)
                     combined_content = ''.join([p.page_content for p in pages]) #Get entire page data
                     texts = text_splitter.split_text(combined_content)
                     docs = [Document(page_content=t) for t in texts]
@@ -345,30 +346,30 @@ def main():
                     pdf_path = tmp_file.name
                     loader = PyPDFLoader(pdf_path)
                     pages = loader.load_and_split()                    
-                    #llm = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.2, openai_api_key=openai_api_key)
+                    llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.2, openai_api_key=openai.api_key)
                     question = st.text_input("Enter your question")
                     combined_content = ''.join([p.page_content for p in pages])
                     texts = text_splitter.split_text(combined_content)
-                    #embedding = OpenAIEmbeddings(llm)
-                    embedding = HuggingFaceEmbeddings(
-                        model_name=SentenceTransformer('all-MiniLM-L6-v2')
-                        )
-                    db = Chroma.from_documents(texts, embedding, persist_directory="db")
-                    llm = GPT4All(
-                        model=r"C:/Users/johnd/Downloads/ggml-model-gpt4all-falcon-q4_0.bin",
-                        n_ctx=1000,
-                        backened="gptj",
-                        verbose=False 
-                        )
-                    chain = RetrievalQA.from_chain_type(
-                        llm=llm,
-                        chain_type="stuff",
-                        retriever = db.as_retriever(search_kwargs={"k": 3}),
-                        return_source_documents=True,
-                        verbose=False,
-                    )
+                    embedding = OpenAIEmbeddings(openai_api_key=openai.api_key)
+                    #embedding = HuggingFaceEmbeddings(
+                    #    model_name=SentenceTransformer('all-MiniLM-L6-v2')
+                    #    )
+                    #db = Chroma.from_documents(texts, embedding, persist_directory="db")
+                    #llm = GPT4All(
+                    #    model=r"C:/Users/johnd/Downloads/ggml-model-gpt4all-falcon-q4_0.bin",
+                    #    n_ctx=1000,
+                    #    backened="gptj",
+                    #    verbose=False 
+                    #    )
+                    #chain = RetrievalQA.from_chain_type(
+                    #    llm=llm,
+                    #    chain_type="stuff",
+                    #    retriever = db.as_retriever(search_kwargs={"k": 3}),
+                    #    return_source_documents=True,
+                    #    verbose=False,
+                    #)
                     document_search = FAISS.from_texts(texts, embedding) #FAISS for efficient search of simlarity and clustering
-                    #chain = load_qa_chain(llm, chain_type="stuff")
+                    chain = load_qa_chain(llm, chain_type="stuff")
                     docs = document_search.similarity_search(question)
                     summaries = chain.run(input_documents=docs, question=question)
                     st.write(summaries)
