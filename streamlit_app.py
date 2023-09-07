@@ -1,22 +1,3 @@
-import streamlit as st
-from langchain.llms import OpenAI
-import os
-from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser
-from langchain.prompts import StringPromptTemplate
-
-from langchain import OpenAI, LLMChain
-from langchain.tools import DuckDuckGoSearchRun 
-
-from typing import List, Union
-from langchain.schema import AgentAction, AgentFinish
-import re
-import langchain
-import random
-import time
-
-# .streamlit/secrets.toml
-OPENAI_API_KEY = "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"
-
 import openai
 import streamlit as st
 
@@ -54,3 +35,4 @@ if prompt := st.chat_input("What is up?"):
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+
