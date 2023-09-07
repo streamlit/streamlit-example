@@ -1,14 +1,35 @@
 import streamlit as st
 from langchain.llms import OpenAI
+import os
+from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser
+from langchain.prompts import StringPromptTemplate
+
+from langchain import OpenAI, LLMChain
+from langchain.tools import DuckDuckGoSearchRun 
+
+from typing import List, Union
+from langchain.schema import AgentAction, AgentFinish
+import re
+import langchain
+
+
 
 st.title('🦜🔗 Quickstart App')
 
 openai_api_key = st.sidebar.text_input('OpenAI API Key')
 
+import streamlit as st
+
+with st.chat_message("user"):
+    st.write("Hello 👋")
+  
 def generate_response(input_text):
   llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
   st.info(llm(input_text))
 
+  
+
+'''
 with st.form('my_form'):
   text = st.text_area('Enter text:', 'What are the three key pieces of advice for learning how to code?')
   submitted = st.form_submit_button('Submit')
@@ -16,3 +37,4 @@ with st.form('my_form'):
     st.warning('Please enter your OpenAI API key!', icon='⚠')
   if submitted and openai_api_key.startswith('sk-'):
     generate_response(text)
+'''
