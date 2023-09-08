@@ -17,9 +17,13 @@ In the meantime, below is an example of what you can do with just a few lines of
 
 
 with st.echo(code_location='below'):
-    src_3d = "<iframe class=\"embed-responsive-item\" src=\"https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357\" width=\"580\" height=\"326\" allowfullscreen></iframe>"
+    src_3d = "<iframe class=\"embed-responsive-item\" src=\"https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357\" allowfullscreen></iframe>"
+    image_html_block = "<div class=\"col-lg-6 card my-2 px-3\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
     
-    test_iframe = st.components.v1.html(src_3d, width=None, height=None, scrolling=False)
+    test_iframe = st.components.v1.html(src_3d, width=580, height=326, scrolling=False)
+
+    test_image = st.components.v1.html(image_html_block, width=580, height=326, scrolling=False)
+    
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
     num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
 
