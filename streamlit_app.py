@@ -17,8 +17,8 @@ In the meantime, below is an example of what you can do with just a few lines of
 
 
 with st.echo(code_location='below'):
-    src_3d = "<iframe class=\"embed-responsive-item\" src=\"https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357\" allowfullscreen></iframe>"
-    image_html_block = "<div class=\"col-lg-6 card my-2 px-3\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
+    src_3d = "<iframe class=\"embed-responsive-item\" style=\"width: max-content;\" src=\"https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357\" allowfullscreen></iframe>"
+    image_html_block = "<div class=\"col-lg-6 card my-2 px-3\" style=\"width: max-content;\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
     
     test_iframe = st.components.v1.html(src_3d, width=580, height=326, scrolling=False)
 
