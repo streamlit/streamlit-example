@@ -17,7 +17,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 
 
 with st.echo(code_location='below'):
-    src_3d = "https://app.sketchup.com/viewer/3dw?WarehouseModelId=9658ccab-6ac3-4b89-a23f-635206942357"
+    src_3d = "<iframe class=\"embed-responsive-item\" src=\"https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357\" width=\"580\" height=\"326\" allowfullscreen></iframe>"
     
     test_iframe = st.components.v1.html(src_3d, width=None, height=None, scrolling=False)
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
