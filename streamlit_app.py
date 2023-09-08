@@ -4,7 +4,7 @@ import openai
 st.title("Daniel's chatbot")
 
 # Set OpenAI API key from Streamlit secrets
-openai.api_key = "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"
+openai.api_key = "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"
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
