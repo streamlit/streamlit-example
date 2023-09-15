@@ -29,6 +29,7 @@ with st.echo(code_location='below'):
 
     for curr_point_num in range(total_points):
         curr_turn, i = divmod(curr_point_num, points_per_turn)
+        # original ist 2 statt 3
         angle = (curr_turn + 1) * 3 * math.pi * i / points_per_turn
         radius = curr_point_num / total_points
         x = radius * math.cos(angle)
