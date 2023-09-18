@@ -68,17 +68,3 @@ st.write(df[['Zn', 'k']].describe().round(2))
 st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 st.write(df['Tar'].describe().round(2))
 
-# import shapefile
-
-st.empty()
-my_bar = st.progress(0)
-for i in range(100):
-    my_bar.progress(i + 1)
-    time.sleep(0.1)
-n_elts = int(time.time() * 10) % 5 + 3
-for i in range(n_elts):
-    st.text("." * i)
-st.write(n_elts)
-for i in range(n_elts):
-    st.text("." * i)
-st.success("done")
