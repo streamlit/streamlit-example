@@ -38,6 +38,4 @@ df = df[['NDA', 'Dia', 'Mes', 'Ano', 'Hora', 'hora_min', 'h', 'Declinacao solar'
 st.write(df)
 
 st.write("Para entender os tipos de dados, vamos usar df.info():")
-
-df.info()
-
+st.write(df.info())
