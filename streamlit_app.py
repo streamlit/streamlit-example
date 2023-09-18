@@ -68,10 +68,12 @@ st.write(df[['Zn', 'k']].describe().round(2))
 st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 st.write(df['Tar'].describe().round(2))
 
-
-# Crie um gráfico usando o matplotlib.pyplot
 fig, ax = plt.subplots(figsize=(22, 8))
-# Faça o seu gráfico aqui usando ax.plot(), ax.bar() ou outra função apropriada do matplotlib
+
+sns.boxplot(data=df, ax=ax, x='Tar')
+fig.suptitle('Temperatura do ar em °C')
+
+plt.show()
 
 # Exiba o gráfico no Streamlit
 st.pyplot(fig)
