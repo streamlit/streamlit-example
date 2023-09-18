@@ -4,7 +4,7 @@ import math
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt  # Importe o módulo matplotlib.pyplot
-
+import time
 
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
@@ -68,12 +68,17 @@ st.write(df[['Zn', 'k']].describe().round(2))
 st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 st.write(df['Tar'].describe().round(2))
 
-fig, ax = plt.subplots(figsize=(22, 8))
+# import shapefile
 
-sns.boxplot(data=df, ax=ax, x='Tar')
-fig.suptitle('Temperatura do ar em °C')
-
-plt.show()
-
-# Exiba o gráfico no Streamlit
-st.pyplot(fig)
+st.empty()
+my_bar = st.progress(0)
+for i in range(100):
+    my_bar.progress(i + 1)
+    time.sleep(0.1)
+n_elts = int(time.time() * 10) % 5 + 3
+for i in range(n_elts):
+    st.text("." * i)
+st.write(n_elts)
+for i in range(n_elts):
+    st.text("." * i)
+st.success("done")
