@@ -1,11 +1,7 @@
-from collections import namedtuple
-import altair as alt
-import math
 import pandas as pd
 import streamlit as st
 import pyproj
 
-import io
 
 # Coordinate transformation utility
 # Developed by Andre Broekman
@@ -59,7 +55,7 @@ def main():
     st.markdown("[EPSG Codes](https://epsg.io/4979)")
 
     col_size = [5, 1, 5]
-    col1, col2, col3 = st.columns(col_size, gap="large")
+    col1, col2, col3 = st.columns(col_size, gap="small")
 
     with col1:
         st.subheader("Input Coordinates")
@@ -79,8 +75,8 @@ def main():
 
             units = st.radio("Units", ["m", "mm"])
 
-            x_search = df.columns.str.endswith('X')
-            y_search = df.columns.str.endswith('Y')
+            x_search = df.columns.str.endswith('X'.upper())
+            y_search = df.columns.str.endswith('Y'.upper())
 
             st.write("X Values", df.loc[:, x_search])
             st.write("Y Values", df.loc[:, y_search])
