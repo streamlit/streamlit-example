@@ -4,6 +4,11 @@ import math
 import pandas as pd
 import streamlit as st
 import pandas as pd
+# Após a criação do DataFrame 'data'
+df = pd.DataFrame(data)
+
+# Salvar o DataFrame como um arquivo CSV
+df.to_csv("./trabalho_microclimatologia.csv", index=False)
 
 
 """
