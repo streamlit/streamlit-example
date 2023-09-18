@@ -8,7 +8,7 @@ import streamlit as st
 df = pd.read_csv("./trabalho_microclimatologia.csv")
 
 # Título da página
-st.title("Apresentação dos Dados")
+st.title("Análise Exploratória dos dados")
 
 # Exiba um texto explicativo antes da tabela de dados
 st.write("Aqui estão os dados do seu arquivo CSV:")
@@ -51,3 +51,6 @@ st.subheader("Informações sobre o DataFrame:")
 
 # Exiba o DataFrame com as informações
 st.write(info_df)
+
+st.write(df.describe)
+
