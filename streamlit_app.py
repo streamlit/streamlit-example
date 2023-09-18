@@ -62,6 +62,7 @@ st.write("Podemos selecionar apenas as colunas de interesse, antes de chamar o m
 
 st.write(df[['Zn', 'k']].describe().round(2))
 
-st.write("Estatísticas Descritivas de uma só variável 'Tar')
-st.write(df['Tar'].describe().round(2))
+# Exiba estatísticas descritivas de uma só variável 'Tar'
+st.write("Estatísticas Descritivas de uma só variável 'Tar'")
+
 
