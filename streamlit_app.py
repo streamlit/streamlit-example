@@ -3,7 +3,6 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
-pip install matplotlib
 import matplotlib.pyplot as plt  # Importe o módulo matplotlib.pyplot
 
 
