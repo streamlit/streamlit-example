@@ -38,3 +38,8 @@ with st.echo(code_location='below'):
     st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
         .mark_circle(color='#0068c9', opacity=0.5)
         .encode(x='x:Q', y='y:Q'))
+
+read_file = pd.read_excel ("trabalho_microclimatologia.xlsx")
+read_file.to_csv ("trabalho_microclimatologia.csv",
+                  index = None,
+                  header=True)
