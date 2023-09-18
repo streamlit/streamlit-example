@@ -52,5 +52,8 @@ st.subheader("Informações sobre o DataFrame:")
 # Exiba o DataFrame com as informações
 st.write(info_df)
 
-st.write(df.describe)
+# Exiba estatísticas descritivas dos dados
+st.write("Estatísticas Descritivas dos Dados:")
+st.write(df.describe())
+
 
