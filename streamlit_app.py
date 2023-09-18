@@ -36,3 +36,8 @@ df = df[['NDA', 'Dia', 'Mes', 'Ano', 'Hora', 'hora_min', 'h', 'Declinacao solar'
 
 # Exiba a tabela com os dados transformados
 st.write(df)
+
+st.write("Para entender os tipos de dados, vamos usar df.info():")
+
+df.info()
+
