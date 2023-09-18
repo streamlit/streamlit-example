@@ -66,3 +66,9 @@ st.write(df[['Zn', 'k']].describe().round(2))
 st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 st.write(df['Tar'].describe().round(2))
 
+fig, ax = plt.subplots(figsize=(22, 8))
+
+sns.boxplot(data=df, ax=ax, x='Tar')
+fig.suptitle('Temperatura do ar em °C')
+
+st.write(plt.show())
