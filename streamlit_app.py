@@ -2,7 +2,6 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt  # Importe o módulo matplotlib.pyplot
 
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
