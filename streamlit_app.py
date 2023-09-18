@@ -6,10 +6,6 @@ import streamlit as st
 import pandas as pd
 
 
-read_file = pd.read_excel ("trabalho_microclimatologia.xlsx")
-read_file.to_csv ("trabalho_microclimatologia.csv",
-                  index = None,
-                  header=True)
 """
 # Welcome to Streamlit!
 
