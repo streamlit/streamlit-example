@@ -56,4 +56,7 @@ st.write(info_df)
 st.write("Estatísticas Descritivas dos Dados:")
 st.write(df.describe())
 
+st.write("Podemos selecionar apenas as colunas de interesse, antes de chamar o método df.describe() e arredondar os números para 2 casas aoós a vírgula com o método .round()
+")
 
+st.write(df[['Zn', 'k']].describe().round(2))
