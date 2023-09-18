@@ -38,4 +38,16 @@ df = df[['NDA', 'Dia', 'Mes', 'Ano', 'Hora', 'hora_min', 'h', 'Declinacao solar'
 st.write(df)
 
 st.write("Para entender os tipos de dados, vamos usar df.info():")
-st.write(df.info())
+
+# Crie um DataFrame com informações sobre o DataFrame principal
+info_df = pd.DataFrame({
+    'Nome da Coluna': df.columns,
+    'Tipos de Dados': df.dtypes,
+    'Valores Não Nulos': df.count(),
+})
+
+# Título para as informações
+st.subheader("Informações sobre o DataFrame:")
+
+# Exiba o DataFrame com as informações
+st.write(info_df)
