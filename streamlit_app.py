@@ -3,6 +3,7 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+from io import StringIO
 
 # """
 # # Stress Intensity Factor Calculator (Proof of Concept)
@@ -13,12 +14,28 @@ import streamlit as st
 with st.sidebar:
     st.write("**Stress Intensity Factor Calculator (PoC)**")
 
-    a = st.number_input("a; unit: μm", help="a; unit: μm", key="a")
-    b = st.number_input("b; unit: μm", help="b; unit: μm", key="b")
-    w = st.number_input("w; unit: μm", help="w; unit: μm", key="w")
-    LZero = st.number_input("L0; unit: μm", help="L0; unit: μm", key="l_zero")
-    LOne = st.number_input("L1; unit: μm", help="L1; unit: μm", key="l_one")
-    P = st.number_input("P; unit: mN", help="P; unit: mN", key="p")
+    a = st.number_input("a (μm)", help="a; unit: μm", key="a")
+    b = st.number_input("b (μm)", help="b; unit: μm", key="b")
+    w = st.number_input("w (μm)", help="w; unit: μm", key="w")
+    LZero = st.number_input("L0 (μm)", help="L0; unit: μm", key="l_zero")
+    LOne = st.number_input("L1 (μm)", help="L1; unit: μm", key="l_one")
+    P = st.number_input("P (mN)", help="P; unit: mN", key="p")
+
+    uploaded_file = st.file_uploader("Upload your model here", key="user_custom_model")
+    if uploaded_file is not None:
+        # To convert to a string based IO:
+        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        st.write(stringio)
+
+        # To read file as string:
+        string_data = stringio.read()
+        st.write(string_data)
+
+        # Can be used wherever a "file-like" object is accepted:
+        dataframe = pd.read_csv(uploaded_file)
+        st.write(dataframe)
+
+        # TODO: limit the input to json and check parsing
 
 iframe_src_3d_url = "https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357"
 image_html_block = "<div class=\"col-lg-6 card my-2 px-3\" style=\"width: max-content;\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
