@@ -88,13 +88,12 @@ mes_options = list(range(1, 13))  # Lista de 1 a 12
 mes_options.insert(0, "Selecionar Todos")
 mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=["Selecionar Todos"])
 
-# Filtrar por Ano (Multiselect)
-st.subheader("Filtrar por Ano:")
-ano_options = [2021, 2022]
-ano_selected = st.multiselect("Selecione o(s) Ano(s):", ano_options, default=[2021, 2022])
 
-# Aplicar filtros de Ano
-filtered_df = df[df['Ano'].isin(ano_selected)]
+st.subheader("Filtrar por Ano:")
+ano_options = [2021, 2022]  # Lista de 2021 a 2022
+ano_options.insert(0, "Selecionar Todos")
+ano_selected = st.multiselect("Selecione o(s) Ano(es):", ano_options, default=["Selecionar Todos"])
+
 
 # Filtrar por Hora (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Hora:")
