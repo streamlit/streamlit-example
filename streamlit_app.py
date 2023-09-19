@@ -87,6 +87,23 @@ x_columns_selected = st.multiselect("Selecione as colunas para o eixo X:", df.co
 if not x_columns_selected:
     st.warning("Selecione pelo menos uma coluna para o eixo X.")
 else:
+    # Configurações específicas para cada coluna
+    if y_column_primary == 'NDA':
+        nda_min = st.slider("Selecione o valor mínimo de NDA:", 1, 365, 1)
+        nda_max = st.slider("Selecione o valor máximo de NDA:", nda_min, 365, 365)
+    elif y_column_primary == 'Dia':
+        dia_min = st.slider("Selecione o valor mínimo do Dia:", 1, 31, 1)
+        dia_max = st.slider("Selecione o valor máximo do Dia:", dia_min, 31, 31)
+    elif y_column_primary == 'Mes':
+        mes_min = st.slider("Selecione o valor mínimo do Mês:", 1, 12, 1)
+        mes_max = st.slider("Selecione o valor máximo do Mês:", mes_min, 12, 12)
+    elif y_column_primary == 'Ano':
+        ano_options = [2021, 2022]
+        ano = st.selectbox("Selecione o ano:", ano_options)
+    elif y_column_primary == 'Hora':
+        hora_min = st.slider("Selecione o valor mínimo da Hora:", 0, 23, 0)
+        hora_max = st.slider("Selecione o valor máximo da Hora:", hora_min, 23, 23)
+
     # Crie o gráfico de dispersão com eixo secundário
     scatter_chart_primary = alt.Chart(df).mark_circle().encode(
         x=alt.X(x_columns_selected[0], axis=alt.Axis(title='Eixo X Principal')),  # Use a primeira coluna selecionada
@@ -108,4 +125,3 @@ else:
 
     # Exiba o gráfico com eixo secundário
     st.altair_chart(combined_chart, use_container_width=True)
-
