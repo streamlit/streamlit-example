@@ -66,18 +66,23 @@ st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 tar_stats = df['Tar'].describe().round(2)
 st.write(tar_stats)
 
+# Carregue o DataFrame a partir do arquivo CSV
+df = pd.read_csv("./trabalho_microclimatologia.csv")
+
 # Título da página
 st.title("Gráfico de Dispersão")
 
-# Escolha as colunas para o eixo X e Y
+# Escolha as colunas para o eixo X, Y e cor
 x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
 y_column = st.selectbox("Selecione a coluna para o eixo Y:", df.columns)
+color_column = st.selectbox("Selecione a coluna para a cor dos pontos:", df.columns)
 
 # Crie o gráfico de dispersão
 scatter_chart = alt.Chart(df).mark_circle().encode(
     x=x_column,
     y=y_column,
-    tooltip=[x_column, y_column]  # Exibir tooltips com informações ao passar o mouse
+    color=color_column,  # Codifique a cor dos pontos com base na terceira coluna selecionada
+    tooltip=[x_column, y_column, color_column]  # Exibir tooltips com informações ao passar o mouse
 ).interactive()
 
 # Exiba o gráfico
