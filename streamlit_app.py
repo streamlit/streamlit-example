@@ -72,56 +72,66 @@ df = pd.read_csv("./trabalho_microclimatologia.csv")
 #######################################################
 
 # Título da página
-st.title("Gráfico de Dispersão com Eixo Secundário")
+st.title("Filtros para Gráfico de Dispersão")
 
-# Escolha as colunas para o eixo Y (principal) e Y2 (secundário)
-y_column_primary_options = ['NDA', 'Dia', 'Mes', 'Ano', 'Hora']
-y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", y_column_primary_options)
+# Filtrar por NDA (Checkbox)
+st.subheader("Filtrar por NDA:")
+nda_min = st.slider("NDA Mínimo:", min_value=1, max_value=365, value=1)
+nda_max = st.slider("NDA Máximo:", min_value=1, max_value=365, value=365)
 
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", df.columns)
+# Filtrar por Dia (Checkbox)
+st.subheader("Filtrar por Dia:")
+dia_min = st.slider("Dia Mínimo:", min_value=1, max_value=31, value=1)
+dia_max = st.slider("Dia Máximo:", min_value=1, max_value=31, value=31)
 
-# Crie um multi-select drop-down list para o eixo X
-x_columns_selected = st.multiselect("Selecione as colunas para o eixo X:", df.columns)
+# Filtrar por Mês (Checkbox)
+st.subheader("Filtrar por Mês:")
+mes_min = st.slider("Mês Mínimo:", min_value=1, max_value=12, value=1)
+mes_max = st.slider("Mês Máximo:", min_value=1, max_value=12, value=12)
 
-# Verifique se pelo menos uma coluna foi selecionada
-if not x_columns_selected:
-    st.warning("Selecione pelo menos uma coluna para o eixo X.")
-else:
-    # Configurações específicas para cada coluna
-    if y_column_primary == 'NDA':
-        nda_min = st.slider("Selecione o valor mínimo de NDA:", 1, 365, 1)
-        nda_max = st.slider("Selecione o valor máximo de NDA:", nda_min, 365, 365)
-    elif y_column_primary == 'Dia':
-        dia_min = st.slider("Selecione o valor mínimo do Dia:", 1, 31, 1)
-        dia_max = st.slider("Selecione o valor máximo do Dia:", dia_min, 31, 31)
-    elif y_column_primary == 'Mes':
-        mes_min = st.slider("Selecione o valor mínimo do Mês:", 1, 12, 1)
-        mes_max = st.slider("Selecione o valor máximo do Mês:", mes_min, 12, 12)
-    elif y_column_primary == 'Ano':
-        ano_options = [2021, 2022]
-        ano = st.selectbox("Selecione o ano:", ano_options)
-    elif y_column_primary == 'Hora':
-        hora_min = st.slider("Selecione o valor mínimo da Hora:", 0, 23, 0)
-        hora_max = st.slider("Selecione o valor máximo da Hora:", hora_min, 23, 23)
+# Filtrar por Ano (Radio Button)
+st.subheader("Filtrar por Ano:")
+ano_options = [2021, 2022]
+ano_selected = st.radio("Selecione o Ano:", ano_options)
 
-    # Crie o gráfico de dispersão com eixo secundário
-    scatter_chart_primary = alt.Chart(df).mark_circle().encode(
-        x=alt.X(x_columns_selected[0], axis=alt.Axis(title='Eixo X Principal')),  # Use a primeira coluna selecionada
-        y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
-        tooltip=[x_columns_selected[0], y_column_primary]
-    ).properties(
-        width=600  # Defina a largura do gráfico
-    )
+# Filtrar por Hora (Checkbox)
+st.subheader("Filtrar por Hora:")
+hora_min = st.slider("Hora Mínima:", min_value=0, max_value=23, value=0)
+hora_max = st.slider("Hora Máxima:", min_value=0, max_value=23, value=23)
 
-    scatter_chart_secondary = alt.Chart(df).mark_circle().encode(
-        x=alt.X(x_columns_selected[0], axis=None),  # Use um eixo sem rótulos
-        y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
-        tooltip=[x_columns_selected[0], y_column_secondary],
-        color=alt.value('red')  # Cor dos pontos no eixo secundário
-    )
+# Aplicar filtros
+filtered_df = df[
+    (df['NDA'] >= nda_min) & (df['NDA'] <= nda_max) &
+    (df['Dia'] >= dia_min) & (df['Dia'] <= dia_max) &
+    (df['Mes'] >= mes_min) & (df['Mes'] <= mes_max) &
+    (df['Ano'] == ano_selected) &
+    (df['Hora'] >= hora_min) & (df['Hora'] <= hora_max)
+]
 
-    # Combine os gráficos usando layer (camada)
-    combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
+# Gráfico de Dispersão com os dados filtrados
+st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
+x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
+y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
+y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", filtered_df.columns)
 
-    # Exiba o gráfico com eixo secundário
-    st.altair_chart(combined_chart, use_container_width=True)
+# Crie o gráfico de dispersão com eixo secundário
+scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
+    x=x_column,
+    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
+    tooltip=[x_column, y_column_primary]
+).properties(
+    width=600  # Defina a largura do gráfico
+)
+
+scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
+    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
+    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
+    tooltip=[x_column, y_column_secondary],
+    color=alt.value('red')  # Cor dos pontos no eixo secundário
+)
+
+# Combine os gráficos usando layer (camada)
+combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
+
+# Exiba o gráfico com eixo secundário
+st.altair_chart(combined_chart, use_container_width=True)
