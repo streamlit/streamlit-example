@@ -74,7 +74,7 @@ x_column = st.selectbox("Selecione a coluna para o eixo X:", data.columns)
 y_column = st.selectbox("Selecione a coluna para o eixo Y:", data.columns)
 
 # Crie o gráfico de dispersão
-scatter_chart = alt.Chart(data).mark_circle().encode(
+scatter_chart = alt.Chart(df).mark_circle().encode(
     x=x_column,
     y=y_column,
     tooltip=[x_column, y_column]  # Exibir tooltips com informações ao passar o mouse
