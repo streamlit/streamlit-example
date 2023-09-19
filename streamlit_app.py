@@ -70,64 +70,38 @@ st.write(tar_stats)
 # Título da página
 st.title("Filtros para Gráfico de Dispersão")
 
-# Filtrar por NDA (Radio Button)
+# Filtrar por NDA (Multiselect)
 st.subheader("Filtrar por NDA:")
-nda_radio_options = ["NDA começa em 1 e vai até 365", "Outra opção"]
-nda_selected = st.radio("Selecione uma opção para NDA:", nda_radio_options)
-if nda_selected == "NDA começa em 1 e vai até 365":
-    nda_min = 1
-    nda_max = 365
-else:
-    nda_min = st.number_input("NDA Mínimo:", min_value=1, max_value=365, value=1)
-    nda_max = st.number_input("NDA Máximo:", min_value=1, max_value=365, value=365)
+nda_options = list(range(1, 366))  # Lista de 1 a 365
+nda_selected = st.multiselect("Selecione o(s) NDA(s):", nda_options, default=list(range(1, 366)))
 
-# Filtrar por Dia (Radio Button)
+# Filtrar por Dia (Multiselect)
 st.subheader("Filtrar por Dia:")
-dia_radio_options = ["Dia começa em 1 e vai até 31", "Outra opção"]
-dia_selected = st.radio("Selecione uma opção para Dia:", dia_radio_options)
-if dia_selected == "Dia começa em 1 e vai até 31":
-    dia_min = 1
-    dia_max = 31
-else:
-    dia_min = st.number_input("Dia Mínimo:", min_value=1, max_value=31, value=1)
-    dia_max = st.number_input("Dia Máximo:", min_value=1, max_value=31, value=31)
+dia_options = list(range(1, 32))  # Lista de 1 a 31
+dia_selected = st.multiselect("Selecione o(s) Dia(s):", dia_options, default=list(range(1, 32)))
 
-# Filtrar por Mês (Radio Button)
+# Filtrar por Mês (Multiselect)
 st.subheader("Filtrar por Mês:")
-mes_radio_options = ["Mês começa em 1 e vai até 12", "Outra opção"]
-mes_selected = st.radio("Selecione uma opção para Mês:", mes_radio_options)
-if mes_selected == "Mês começa em 1 e vai até 12":
-    mes_min = 1
-    mes_max = 12
-else:
-    mes_min = st.number_input("Mês Mínimo:", min_value=1, max_value=12, value=1)
-    mes_max = st.number_input("Mês Máximo:", min_value=1, max_value=12, value=12)
+mes_options = list(range(1, 13))  # Lista de 1 a 12
+mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=list(range(1, 13)))
 
-# Filtrar por Ano (Multiselect)
+# Filtrar por Ano (Radio Button, como já está)
 st.subheader("Filtrar por Ano:")
 ano_options = [2021, 2022]
-ano_selected = st.multiselect("Selecione o(s) Ano(s):", ano_options, default=[2021, 2022])
+ano_selected = st.radio("Selecione o Ano:", ano_options, index=1)
 
-# Aplicar filtros de Ano
-filtered_df = df[df['Ano'].isin(ano_selected)]
-
-# Filtrar por Hora (Radio Button)
+# Filtrar por Hora (Multiselect)
 st.subheader("Filtrar por Hora:")
-hora_radio_options = ["Hora começa em 0 e vai até 23", "Outra opção"]
-hora_selected = st.radio("Selecione uma opção para Hora:", hora_radio_options)
-if hora_selected == "Hora começa em 0 e vai até 23":
-    hora_min = 0
-    hora_max = 23
-else:
-    hora_min = st.number_input("Hora Mínima:", min_value=0, max_value=23, value=0)
-    hora_max = st.number_input("Hora Máxima:", min_value=0, max_value=23, value=23)
+hora_options = list(range(24))  # Lista de 0 a 23
+hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=list(range(24)))
 
 # Aplicar filtros
-filtered_df = filtered_df[
-    (filtered_df['NDA'] >= nda_min) & (filtered_df['NDA'] <= nda_max) &
-    (filtered_df['Dia'] >= dia_min) & (filtered_df['Dia'] <= dia_max) &
-    (filtered_df['Mes'] >= mes_min) & (filtered_df['Mes'] <= mes_max) &
-    (filtered_df['Hora'] >= hora_min) & (filtered_df['Hora'] <= hora_max)
+filtered_df = df[
+    (df['NDA'].isin(nda_selected)) &
+    (df['Dia'].isin(dia_selected)) &
+    (df['Mes'].isin(mes_selected)) &
+    (df['Ano'] == ano_selected) &
+    (df['Hora'].isin(hora_selected))
 ]
 
 # Gráfico de Dispersão com os dados filtrados
