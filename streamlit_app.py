@@ -66,32 +66,43 @@ st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 tar_stats = df['Tar'].describe().round(2)
 st.write(tar_stats)
 
+# Carregue o DataFrame a partir do arquivo CSV
+df = pd.read_csv("./trabalho_microclimatologia.csv")
+
+#######################################################
+
 # Título da página
 st.title("Gráfico de Dispersão com Eixo Secundário")
 
-# Escolha as colunas para os eixos X, Y (principal) e Y2 (secundário)
-x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
+# Escolha as colunas para os eixos Y (principal) e Y2 (secundário)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", df.columns)
 y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", df.columns)
 
-# Crie o gráfico de dispersão com eixo secundário
-scatter_chart_primary = alt.Chart(df).mark_circle().encode(
-    x=x_column,
-    y=y_column_primary,
-    tooltip=[x_column, y_column_primary]
-).properties(
-    width=600  # Defina a largura do gráfico
-)
+# Crie um multi-select drop-down list para o eixo X
+x_columns_selected = st.multiselect("Selecione as colunas para o eixo X:", df.columns)
 
-scatter_chart_secondary = alt.Chart(df).mark_circle().encode(
-    x=x_column,
-    y=y_column_secondary,
-    tooltip=[x_column, y_column_secondary],
-    color=alt.value('red')  # Cor dos pontos no eixo secundário
-)
+# Verifique se pelo menos uma coluna foi selecionada
+if not x_columns_selected:
+    st.warning("Selecione pelo menos uma coluna para o eixo X.")
+else:
+    # Crie o gráfico de dispersão com eixo secundário
+    scatter_chart_primary = alt.Chart(df).mark_circle().encode(
+        x=alt.X(x_columns_selected[0], axis=alt.Axis(title='Eixo X Principal')),  # Use a primeira coluna selecionada
+        y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
+        tooltip=[x_columns_selected[0], y_column_primary]
+    ).properties(
+        width=600  # Defina a largura do gráfico
+    )
 
-# Combine os gráficos usando layer (camada)
-combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
+    scatter_chart_secondary = alt.Chart(df).mark_circle().encode(
+        x=alt.X(x_columns_selected[0], axis=None),  # Use um eixo sem rótulos
+        y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
+        tooltip=[x_columns_selected[0], y_column_secondary],
+        color=alt.value('red')  # Cor dos pontos no eixo secundário
+    )
 
-# Exiba o gráfico com eixo secundário
-st.altair_chart(combined_chart, use_container_width=True)
+    # Combine os gráficos usando layer (camada)
+    combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
+
+    # Exiba o gráfico com eixo secundário
+    st.altair_chart(combined_chart, use_container_width=True)
