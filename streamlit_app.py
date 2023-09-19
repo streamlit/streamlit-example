@@ -93,6 +93,8 @@ st.subheader("Filtrar por Ano:")
 ano_options = [2021, 2022]
 ano_selected = st.multiselect("Selecione o(s) Ano(s):", ano_options, default=[2021, 2022])
 
+# Aplicar filtros de Ano
+filtered_df = df[df['Ano'].isin(ano_selected)]
 
 # Filtrar por Hora (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Hora:")
