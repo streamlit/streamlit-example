@@ -74,8 +74,10 @@ df = pd.read_csv("./trabalho_microclimatologia.csv")
 # Título da página
 st.title("Gráfico de Dispersão com Eixo Secundário")
 
-# Escolha as colunas para os eixos Y (principal) e Y2 (secundário)
-y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", df.columns)
+# Escolha as colunas para o eixo Y (principal) e Y2 (secundário)
+y_column_primary_options = ['NDA', 'Dia', 'Mes', 'Ano', 'Hora']
+y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", y_column_primary_options)
+
 y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", df.columns)
 
 # Crie um multi-select drop-down list para o eixo X
@@ -106,3 +108,4 @@ else:
 
     # Exiba o gráfico com eixo secundário
     st.altair_chart(combined_chart, use_container_width=True)
+
