@@ -71,6 +71,9 @@ df = pd.read_csv("./trabalho_microclimatologia.csv")
 
 #######################################################
 
+# Título da página
+st.title("Filtros para Gráfico de Dispersão")
+
 # Filtrar por NDA (Radio Button)
 st.subheader("Filtrar por NDA:")
 nda_radio_options = st.radio("Selecione uma opção para NDA:", ["NDA começa em 1 e vai até 365", "Outra opção"])
@@ -141,4 +144,14 @@ scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
 )
 
 scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column
+    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
+    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
+    tooltip=[x_column, y_column_secondary],
+    color=alt.value('red')  # Cor dos pontos no eixo secundário
+)
+
+# Combine os gráficos usando layer (camada)
+combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
+
+# Exiba o gráfico com eixo secundário
+st.altair_chart(combined_chart, use_container_width=True)
