@@ -107,10 +107,10 @@ else:
     mes_min = st.number_input("Mês Mínimo:", min_value=1, max_value=12, value=1)
     mes_max = st.number_input("Mês Máximo:", min_value=1, max_value=12, value=12)
 
-# Filtrar por Ano (Radio Button)
+# Filtrar por Ano (Multiselect)
 st.subheader("Filtrar por Ano:")
-ano_radio_options = [2021, 2022]
-ano_selected = st.radio("Selecione o Ano:", ano_radio_options)
+ano_options = [2021, 2022]
+ano_selected = st.multiselect("Selecione o(s) Ano(s):", ano_options, default=[2021, 2022])
 
 # Filtrar por Hora (Radio Button)
 st.subheader("Filtrar por Hora:")
