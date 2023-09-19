@@ -74,21 +74,24 @@ x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", df.columns)
 y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", df.columns)
 
-# Crie o gráfico de dispersão com escala secundária
-scatter_chart = alt.Chart(df).mark_circle().encode(
+# Crie o gráfico de dispersão com eixo secundário
+scatter_chart_primary = alt.Chart(df).mark_circle().encode(
     x=x_column,
-    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Principal')),
-    color=alt.ColorValue("blue")  # Cor dos pontos no eixo principal
+    y=y_column_primary,
+    tooltip=[x_column, y_column_primary]
 ).properties(
-    width=600,  # Defina a largura do gráfico
-).interactive()
+    width=600  # Defina a largura do gráfico
+)
 
-# Adicione uma camada com um segundo eixo Y (escala secundária)
-scatter_chart_with_secondary_axis = scatter_chart + alt.Chart(df).mark_circle().encode(
-    x=alt.X('index:Q', axis=None),  # Use um eixo sem rótulos
-    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Secundário')),
-    color=alt.ColorValue("red")  # Cor dos pontos no eixo secundário
-).transform_calculate(index='0')
+scatter_chart_secondary = alt.Chart(df).mark_circle().encode(
+    x=x_column,
+    y=y_column_secondary,
+    tooltip=[x_column, y_column_secondary],
+    color=alt.value('red')  # Cor dos pontos no eixo secundário
+)
 
-# Exiba o gráfico com escala secundária
-st.altair_chart(scatter_chart_with_secondary_axis, use_container_width=True)
+# Combine os gráficos usando layer (camada)
+combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
+
+# Exiba o gráfico com eixo secundário
+st.altair_chart(combined_chart, use_container_width=True)
