@@ -69,27 +69,26 @@ st.write(tar_stats)
 # Título da página
 st.title("Gráfico de Dispersão com Eixo Secundário")
 
-# Escolha as colunas para os eixos X e Y
-x_column_primary = st.selectbox("Selecione a coluna para o eixo X principal:", df.columns)
+# Escolha as colunas para os eixos X, Y (principal) e Y2 (secundário)
+x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", df.columns)
 y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", df.columns)
 
-# Crie o gráfico de dispersão para o eixo principal
-scatter_chart_primary = alt.Chart(df).mark_circle().encode(
-    x=x_column_primary,
-    y=y_column_primary,
-    tooltip=[x_column_primary, y_column_primary]
-).properties(width=400)  # Defina a largura do gráfico principal
+# Crie o gráfico de dispersão com escala secundária
+scatter_chart = alt.Chart(df).mark_circle().encode(
+    x=x_column,
+    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Principal')),
+    color=alt.ColorValue("blue")  # Cor dos pontos no eixo principal
+).properties(
+    width=600,  # Defina a largura do gráfico
+).interactive()
 
-# Crie o gráfico de dispersão para o eixo secundário
-scatter_chart_secondary = alt.Chart(df).mark_circle().encode(
+# Adicione uma camada com um segundo eixo Y (escala secundária)
+scatter_chart_with_secondary_axis = scatter_chart + alt.Chart(df).mark_circle().encode(
     x=alt.X('index:Q', axis=None),  # Use um eixo sem rótulos
-    y=y_column_secondary,
-    tooltip=[y_column_secondary]
-).transform_calculate(index='0').properties(width=400)  # Defina a largura do gráfico secundário
+    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Secundário')),
+    color=alt.ColorValue("red")  # Cor dos pontos no eixo secundário
+).transform_calculate(index='0')
 
-# Combine os gráficos em um único gráfico de sobreposição
-combined_chart = (scatter_chart_primary | scatter_chart_secondary)
-
-# Exiba o gráfico combinado
-st.altair_chart(combined_chart, use_container_width=True)
+# Exiba o gráfico com escala secundária
+st.altair_chart(scatter_chart_with_secondary_axis, use_container_width=True)
