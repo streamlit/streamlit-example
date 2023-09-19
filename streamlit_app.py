@@ -71,33 +71,50 @@ df = pd.read_csv("./trabalho_microclimatologia.csv")
 
 #######################################################
 
-# Título da página
-st.title("Filtros para Gráfico de Dispersão")
-
-# Filtrar por NDA (Checkbox)
+# Filtrar por NDA (Radio Button)
 st.subheader("Filtrar por NDA:")
-nda_min = st.slider("NDA Mínimo:", min_value=1, max_value=365, value=1)
-nda_max = st.slider("NDA Máximo:", min_value=1, max_value=365, value=365)
+nda_radio_options = st.radio("Selecione uma opção para NDA:", ["NDA começa em 1 e vai até 365", "Outra opção"])
+if nda_radio_options == "NDA começa em 1 e vai até 365":
+    nda_min = 1
+    nda_max = 365
+else:
+    nda_min = st.number_input("NDA Mínimo:", min_value=1, max_value=365, value=1)
+    nda_max = st.number_input("NDA Máximo:", min_value=1, max_value=365, value=365)
 
-# Filtrar por Dia (Checkbox)
+# Filtrar por Dia (Radio Button)
 st.subheader("Filtrar por Dia:")
-dia_min = st.slider("Dia Mínimo:", min_value=1, max_value=31, value=1)
-dia_max = st.slider("Dia Máximo:", min_value=1, max_value=31, value=31)
+dia_radio_options = st.radio("Selecione uma opção para Dia:", ["Dia começa em 1 e vai até 31", "Outra opção"])
+if dia_radio_options == "Dia começa em 1 e vai até 31":
+    dia_min = 1
+    dia_max = 31
+else:
+    dia_min = st.number_input("Dia Mínimo:", min_value=1, max_value=31, value=1)
+    dia_max = st.number_input("Dia Máximo:", min_value=1, max_value=31, value=31)
 
-# Filtrar por Mês (Checkbox)
+# Filtrar por Mês (Radio Button)
 st.subheader("Filtrar por Mês:")
-mes_min = st.slider("Mês Mínimo:", min_value=1, max_value=12, value=1)
-mes_max = st.slider("Mês Máximo:", min_value=1, max_value=12, value=12)
+mes_radio_options = st.radio("Selecione uma opção para Mês:", ["Mês começa em 1 e vai até 12", "Outra opção"])
+if mes_radio_options == "Mês começa em 1 e vai até 12":
+    mes_min = 1
+    mes_max = 12
+else:
+    mes_min = st.number_input("Mês Mínimo:", min_value=1, max_value=12, value=1)
+    mes_max = st.number_input("Mês Máximo:", min_value=1, max_value=12, value=12)
 
 # Filtrar por Ano (Radio Button)
 st.subheader("Filtrar por Ano:")
-ano_options = [2021, 2022]
-ano_selected = st.radio("Selecione o Ano:", ano_options)
+ano_radio_options = st.radio("Selecione uma opção para Ano:", [2021, 2022])
+ano_selected = st.radio("Selecione o Ano:", ano_radio_options)
 
-# Filtrar por Hora (Checkbox)
+# Filtrar por Hora (Radio Button)
 st.subheader("Filtrar por Hora:")
-hora_min = st.slider("Hora Mínima:", min_value=0, max_value=23, value=0)
-hora_max = st.slider("Hora Máxima:", min_value=0, max_value=23, value=23)
+hora_radio_options = st.radio("Selecione uma opção para Hora:", ["Hora começa em 0 e vai até 23", "Outra opção"])
+if hora_radio_options == "Hora começa em 0 e vai até 23":
+    hora_min = 0
+    hora_max = 23
+else:
+    hora_min = st.number_input("Hora Mínima:", min_value=0, max_value=23, value=0)
+    hora_max = st.number_input("Hora Máxima:", min_value=0, max_value=23, value=23)
 
 # Aplicar filtros
 filtered_df = df[
@@ -116,7 +133,7 @@ y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:
 
 # Crie o gráfico de dispersão com eixo secundário
 scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
-    x=x_column,
+    x=alt.X(x_column, axis=alt.Axis(title='Eixo X Principal')),
     y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
     tooltip=[x_column, y_column_primary]
 ).properties(
@@ -124,14 +141,4 @@ scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
 )
 
 scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
-    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
-    tooltip=[x_column, y_column_secondary],
-    color=alt.value('red')  # Cor dos pontos no eixo secundário
-)
-
-# Combine os gráficos usando layer (camada)
-combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
-
-# Exiba o gráfico com eixo secundário
-st.altair_chart(combined_chart, use_container_width=True)
+    x=alt.X(x_column
