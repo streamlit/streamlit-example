@@ -1,5 +1,4 @@
 import altair as alt
-import math
 import pandas as pd
 import streamlit as st
 
@@ -66,9 +65,6 @@ st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 tar_stats = df['Tar'].describe().round(2)
 st.write(tar_stats)
 
-# Carregue o DataFrame a partir do arquivo CSV
-df = pd.read_csv("./trabalho_microclimatologia.csv")
-
 #######################################################
 
 # Título da página
@@ -127,12 +123,11 @@ else:
     hora_max = st.number_input("Hora Máxima:", min_value=0, max_value=23, value=23)
 
 # Aplicar filtros
-filtered_df = df[
-    (df['NDA'] >= nda_min) & (df['NDA'] <= nda_max) &
-    (df['Dia'] >= dia_min) & (df['Dia'] <= dia_max) &
-    (df['Mes'] >= mes_min) & (df['Mes'] <= mes_max) &
-    (df['Ano'] == ano_selected) &
-    (df['Hora'] >= hora_min) & (df['Hora'] <= hora_max)
+filtered_df = filtered_df[
+    (filtered_df['NDA'] >= nda_min) & (filtered_df['NDA'] <= nda_max) &
+    (filtered_df['Dia'] >= dia_min) & (filtered_df['Dia'] <= dia_max) &
+    (filtered_df['Mes'] >= mes_min) & (filtered_df['Mes'] <= mes_max) &
+    (filtered_df['Hora'] >= hora_min) & (filtered_df['Hora'] <= hora_max)
 ]
 
 # Gráfico de Dispersão com os dados filtrados
