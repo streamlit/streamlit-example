@@ -6,8 +6,8 @@ import streamlit as st
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
 
-# Título da página
-st.title("Análise Exploratória dos dados")
+# Defina o título da página
+st.title("Análise Exploratória dos Dados")
 
 # Exiba um texto explicativo antes da tabela de dados
 st.write("Aqui estão os dados do seu arquivo CSV:")
@@ -56,12 +56,12 @@ st.write("Estatísticas Descritivas dos Dados:")
 st.write(df.describe())
 
 # Exiba estatísticas descritivas dos dados
-st.write("Podemos selecionar apenas as colunas de interesse, antes de chamar o método df.describe() e arredondar os números para 2 casas após a vírgula com o método .round()\
-:")
-
-st.write(df[['Zn', 'k']].describe().round(2))
+st.write("Podemos selecionar apenas as colunas de interesse, antes de chamar o método df.describe() e arredondar os números para 2 casas após a vírgula com o método .round():")
+selected_columns = ['Zn', 'k']
+selected_stats = df[selected_columns].describe().round(2)
+st.write(selected_stats)
 
 # Exiba estatísticas descritivas de uma só variável 'Tar'
 st.write("Estatísticas Descritivas de uma só variável 'Tar'")
-st.write(df['Tar'].describe().round(2))
-
+tar_stats = df['Tar'].describe().round(2)
+st.write(tar_stats)
