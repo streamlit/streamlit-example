@@ -66,24 +66,30 @@ st.write("Estatísticas Descritivas de uma só variável 'Tar'")
 tar_stats = df['Tar'].describe().round(2)
 st.write(tar_stats)
 
-# Carregue o DataFrame a partir do arquivo CSV
-df = pd.read_csv("./trabalho_microclimatologia.csv")
-
 # Título da página
-st.title("Gráfico de Dispersão")
+st.title("Gráfico de Dispersão com Eixo Secundário")
 
-# Escolha as colunas para o eixo X, Y e cor
-x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
-y_column = st.selectbox("Selecione a coluna para o eixo Y:", df.columns)
-color_column = st.selectbox("Selecione a coluna para a cor dos pontos:", df.columns)
+# Escolha as colunas para os eixos X e Y
+x_column_primary = st.selectbox("Selecione a coluna para o eixo X principal:", df.columns)
+y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", df.columns)
+y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", df.columns)
 
-# Crie o gráfico de dispersão
-scatter_chart = alt.Chart(df).mark_circle().encode(
-    x=x_column,
-    y=y_column,
-    color=color_column,  # Codifique a cor dos pontos com base na terceira coluna selecionada
-    tooltip=[x_column, y_column, color_column]  # Exibir tooltips com informações ao passar o mouse
-).interactive()
+# Crie o gráfico de dispersão para o eixo principal
+scatter_chart_primary = alt.Chart(df).mark_circle().encode(
+    x=x_column_primary,
+    y=y_column_primary,
+    tooltip=[x_column_primary, y_column_primary]
+).properties(width=400)  # Defina a largura do gráfico principal
 
-# Exiba o gráfico
-st.altair_chart(scatter_chart, use_container_width=True)
+# Crie o gráfico de dispersão para o eixo secundário
+scatter_chart_secondary = alt.Chart(df).mark_circle().encode(
+    x=alt.X('index:Q', axis=None),  # Use um eixo sem rótulos
+    y=y_column_secondary,
+    tooltip=[y_column_secondary]
+).transform_calculate(index='0').properties(width=400)  # Defina a largura do gráfico secundário
+
+# Combine os gráficos em um único gráfico de sobreposição
+combined_chart = (scatter_chart_primary | scatter_chart_secondary)
+
+# Exiba o gráfico combinado
+st.altair_chart(combined_chart, use_container_width=True)
