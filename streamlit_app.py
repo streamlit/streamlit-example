@@ -76,8 +76,9 @@ st.title("Filtros para Gráfico de Dispersão")
 
 # Filtrar por NDA (Radio Button)
 st.subheader("Filtrar por NDA:")
-nda_radio_options = st.radio("Selecione uma opção para NDA:", ["NDA começa em 1 e vai até 365", "Outra opção"])
-if nda_radio_options == "NDA começa em 1 e vai até 365":
+nda_radio_options = ["NDA começa em 1 e vai até 365", "Outra opção"]
+nda_selected = st.radio("Selecione uma opção para NDA:", nda_radio_options)
+if nda_selected == "NDA começa em 1 e vai até 365":
     nda_min = 1
     nda_max = 365
 else:
@@ -86,8 +87,9 @@ else:
 
 # Filtrar por Dia (Radio Button)
 st.subheader("Filtrar por Dia:")
-dia_radio_options = st.radio("Selecione uma opção para Dia:", ["Dia começa em 1 e vai até 31", "Outra opção"])
-if dia_radio_options == "Dia começa em 1 e vai até 31":
+dia_radio_options = ["Dia começa em 1 e vai até 31", "Outra opção"]
+dia_selected = st.radio("Selecione uma opção para Dia:", dia_radio_options)
+if dia_selected == "Dia começa em 1 e vai até 31":
     dia_min = 1
     dia_max = 31
 else:
@@ -96,8 +98,9 @@ else:
 
 # Filtrar por Mês (Radio Button)
 st.subheader("Filtrar por Mês:")
-mes_radio_options = st.radio("Selecione uma opção para Mês:", ["Mês começa em 1 e vai até 12", "Outra opção"])
-if mes_radio_options == "Mês começa em 1 e vai até 12":
+mes_radio_options = ["Mês começa em 1 e vai até 12", "Outra opção"]
+mes_selected = st.radio("Selecione uma opção para Mês:", mes_radio_options)
+if mes_selected == "Mês começa em 1 e vai até 12":
     mes_min = 1
     mes_max = 12
 else:
@@ -106,13 +109,14 @@ else:
 
 # Filtrar por Ano (Radio Button)
 st.subheader("Filtrar por Ano:")
-ano_radio_options = st.radio("Selecione uma opção para Ano:", [2021, 2022])
+ano_radio_options = [2021, 2022]
 ano_selected = st.radio("Selecione o Ano:", ano_radio_options)
 
 # Filtrar por Hora (Radio Button)
 st.subheader("Filtrar por Hora:")
-hora_radio_options = st.radio("Selecione uma opção para Hora:", ["Hora começa em 0 e vai até 23", "Outra opção"])
-if hora_radio_options == "Hora começa em 0 e vai até 23":
+hora_radio_options = ["Hora começa em 0 e vai até 23", "Outra opção"]
+hora_selected = st.radio("Selecione uma opção para Hora:", hora_radio_options)
+if hora_selected == "Hora começa em 0 e vai até 23":
     hora_min = 0
     hora_max = 23
 else:
