@@ -113,10 +113,7 @@ ano_options = [2021, 2022]
 ano_selected = st.multiselect("Selecione o(s) Ano(s):", ano_options, default=[2021, 2022])
 
 # Aplicar filtros de Ano
-if ano_selected:
-    filtered_df = df[df['Ano'].isin(ano_selected)]
-else:
-    filtered_df = df
+filtered_df = df[df['Ano'].isin(ano_selected)]
 
 # Filtrar por Hora (Radio Button)
 st.subheader("Filtrar por Hora:")
