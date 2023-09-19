@@ -70,30 +70,44 @@ st.write(tar_stats)
 # Título da página
 st.title("Filtros para Gráfico de Dispersão")
 
-# Filtrar por NDA (Multiselect)
+# Filtrar por NDA (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por NDA:")
 nda_options = list(range(1, 366))  # Lista de 1 a 365
-nda_selected = st.multiselect("Selecione o(s) NDA(s):", nda_options, default=list(range(1, 366)))
+nda_options.insert(0, "Selecionar Todos")
+nda_selected = st.multiselect("Selecione o(s) NDA(s):", nda_options, default=["Selecionar Todos"])
 
-# Filtrar por Dia (Multiselect)
+# Filtrar por Dia (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Dia:")
 dia_options = list(range(1, 32))  # Lista de 1 a 31
-dia_selected = st.multiselect("Selecione o(s) Dia(s):", dia_options, default=list(range(1, 32)))
+dia_options.insert(0, "Selecionar Todos")
+dia_selected = st.multiselect("Selecione o(s) Dia(s):", dia_options, default=["Selecionar Todos"])
 
-# Filtrar por Mês (Multiselect)
+# Filtrar por Mês (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Mês:")
 mes_options = list(range(1, 13))  # Lista de 1 a 12
-mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=list(range(1, 13)))
+mes_options.insert(0, "Selecionar Todos")
+mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=["Selecionar Todos"])
 
 # Filtrar por Ano (Radio Button, como já está)
 st.subheader("Filtrar por Ano:")
 ano_options = [2021, 2022]
 ano_selected = st.radio("Selecione o Ano:", ano_options, index=1)
 
-# Filtrar por Hora (Multiselect)
+# Filtrar por Hora (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Hora:")
 hora_options = list(range(24))  # Lista de 0 a 23
-hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=list(range(24)))
+hora_options.insert(0, "Selecionar Todos")
+hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
+
+# Aplicar filtros
+if "Selecionar Todos" in nda_selected:
+    nda_selected = nda_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in dia_selected:
+    dia_selected = dia_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in mes_selected:
+    mes_selected = mes_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in hora_selected:
+    hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
 
 # Aplicar filtros
 filtered_df = df[
