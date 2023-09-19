@@ -70,8 +70,8 @@ st.write(tar_stats)
 st.title("Gráfico de Dispersão")
 
 # Escolha as colunas para o eixo X e Y
-x_column = st.selectbox("Selecione a coluna para o eixo X:", data.columns)
-y_column = st.selectbox("Selecione a coluna para o eixo Y:", data.columns)
+x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
+y_column = st.selectbox("Selecione a coluna para o eixo Y:", df.columns)
 
 # Crie o gráfico de dispersão
 scatter_chart = alt.Chart(df).mark_circle().encode(
