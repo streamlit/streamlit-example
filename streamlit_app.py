@@ -134,18 +134,22 @@ class_size = st.radio("Escolha a Grandeza das Classes:", ("Pequena", "Normal", "
 if class_size == "Pequena":
     bin_min = 0.1
     bin_max = 1
+    default_bin_size = (0.1, 0.5)
 elif class_size == "Normal":
     bin_min = 1
     bin_max = 10
+    default_bin_size = (1, 5)
 elif class_size == "Média":
     bin_min = 10
     bin_max = 50
+    default_bin_size = (10, 25)
 else:  # "Grande"
     bin_min = 50
     bin_max = 100
+    default_bin_size = (50, 75)
 
 # Crie o slider com base nos valores definidos acima
-bin_size = st.slider("Tamanho da Classe", min_value=bin_min, max_value=bin_max, value=(bin_min, bin_max))
+bin_size = st.slider("Tamanho da Classe", min_value=bin_min, max_value=bin_max, value=default_bin_size)
 
 # Crie o histograma com o tamanho da classe variável
 histogram = alt.Chart(df).mark_bar().encode(
