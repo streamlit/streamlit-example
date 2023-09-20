@@ -1,6 +1,3 @@
-Fiz uma alteração, está tudo certo.
-Pode me ajudar a apresentar a tabela?
-
 import altair as alt
 import pandas as pd
 import streamlit as st
