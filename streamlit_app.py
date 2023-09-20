@@ -1,9 +1,16 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
+import datetime
 
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
+
+
+
+st.write("Minha ideia aqui é ter a possibilidade de escolher uma data do ano:")
+d = st.date_input("Dia da análise", datetime.date(2019, 7, 6))
+st.write('Your birthday is:', d)
 
 # Defina o título da página
 st.title("Análise Exploratória dos Dados")
