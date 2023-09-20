@@ -122,27 +122,16 @@ st.table(filtered_df.head())  # Mostra as primeiras linhas do DataFrame filtrado
 # Gráfico de Dispersão com os dados filtrados
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
-y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", filtered_df.columns)
+y_column_primary = st.selectbox("Selecione a coluna para o eixo Y:", filtered_df.columns)  # Agora só há um eixo Y
 
-# Crie o gráfico de dispersão com eixo secundário
-scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=alt.Axis(title='Eixo X Principal')),
-    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
+# Crie o gráfico de dispersão com um único eixo Y
+scatter_chart = alt.Chart(filtered_df).mark_circle().encode(
+    x=alt.X(x_column, axis=alt.Axis(title='Eixo X')),
+    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y')),
     tooltip=[x_column, y_column_primary]
 ).properties(
     width=600  # Defina a largura do gráfico
 )
 
-scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
-    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
-    tooltip=[x_column, y_column_secondary],
-    color=alt.value('red')  # Cor dos pontos no eixo secundário
-)
-
-# Combine os gráficos usando layer (camada)
-combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
-
-# Exiba o gráfico com eixo secundário
-st.altair_chart(combined_chart, use_container_width=True)
+# Exiba o gráfico com o único eixo Y
+st.altair_chart(scatter_chart, use_container_width=True)
