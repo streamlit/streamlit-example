@@ -127,9 +127,12 @@ st.title("Histograma")
 # Escolha a coluna para criar o histograma
 column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 
-# Crie o histograma
+# Adicione um checkbox para variar o tamanho da classe
+bin_size = st.slider("Tamanho da Classe", min_value=1, max_value=100, value=10)
+
+# Crie o histograma com o tamanho da classe variável
 histogram = alt.Chart(df).mark_bar().encode(
-    alt.X(column, bin=True),
+    alt.X(column, bin=alt.Bin(step=bin_size)),
     y='count()',
     tooltip=['count()']
 ).interactive()
