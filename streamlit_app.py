@@ -113,9 +113,9 @@ filtered_df = df[
 ]
 
 
-# Exiba os dados filtrados em uma tabela
-st.subheader("Dados Filtrados:")
-st.table(filtered_df)
+# Exiba o início dos dados filtrados em uma tabela
+st.subheader("Início dos Dados Filtrados:")
+st.table(filtered_df.head())
 
 
 # Gráfico de Dispersão com os dados filtrados
