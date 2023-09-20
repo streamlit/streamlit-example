@@ -1,6 +1,6 @@
-import altair as alt
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
@@ -124,22 +124,15 @@ filtered_df = df[
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
-y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
+y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", filtered_df.columns)
 
-# Crie o gráfico de dispersão com eixo secundário usando Plotly
-import plotly.express as px
+# Crie o gráfico de dispersão com o matplotlib
+fig, ax = plt.subplots()
+ax.scatter(filtered_df[x_column], filtered_df[y_column_primary], label='Eixo Y Principal')
+ax.scatter(filtered_df[x_column], filtered_df[y_column_secondary], label='Eixo Y Secundário', color='red')
+ax.set_xlabel('Eixo X Principal')
+ax.set_ylabel('Valores')
+ax.legend()
 
-fig = px.scatter(filtered_df, x=x_column, y=y_column_primary, labels={x_column: x_column, y_column_primary: y_column_primary})
-fig.add_scatter(x=filtered_df[x_column], y=filtered_df[y_column_secondary], mode='markers', name=y_column_secondary, yaxis="y2")
-
-# Defina os rótulos dos eixos
-fig.update_xaxes(title_text=x_column)
-fig.update_yaxes(title_text=y_column_primary, secondary_y=False)
-fig.update_yaxes(title_text=y_column_secondary, secondary_y=True)
-
-# Defina o layout
-fig.update_layout(title="Gráfico de Dispersão com Eixo Secundário")
-
-# Exiba o gráfico
-st.plotly_chart(fig)
+# Exiba o gráfico com o matplotlib
+st.pyplot(fig)
