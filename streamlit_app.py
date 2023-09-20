@@ -76,18 +76,6 @@ nda_options = list(range(1, 366))  # Lista de 1 a 365
 nda_options.insert(0, "Selecionar Todos")
 nda_selected = st.multiselect("Selecione o(s) NDA(s):", nda_options, default=["Selecionar Todos"])
 
-# Filtrar por Dia (Multiselect com opção "Selecionar Todos")
-st.subheader("Filtrar por Dia:")
-dia_options = list(range(1, 32))  # Lista de 1 a 31
-dia_options.insert(0, "Selecionar Todos")
-dia_selected = st.multiselect("Selecione o(s) Dia(s):", dia_options, default=["Selecionar Todos"])
-
-# Filtrar por Mês (Multiselect com opção "Selecionar Todos")
-st.subheader("Filtrar por Mês:")
-mes_options = list(range(1, 13))  # Lista de 1 a 12
-mes_options.insert(0, "Selecionar Todos")
-mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=["Selecionar Todos"])
-
 # Filtrar por Hora (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Hora:")
 hora_options = list(range(24))  # Lista de 0 a 23
