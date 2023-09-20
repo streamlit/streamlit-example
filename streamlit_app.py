@@ -113,50 +113,16 @@ if "Selecionar Todos" in hora_selected:
 
 # Aplicar filtros
 filtered_df = df[
-    (df['NDA'].isin(nda_selected)) &
-    (df['Dia'].isin(dia_selected)) &
-    (df['Mes'].isin(mes_selected)) &
-    (df['Ano'].isin(ano_selected)) &
-    (df['Hora'].isin(hora_selected))
+    (df['NDA'].isin([str(x) for x in nda_selected])) &
+    (df['Dia'].isin([str(x) for x in dia_selected])) &
+    (df['Mes'].isin([str(x) for x in mes_selected])) &
+    (df['Ano'].isin([str(x) for x in ano_selected])) &
+    (df['Hora'].isin([str(x) for x in hora_selected]))
 ]
 
-
-##########################################################################
 # Exiba os dados filtrados em uma tabela
 st.subheader("Dados Filtrados:")
 st.write(filtered_df)
-
-# Gráfico de Dispersão com os dados filtrados
-st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
-x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
-y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
-y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
-
-# Crie o gráfico de dispersão com altair
-scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=alt.Axis(title='Eixo X Principal')),
-    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
-    tooltip=[x_column, y_column_primary]
-).properties(
-    width=600  # Defina a largura do gráfico
-)
-
-scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
-    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
-    tooltip=[x_column, y_column_secondary],
-    color=alt.value('red')  # Cor dos pontos no eixo secundário
-)
-
-# Combine os gráficos usando layer (camada)
-combined_chart = (scatter_chart_primary + scatter_chart_secondary)
-
-# Exiba o gráfico com altair
-st.altair_chart(combined_chart, use_container_width=True)
-
-#####################################################################
-
 
 # Gráfico de Dispersão com os dados filtrados
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
