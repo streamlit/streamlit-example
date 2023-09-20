@@ -70,68 +70,47 @@ st.write(tar_stats)
 # Título da página
 st.title("Filtros para Gráfico de Dispersão")
 
-# Filtrar por NDA (Multiselect com opção "Selecionar Todos")
+# Filtrar por NDA (Multiselect)
 st.subheader("Filtrar por NDA:")
 nda_options = list(range(1, 366))  # Lista de 1 a 365
-nda_options.insert(0, "Selecionar Todos")
-nda_selected = st.multiselect("Selecione o(s) NDA(s):", nda_options, default=["Selecionar Todos"])
+nda_selected = st.multiselect("Selecione o(s) NDA(s):", nda_options, default=list(range(1, 366)))
 
-# Filtrar por Dia (Multiselect com opção "Selecionar Todos")
+# Filtrar por Dia (Multiselect)
 st.subheader("Filtrar por Dia:")
 dia_options = list(range(1, 32))  # Lista de 1 a 31
-dia_options.insert(0, "Selecionar Todos")
-dia_selected = st.multiselect("Selecione o(s) Dia(s):", dia_options, default=["Selecionar Todos"])
+dia_selected = st.multiselect("Selecione o(s) Dia(s):", dia_options, default=list(range(1, 32)))
 
-# Filtrar por Mês (Multiselect com opção "Selecionar Todos")
+# Filtrar por Mês (Multiselect)
 st.subheader("Filtrar por Mês:")
 mes_options = list(range(1, 13))  # Lista de 1 a 12
-mes_options.insert(0, "Selecionar Todos")
-mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=["Selecionar Todos"])
+mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=list(range(1, 13)))
 
-
+# Filtrar por Ano (Radio Button, como já está)
 st.subheader("Filtrar por Ano:")
-ano_options = [2021, 2022]  # Lista de 2021 a 2022
-ano_options.insert(0, "Selecionar Todos")
-ano_selected = st.multiselect("Selecione o(s) Ano(es):", ano_options, default=["Selecionar Todos"])
+ano_options = [2021, 2022]
+ano_selected = st.radio("Selecione o Ano:", ano_options, index=1)
 
-
-# Filtrar por Hora (Multiselect com opção "Selecionar Todos")
+# Filtrar por Hora (Multiselect)
 st.subheader("Filtrar por Hora:")
 hora_options = list(range(24))  # Lista de 0 a 23
-hora_options.insert(0, "Selecionar Todos")
-hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
-
-# Aplicar filtros
-if "Selecionar Todos" in nda_selected:
-    nda_selected = nda_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in dia_selected:
-    dia_selected = dia_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in mes_selected:
-    mes_selected = mes_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in hora_selected:
-    hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
+hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=list(range(24)))
 
 # Aplicar filtros
 filtered_df = df[
-    (df['NDA'].isin([str(x) for x in nda_selected])) &
-    (df['Dia'].isin([str(x) for x in dia_selected])) &
-    (df['Mes'].isin([str(x) for x in mes_selected])) &
-    (df['Ano'].isin([str(x) for x in ano_selected])) &
-    (df['Hora'].isin([str(x) for x in hora_selected]))
+    (df['NDA'].isin(nda_selected)) &
+    (df['Dia'].isin(dia_selected)) &
+    (df['Mes'].isin(mes_selected)) &
+    (df['Ano'] == ano_selected) &
+    (df['Hora'].isin(hora_selected))
 ]
-
-# Exiba os dados filtrados em uma tabela
-st.subheader("Dados Filtrados:")
-st.write(filtered_df)
 
 # Gráfico de Dispersão com os dados filtrados
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
-y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
+y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", filtered_df.columns)
 
-# Crie o gráfico de dispersão com altair
+# Crie o gráfico de dispersão com eixo secundário
 scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
     x=alt.X(x_column, axis=alt.Axis(title='Eixo X Principal')),
     y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
@@ -148,7 +127,7 @@ scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
 )
 
 # Combine os gráficos usando layer (camada)
-combined_chart = (scatter_chart_primary + scatter_chart_secondary)
+combined_chart = alt.layer(scatter_chart_primary, scatter_chart_secondary)
 
-# Exiba o gráfico com altair
+# Exiba o gráfico com eixo secundário
 st.altair_chart(combined_chart, use_container_width=True)
