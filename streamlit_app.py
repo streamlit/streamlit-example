@@ -6,11 +6,10 @@ import datetime
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
 
-
-
+# Defina o dia da análise
 st.write("Minha ideia aqui é ter a possibilidade de escolher uma data do ano:")
 d = st.date_input("Dia da análise", datetime.date(2019, 7, 6))
-st.write('Your birthday is:', d)
+st.write('sua escolha foi o dia:', d)
 
 # Defina o título da página
 st.title("Análise Exploratória dos Dados")
