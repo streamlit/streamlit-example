@@ -127,8 +127,25 @@ st.title("Histograma")
 # Escolha a coluna para criar o histograma
 column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 
-# Adicione um checkbox para variar o tamanho da classe
-bin_size = st.slider("Tamanho da Classe", min_value=1, max_value=100, value=10)
+# Adicione um radiobutton para escolher a grandeza das classes
+class_size = st.radio("Escolha a Grandeza das Classes:", ("Pequena", "Normal", "Média", "Grande"))
+
+# Defina os valores padrão do slider com base na escolha da grandeza das classes
+if class_size == "Pequena":
+    bin_min = 0.1
+    bin_max = 1
+elif class_size == "Normal":
+    bin_min = 1
+    bin_max = 10
+elif class_size == "Média":
+    bin_min = 10
+    bin_max = 50
+else:  # "Grande"
+    bin_min = 50
+    bin_max = 100
+
+# Crie o slider com base nos valores definidos acima
+bin_size = st.slider("Tamanho da Classe", min_value=bin_min, max_value=bin_max, value=(bin_min, bin_max))
 
 # Crie o histograma com o tamanho da classe variável
 histogram = alt.Chart(df).mark_bar().encode(
