@@ -85,18 +85,12 @@ hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=
 # Aplicar filtros
 if "Selecionar Todos" in nda_selected:
     nda_selected = nda_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in dia_selected:
-    dia_selected = dia_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in mes_selected:
-    mes_selected = mes_options[1:]  # Remover "Selecionar Todos" se selecionado
 if "Selecionar Todos" in hora_selected:
     hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
 
 # Aplicar filtros
 filtered_df = df[
     (df['NDA'].isin(nda_selected)) &
-    (df['Dia'].isin(dia_selected)) &
-    (df['Mes'].isin(mes_selected)) &
     (df['Hora'].isin(hora_selected))
 ]
 
