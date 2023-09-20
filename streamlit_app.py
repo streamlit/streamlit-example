@@ -1,3 +1,6 @@
+Fiz uma alteração, está tudo certo.
+Pode me ajudar a apresentar a tabela?
+
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -94,24 +97,26 @@ hora_options = list(range(24))  # Lista de 0 a 23
 hora_options.insert(0, "Selecionar Todos")
 hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
 
+# Aplicar filtros
+if "Selecionar Todos" in nda_selected:
+    nda_selected = nda_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in dia_selected:
+    dia_selected = dia_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in mes_selected:
+    mes_selected = mes_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in hora_selected:
+    hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
 
-# Aplicar filtros somente se algum filtro foi selecionado
-if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected:
-    filtered_df = df[
-        (df['NDA'].isin(nda_selected)) &
-        (df['Dia'].isin(dia_selected)) &
-        (df['Mes'].isin(mes_selected)) &
-        (df['Ano'] == ano_selected) &
-        (df['Hora'].isin(hora_selected))
-    ]
-else:
-    filtered_df = df  # Use os dados originais se nenhum filtro for aplicado
+# Aplicar filtros
+filtered_df = df[
+    (df['NDA'].isin(nda_selected)) &
+    (df['Dia'].isin(dia_selected)) &
+    (df['Mes'].isin(mes_selected)) &
+    (df['Ano'] == ano_selected) &
+    (df['Hora'].isin(hora_selected))
+]
 
-# Exiba os dados filtrados em uma tabela
-st.subheader("Dados Filtrados:")
-st.table(filtered_df)
-
-# Gráfico de Dispersão com os dados filtrados ou originais
+# Gráfico de Dispersão com os dados filtrados
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
