@@ -142,13 +142,12 @@ st.altair_chart(histogram, use_container_width=True)
 
 
 #---------------------------------------------------------------------------------
-
 # Título da página
 st.title("Dashboard Interativo")
 
 # Selecione as colunas para os eixos X e Y dos gráficos de dispersão
-x_column = st.selectbox("Selecione a coluna para o eixo X:", data.columns)
-y_column = st.selectbox("Selecione a coluna para o eixo Y:", data.columns)
+x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
+y_column = st.selectbox("Selecione a coluna para o eixo Y:", df.columns)
 
 # Crie um gráfico de dispersão
 scatter_chart = alt.Chart(df).mark_circle().encode(
