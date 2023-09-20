@@ -121,15 +121,18 @@ st.altair_chart(scatter_chart, use_container_width=True)
 
 #------------------------------------------------------------------------------------
 
-# Escolha a coluna para criar o histograma
-column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
+# Selecione a coluna para o histograma
+hist_column = st.selectbox("Selecione a coluna para o histograma:", df.columns)
 
-# Crie o histograma
+# Configure o incremento da classe para 0.5
+bin_step = 0.5
+
+# Crie um histograma com o incremento de classe especificado
 histogram = alt.Chart(df).mark_bar().encode(
-    alt.X(column, bin=True),
+    alt.X(hist_column, bin=alt.Bin(step=bin_step)),  # Configurar o incremento da classe
     y='count()',
     tooltip=['count()']
 ).interactive()
 
-# Exiba o histograma
-st.altair_chart(histogram, use_container_width=True)
+# Exiba os gráficos lado a lado
+st.altair_chart(scatter_chart | histogram, use_container_width=True)
