@@ -95,7 +95,7 @@ hora_options.insert(0, "Selecionar Todos")
 hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
 
 # Aplicar filtros somente se algum filtro foi selecionado
-if nda_selected or dia_selected or mes_selected or ano_selected[0] or hora_selected:
+if nda_selected or dia_selected or mes_selected or (ano_selected and ano_selected[0]) or hora_selected:
     filtered_df = df[
         (df['NDA'].isin(nda_selected)) &
         (df['Dia'].isin(dia_selected)) &
