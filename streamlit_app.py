@@ -95,16 +95,17 @@ hora_options.insert(0, "Selecionar Todos")
 hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
 
 # Aplicar filtros somente se algum filtro foi selecionado
-if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected:
+if nda_selected or dia_selected or mes_selected or ano_selected[0] or hora_selected:
     filtered_df = df[
         (df['NDA'].isin(nda_selected)) &
         (df['Dia'].isin(dia_selected)) &
         (df['Mes'].isin(mes_selected)) &
-        (df['Ano'] == ano_selected) &
+        (df['Ano'] == ano_selected[0]) &
         (df['Hora'].isin(hora_selected))
     ]
 else:
     filtered_df = df  # Use os dados originais se nenhum filtro for aplicado
+
 
 # Gráfico de Dispersão com os dados filtrados ou originais
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
