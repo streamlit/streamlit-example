@@ -88,11 +88,6 @@ mes_options = list(range(1, 13))  # Lista de 1 a 12
 mes_options.insert(0, "Selecionar Todos")
 mes_selected = st.multiselect("Selecione o(s) Mês(es):", mes_options, default=["Selecionar Todos"])
 
-# Filtrar por Ano (Radio Button, como já está)
-st.subheader("Filtrar por Ano:")
-ano_options = [2021, 2022]
-ano_selected = st.radio("Selecione o Ano:", ano_options, index=1)
-
 # Filtrar por Hora (Multiselect com opção "Selecionar Todos")
 st.subheader("Filtrar por Hora:")
 hora_options = list(range(24))  # Lista de 0 a 23
