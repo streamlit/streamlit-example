@@ -121,7 +121,7 @@ st.altair_chart(scatter_chart, use_container_width=True)
 
 #------------------------------------------------------------------------------------
 
-# Defina o título da página
+# Título da página
 st.title("Histograma")
 
 # Escolha a coluna para criar o histograma
@@ -130,12 +130,9 @@ column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 # Configure o incremento da classe para 0.5
 bin_step = 0.5
 
-# Adicione um checkbox para variar o tamanho da classe
-bin_size = st.slider("Tamanho da Classe", min_value=1, max_value=100, value=10)
-
-# Crie o histograma com o tamanho da classe variável
+# Crie o histograma com o incremento de classe especificado
 histogram = alt.Chart(df).mark_bar().encode(
-    alt.X(column, bin=alt.Bin(step=bin_size)),
+    alt.X(column, bin=alt.Bin(step=bin_step)),
     y='count()',
     tooltip=['count()']
 ).interactive()
