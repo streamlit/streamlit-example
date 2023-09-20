@@ -94,16 +94,6 @@ hora_options = list(range(24))  # Lista de 0 a 23
 hora_options.insert(0, "Selecionar Todos")
 hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
 
-# Aplicar filtros
-if "Selecionar Todos" in nda_selected:
-    nda_selected = nda_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in dia_selected:
-    dia_selected = dia_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in mes_selected:
-    mes_selected = mes_options[1:]  # Remover "Selecionar Todos" se selecionado
-if "Selecionar Todos" in hora_selected:
-    hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
-
 # Aplicar filtros somente se algum filtro foi selecionado
 if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected:
     filtered_df = df[
