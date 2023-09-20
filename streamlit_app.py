@@ -107,6 +107,10 @@ if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected
 else:
     filtered_df = df  # Use os dados originais se nenhum filtro for aplicado
 
+# Exiba os dados filtrados em uma tabela
+st.subheader("Dados Filtrados:")
+st.table(filtered_df)
+
 # Gráfico de Dispersão com os dados filtrados ou originais
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
