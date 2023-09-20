@@ -127,24 +127,25 @@ y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", f
 y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
 y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
 
-# Crie o gráfico de dispersão com eixo secundário
-scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=alt.Axis(title='Eixo X Principal')),
-    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
-    tooltip=[x_column, y_column_primary]
-).properties(
-    width=600  # Defina a largura do gráfico
-)
+# Crie o gráfico de dispersão com eixo secundário usando Matplotlib
+import matplotlib.pyplot as plt
 
-scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
-    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
-    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
-    tooltip=[x_column, y_column_secondary],
-    color=alt.value('red')  # Cor dos pontos no eixo secundário
-)
+fig, ax1 = plt.subplots(figsize=(10, 6))
 
-# Combine os gráficos usando layer (camada)
-combined_chart = (scatter_chart_primary + scatter_chart_secondary)
+# Gráfico principal (ax1)
+ax1.scatter(filtered_df[x_column], filtered_df[y_column_primary], label=f'{y_column_primary}', alpha=0.7)
+ax1.set_xlabel(x_column)
+ax1.set_ylabel(y_column_primary, color='tab:blue')
 
-# Exiba o gráfico com eixo secundário
-st.altair_chart(combined_chart, use_container_width=True)
+# Gráfico secundário (ax2)
+ax2 = ax1.twinx()
+ax2.scatter(filtered_df[x_column], filtered_df[y_column_secondary], color='tab:red', label=f'{y_column_secondary}', alpha=0.7)
+ax2.set_ylabel(y_column_secondary, color='tab:red')
+
+# Adicione rótulos e legendas
+fig.tight_layout()
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+
+# Exiba o gráfico
+st.pyplot(fig)
