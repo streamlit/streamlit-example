@@ -104,14 +104,6 @@ if "Selecionar Todos" in mes_selected:
 if "Selecionar Todos" in hora_selected:
     hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
 
-# Aplicar filtros
-filtered_df = df[
-    (df['NDA'].isin(nda_selected)) &
-    (df['Dia'].isin(dia_selected)) &
-    (df['Mes'].isin(mes_selected)) &
-    (df['Ano'] == ano_selected) &
-    (df['Hora'].isin(hora_selected))
-]
 
 # Aplicar filtros somente se algum filtro foi selecionado
 if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected:
