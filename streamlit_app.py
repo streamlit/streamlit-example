@@ -127,6 +127,9 @@ st.title("Histograma")
 # Escolha a coluna para criar o histograma
 column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 
+# Configure o incremento da classe para 0.5
+bin_step = 0.5
+
 # Adicione um checkbox para variar o tamanho da classe
 bin_size = st.slider("Tamanho da Classe", min_value=1, max_value=100, value=10)
 
@@ -139,34 +142,3 @@ histogram = alt.Chart(df).mark_bar().encode(
 
 # Exiba o histograma
 st.altair_chart(histogram, use_container_width=True)
-
-
-# Título da página
-st.title("Dashboard Interativo")
-
-# Selecione as colunas para os eixos X e Y dos gráficos de dispersão
-x_column = st.selectbox("Selecione a coluna para o eixo X:", df.columns)
-y_column = st.selectbox("Selecione a coluna para o eixo Y:", df.columns)
-
-# Crie um gráfico de dispersão
-scatter_chart = alt.Chart(df).mark_circle().encode(
-    x=x_column,
-    y=y_column,
-    tooltip=[x_column, y_column]
-).interactive()
-
-# Selecione a coluna para o histograma
-hist_column = st.selectbox("Selecione a coluna para o histograma:", df.columns)
-
-# Configure o incremento da classe para 0.5
-bin_step = 0.5
-
-# Crie um histograma com o incremento de classe especificado
-histogram = alt.Chart(df).mark_bar().encode(
-    alt.X(hist_column, bin=alt.Bin(step=bin_step)),  # Configurar o incremento da classe
-    y='count()',
-    tooltip=['count()']
-).interactive()
-
-# Exiba os gráficos lado a lado
-st.altair_chart(scatter_chart | histogram, use_container_width=True)
