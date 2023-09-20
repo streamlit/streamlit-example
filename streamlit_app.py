@@ -121,7 +121,7 @@ st.altair_chart(scatter_chart, use_container_width=True)
 
 #------------------------------------------------------------------------------------
 
-# Título da página
+# Defina o título da página
 st.title("Histograma")
 
 # Escolha a coluna para criar o histograma
@@ -129,12 +129,10 @@ column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 
 # Crie o histograma
 histogram = alt.Chart(df).mark_bar().encode(
-    alt.X(k, bin=True),
+    alt.X(column, bin=True),
     y='count()',
     tooltip=['count()']
 ).interactive()
 
 # Exiba o histograma
 st.altair_chart(histogram, use_container_width=True)
-
-
