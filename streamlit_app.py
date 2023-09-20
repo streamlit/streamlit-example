@@ -112,6 +112,12 @@ filtered_df = df[
     (df['Hora'].isin(hora_selected))
 ]
 
+
+# Exiba os dados filtrados em uma tabela
+st.subheader("Dados Filtrados:")
+st.table(filtered_df)
+
+
 # Gráfico de Dispersão com os dados filtrados
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
