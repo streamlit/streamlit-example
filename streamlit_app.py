@@ -1,6 +1,6 @@
+import altair as alt
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
 
 # Carregue o DataFrame a partir do arquivo CSV
 df = pd.read_csv("./trabalho_microclimatologia.csv")
@@ -124,15 +124,27 @@ filtered_df = df[
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", filtered_df.columns)
+y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
+y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
 
-# Crie o gráfico de dispersão com o matplotlib
-fig, ax = plt.subplots()
-ax.scatter(filtered_df[x_column], filtered_df[y_column_primary], label='Eixo Y Principal')
-ax.scatter(filtered_df[x_column], filtered_df[y_column_secondary], label='Eixo Y Secundário', color='red')
-ax.set_xlabel('Eixo X Principal')
-ax.set_ylabel('Valores')
-ax.legend()
+# Crie o gráfico de dispersão com altair
+scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
+    x=alt.X(x_column, axis=alt.Axis(title='Eixo X Principal')),
+    y=alt.Y(y_column_primary, axis=alt.Axis(title='Eixo Y Principal')),
+    tooltip=[x_column, y_column_primary]
+).properties(
+    width=600  # Defina a largura do gráfico
+)
 
-# Exiba o gráfico com o matplotlib
-st.pyplot(fig)
+scatter_chart_secondary = alt.Chart(filtered_df).mark_circle().encode(
+    x=alt.X(x_column, axis=None),  # Use um eixo sem rótulos
+    y=alt.Y(y_column_secondary, axis=alt.Axis(title='Eixo Y Secundário')),
+    tooltip=[x_column, y_column_secondary],
+    color=alt.value('red')  # Cor dos pontos no eixo secundário
+)
+
+# Combine os gráficos usando layer (camada)
+combined_chart = (scatter_chart_primary + scatter_chart_secondary)
+
+# Exiba o gráfico com altair
+st.altair_chart(combined_chart, use_container_width=True)
