@@ -120,19 +120,39 @@ st.altair_chart(scatter_chart, use_container_width=True)
 
 
 #------------------------------------------------------------------------------------
-
-# Título da página
+# Defina o título da página
 st.title("Histograma")
 
 # Escolha a coluna para criar o histograma
 column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 
-# Configure o incremento da classe para 0.5
-bin_step = 0.5
+# Adicione um radiobutton para escolher a grandeza das classes
+class_size = st.radio("Escolha a Grandeza das Classes:", ("Pequena", "Normal", "Média", "Grande"))
 
-# Crie o histograma com o incremento de classe especificado
+# Defina os valores padrão do slider com base na escolha da grandeza das classes
+if class_size == "Pequena":
+    bin_min = 0.1
+    bin_max = 1
+    default_bin_size = (0.1, 0.5)
+elif class_size == "Normal":
+    bin_min = 1
+    bin_max = 10
+    default_bin_size = (1, 5)
+elif class_size == "Média":
+    bin_min = 10
+    bin_max = 50
+    default_bin_size = (10, 25)
+else:  # "Grande"
+    bin_min = 50
+    bin_max = 100
+    default_bin_size = (50, 75)
+
+# Crie o slider com base nos valores definidos acima
+bin_size = st.slider("Tamanho da Classe", min_value=bin_min, max_value=bin_max, value=default_bin_size)
+
+# Crie o histograma com o tamanho da classe variável
 histogram = alt.Chart(df).mark_bar().encode(
-    alt.X(column, bin=alt.Bin(step=bin_step)),
+    alt.X(column, bin=alt.Bin(step=bin_size)),
     y='count()',
     tooltip=['count()']
 ).interactive()
