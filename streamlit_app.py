@@ -127,25 +127,19 @@ y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", f
 y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
 y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
 
-# Crie o gráfico de dispersão com eixo secundário usando Matplotlib
-import matplotlib.pyplot as plt
+# Crie o gráfico de dispersão com eixo secundário usando Plotly
+import plotly.express as px
 
-fig, ax1 = plt.subplots(figsize=(10, 6))
+fig = px.scatter(filtered_df, x=x_column, y=y_column_primary, labels={x_column: x_column, y_column_primary: y_column_primary})
+fig.add_scatter(x=filtered_df[x_column], y=filtered_df[y_column_secondary], mode='markers', name=y_column_secondary, yaxis="y2")
 
-# Gráfico principal (ax1)
-ax1.scatter(filtered_df[x_column], filtered_df[y_column_primary], label=f'{y_column_primary}', alpha=0.7)
-ax1.set_xlabel(x_column)
-ax1.set_ylabel(y_column_primary, color='tab:blue')
+# Defina os rótulos dos eixos
+fig.update_xaxes(title_text=x_column)
+fig.update_yaxes(title_text=y_column_primary, secondary_y=False)
+fig.update_yaxes(title_text=y_column_secondary, secondary_y=True)
 
-# Gráfico secundário (ax2)
-ax2 = ax1.twinx()
-ax2.scatter(filtered_df[x_column], filtered_df[y_column_secondary], color='tab:red', label=f'{y_column_secondary}', alpha=0.7)
-ax2.set_ylabel(y_column_secondary, color='tab:red')
-
-# Adicione rótulos e legendas
-fig.tight_layout()
-ax1.legend(loc='upper left')
-ax2.legend(loc='upper right')
+# Defina o layout
+fig.update_layout(title="Gráfico de Dispersão com Eixo Secundário")
 
 # Exiba o gráfico
-st.pyplot(fig)
+st.plotly_chart(fig)
