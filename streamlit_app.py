@@ -94,18 +94,36 @@ hora_options = list(range(24))  # Lista de 0 a 23
 hora_options.insert(0, "Selecionar Todos")
 hora_selected = st.multiselect("Selecione a(s) Hora(s):", hora_options, default=["Selecionar Todos"])
 
+# Aplicar filtros
+if "Selecionar Todos" in nda_selected:
+    nda_selected = nda_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in dia_selected:
+    dia_selected = dia_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in mes_selected:
+    mes_selected = mes_options[1:]  # Remover "Selecionar Todos" se selecionado
+if "Selecionar Todos" in hora_selected:
+    hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
+
+# Aplicar filtros
+filtered_df = df[
+    (df['NDA'].isin(nda_selected)) &
+    (df['Dia'].isin(dia_selected)) &
+    (df['Mes'].isin(mes_selected)) &
+    (df['Ano'] == ano_selected) &
+    (df['Hora'].isin(hora_selected))
+]
+
 # Aplicar filtros somente se algum filtro foi selecionado
-if nda_selected or dia_selected or mes_selected or (ano_selected and ano_selected[0]) or hora_selected:
+if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected:
     filtered_df = df[
         (df['NDA'].isin(nda_selected)) &
         (df['Dia'].isin(dia_selected)) &
         (df['Mes'].isin(mes_selected)) &
-        (df['Ano'] == ano_selected[0]) &
+        (df['Ano'] == ano_selected) &
         (df['Hora'].isin(hora_selected))
     ]
 else:
     filtered_df = df  # Use os dados originais se nenhum filtro for aplicado
-
 
 # Gráfico de Dispersão com os dados filtrados ou originais
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
