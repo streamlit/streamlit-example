@@ -120,34 +120,16 @@ st.altair_chart(scatter_chart, use_container_width=True)
 
 
 #------------------------------------------------------------------------------------
-# Título da página
-st.title("Histograma")
 
 # Escolha a coluna para criar o histograma
 column = st.selectbox("Selecione a coluna para criar o histograma:", df.columns)
 
-# Configure o incremento da classe para 0.5
-bin_step = 0.5
-
-# Adicione um slider para variar o tamanho da classe
-bin_size = st.slider("Tamanho da Classe", min_value=1, max_value=100, value=10)
-
-# Calcule o número de bins com base no tamanho da classe
-num_bins = int((df[column].max() - df[column].min()) / bin_step)
-
-# Crie o histograma usando numpy
-hist, bins = np.histogram(df[column], bins=num_bins, range=(df[column].min(), df[column].max()))
-
-# Crie o gráfico de barras do histograma
-fig, ax = plt.subplots()
-ax.bar(bins[:-1], hist, width=bin_step, align="edge")
-plt.xlabel(column)
-plt.ylabel('Contagem')
-plt.title(f'Histograma de {column}')
+# Crie o histograma
+histogram = alt.Chart(df).mark_bar().encode(
+    alt.X(column, bin=True),
+    y='count()',
+    tooltip=['count()']
+).interactive()
 
 # Exiba o histograma
-st.pyplot(fig)
-
-# Exiba o número de bins e os limites
-st.write(f"Número de Bins: {num_bins}")
-st.write(f"Limites dos Bins: {bins}")
+st.altair_chart(histogram, use_container_width=True)
