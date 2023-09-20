@@ -104,21 +104,19 @@ if "Selecionar Todos" in mes_selected:
 if "Selecionar Todos" in hora_selected:
     hora_selected = hora_options[1:]  # Remover "Selecionar Todos" se selecionado
 
-# Aplicar filtros
-filtered_df = df[
-    (df['NDA'].isin(nda_selected)) &
-    (df['Dia'].isin(dia_selected)) &
-    (df['Mes'].isin(mes_selected)) &
-    (df['Hora'].isin(hora_selected))
-]
+# Aplicar filtros somente se algum filtro foi selecionado
+if nda_selected or dia_selected or mes_selected or ano_selected or hora_selected:
+    filtered_df = df[
+        (df['NDA'].isin(nda_selected)) &
+        (df['Dia'].isin(dia_selected)) &
+        (df['Mes'].isin(mes_selected)) &
+        (df['Ano'] == ano_selected) &
+        (df['Hora'].isin(hora_selected))
+    ]
+else:
+    filtered_df = df  # Use os dados originais se nenhum filtro for aplicado
 
-
-# Exiba o início dos dados filtrados em uma tabela
-st.subheader("Início dos Dados Filtrados:")
-st.table(filtered_df.head())
-
-
-# Gráfico de Dispersão com os dados filtrados
+# Gráfico de Dispersão com os dados filtrados ou originais
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
