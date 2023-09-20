@@ -109,7 +109,6 @@ filtered_df = df[
     (df['NDA'].isin(nda_selected)) &
     (df['Dia'].isin(dia_selected)) &
     (df['Mes'].isin(mes_selected)) &
-    (df['Ano'] == ano_selected) &
     (df['Hora'].isin(hora_selected))
 ]
 
