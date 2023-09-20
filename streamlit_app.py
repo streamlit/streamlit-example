@@ -95,13 +95,13 @@ filtered_df = df[
 ]
 
 
-# Exiba os dados filtrados em uma tabela
+# Exiba os dados filtrados em uma tabela---------------------------------------------
 st.subheader("Dados Filtrados:")
 st.table(filtered_df.head())  # Mostra as primeiras linhas do DataFrame filtrado
 
 
 
-# Gráfico de Dispersão com os dados filtrados
+# Gráfico de Dispersão com os dados filtrados -----------------------------------------
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y:", filtered_df.columns)  # Agora só há um eixo Y
@@ -117,3 +117,24 @@ scatter_chart = alt.Chart(filtered_df).mark_circle().encode(
 
 # Exiba o gráfico com o único eixo Y
 st.altair_chart(scatter_chart, use_container_width=True)
+
+
+#------------------------------------------------------------------------------------
+
+# Título da página
+st.title("Histograma")
+
+# Escolha a coluna para criar o histograma
+column = st.selectbox("Selecione a coluna para criar o histograma:", data.columns)
+
+# Crie o histograma
+histogram = alt.Chart(df).mark_bar().encode(
+    alt.X(column, bin=True),
+    y='count()',
+    tooltip=['count()']
+).interactive()
+
+# Exiba o histograma
+st.altair_chart(histogram, use_container_width=True)
+
+
