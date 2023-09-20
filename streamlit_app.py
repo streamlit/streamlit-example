@@ -124,7 +124,9 @@ filtered_df = df[
 st.subheader("Gráfico de Dispersão com Filtros Aplicados:")
 x_column = st.selectbox("Selecione a coluna para o eixo X:", filtered_df.columns)
 y_column_primary = st.selectbox("Selecione a coluna para o eixo Y principal:", filtered_df.columns)
-y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", filtered_df.columns)
+y_column_secondary_options = [col for col in filtered_df.columns if col != y_column_primary]
+y_column_secondary = st.selectbox("Selecione a coluna para o eixo Y secundário:", y_column_secondary_options)
+
 
 # Crie o gráfico de dispersão com eixo secundário
 scatter_chart_primary = alt.Chart(filtered_df).mark_circle().encode(
