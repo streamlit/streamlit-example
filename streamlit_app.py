@@ -21,7 +21,7 @@ with st.sidebar:
     LOne = st.number_input("L1 (μm)", help="L1; unit: μm", key="l_one")
     P = st.number_input("P (mN)", help="P; unit: mN", key="p")
 
-    uploaded_file = st.file_uploader("Upload your model here", key="user_custom_model")
+    uploaded_file = st.file_uploader("Upload your model here", key="user_custom_model", type = "json")
     if uploaded_file is not None:
         # To convert to a string based IO:
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
@@ -32,10 +32,15 @@ with st.sidebar:
         st.write(string_data)
 
         # Can be used wherever a "file-like" object is accepted:
-        dataframe = pd.read_csv(uploaded_file)
-        st.write(dataframe)
+        dataframe = pd.read_json(uploaded_file)
+        st.write(dataframe.to_json())
 
-        # TODO: limit the input to json and check parsing
+        # TODO: Check parsing json and apply model equation
+
+
+st.write("(PoC) Assuming model equation is: a + b + w + LZero + LOne + P. Result is: " )
+st.write(str(a + b + w + LZero + LOne + P))
+
 
 iframe_src_3d_url = "https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357"
 image_html_block = "<div class=\"col-lg-6 card my-2 px-3\" style=\"width: max-content;\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
