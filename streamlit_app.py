@@ -1,8 +1,10 @@
+import os
 from collections import namedtuple
 import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv, find_dotenv
 
 """
 # Welcome to Streamlit!
@@ -14,7 +16,9 @@ forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
-
+# Read environment configuration. See https://github.com/theskumar/python-dotenv
+load_dotenv(find_dotenv(), override=False)
+st.write("Environment variable `APP_CONFIG_KEY` is:", os.getenv("APP_CONFIG_KEY"))    
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
