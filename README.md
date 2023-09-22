@@ -16,7 +16,15 @@ Install the required packages with the following command:
 
     pip install -r requirements.txt
 
-## Running the application:
+### Configuration
+For configuration package python-dotenv is used. That means that a local .env file can override the corresponding environment variable. See .env.example as a starting point. Configure "APP_CONFIG_KEY" via "Application Settings" in the Azure App Service
+
+### Azure App Service
+The workfow 'master_rbrands-streamlit-example.yml' shows how to setup a CI/CD pipeline for Azure App Service (without container). See https://benalexkeen.com/deploying-streamlit-applications-with-azure-app-services/ for details. Create a Linux App Service with Python (latest version) as runtime. In configuration/General settings set the Startup Commmand:
+    
+    python -m streamlit run streamlit_app.py --server.port 8000 --server.address 0.0.0.0
+
+## Running the application
 Open Anaconda prompt and navigate to the directory of the local repo and enter:
     conda activate streamlit-example
 
