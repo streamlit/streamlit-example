@@ -10,9 +10,9 @@ import streamlit.components.v1 as components
 df = pd.read_csv("./trabalho_microclimatologia.csv")
 
 # Defina o dia da análise
-st.write("Minha ideia aqui é ter a possibilidade de escolher uma data do ano:")
-d = st.date_input("Dia da análise", datetime.date(2019, 7, 6))
-st.write('sua escolha foi o dia:', d)
+#st.write("Minha ideia aqui é ter a possibilidade de escolher uma data do ano:")
+#d = st.date_input("Dia da análise", datetime.date(2019, 7, 6))
+#st.write('sua escolha foi o dia:', d)
 
 # Defina o título da página
 st.title("Análise Exploratória dos Dados")
