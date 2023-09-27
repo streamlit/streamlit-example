@@ -4,11 +4,43 @@ import math
 import pandas as pd
 import streamlit as st
 from io import StringIO
+# import tensorflow as tf
+import numpy as np
 
 # """
 # # Stress Intensity Factor Calculator (Proof of Concept)
 
 # """
+
+
+# Global variable
+model = None
+record_num = 0
+
+
+def load_model():
+    global model
+    model = tf.keras.models.load_model('models/NN_4_64_64_1/model.h5')
+    a = np.array([[1, 1, 1, 1]])
+    pred = model.predict(a)
+    st.write('a shape:', a.shape)
+    st.write('pred:', pred)
+
+
+def KP(a, b, w, l0, l1, P):
+    inputs = np.array([[a / b, w / b, l0 / b, l1 / b]])
+    outputs = model.predict(inputs)
+    kop = (outputs * l1 * (a ** 0.5) / b / w / w)
+    return kop if np.isfinite(kop) else 0.0
+
+
+def emp(a, b, w, L, P):
+    F = 1.85 - 3.38 * (a / b) + 13.24 * (a / b) ** 2 - 23.26 * (a / b) ** 3 + 16.8 * (a / b) ** 4
+    y = (b * b * w / 2 + w * w / 4 * (b + w / 6)) / (b * w + w * w / 4)
+    I = w * b ** 3 / 12 + (y - b / 2) ** 2 * b * w + w ** 4 / 288 + (w / 6 + b - y) ** 2 * w * w / 4
+    sigma = P * L * y / I
+    return sigma * np.sqrt(np.pi * a) * F
+
 
 # add sideBar
 with st.sidebar:
@@ -37,16 +69,25 @@ with st.sidebar:
 
         # TODO: Check parsing json and apply model equation
 
-
 st.write("(PoC) Assuming model equation is: a + b + w + LZero + LOne + P. Result is: " )
 st.write(str(a + b + w + LZero + LOne + P))
 
-
 iframe_src_3d_url = "https://3dwarehouse.sketchup.com/embed/9658ccab-6ac3-4b89-a23f-635206942357"
-image_html_block = "<div class=\"col-lg-6 card my-2 px-3\" style=\"width: max-content;\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
 
-st.components.v1.iframe(iframe_src_3d_url, width=800, height = 600, scrolling=False)
-st.components.v1.html(image_html_block, width=800, height=600, scrolling=False)
+col1, col2 = st.columns(2, gap="medium")
+with col1:
+   st.image("https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png")
+
+with col2:
+   with st.container():
+    st.components.v1.iframe(iframe_src_3d_url, scrolling=False)
+
+
+# image_html_block = "<div class=\"col-lg-6 card my-2 px-3\" style=\"width: max-content;\"> <img src=\"https://hint1412.github.io/XLiu.github.io/SIF/images/Notched_cantilever_sketch.png\" class=\"img-fluid\" alt=\"Stress Intensity Factor Calculator\" /></div>"
+
+# st.components.v1.iframe(iframe_src_3d_url, width=800, height = 600, scrolling=False)
+# st.components.v1.html(image_html_block, width=800, height=600, scrolling=False)
+
 
 total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
 num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
