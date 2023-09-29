@@ -5,6 +5,3 @@ astropy
 PyPDF2
 reportlab
 pdf2image
-fitz
-frontend
-Wand
