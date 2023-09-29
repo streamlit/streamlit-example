@@ -45,7 +45,6 @@ def get_image_paths(prod_ids):
 
     return image_paths
 
-
 def main():
     st.title("Image Similarity Search")
 
