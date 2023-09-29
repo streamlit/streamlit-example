@@ -3,7 +3,6 @@ pandas
 streamlit
 gradio_client
 opencv-python
-json
 torch
 torchvision
 open-clip-torch
