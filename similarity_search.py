@@ -95,21 +95,12 @@ def Model():
     return backbone
 
 def find(img_path):
-    # img_path = '/kaggle/input/vprtestdata/public_dataset/queries/abiding-inchworm-of-ultimate-freedom.jpeg'
 
     image = read_image(img_path)
 
     image = transform_img(image)
 
-    print('1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
-
     image = image.unsqueeze(dim=0)
-
-    print('2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
-
-    print(image.shape)
-
-    print('3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
 
     feature_vectors_gallery = np.load('./VPR image similarity search/gallary_embedding/feature_vectors_gallery.npy')
 
