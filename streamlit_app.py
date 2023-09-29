@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-import cv2
+# import cv2
 from PIL import Image
 import similarity_search
 import tempfile
