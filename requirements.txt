@@ -1,7 +1,3 @@
-altair
-pandas
-streamlit
-astropy
 PyPDF2
 reportlab
 pdf2image
