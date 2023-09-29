@@ -65,7 +65,7 @@ def main():
 #       similar_image_ids = get_similar_images(temp_image_path)
         client = Client("https://thenujan-vpr-deploy.hf.space/")
         result = client.predict(
-                        "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png",	# str (filepath or URL to image) in 'image' Image component
+                        temp_image_path,	# str (filepath or URL to image) in 'image' Image component
                         api_name="/predict"
         )
 
