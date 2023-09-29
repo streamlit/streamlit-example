@@ -2,7 +2,7 @@ altair
 pandas
 streamlit
 gradio_client
-opencv-python
+opencv-python-headless
 torch
 torchvision
 open-clip-torch

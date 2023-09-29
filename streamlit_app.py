@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-# import cv2
+import cv2
 from PIL import Image
 import similarity_search
 import tempfile
@@ -107,8 +107,6 @@ def main():
                     row[j].image(resized_image, caption=similar_image_path, use_column_width=True)
                 else:
                     st.write(f"Image not found: {similar_image_path}")
-
-
 
 if __name__ == "__main__":
     main()
