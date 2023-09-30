@@ -13,6 +13,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import zlib
 import zipfile
+import os
 
 pdfmetrics.registerFont(TTFont('MontserratB', 'Montserrat-Bold.ttf'))
 pdfmetrics.registerFont(TTFont('MontserratEB', 'Montserrat-ExtraBold.ttf'))
@@ -27,27 +28,37 @@ pdfmetrics.registerFont(TTFont('Allison', 'Allison-Regular.ttf'))
 # pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
 
 """
-# Welcome to Toastmasters Certificate Generator!
+# Toastmasters Certificate Generator
 
-Give certificates to guests and award winners as appreciations!
+Generate Certificates to Appreciate Guests
 
-Current ability: Generate multiple participation certs at once.
+Welcome to the Toastmasters Certificate Generator! I'm Ming Kang, a Toastmasters member since 2020 and a university student passionate about coding and video editing. I've created this website to help you easily generate PDF certificates for your club's guests.
 
-Future development: 3 award certs and GE appreciation cert.
+## Features
+- Generate multiple participation certificates at once.
+- Future development: Award certificates and GE appreciation certificates, automated email delivery to recipients, multiline texts
+
+## How to Use
+1. Enter participant names, one per line.
+2. Provide event details and issuer information.
+3. Click "Generate."
+4. Review certificate images.
+5. Adjust text and font size if needed, then click "Generate" again.
+6. Download certificates in PDF format in a zip file.
+
+Your support is appreciated! Consider donating to support a university student and Toastmasters member working to enhance our community.
+
+Feel free to contact me at mk1029@hotmail.com for inquiries or suggestions.
 
 """
 
-with open("cert.zip", "rb") as fp:
-    btn = st.download_button(
-        label="Download Cert",
-        data=fp,
-        file_name="cert.zip"
-    )
+with st.expander("Donate to the author"):
+    st.write("If you are a malaysian, please transfer the donation to my TnG Wallet or DuitNow. If you are a non-Malaysian, please email me so we can discuss ways to do it.")
+
+    st.image("myqr.png")
 
 def generate_response(input_text):
     st.info(input_text+"dasda")
-
-
 
 def compress(file_names):
     print("File Paths:")
@@ -138,3 +149,10 @@ with st.form('my_form'):
         generate_participation_cert(name_list,event_name,date,venue,issuer,issuer_title,signature,
                                     size_name_list,size_event,size_date_venue)
 
+if "cert.zip" in os.listdir() and submitted:
+    with open("cert.zip", "rb") as fp:
+        btn = st.download_button(
+            label="Download Cert",
+            data=fp,
+            file_name="cert.zip"
+        )
