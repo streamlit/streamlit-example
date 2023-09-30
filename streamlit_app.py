@@ -133,16 +133,16 @@ def generate_participation_cert(name_list,event_name,date,venue,issuer,issuer_ti
     compress(filelist)
 
 with st.form('my_form'):
-    name_list = st.text_area('Enter names, separated by line:', 'Ali\nAbu\nAhmad')
+    name_list = st.text_area('Enter names, separated by line:', 'Ali\nAh Kau\nMuthu')
     size_name_list = st.slider('Name Font size?', 0, 80, 40)
-    event_name = st.text_area('Enter event name:', 'UM Toastmasters Meeting 366')
+    event_name = st.text_area('Enter event name:', 'Malaysia Toastmasters Meeting 366')
     size_event = st.slider('Event Font size?', 0, 80, 30)
     date = st.text_area('Enter date:', '27 Sep 2023')
     venue = st.text_area('Enter venue:', 'Zoom (Online)')
     size_date_venue = st.slider('Date Venue Font size?', 0, 80, 30)
-    issuer = st.text_area('Enter issuer:', 'Wong Yee Chin')
+    issuer = st.text_area('Enter issuer:', 'Michael Jay')
     issuer_title = st.text_area('Enter issuer_title:', 'President')
-    signature = st.text_area('Enter signature name:', 'Jane')
+    signature = st.text_area('Enter signature name:', 'Michael')
     submitted = st.form_submit_button('Submit')
 
     if submitted:
