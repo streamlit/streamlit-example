@@ -44,7 +44,11 @@ Welcome to the Toastmasters Certificate Generator! I'm Ming Kang, a Toastmasters
 3. Click "Generate."
 4. Review certificate images.
 5. Adjust text and font size if needed, then click "Generate" again.
-6. Download certificates in PDF format in a zip file.
+6. Download certificates in two ways:
+
+    a) If you prefer JPEG format, simply right-click or long-tap the certificate shown to save.
+    
+    b) A "download" button shall appear; click to download in PDF format in a zip file.
 
 Your support is appreciated! Consider donating to support a university student and Toastmasters member working to enhance our community.
 
@@ -132,22 +136,165 @@ def generate_participation_cert(name_list,event_name,date,venue,issuer,issuer_ti
         
     compress(filelist)
 
-with st.form('my_form'):
-    name_list = st.text_area('Enter names, separated by line:', 'Ali\nAh Kau\nMuthu')
-    size_name_list = st.slider('Name Font size?', 0, 80, 40)
-    event_name = st.text_area('Enter event name:', 'Malaysia Toastmasters Meeting 366')
-    size_event = st.slider('Event Font size?', 0, 80, 30)
-    date = st.text_area('Enter date:', '27 Sep 2023')
-    venue = st.text_area('Enter venue:', 'Zoom (Online)')
-    size_date_venue = st.slider('Date Venue Font size?', 0, 80, 30)
-    issuer = st.text_area('Enter issuer:', 'Michael Jay')
-    issuer_title = st.text_area('Enter issuer_title:', 'President')
-    signature = st.text_area('Enter signature name:', 'Michael')
-    submitted = st.form_submit_button('Submit')
+def generate_award_cert(name_best_TT,name_best_speech,name_best_evaluator,club_name,date,venue,issuer,issuer_title,signature,
+                                size_name_list,size_event,size_date_venue):
+    filelist = []
+    for name in name_best_TT.split('\n'):
+        packet = io.BytesIO()
+        # Create a new PDF with Reportlab
+        can = canvas.Canvas(packet, pagesize=(A4[1], A4[0]))
+        can.setFont('MontserratEB', size_name_list)
+        can.drawCentredString(540, 300, name.upper())
 
-    if submitted:
-        generate_participation_cert(name_list,event_name,date,venue,issuer,issuer_title,signature,
-                                    size_name_list,size_event,size_date_venue)
+        can.setFont('MontserratB', size_event)
+        can.drawCentredString(540, 200, club_name)
+
+        can.setFont('MontserratR', 20)
+        can.drawCentredString(415, 80, date)
+
+        can.setFont('MontserratR', 20)
+        can.drawCentredString(660, 80, issuer)
+
+        can.showPage()
+        can.save()
+
+        # Move to the beginning of the StringIO buffer
+        packet.seek(0)
+        new_pdf = PdfReader(packet)
+        # Read your existing PDF
+        existing_pdf = PdfReader(open("cert_best_tt.pdf", "rb"))
+        output = PdfWriter()
+        # Add the "watermark" (which is the new pdf) on the existing page
+        page = existing_pdf.pages[0]
+        page.merge_page(new_pdf.pages[0])
+        output.add_page(page)
+        # Finally, write "output" to a real file
+        filename = f"bestTT_{name}.pdf"
+        outputStream = open(filename, "wb")
+        output.write(outputStream)
+        outputStream.close()
+        filelist.append(filename)
+        # with open(f"participation_{name}.pdf",'rb') as cert:
+        image = convert_from_path(filename)
+        st.image(image)
+    for name in name_best_speech.split('\n'):
+        packet = io.BytesIO()
+        # Create a new PDF with Reportlab
+        can = canvas.Canvas(packet, pagesize=(A4[1], A4[0]))
+        can.setFont('MontserratEB', size_name_list)
+        can.drawCentredString(540, 300, name.upper())
+
+        can.setFont('MontserratB', size_event)
+        can.drawCentredString(540, 200, club_name)
+
+        can.setFont('MontserratR', 20)
+        can.drawCentredString(415, 80, date)
+
+        can.setFont('MontserratR', 20)
+        can.drawCentredString(660, 80, issuer)
+
+        can.showPage()
+        can.save()
+
+        # Move to the beginning of the StringIO buffer
+        packet.seek(0)
+        new_pdf = PdfReader(packet)
+        # Read your existing PDF
+        existing_pdf = PdfReader(open("cert_best_speaker.pdf", "rb"))
+        output = PdfWriter()
+        # Add the "watermark" (which is the new pdf) on the existing page
+        page = existing_pdf.pages[0]
+        page.merge_page(new_pdf.pages[0])
+        output.add_page(page)
+        # Finally, write "output" to a real file
+        filename = f"bestSpeaker_{name}.pdf"
+        outputStream = open(filename, "wb")
+        output.write(outputStream)
+        outputStream.close()
+        filelist.append(filename)
+        # with open(f"participation_{name}.pdf",'rb') as cert:
+        image = convert_from_path(filename)
+        st.image(image)
+    for name in name_best_evaluator.split('\n'):
+        packet = io.BytesIO()
+        # Create a new PDF with Reportlab
+        can = canvas.Canvas(packet, pagesize=(A4[1], A4[0]))
+        can.setFont('MontserratEB', size_name_list)
+        can.drawCentredString(540, 300, name.upper())
+
+        can.setFont('MontserratB', size_event)
+        can.drawCentredString(540, 200, club_name)
+
+        can.setFont('MontserratR', 20)
+        can.drawCentredString(415, 80, date)
+
+        can.setFont('MontserratR', 20)
+        can.drawCentredString(660, 80, issuer)
+
+        can.showPage()
+        can.save()
+
+        # Move to the beginning of the StringIO buffer
+        packet.seek(0)
+        new_pdf = PdfReader(packet)
+        # Read your existing PDF
+        existing_pdf = PdfReader(open("cert_best_evaluator.pdf", "rb"))
+        output = PdfWriter()
+        # Add the "watermark" (which is the new pdf) on the existing page
+        page = existing_pdf.pages[0]
+        page.merge_page(new_pdf.pages[0])
+        output.add_page(page)
+        # Finally, write "output" to a real file
+        filename = f"bestEvaluator_{name}.pdf"
+        outputStream = open(filename, "wb")
+        output.write(outputStream)
+        outputStream.close()
+        filelist.append(filename)
+        # with open(f"participation_{name}.pdf",'rb') as cert:
+        image = convert_from_path(filename)
+        st.image(image)
+
+    compress(filelist)
+
+tab1, tab2 = st.tabs(["Participation", "Awards"]) 
+
+with tab1:
+    with st.form('my_form_participation'):
+        name_list = st.text_area('Enter names, separated by line:', 'Ali\nAh Kau\nMuthu')
+        size_name_list = st.slider('Name Font size?', 0, 80, 40)
+        event_name = st.text_area('Enter event name:', 'Malaysia Toastmasters Meeting 366')
+        size_event = st.slider('Event Font size?', 0, 80, 30)
+        date = st.text_area('Enter date:', '27 Sep 2023')
+        venue = st.text_area('Enter venue:', 'Zoom (Online)')
+        size_date_venue = st.slider('Date Venue Font size?', 0, 80, 30)
+        issuer = st.text_area('Enter issuer:', 'Michael Jay')
+        issuer_title = st.text_area('Enter issuer_title:', 'President')
+        signature = st.text_area('Enter signature name:', 'Michael')
+        submitted = st.form_submit_button('Submit')
+
+        if submitted:
+            generate_award_cert(name_list,event_name,date,venue,issuer,issuer_title,signature,
+                                        size_name_list,size_event,size_date_venue)
+    
+with tab2:
+    with st.form('my_form_award'):
+        name_best_TT = st.text_area('Enter names of best table topics speaker(s), separated by line:', 'Sithi\nMei Ling')
+        name_best_speech = st.text_area('Enter names of best speaker(s), separated by line:', 'Jenny\nHui Xin')
+        name_best_evaluator = st.text_area('Enter names best evaluator(s), separated by line:', 'Chris\nRyan')
+        size_name_list = st.slider('Name Font size?', 0, 80, 30)
+        club_name = st.text_area('Enter club name:', 'Malaysia Toastmasters Club')
+        size_event = st.slider('Event Font size?', 0, 80, 20)
+        date = st.text_area('Enter date:', '27 Sep 2023')
+        venue = st.text_area('Enter venue:', 'Zoom (Online)')
+        size_date_venue = st.slider('Date Venue Font size?', 0, 80, 30)
+        issuer = st.text_area('Enter issuer:', 'Michael Jay')
+        issuer_title = st.text_area('Enter issuer_title:', 'President')
+        signature = st.text_area('Enter signature name:', 'Michael')
+        submitted = st.form_submit_button('Submit Award Form')
+
+        if submitted:
+            generate_award_cert(name_best_TT,name_best_speech,name_best_evaluator,club_name,date,venue,issuer,issuer_title,signature,
+                                        size_name_list,size_event,size_date_venue)
 
 if "cert.zip" in os.listdir() and submitted:
     with open("cert.zip", "rb") as fp:
