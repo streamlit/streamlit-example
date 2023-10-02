@@ -4,7 +4,10 @@ import streamlit as st
 import requests
 from datetime import datetime
 import pandas as pd
+import json
 
+# Chave de API
+API_KEY = "divTM7hRMYjZtqcYXQdhXfWgK3sQj11pGjcF53QS"
 # URL da API do NASAPower
 nasapower_api_url = "https://power.larc.nasa.gov/api/temporal/hourly/point"
 
