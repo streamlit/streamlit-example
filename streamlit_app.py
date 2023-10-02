@@ -1,38 +1,55 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import requests
+from datetime import datetime
+import pandas as pd
+import json
 
-"""
-# Welcome to Streamlit!
+# URL da API do NASAPower
+nasapower_api_url = "https://power.larc.nasa.gov/api/temporal/hourly/point"
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Função para validar e formatar a data corretamente
+def format_date(date_str):
+    try:
+        datetime.strptime(date_str, "%Y%m%d%H")
+        return date_str
+    except ValueError:
+        st.error("Por favor, forneça uma data no formato YYYYMMDDHH.")
+        return None
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+st.title("Dados Meteorológicos da NASA Power")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Adicione campos de entrada para os parâmetros da API
+start_date = st.text_input("Data de Início (formato YYYYMMDDHH):")
+end_date = st.text_input("Data de Término (formato YYYYMMDDHH):")
+latitude = st.number_input("Latitude:")
+longitude = st.number_input("Longitude:")
+community = st.selectbox("Comunidade de Usuários:", ["ag", "sb", "re"])
+parameters = st.text_input("Parâmetros (separados por vírgula):")
+format_type = st.selectbox("Formato de Saída:", ["json", "text/ascii", "text/csv"])
 
+# Crie um botão para fazer a solicitação à API
+if st.button("Obter Dados"):
+    start_date_formatted = format_date(start_date)
+    end_date_formatted = format_date(end_date)
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+    if start_date_formatted and end_date_formatted:
+        params = {
+            "start": start_date_formatted,
+            "end": end_date_formatted,
+            "latitude": latitude,
+            "longitude": longitude,
+            "community": community,
+            "parameters": parameters,
+            "format": format_type,
+        }
+        
+        response = requests.get(nasapower_api_url, params=params)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+        if response.status_code == 200:
+            data = response.json()
+            df = pd.json_normalize(data["features"][0]["properties"]["parameter"])
+            st.write("Dados Recebidos:")
+            st.write(df)
+        else:
+            st.error(f"Erro ao obter dados da API. Código de status: {response.status_code}")
+            st.write(response.text)
