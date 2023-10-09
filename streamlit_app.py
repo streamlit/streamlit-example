@@ -30,7 +30,7 @@ frequent_itemsets = apriori(oht,
                             min_support = 0.01,
                             max_len = 3,
                             use_colnames = True)
-# frequent_itemsets['itemsets'] = frequent_itemsets['itemsets'].map(lambda x:set(x)) 
+frequent_itemsets['itemsets'] = frequent_itemsets['itemsets'].map(lambda x:set(x)) 
 print(frequent_itemsets)
 
 # # Generate association rules
@@ -43,7 +43,7 @@ st.write(frequent_itemsets)
 
 st.write("\nAssociation Rules:")
 # rules["antecedents"] = rules["antecedents"].map(lambda x:set(x))
-product_name = rules["antecedents"].map(lambda x:set(x)).unique()
+product_name = frequent_itemsets['itemsets'].unique()
 dropdown = st.selectbox('Select product to check', product_name)
 rules_selected = rules["consequents"].loc[rules["antecedents"] == dropdown]
 st.write(rules_selected.map(lambda x:set(x)) )
