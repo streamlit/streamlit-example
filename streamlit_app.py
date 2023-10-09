@@ -35,6 +35,7 @@ print(frequent_itemsets)
 
 # # Generate association rules
 rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.0)
+rules = rules.sort_values(by=['confidence',ascending=False])
 
 # Display the frequent item sets and association rules
 st.write("Frequent Item Sets:")
