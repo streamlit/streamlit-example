@@ -39,6 +39,10 @@ rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.0)
 st.write("Frequent Item Sets:")
 st.write(frequent_itemsets)
 
+
 st.write("\nAssociation Rules:")
-st.write(rules)
+product_name = rules['antecedents'].unique()
+dropdown = st.selectbox('Select product to check', product_name)
+rules_selected = rules[rules["antecedents"]== dropdown]
+st.write(rules_selected)
 
