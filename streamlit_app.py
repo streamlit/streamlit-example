@@ -12,6 +12,6 @@ from mlxtend.frequent_patterns import association_rules
 
 st.title("Ini punya kelompok FRIK")
 
-df = pd.read_csv("queryresult(2).csv")
+df = pd.read_csv("Data/query_result.csv")
 df = df.rename(columns={'sale_order_id': 'OrderID', 'product_default_code': 'Product'})
 df.head()
