@@ -15,7 +15,31 @@ st.title("Cross Selling Recommendation")
 st.text("Improving revenue by upselling shrimp input product")
 
 st.header("Association Rule")
-st.subheader("transaction behavior")
+st.subheader("Transaction behavior")
 df = pd.read_csv("Data/query_result.csv")
 df = df.rename(columns={'sale_order_id': 'OrderID', 'product_default_code': 'Product'})
 st.write(df)
+
+# Convert the data into a one-hot encoded format
+oht = df.groupby(['OrderID', 'Product'])['Product'].count().unstack().fillna(0)
+oht = (oht > 0).astype(int)
+# print(oht)
+
+# # Run Apriori algorithm to find frequent item sets
+# frequent_itemsets = apriori(oht, min_support=0.5, use_colnames=True)
+frequent_itemsets = apriori(oht,
+                            min_support = 0.01,
+                            max_len = 3,
+                            use_colnames = True)
+print(frequent_itemsets)
+
+# # Generate association rules
+rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.0)
+
+# Display the frequent item sets and association rules
+st.write("Frequent Item Sets:")
+st.write(frequent_itemsets)
+
+st.write("\nAssociation Rules:")
+st.write(rules)
+
