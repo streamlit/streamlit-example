@@ -10,9 +10,12 @@ from mlxtend.frequent_patterns import association_rules
 
 
 
-st.title("Ini punya kelompok FRIK")
+st.title("Cross Selling Recommendation")
 
+st.text("Improving revenue by upselling shrimp input product")
+
+st.header("Association Rule")
+st.subheader("transaction behavior")
 df = pd.read_csv("Data/query_result.csv")
 df = df.rename(columns={'sale_order_id': 'OrderID', 'product_default_code': 'Product'})
-df.head()
 st.write(df)
