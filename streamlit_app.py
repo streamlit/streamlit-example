@@ -45,6 +45,6 @@ st.write("\nAssociation Rules:")
 # rules["antecedents"] = rules["antecedents"].map(lambda x:set(x))
 product_name = rules["antecedents"].unique()
 dropdown = st.selectbox('Select product to check', product_name)
-rules_selected = rules[rules["antecedents"] == dropdown]
+rules_selected = rules["consequent"].loc[rules["antecedents"] == dropdown]
 st.write(rules_selected)
 
