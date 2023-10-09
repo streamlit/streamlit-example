@@ -30,6 +30,7 @@ frequent_itemsets = apriori(oht,
                             min_support = 0.01,
                             max_len = 3,
                             use_colnames = True)
+frequent_itemsets['itemsets'] = frequent_itemsets['itemsets'].applymap(lambda x:set(x)) 
 print(frequent_itemsets)
 
 # # Generate association rules
