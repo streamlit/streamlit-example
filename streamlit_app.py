@@ -8,8 +8,7 @@ import streamlit as st
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
-from google.colab import files
-import io
+
 
 st.title("Ini punya kelompok FRIK")
 
