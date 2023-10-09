@@ -28,7 +28,7 @@ oht = (oht > 0).astype(int)
 # frequent_itemsets = apriori(oht, min_support=0.5, use_colnames=True)
 frequent_itemsets = apriori(oht,
                             min_support = 0.01,
-                            max_len = 3,
+                            max_len = 1,
                             use_colnames = True)
 frequent_itemsets['itemsets'] = frequent_itemsets['itemsets'].map(lambda x:set(x)) 
 print(frequent_itemsets)
