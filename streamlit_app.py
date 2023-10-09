@@ -43,7 +43,7 @@ st.write(frequent_itemsets)
 
 st.write("\nAssociation Rules:")
 # rules["antecedents"] = rules["antecedents"].map(lambda x:set(x))
-product_name = frequent_itemsets['itemsets'].unique()
+product_name = frequent_itemsets['itemsets']
 dropdown = st.selectbox('Select product to check', product_name)
 rules_selected = rules["consequents"].loc[rules["antecedents"] == dropdown]
 st.write(rules_selected.map(lambda x:set(x)) )
