@@ -13,11 +13,11 @@ st.title("Cross Selling Recommendation")
 
 st.text("Improving revenue by upselling shrimp input product")
 
-st.header("Association Rule")
-st.subheader("Transaction behavior")
+# st.header("Association Rule")
+# st.subheader("Transaction behavior")
 df = pd.read_csv("Data/raw_data.csv")
 df = df.rename(columns={'sale_order_id': 'OrderID', 'product_default_code': 'Product'})
-st.write(df)
+# st.write(df)
 
 # Convert the data into a one-hot encoded format
 oht = df.groupby(['OrderID', 'Product'])['Product'].count().unstack().fillna(0)
@@ -38,8 +38,8 @@ rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.0)
 rules = rules.sort_values(by=['confidence'],ascending=False)
 
 # Display the frequent item sets and association rules
-st.write("Frequent Item Sets:")
-st.write(frequent_itemsets)
+# st.write("Frequent Item Sets:")
+# st.write(frequent_itemsets)
 
 
 st.write("\nAssociation Rules:")
