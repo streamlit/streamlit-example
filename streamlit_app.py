@@ -16,7 +16,7 @@ st.text("Improving revenue by upselling shrimp input product")
 # st.header("Association Rule")
 # st.subheader("Transaction behavior")
 df = pd.read_csv("Data/raw_data_v2.csv")
-df.product_default_code = df.product_subcategory + ': ' + df.product_default_code
+# df.product_default_code = df.product_subcategory + ': ' + df.product_default_code
 df = df.rename(columns={'sale_order_id': 'OrderID', 'product_default_code': 'Product'})
 
 # st.write(df)
