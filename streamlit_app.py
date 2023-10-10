@@ -15,8 +15,10 @@ st.text("Improving revenue by upselling shrimp input product")
 
 # st.header("Association Rule")
 # st.subheader("Transaction behavior")
-df = pd.read_csv("Data/raw_data.csv")
+df = pd.read_csv("Data/raw_data_v2.csv")
+df.product_default_code = df.product_subcategory + ': ' + df.product_default_code
 df = df.rename(columns={'sale_order_id': 'OrderID', 'product_default_code': 'Product'})
+
 # st.write(df)
 
 # Convert the data into a one-hot encoded format
@@ -27,7 +29,7 @@ oht = (oht > 0).astype(int)
 # # Run Apriori algorithm to find frequent item sets
 # frequent_itemsets = apriori(oht, min_support=0.5, use_colnames=True)
 frequent_itemsets = apriori(oht,
-                            min_support = 0.005,
+                            min_support = 0.001,
                             max_len = 2,
                             use_colnames = True)
 frequent_itemsets['itemsets'] = frequent_itemsets['itemsets'].map(lambda x:set(x)) 
@@ -46,6 +48,6 @@ st.write("\nAssociation Rules:")
 # rules["antecedents"] = rules["antecedents"].map(lambda x:set(x))
 product_name = rules['antecedents'].unique()
 dropdown = st.selectbox('Select product to check', product_name)
-rules_selected = rules[].loc[rules["antecedents"] == dropdown]
+rules_selected = rules['consequent'].loc[rules["antecedents"] == dropdown]
 st.write(rules_selected.map(lambda x:set(x)) )
 
