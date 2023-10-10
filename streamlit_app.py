@@ -22,7 +22,7 @@ oht = (oht > 0).astype(int)
 # # Run Apriori algorithm to find frequent item sets
 # frequent_itemsets = apriori(oht, min_support=0.5, use_colnames=True)
 frequent_itemsets = apriori(oht,
-                            min_support = 0.005,
+                            min_support = 0.001,
                             max_len = 2,
                             use_colnames = True)
 frequent_itemsets['itemsets'] = frequent_itemsets['itemsets'].map(lambda x:set(x)) 
