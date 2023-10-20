@@ -11,12 +11,12 @@ image = Image.open('HW2.png')
 st.subheader('General Load Distributer', divider='rainbow')
 st.image(image)
 
-la = st.number_input('Type $$l_a$$ below', value=None, placeholder="la", label_visibility='visible', step=1)
-lb = st.number_input('Type $$l_b$$ below', value=None, placeholder="lb", label_visibility='visible', step=1)
-l = st.number_input('Type $$l$$ below', value=None, placeholder="l", label_visibility='visible', step=1)
-a = st.number_input('Type $$a$$ below', value=None, placeholder="a", label_visibility='visible', step=1)
-b = st.number_input('Type $$b$$ below', value=None, placeholder="b", label_visibility='visible', step=1)
-f = st.number_input('Type $$f$$ below', value=None, placeholder="f", label_visibility='visible', step=1)
+la = st.number_input('Type $$l_a$$ below', value=None, placeholder="la", label_visibility='visible')
+lb = st.number_input('Type $$l_b$$ below', value=None, placeholder="lb", label_visibility='visible')
+l = st.number_input('Type $$l$$ below', value=None, placeholder="l", label_visibility='visible')
+a = st.number_input('Type $$a$$ below', value=None, placeholder="a", label_visibility='visible')
+b = st.number_input('Type $$b$$ below', value=None, placeholder="b", label_visibility='visible')
+f = st.number_input('Type $$f$$ below', value=None, placeholder="f", label_visibility='visible')
 if(la == None): la = 0
 if(lb == None): lb = 0
 if(l == None): l = 0
