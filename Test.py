@@ -74,10 +74,24 @@ if st.button('Calculate'):
         st.latex(r'''M_{B} = F_{resultant}\cdot (l_a+l+l_b-x_c) \;dx = ''' + str(np.round(K,decimals=2)) + r'''\; kN''')
         
         #Supports code
-        st.subheader('Supports', divider='rainbow')
+        st.header('Supports')
         
         #Support 1
+        st.subheader('Support 1', divider='rainbow')
         image = Image.open('S1.png')
+        st.image(image)
+        st.latex(r'''
+        \Sigma F_x = R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\
+        \Sigma F_y = -R_1sin45^o + R_2sin45^o + R_3sin45^o - F= 0\\
+        \Sigma M_a = M_{aF} + R_3sin45^o''')
+        #Support 2
+        st.subheader('Support 2', divider='rainbow')
+        image = Image.open('S2.png')
+        st.image(image)
+
+        #Support 3
+        st.subheader('Support 3', divider='rainbow')
+        image = Image.open('S3.png')
         st.image(image)
         
         
