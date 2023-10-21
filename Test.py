@@ -94,7 +94,7 @@ if st.button('Calculate'):
         st.write('Combining Fx and Fy you get (cos45 = sin45):')
         st.latex(r'''2R_2sin45^o - F = 0\\\text{}\\
                  R_2 = \frac{F}{2sin45^o}''')
-        st.write('Plugging in R2 and R3 intot he first equation gives you:')
+        st.write('Plugging in R2 and R3 into the first equation gives you:')
         st.latex(r'''R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
                  R_1 + R_2 - R_3 = 0\\\text{}\\
                  R_1 = R_3-R_2''')
@@ -127,6 +127,12 @@ if st.button('Calculate'):
         image = Image.open('S3.png')
         st.image(image)
         
+        st.latex(r'''\Sigma F_x = 0 = R_{1x} \\\text{}\\
+                 \Sigma F_y = 0 = R_{1y} + R_2 - F \\\text{}\\
+                 \Sigma M_b = 0 = M_{bF} - R_{1y}\frac{l_a+l+l_b}{2} \\\text{}\\
+                 R_{1y} = \frac{2M_{bF}}{l_a+l+l_b}''')
+        st.write('Now solving the second equation')
+        st.latex(r'R_2 = F - R_{1y}')
         
         #Methods text (Not computing anything)
         st.header('Methods', divider='rainbow')
