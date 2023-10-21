@@ -76,6 +76,7 @@ if st.button('Calculate'):
         #Supports code
         st.header('Supports')
         
+
         #Support 1
         st.subheader('Support 1', divider='rainbow')
         image = Image.open('S1.png')
@@ -97,15 +98,19 @@ if st.button('Calculate'):
         st.latex(r'''R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
                  R_1 + R_2 - R_3 = 0\\\text{}\\
                  R_1 = R_3-R_2''')
+        
+        
         #Support 2
         st.subheader('Support 2', divider='rainbow')
         image = Image.open('S2.png')
         st.image(image)
 
-        #Support 3
-        st.subheader('Support 3', divider='rainbow')
-        image = Image.open('S3.png')
-        st.image(image)
+        R3 = -1*(-1*J)/(np.sqrt(2)/2*(la+l+lb))
+        R2 = -1*(-1*J)/(np.sin(np.deg2rad(5))*(la+l+lb))
+        R1 = R2*np.cos(np.deg2rad(5)) + R3*np.sqrt(2)/2
+        st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
+        st.caption('Above are all reaction forces')
+        
         st.latex(r'''
         \Sigma F_x = R_2sin(5^o) - R_3cos(45^o) = 0 \\\text{}\\
         \Sigma F_y = R_2cos(5^o) + R_3sin(45^o) -F -R_1 = 0 \\\text{}\\
@@ -116,6 +121,13 @@ if st.button('Calculate'):
                 R_2 = \frac{-M_{aF}}{sin(5^o)(l_a+l+l_b)''')
         st.write('Now solving for R1')
         st.latex(r'''R_1 = R_2cos(5^o)+R_3sin(45^o)-F''')
+
+
+        #Support 3
+        st.subheader('Support 3', divider='rainbow')
+        image = Image.open('S3.png')
+        st.image(image)
+        
         
         #Methods text (Not computing anything)
         st.header('Methods', divider='rainbow')
