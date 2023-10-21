@@ -80,7 +80,7 @@ if st.button('Calculate'):
         st.subheader('Support 1', divider='rainbow')
         image = Image.open('S1.png')
         st.image(image)
-        R3 = (-1*J)/(np.sqrt(2)/2)
+        R3 = -1*(-1*J)/(np.sqrt(2)/2)
         R2 = (-1*I)/(np.sqrt(2))
         R1 = ((-1*J)-(-1*I/(np.sqrt(2)/2)))/(np.sqrt(2)/2)
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
