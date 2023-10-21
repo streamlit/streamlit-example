@@ -82,21 +82,21 @@ if st.button('Calculate'):
         st.image(image)
         R3 = -1*(-1*J)/(np.sqrt(2)/2)
         R2 = (-1*I)/(np.sqrt(2))
-        R1 = ((-1*J)-(-1*I/(np.sqrt(2)/2)))/(np.sqrt(2)/2)
+        R1 = ((J)-(-1*I/(np.sqrt(2)/2)))/(np.sqrt(2)/2)
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
 
         st.latex(r'''
         \Sigma F_x = R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
         \Sigma F_y = -R_1sin45^o + R_2sin45^o + R_3sin45^o - F= 0\\\text{}\\
         \Sigma M_a = M_{aF} + R_3sin45^o = 0\\\text{}\\
-        R_3 = \frac{M_{aF}}{sin45^o}''')
+        R_3 = -\frac{M_{aF}}{sin45^o}''')
         st.write('Combining Fx and Fy you get (cos45 = sin45):')
         st.latex(r'''2R_2sin45^o - F = 0\\\text{}\\
                  R_2 = \frac{F}{2sin45^o}''')
         st.write('Plugging in R2 and R3 intot he first equation gives you:')
-        st.latex(r'''R_1cos45^o + \frac{F}{sin45^o} - M_{aF} = 0\\\text{}\\
-                 R_1cos45^o = M_{aF} - \frac{F}{sin45^o}\\\text{}\\
-                 R_1 = \frac{M_{aF} - \frac{F}{sin45^o}}{cos45^o}''')
+        st.latex(r'''R_1cos45^o + \frac{F}{sin45^o} + M_{aF} = 0\\\text{}\\
+                 R_1cos45^o = -M_{aF} - \frac{F}{sin45^o}\\\text{}\\
+                 R_1 = \frac{-M_{aF} - \frac{F}{sin45^o}}{cos45^o}''')
         #Support 2
         st.subheader('Support 2', divider='rainbow')
         image = Image.open('S2.png')
