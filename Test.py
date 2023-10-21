@@ -12,12 +12,15 @@ st.header('General Distributed Load Analysis By Kuval Bora', divider='rainbow')
 image = Image.open('HW2.png')
 st.image(image)
 
+#Inputs
 la = st.number_input('Type $$l_a$$ below', value=None, placeholder="la", label_visibility='visible')
 lb = st.number_input('Type $$l_b$$ below', value=None, placeholder="lb", label_visibility='visible')
 l = st.number_input('Type $$l$$ below', value=None, placeholder="l", label_visibility='visible')
 a = st.number_input('Type $$a$$ below', value=None, placeholder="a", label_visibility='visible')
 b = st.number_input('Type $$b$$ below', value=None, placeholder="b", label_visibility='visible')
 f = st.number_input('Type $$f$$ below', value=None, placeholder="f", label_visibility='visible')
+
+#Catching no inputs
 if(la == None): la = 0
 if(lb == None): lb = 0
 if(l == None): l = 0
@@ -25,7 +28,9 @@ if(a == None): a = 0
 if(b == None): b = 0
 if(f == None): f = 0
 
+#Debugging
 st.write(la,lb,l,a,b,f)
+
 if st.button('Calculate'):
     #Declare variables
     x1 = la
@@ -39,6 +44,7 @@ if st.button('Calculate'):
     try:
         m3 = np.linalg.solve(m1, m2)
         
+        #Plotting the Load distribution
         t = np.linspace(la,la+l,100)
         ax.plot(t, m3[0]*t**2 + m3[1]*t + m3[2], color='black')
         ax.plot([la,la],[0,a], color = 'black')
@@ -48,6 +54,7 @@ if st.button('Calculate'):
         plt.xlabel("Length (m)")
         plt.ylabel("Load Value (kN)")
         st.pyplot(fig)
+
         #Show F(x) equation
         st.latex(r'''p(x) = ''' + str(m3[0]) + r'''x^2 + ''' + str(m3[1]) + r'''x + ''' + str(m3[2]) + r'''''')
         
@@ -81,11 +88,17 @@ if st.button('Calculate'):
         st.subheader('Support 1', divider='rainbow')
         image = Image.open('S1.png')
         st.image(image)
+        
+        #Solving reaction forces
         R3 = -1*(-1*J)/(np.sqrt(2)/2*(la+l+lb))
         R2 = (I)/(np.sqrt(2))
         R1 = R3-R2
+        
+        
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
         st.caption('Above are all reaction forces')
+        
+        #Method in latex
         st.latex(r'''
         \Sigma F_x = R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
         \Sigma F_y = -R_1sin45^o + R_2sin45^o + R_3sin45^o - F= 0\\\text{}\\
@@ -105,12 +118,14 @@ if st.button('Calculate'):
         image = Image.open('S2.png')
         st.image(image)
 
+        #Solving reaction forces
         R3 = -1*(-1*J)/(np.sqrt(2)/2*(la+l+lb))
         R2 = -1*(-1*J)/(np.sin(np.deg2rad(5))*(la+l+lb))
         R1 = R2*np.cos(np.deg2rad(5)) + R3*np.sqrt(2)/2 + I
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
         st.caption('Above are all reaction forces')
 
+        #Method in latex
         st.latex(r'''
         \Sigma F_x = R_2sin(5^o) - R_3cos(45^o) = 0 \\\text{}\\
         \Sigma F_y = R_2cos(5^o) + R_3sin(45^o) -F -R_1 = 0 \\\text{}\\
@@ -126,12 +141,15 @@ if st.button('Calculate'):
         st.subheader('Support 3', divider='rainbow')
         image = Image.open('S3.png')
         st.image(image)
+
+        #Solving reaction forces
         R1 = 0
         R3 = (2*K)/(la+l+lb)
         R2 = I-R3
         st.latex(r'''R_{1x} = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_{1y} = ''' + str(np.round(R3,decimals=2)) + r'''kN;\; R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;''')
         st.caption('Above are all reaction forces')
 
+        #Method in latex
         st.latex(r'''\Sigma F_x = 0 = R_{1x} \\\text{}\\
                  \Sigma F_y = 0 = R_{1y} + R_2 - F \\\text{}\\
                  \Sigma M_b = 0 = M_{bF} - R_{1y}\frac{l_a+l+l_b}{2} \\\text{}\\
