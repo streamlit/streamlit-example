@@ -117,7 +117,7 @@ if st.button('Calculate'):
         \Sigma M_a = M_{aF} + R_3sin(45^o)(l_a+l+l_b)=0  \\\text{}\\
         R_3 = \frac{-M_{aF}}{sin(45^o)(l_a+l+l_b)}''')
         st.write('Now, we can solve equation 1')
-        st.latex(r'''R_2sin(5^o)=R_3cos(45^o)  \\\text{}\\ R_2 = \frac{-M_{aF}}{sin(5^o)(l_a+l+l_b)''')
+        st.latex(r'''R_2sin(5^o)=R_3cos(45^o)  \\\text{}\\ R_2 = \frac{-M_{aF}}{sin(5^o)(l_a+l+l_b)}''')
         st.write('Now solving for R1')
         st.latex(r'''R_1 = R_2cos(5^o)+R_3sin(45^o)-F''')
 
