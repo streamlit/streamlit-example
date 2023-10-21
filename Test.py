@@ -32,13 +32,6 @@ if st.button('Calculate'):
     x3 = la + l/2
     c = (a+b)/2 + f
 
-    #Augmented matrix
-    st.latex(r'''\left[\begin{array}{ccc|c}  
-    ''' + str(x3**2) + r''' & ''' + str(x3) + r''' & 1 & ''' + str(c) + r'''\\  
-    ''' + str(x2**2) + r''' & ''' + str(x2) + r''' & 1 & ''' + str(b) + r'''\\
-    ''' + str(x1**2) + r''' & ''' + str(x1) + r''' & 1 & ''' + str(a) + r'''
-    \end{array}\right]''')
-
     #Solve for F(x)
     m1 = np.array([[x3**2,x3,1],[x2**2,x2,1],[x1**2,x1,1]])
     m2 = np.array([c,b,a])
@@ -55,6 +48,12 @@ if st.button('Calculate'):
         plt.ylabel("Load Value (kN)")
         st.pyplot(fig)
 
+        #Augmented matrix
+        st.latex(r'''\left[\begin{array}{ccc|c}  
+        ''' + str(x3**2) + r''' & ''' + str(x3) + r''' & 1 & ''' + str(c) + r'''\\  
+        ''' + str(x2**2) + r''' & ''' + str(x2) + r''' & 1 & ''' + str(b) + r'''\\
+        ''' + str(x1**2) + r''' & ''' + str(x1) + r''' & 1 & ''' + str(a) + r'''
+        \end{array}\right]''')
         #Show F(x) equation
         st.latex(r'''F(x) = ''' + str(m3[0]) + r'''x^2 + ''' + str(m3[1]) + r'''x + ''' + str(m3[2]) + r'''''')
         
@@ -78,7 +77,7 @@ if st.button('Calculate'):
         
         #Find and show the moment around B
         K = I*(la+l+lb-xc)
-        st.latex(r'''M_{B} = F_resultant\cdot (l_a+l+l_b-x_c) \;dx = ''' + str(np.round(K,decimals=2)) + r'''\; kN''')
+        st.latex(r'''M_{B} = F_{resultant}\cdot (l_a+l+l_b-x_c) \;dx = ''' + str(np.round(K,decimals=2)) + r'''\; kN''')
     except:
         st.write('Cannot compute, check if matrix is singular')
 st.button("Reset", type="primary")
