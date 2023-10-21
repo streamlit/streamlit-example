@@ -84,7 +84,7 @@ if st.button('Calculate'):
         R2 = (I)/(np.sqrt(2))
         R1 = R3-R2
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
-
+        st.caption('Above are all reaction forces')
         st.latex(r'''
         \Sigma F_x = R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
         \Sigma F_y = -R_1sin45^o + R_2sin45^o + R_3sin45^o - F= 0\\\text{}\\
@@ -106,7 +106,16 @@ if st.button('Calculate'):
         st.subheader('Support 3', divider='rainbow')
         image = Image.open('S3.png')
         st.image(image)
-        
+        st.latex(r'''
+        \Sigma F_x = R_2sin(5^o) - R_3cos(45^o) = 0 \\\text{}\\
+        \Sigma F_y = R_2cos(5^o) + R_3sin(45^o) = 0 \\\text{}\\
+        \Sigma M_a = M_{aF} + R_3sin(45^o)(l_a+l+l_b)=0  \\\text{}\\
+        R_3 = \frac{-M_{aF}}{sin(45^o)(l_a+l+l_b)}''')
+        st.write('Now, we can solve equation 1')
+        st.latex(r'''R_2sin(5^o)=R_3cos(45^o)  \\\text{}\\
+                R_2 = \frac{-M_{aF}}{sin(5^o)(l_a+l+l_b}''')
+        st.write('Now solving for R1')
+        st.latex(r'''R_1 = R_2cos(5^o)+R_3sin(45^o)-F''')
         
         #Methods text (Not computing anything)
         st.header('Methods', divider='rainbow')
