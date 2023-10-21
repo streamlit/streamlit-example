@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 
 image = Image.open('HW2.png')
-st.subheader('General Load Distributer', divider='rainbow')
+st.subheader('General Distributed Load Analysis By Kuval Bora', divider='rainbow')
 st.image(image)
 
 la = st.number_input('Type $$l_a$$ below', value=None, placeholder="la", label_visibility='visible')
@@ -47,15 +47,8 @@ if st.button('Calculate'):
         plt.xlabel("Length (m)")
         plt.ylabel("Load Value (kN)")
         st.pyplot(fig)
-
-        #Augmented matrix
-        st.latex(r'''\left[\begin{array}{ccc|c}  
-        ''' + str(x3**2) + r''' & ''' + str(x3) + r''' & 1 & ''' + str(c) + r'''\\  
-        ''' + str(x2**2) + r''' & ''' + str(x2) + r''' & 1 & ''' + str(b) + r'''\\
-        ''' + str(x1**2) + r''' & ''' + str(x1) + r''' & 1 & ''' + str(a) + r'''
-        \end{array}\right]''')
         #Show F(x) equation
-        st.latex(r'''F(x) = ''' + str(m3[0]) + r'''x^2 + ''' + str(m3[1]) + r'''x + ''' + str(m3[2]) + r'''''')
+        st.latex(r'''p(x) = ''' + str(m3[0]) + r'''x^2 + ''' + str(m3[1]) + r'''x + ''' + str(m3[2]) + r'''''')
         
         #Integrate F(x) to find resultant
         def f(x): return m3[0]*x**2 + m3[1]*x + m3[2]
@@ -78,6 +71,31 @@ if st.button('Calculate'):
         #Find and show the moment around B
         K = I*(la+l+lb-xc)
         st.latex(r'''M_{B} = F_{resultant}\cdot (l_a+l+l_b-x_c) \;dx = ''' + str(np.round(K,decimals=2)) + r'''\; kN''')
+        
+        
+        #Methods text
+        st.subheader('Methods', divider='rainbow')
+        st.write('First, I made a generalized quadratic equation')
+        st.latex(r'''p(x) = Ax^2 + Bx + C''')
+        st.write('Then, I found the three points proivded by the generalization image (seen at the top)')
+        st.latex(r'''p(l_a) = a \\ p(l_a + l) = b \\ p(l_a + \frac{l}{2})''')
+        st.write('''Then, I made a matrix of all the solutions to find A,B, and C.
+                 Note that the coefficient for C (third column) is 1 for all cases, because there are no cofficients for that variable.''')
+        st.latex(r'''\left[\begin{array}{ccc|c}  
+        ''' + str(x3) + r'''^2 & ''' + str(x3) + r''' & 1 & ''' + str(c) + r'''\\  
+        ''' + str(x2) + r'''^2 & ''' + str(x2) + r''' & 1 & ''' + str(b) + r'''\\
+        ''' + str(x1) + r'''^2 & ''' + str(x1) + r''' & 1 & ''' + str(a) + r'''
+        \end{array}\right]''')
+        st.write('This evaluates to: ')
+        st.latex(r'''\left[\begin{array}{ccc|c}  
+        ''' + str(x3**2) + r''' & ''' + str(x3) + r''' & 1 & ''' + str(c) + r'''\\  
+        ''' + str(x2**2) + r''' & ''' + str(x2) + r''' & 1 & ''' + str(b) + r'''\\
+        ''' + str(x1**2) + r''' & ''' + str(x1) + r''' & 1 & ''' + str(a) + r'''
+        \end{array}\right]''')
+        st.write('Now we can solve this Matrix like so:')
+        st.latex(r'''[A | b]''')
+        st.latex(r'''bA^-1 = \begin{bmatrix}A\\B\\C\end{bmatrix}''')
+
     except:
         st.write('Cannot compute, check if matrix is singular')
 st.button("Reset", type="primary")
