@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 
-image = Image.open('HW2.png')
+
 st.subheader('General Distributed Load Analysis By Kuval Bora', divider='rainbow')
+image = Image.open('HW2.png')
 st.image(image)
 
 la = st.number_input('Type $$l_a$$ below', value=None, placeholder="la", label_visibility='visible')
@@ -72,8 +73,15 @@ if st.button('Calculate'):
         K = I*(la+l+lb-xc)
         st.latex(r'''M_{B} = F_{resultant}\cdot (l_a+l+l_b-x_c) \;dx = ''' + str(np.round(K,decimals=2)) + r'''\; kN''')
         
+        #Supports code
+        st.subheader('Supports', divider='rainbow')
         
-        #Methods text
+        #Support 1
+        image = Image.open('S1.png')
+        st.image(image)
+        
+        
+        #Methods text (Not computing anything)
         st.subheader('Methods', divider='rainbow')
         st.write('First, I made a generalized quadratic equation')
         st.latex(r'''p(x) = Ax^2 + Bx + C''')
