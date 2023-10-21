@@ -107,10 +107,10 @@ if st.button('Calculate'):
 
         R3 = -1*(-1*J)/(np.sqrt(2)/2*(la+l+lb))
         R2 = -1*(-1*J)/(np.sin(np.deg2rad(5))*(la+l+lb))
-        R1 = R2*np.cos(np.deg2rad(5)) + R3*np.sqrt(2)/2
+        R1 = R2*np.cos(np.deg2rad(5)) + R3*np.sqrt(2)/2 - I
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
         st.caption('Above are all reaction forces')
-        
+
         st.latex(r'''
         \Sigma F_x = R_2sin(5^o) - R_3cos(45^o) = 0 \\\text{}\\
         \Sigma F_y = R_2cos(5^o) + R_3sin(45^o) -F -R_1 = 0 \\\text{}\\
