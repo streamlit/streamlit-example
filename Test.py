@@ -107,7 +107,7 @@ if st.button('Calculate'):
 
         R3 = -1*(-1*J)/(np.sqrt(2)/2*(la+l+lb))
         R2 = -1*(-1*J)/(np.sin(np.deg2rad(5))*(la+l+lb))
-        R1 = R2*np.cos(np.deg2rad(5)) + R3*np.sqrt(2)/2 - I
+        R1 = R2*np.cos(np.deg2rad(5)) + R3*np.sqrt(2)/2 + I
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
         st.caption('Above are all reaction forces')
 
@@ -117,8 +117,7 @@ if st.button('Calculate'):
         \Sigma M_a = M_{aF} + R_3sin(45^o)(l_a+l+l_b)=0  \\\text{}\\
         R_3 = \frac{-M_{aF}}{sin(45^o)(l_a+l+l_b)}''')
         st.write('Now, we can solve equation 1')
-        st.latex(r'''R_2sin(5^o)=R_3cos(45^o)  \\\text{}\\
-                R_2 = \frac{-M_{aF}}{sin(5^o)(l_a+l+l_b)''')
+        st.latex(r'''R_2sin(5^o)=R_3cos(45^o)  \\\text{}\\ R_2 = \frac{-M_{aF}}{sin(5^o)(l_a+l+l_b)''')
         st.write('Now solving for R1')
         st.latex(r'''R_1 = R_2cos(5^o)+R_3sin(45^o)-F''')
 
