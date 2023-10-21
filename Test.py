@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 
 
-st.subheader('General Distributed Load Analysis By Kuval Bora', divider='rainbow')
+st.header('General Distributed Load Analysis By Kuval Bora', divider='rainbow')
 image = Image.open('HW2.png')
 st.image(image)
 
@@ -80,6 +80,10 @@ if st.button('Calculate'):
         st.subheader('Support 1', divider='rainbow')
         image = Image.open('S1.png')
         st.image(image)
+        R3 = (-1*J)/(np.sqrt(2)/2)
+        R2 = (-1*I)/(np.sqrt(2))
+        R1 = ((-1*J)-(-1*I/(np.sqrt(2)/2)))/(np.sqrt(2)/2)
+        st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R1,decimals=2)) + r'''kN;''')
         st.latex(r'''
         \Sigma F_x = R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
         \Sigma F_y = -R_1sin45^o + R_2sin45^o + R_3sin45^o - F= 0\\\text{}\\
@@ -104,7 +108,7 @@ if st.button('Calculate'):
         
         
         #Methods text (Not computing anything)
-        st.subheader('Methods', divider='rainbow')
+        st.header('Methods', divider='rainbow')
         st.write('First, I made a generalized quadratic equation')
         st.latex(r'''p(x) = Ax^2 + Bx + C''')
         st.write('Then, I found the three points proivded by the generalization image (seen at the top)')
