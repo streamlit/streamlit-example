@@ -83,7 +83,8 @@ if st.button('Calculate'):
         R3 = (-1*J)/(np.sqrt(2)/2)
         R2 = (-1*I)/(np.sqrt(2))
         R1 = ((-1*J)-(-1*I/(np.sqrt(2)/2)))/(np.sqrt(2)/2)
-        st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R1,decimals=2)) + r'''kN;''')
+        st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
+
         st.latex(r'''
         \Sigma F_x = R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
         \Sigma F_y = -R_1sin45^o + R_2sin45^o + R_3sin45^o - F= 0\\\text{}\\
