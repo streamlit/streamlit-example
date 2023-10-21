@@ -78,7 +78,7 @@ if st.button('Calculate'):
         st.write('First, I made a generalized quadratic equation')
         st.latex(r'''p(x) = Ax^2 + Bx + C''')
         st.write('Then, I found the three points proivded by the generalization image (seen at the top)')
-        st.latex(r'''p(l_a) = a \\ p(l_a + l) = b \\ p(l_a + \frac{l}{2})''')
+        st.latex(r'''p(l_a) = a \\ p(l_a + l) = b \\ p(l_a + \frac{l}{2}) = \frac{a+b}{2} + f''')
         st.write('''Then, I made a matrix of all the solutions to find A,B, and C.
                  Note that the coefficient for C (third column) is 1 for all cases, because there are no cofficients for that variable.''')
         st.latex(r'''\left[\begin{array}{ccc|c}  
@@ -94,8 +94,10 @@ if st.button('Calculate'):
         \end{array}\right]''')
         st.write('Now we can solve this Matrix like so:')
         st.latex(r'''[A | b]''')
-        st.latex(r'''bA^-1 = \begin{bmatrix}A\\B\\C\end{bmatrix}''')
-
+        st.latex(r'''bA^{-1} = \begin{bmatrix}A\\B\\C\end{bmatrix}''')
+        st.write('In this case the matrix evaluates to:')
+        st.latex(r'''\begin{bmatrix}A\\B\\C\end{bmatrix} = \begin{bmatrix}''' + str(m3[0]) + r'''\\''' + str(m3[1]) + r'''\\''' + str(m3[2]) + r'''\end{bmatrix}''')
+        st.write('Using this, we eventually get the p(x) equation seen above and evaluate')
     except:
         st.write('Cannot compute, check if matrix is singular')
 st.button("Reset", type="primary")
