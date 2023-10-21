@@ -77,7 +77,7 @@ if st.button('Calculate'):
         st.latex(r'''x_c = ''' + str(np.round(xc,decimals=2)) + r'''\; m''')
         
         #Find and show the moment around B
-        K = I*(la+l-xc)
+        K = I*(la+l+lb-xc)
         st.latex(r'''M_{B} = \int_{''' + str(la) + r'''}^{''' + str(la+l) + r'''}F(x)\cdot (L-x) \;dx = ''' + str(np.round(K,decimals=2)) + r'''\; kN''')
     except:
         st.write('Cannot compute, check if matrix is singular')
