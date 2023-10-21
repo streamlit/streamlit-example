@@ -126,7 +126,12 @@ if st.button('Calculate'):
         st.subheader('Support 3', divider='rainbow')
         image = Image.open('S3.png')
         st.image(image)
-        
+        R1 = 0
+        R3 = (2*K)/(la+l+lb)
+        R2 = I-R3
+        st.latex(r'''R_{1x} = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_{1y} = ''' + str(np.round(R3,decimals=2)) + r'''kN;\; R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;''')
+        st.caption('Above are all reaction forces')
+
         st.latex(r'''\Sigma F_x = 0 = R_{1x} \\\text{}\\
                  \Sigma F_y = 0 = R_{1y} + R_2 - F \\\text{}\\
                  \Sigma M_b = 0 = M_{bF} - R_{1y}\frac{l_a+l+l_b}{2} \\\text{}\\
@@ -134,6 +139,7 @@ if st.button('Calculate'):
         st.write('Now solving the second equation')
         st.latex(r'R_2 = F - R_{1y}')
         
+
         #Methods text (Not computing anything)
         st.header('Methods', divider='rainbow')
         st.write('First, I made a generalized quadratic equation')
