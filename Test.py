@@ -94,9 +94,9 @@ if st.button('Calculate'):
         st.latex(r'''2R_2sin45^o - F = 0\\\text{}\\
                  R_2 = \frac{F}{2sin45^o}''')
         st.write('Plugging in R2 and R3 intot he first equation gives you:')
-        st.latex(r'''R_1cos45^o + \frac{F}{sin45^o} + M_{aF} = 0\\\text{}\\
-                 R_1cos45^o = -M_{aF} - \frac{F}{sin45^o}\\\text{}\\
-                 R_1 = \frac{-M_{aF} - \frac{F}{sin45^o}}{cos45^o}''')
+        st.latex(r'''R_1cos45^o + R_2cos45^o - R_3cos45^o = 0\\\text{}\\
+                 R_1 + R_2 - R_3 = 0\\\text{}\\
+                 R_1 = R_3-R_2''')
         #Support 2
         st.subheader('Support 2', divider='rainbow')
         image = Image.open('S2.png')
