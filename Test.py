@@ -82,7 +82,7 @@ if st.button('Calculate'):
         st.image(image)
         R3 = -1*(-1*J)/(np.sqrt(2)/2)
         R2 = (-1*I)/(np.sqrt(2))
-        R1 = ((J)-(-1*I/(np.sqrt(2)/2)))/(np.sqrt(2)/2)
+        R1 = R3-R2
         st.latex(r'''R_1 = ''' + str(np.round(R1,decimals=2)) + r'''kN;\;R_2 = ''' + str(np.round(R2,decimals=2)) + r'''kN;\; R_3 = ''' + str(np.round(R3,decimals=2)) + r'''kN;''')
 
         st.latex(r'''
