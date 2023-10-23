@@ -3,6 +3,10 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+from tensorflow.keras.preprocessing import image #вызывает ошибку: не найден tensorflow
+from tensorflow.keras.applications.efficientnet import preprocess_input
+from tensorflow.keras.applications.efficientnet import decode_predictions
+from tensorflow.keras.applications import EfficientNetB0
 
 """
 # Welcome to Streamlit!
