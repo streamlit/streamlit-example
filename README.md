@@ -1,6 +1,9 @@
-# Welcome to Streamlit!
+# streamlit-example
+Прогноз алк./нарк. от количества безработных.
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+streamlit_app.py - Основной код  
+requirements.txt - Библиотеки для streamlit  
+Папка media - Медиа файлы сайта  
+Папка models - Модели лин. регрессии и град. буст.  
+Папка .streamlit - Конфигурация streamlit  
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
