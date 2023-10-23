@@ -1,38 +1,79 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
+# Core Packages
 import streamlit as st
+import altair as alt
+# Decoration
+primaryColor="#2214c7"
+backgroundColor="#ffffff"
+secondaryBackgroundColor="#e8eef9"
+textColor="#000000"
+font="sans serif"
 
-"""
-# Welcome to Streamlit!
+# Exploratory data analysis Packages
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score, classification_report
+from joblib import dump, load
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Utils
+import joblib
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Load the dataset
+df = pd.read_csv("movie_reviews.csv")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Define the pipeline
+pipeline = Pipeline([
+    ('vectorizer', CountVectorizer(stop_words='english')),
+    ('clf', LogisticRegression())
+])
 
+# Define the hyperparameters for the grid search
+parameters = {
+    'vectorizer__max_df': [0.5, 0.75, 1.0],
+    'vectorizer__ngram_range': [(1, 1), (1, 2)],
+    'clf__C': [0.1, 1, 10]
+}
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+# Perform the grid search
+grid_search = GridSearchCV(pipeline, parameters, cv=5, n_jobs=-1)
+grid_search.fit(df['text'], df['sentiment'])
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+# Save the best model
+dump(grid_search.best_estimator_, "model.pkl")
 
-    points_per_turn = total_points / num_turns
+# Load the model
+model = load("model.pkl")
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+# Function to classify movie reviews
+def classify_review(review):
+    prediction = model.predict([review])
+    return prediction[0]
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+# Function to connect with our ML model
+def get_prediction(review):
+    prediction = classify_review(review)
+    return prediction
+
+# Main Application
+def main():
+    st.set_page_config(page_title="Movie Reviewer", layout="wide")
+    st.title("😉 Movie Review classifier App 😉")
+
+    # User input
+    with st.form(key="emotion_clf_form"):
+        movie_name = st.text_input("Enter the name of the movie", "")
+        review = st.text_area("Enter your review here", "")
+        submitted = st.form_submit_button("Submit")
+
+    # Display the result
+    if submitted:
+        prediction = get_prediction(review)
+        st.write(f"The predicted sentiment for the movie review of {movie_name} is {prediction}")
+        image = Image.open('THANKYOU.jpeg')
+        st.image(image, caption='THANK YOU FOR YOUR REVIEW !!')
+
+if __name__ == "__main__":
+    main()

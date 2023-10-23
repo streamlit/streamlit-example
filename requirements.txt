@@ -1,3 +1,6 @@
 altair
+sklearn
 pandas
 streamlit
+joblib
+scikit-learn
