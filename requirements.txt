@@ -1,3 +1,11 @@
 altair
 pandas
 streamlit
+numpy
+random
+time
+json
+re
+PyPDF2
+os
+st_aggrid
