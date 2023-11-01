@@ -1,38 +1,59 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import numpy as np
+import plotly.graph_objects as go
+from streamlit.logger import get_logger
 
-"""
-# Welcome to Streamlit!
+LOGGER = get_logger(__name__)
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+def run():
+  st.markdown("""
+      <style>
+          .st-emotion-cache-1y4p8pa {
+              flex: 1 1 0%;
+              width: 100%;
+              padding: 6rem 1rem 10rem;
+              max-width: 100rem;
+          }
+      </style>
+  """, unsafe_allow_html=True)
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+  # Generate random data for each indicator
+  def generate_data():
+      weeks = np.array([i for i in range(1, 12)])
+      data = np.random.randint(100, 200, size=(11))
+      return weeks, data
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+  # Function to draw the plots
+  def draw_plot(title):
+      weeks, data = generate_data()
+      fig = go.Figure()
+      fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
+      fig.update_layout(title=title, margin=dict(t=20, b=20, l=30, r=30), height=150, font=dict(size=10), title_font=dict(size=12))
+      return fig
 
+  # Main application
+  industries = ["Overall economy", "Agriculture", "Construction", "Manufacturing", "Retail", "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"]
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+  selected_industry = st.sidebar.selectbox('Select Industry:', industries, 0)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+  st.title(f"Dashboard for {selected_industry}")
 
-    points_per_turn = total_points / num_turns
+  indicators_grouped = [
+      ["GDP", "Indicator: FDI inflows", "Unemployment rate"],
+      ["PMI", "Interest rate", "Levels of wages"],
+      ["Foreign trade", "Stock market volatility (VIX)", "CPI (core? Or inflation?)"],
+      ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans", "Personal consumption spending"]
+  ]
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+  for group in indicators_grouped:
+      col1, col2, col3 = st.columns(3)
+      with col1:
+          st.plotly_chart(draw_plot(group[0]), use_container_width=True)
+      with col2:
+          st.plotly_chart(draw_plot(group[1]), use_container_width=True)
+      with col3:
+          st.plotly_chart(draw_plot(group[2]), use_container_width=True)
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+if __name__ == '__main__':
+    run()
+
