@@ -134,6 +134,9 @@ def run():
                 st.plotly_chart(draw_plot(group[1]), use_container_width=True)
             with col3:
                 st.plotly_chart(draw_plot(group[2]), use_container_width=True)
+        
+        # Flatten the list of indicators
+        all_indicators = [indicator for group in indicators_grouped for indicator in group]
 
         detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
         if detailed_metric != "None":
