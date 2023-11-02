@@ -3,10 +3,18 @@ import numpy as np
 import plotly.graph_objects as go
 import hashlib
 import numpy as np
+import datetime
 
 # Generate random data for each indicator
 def generate_data(indicator):
-    weeks = np.array([i for i in range(23, 36)])
+    # Assuming January 1st is the start of week 1 of 2023
+    start_date = datetime.date(2023, 1, 1)
+    
+    # Calculate the date for week 23 (23 weeks * 7 days/week - 7 days since we start from week 1)
+    start_week_23 = start_date + datetime.timedelta(weeks=22)  # Python weeks start from 0
+    
+    # Generate dates for weeks 23 to 35
+    dates = [start_week_23 + datetime.timedelta(weeks=i) for i in range(13)]
 
     if indicator == "GDP":
         data = np.linspace(350, 400, 11)  # Simulate steady growth
@@ -48,10 +56,10 @@ def generate_data(indicator):
         print(f"Unexpected indicator value: {indicator}")
         data = np.array([])  # Default case to ensure `data` is always initialized
 
-    return weeks, data
+    return dates, data
 
 def draw_plot(title, detailed=False):
-    weeks, data = generate_data(indicator=title)
+    dates, data = generate_data(indicator=title)
 
     # Create the figure
     fig = go.Figure()
@@ -59,11 +67,11 @@ def draw_plot(title, detailed=False):
     # Check if a detailed view is requested
     if detailed and title in indicator_units:  # Making sure the detailed view is only for the main indicators
         # Display the larger plot without annotations for growth rate
-        fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers', name=title))
+        fig.add_trace(go.Scatter(x=dates, y=data, mode='lines+markers', name=title))
         fig.update_layout(margin=dict(t=20, b=20, l=30, r=30), height=300)
     else:
         # Display the regular plot
-        fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
+        fig.add_trace(go.Scatter(x=dates, y=data, mode='lines+markers'))
         fig.update_layout(title=f"{title}{indicator_units.get(title, '')}",
                         margin=dict(t=20, b=20, l=30, r=30),
                         height=150, font=dict(size=10),
@@ -72,7 +80,7 @@ def draw_plot(title, detailed=False):
     return fig
 
 def display_growth_metric(title):
-    weeks, data = generate_data(indicator=title)
+    dates, data = generate_data(indicator=title)
 
     if len(data) >= 3:
         # Calculate the difference and percentage change over the last 30 days (approximated to 3 weeks here)
