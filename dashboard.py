@@ -18,10 +18,36 @@ def run():
   """, unsafe_allow_html=True)
 
   # Generate random data for each indicator
-  def generate_data():
-      weeks = np.array([i for i in range(1, 12)])
-      data = np.random.randint(100, 200, size=(11))
-      return weeks, data
+  def generate_data(indicator):
+    weeks = np.array([i for i in range(1, 12)])
+    
+    if indicator == "GDP":
+        data = np.linspace(350, 400, 11)  # Simulate steady growth
+    elif indicator == "Indicator: FDI inflows":
+        data = np.random.uniform(200, 400, 11)  # Fluctuating values
+    elif indicator == "Unemployment rate":
+        data = np.random.uniform(4, 7, 11)  # Unemployment rates
+    elif indicator == "PMI":
+        data = np.random.uniform(45, 55, 11)  # PMI values
+    elif indicator == "Interest rate":
+        data = np.random.uniform(0.1, 3, 11)  # Interest rates
+    elif indicator == "Levels of wages":
+        data = np.linspace(2000, 3000, 11)  # Wages increasing
+    elif indicator == "Foreign trade":
+        data = np.random.uniform(-500, 500, 11)  # Trade balance
+    elif indicator == "Stock market volatility (VIX)":
+        data = np.random.uniform(10, 60, 11)  # VIX
+    elif indicator == "CPI (core? Or inflation?)":
+        data = np.random.uniform(0, 5, 11)  # CPI or inflation
+    elif indicator == "Placeholder for an SMB indicator":
+        data = np.random.randint(100, 200, 11)  # Placeholder SMB values
+    elif indicator == "Loans defaults/Nonperforming loans to total loans":
+        data = np.random.uniform(0, 10, 11)  # Loan defaults
+    elif indicator == "Personal consumption spending":
+        data = np.linspace(1000, 2000, 11)  # Consumption spending trend
+
+    return weeks, data
+
 
   # Function to draw the plots
   def draw_plot(title):
