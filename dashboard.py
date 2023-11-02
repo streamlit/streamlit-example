@@ -123,7 +123,7 @@ def run():
     ]
 
     # New functions for displaying the main dashboard and resetting the state
-    def show_main_dashboard():
+    def show_main_dashboard(selected_industry, indicators_grouped):
         st.title(f"Dashboard for {selected_industry}")
 
         for group in indicators_grouped:
