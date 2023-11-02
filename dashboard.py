@@ -15,10 +15,6 @@ def run():
         </style>
     """, unsafe_allow_html=True)
 
-    selected_industry = st.sidebar.selectbox('Select Industry:', industries, 0)
-    industry_hash = get_industry_hash(selected_industry)
-    np.random.seed(industry_hash)
-
     # New functions for displaying the main dashboard and resetting the state
     def show_main_dashboard(selected_industry, indicators_grouped):
         industry_specific_indicators = indicators_grouped[selected_industry]
@@ -46,7 +42,9 @@ def run():
         # Flatten the list of indicators
         all_indicators = [indicator for group in industry_specific_indicators for indicator in group]
 
-        detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
+        industry_specific_indicators_flat = [indicator for group in indicators_grouped[selected_industry] for indicator in group]
+        detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + industry_specific_indicators_flat, 0)
+
         if detailed_metric != "None":
             if st.sidebar.button(f"View {detailed_metric} in detail", key='view_detail'):
                 st.session_state['view_detailed_metric'] = True
@@ -63,6 +61,9 @@ def run():
             # Explicitly changing the state and immediately using this information
             st.session_state['view_detailed_metric'] = False
     else:
+        selected_industry = st.sidebar.selectbox('Select Industry:', industries, 0)
+        industry_hash = get_industry_hash(selected_industry)
+        np.random.seed(industry_hash)
         show_main_dashboard(selected_industry, indicators_grouped)
 
 if __name__ == '__main__':
