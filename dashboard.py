@@ -138,24 +138,24 @@ def run():
 
         detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
         if detailed_metric != "None":
-            if st.sidebar.button(f"View {detailed_metric} in detail"):
-                st.session_state.view_detailed_metric = True
-                st.session_state.detailed_metric_name = detailed_metric
+            if st.sidebar.button(f"View {detailed_metric} in detail", key='view_detail'):
+                st.session_state['view_detailed_metric'] = True
+                st.session_state['detailed_metric_name'] = detailed_metric
+                # Force a rerun after updating the session state
+                st.experimental_rerun()
 
     def reset_state():
         st.session_state.view_detailed_metric = False
         show_main_dashboard(selected_industry, indicators_grouped)
 
-    # Main function or part of your script where the button is included
     if st.session_state.get('view_detailed_metric', False):
         detailed_metric = st.session_state.get('detailed_metric_name', '')
         display_growth_metric(detailed_metric)
         st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
         
-        if st.button('Go back to dashboard'):
-            st.session_state.view_detailed_metric = False
-            # You don't need to call show_main_dashboard here as 
-            # the page will rerun automatically after the state change
+        if st.button('Go back to dashboard', key='back_dashboard'):
+            # Explicitly changing the state and immediately using this information
+            st.session_state['view_detailed_metric'] = False
     else:
         show_main_dashboard(selected_industry, indicators_grouped)
 
