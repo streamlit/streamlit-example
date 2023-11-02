@@ -113,8 +113,6 @@ def run():
     industry_hash = int(hashlib.sha256(selected_industry.encode('utf-8')).hexdigest(), 16) % (10**8)  # Hash to a number
     np.random.seed(industry_hash)
 
-    st.title(f"Dashboard for {selected_industry}")
-
     indicators_grouped = [
     ["GDP", "Indicator: FDI inflows", "Unemployment rate"],
     ["PMI", "Interest rate", "Levels of wages"],
