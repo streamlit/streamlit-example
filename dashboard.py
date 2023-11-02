@@ -45,8 +45,6 @@ def run():
             data = np.random.uniform(0, 10, 11)  # Loan defaults
         elif indicator == "Personal consumption spending":
             data = np.linspace(1000, 2000, 11)  # Consumption spending trend
-        else:
-            data = np.random.rand(len(weeks)) * 100  # Fallback random data
 
         return weeks, data
 
@@ -72,22 +70,29 @@ def run():
         fig = go.Figure()
 
         # Check if a detailed view is requested
-        if detailed:
+        if detailed and title in indicator_units:  # Making sure the detailed view is only for the main indicators
             # Display the larger plot with annotations or detailed information
             fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers', name=title))
             fig.update_layout(margin=dict(t=20, b=20, l=30, r=30), height=300)
 
-            # Calculate and display trend information
+            # Calculate and display trend information specifically for the last 3 weeks
             if len(data) >= 3:
                 # Calculate the growth rate over the last 3 weeks
                 growth_rate = ((data[-1] - data[-4]) / data[-4]) * 100
                 fig.add_annotation(x=weeks[-1], y=data[-1],
                                 text=f"Growth over last 3 weeks: {growth_rate:.2f}%",
                                 showarrow=True, arrowhead=1)
+                # Adding visual cues for growth
+                fig.add_shape(type="line",
+                            x0=weeks[-4], y0=data[-4], x1=weeks[-1], y1=data[-1],
+                            line=dict(color="Red", width=2))
         else:
             # Display the regular plot
             fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
-            fig.update_layout(title=f"{title}{indicator_units.get(title, '')}", margin=dict(t=20, b=20, l=30, r=30), height=150, font=dict(size=10), title_font=dict(size=12))
+            fig.update_layout(title=f"{title}{indicator_units.get(title, '')}",
+                            margin=dict(t=20, b=20, l=30, r=30),
+                            height=150, font=dict(size=10),
+                            title_font=dict(size=12))
 
         return fig
 
@@ -114,8 +119,11 @@ def run():
         with col3:
             st.plotly_chart(draw_plot(group[2]), use_container_width=True)
 
-    # Sidebar option to select a detailed view of a metric
-    detailed_metric = st.sidebar.selectbox("Select a metric for detailed view:", ["None"] + industries, 0)
+    # Flatten the list of indicators
+    all_indicators = [indicator for group in indicators_grouped for indicator in group]
+
+    # Sidebar option to select a detailed view of an indicator
+    detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
 
     if detailed_metric != "None":
         st.subheader(f"Detailed view: {detailed_metric}")
