@@ -9,7 +9,140 @@ from datetime import datetime
 from gradio_client import Client
 import pyrebase
 import json
+import pandas as pd
+import plotly.express as px
+from textblob import TextBlob
+import numpy as np
 
+
+firebaseConfig = {
+  "apiKey": "AIzaSyBIa20ao3DoT4XTiG-hxlTtAu6l4HIVOSE",
+  "authDomain": "visual-product-recogniti-d7cb0.firebaseapp.com",
+  "databaseURL": "https://visual-product-recogniti-d7cb0-default-rtdb.firebaseio.com",
+  "projectId": "visual-product-recogniti-d7cb0",
+  "storageBucket": "visual-product-recogniti-d7cb0.appspot.com",
+  "messagingSenderId": "732077642124",
+  "appId": "1:732077642124:web:84fc3eeb016d277c4c46a9",
+  "measurementId": "G-GK2TPTMQ23"
+}
+
+firebase=pyrebase.initialize_app(firebaseConfig)
+
+pyrebase_db=firebase.database()
+
+auth = firebase.auth()
+
+db = firebase.database()
+
+
+def createPrediction(imagePath):
+    current_datetime = datetime.now()
+    transactionRecipient= current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    user = f"user{np.random.randint(1, 301)}"
+    
+    transaction_data = {
+        "user" : user,
+        "imagePath": imagePath,
+        "time": transactionRecipient
+    }
+
+    db.child("Prediction").push(transaction_data)
+
+def createFeedback(user, feedback):
+    current_datetime = datetime.now()
+    transactionRecipient= current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    
+    transaction_data = {
+        "user" : user,
+        "rating": feedback,
+        "time": transactionRecipient
+    }
+
+    db.child("Feedback").push(transaction_data)
+
+
+def createRating(user, rating):
+    
+    current_datetime = datetime.now()
+    transactionRecipient= current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    
+    transaction_data = {
+        "user" : user,
+        "rating": rating,
+        "time": transactionRecipient
+    }
+
+    db.child("Rating").push(transaction_data)
+
+
+def show_average_rating_per_day():
+    data = pyrebase_db.child("Rating").get().val()
+    data_list = [
+        {
+            "rating": x["rating"],
+            "time": x["time"]
+        }
+        for i, x in data.items()
+    ]
+
+
+
+    df = pd.DataFrame(data_list)
+    df['time'] = pd.to_datetime(df['time'])  # Convert 'time' to datetime
+
+    # Group data by day and calculate the average rating
+    df_grouped = df.groupby(df['time'].dt.date)['rating'].mean().reset_index()
+
+    fig = px.line(
+        df_grouped,
+        x='time',
+        y='rating',
+        labels={"rating": "Average Rating", "time": "Date"},
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def show_sentiment():
+
+    data = pyrebase_db.child("Feedback").get().val()
+    data_list = [
+        {
+            "rating": x["rating"],
+            "time": x["time"]
+        }
+        for i, x in data.items()
+    ]
+
+    df = pd.DataFrame(data_list)
+    
+    def analyze_sentiment(feedback):
+        analysis = TextBlob(feedback)
+        if analysis.sentiment.polarity > 0:
+            return 'Positive'
+        elif analysis.sentiment.polarity < 0:
+            return 'Negative'
+        else:
+            return 'Neutral'
+
+    df['Sentiment'] = df['rating'].apply(analyze_sentiment)
+
+    sentiment_counts = df['Sentiment'].value_counts().reset_index()
+    sentiment_counts.columns = ['Sentiment', 'Count']
+
+    fig = px.pie(sentiment_counts, values='Count', names='Sentiment', title='Sentiment Distribution of User Feedback')
+
+    st.plotly_chart(fig)
+
+
+image_folder = 'user_images'
+os.makedirs(image_folder, exist_ok=True)
+
+# Create a CSV file for user data (if it doesn't exist)
+csv_file = 'user_data.csv'
+if not os.path.exists(csv_file):
+    df = pd.DataFrame(columns=['user', 'image_path', 'upload_time', 'rating'])
+    df.to_csv(csv_file, index=False)
 # Path to the directory containing similar images
 similar_images_dir = ".\gallery"
 
@@ -21,15 +154,6 @@ def read_image(image_file):
     if img is None:
         raise ValueError('Failed to read {}'.format(image_file))
     return img
-
-def get_similar_images(image):
-    # Process the uploaded image using the read_image function
-    # processed_image = read_image(image)
-    
-    # Your similarity model logic here using the processed_image
-    
-    similar_image_ids = similarity_search.find(image)
-    return similar_image_ids
 
 
 def get_image_paths(prod_ids):
@@ -47,22 +171,26 @@ def get_image_paths(prod_ids):
 
     return image_paths
 
-def main():
-    st.title("Image Similarity Search")
 
+powerbi_embed_code =  """<iframe title="Report Section" width="1024" height="664" src="https://app.powerbi.com/view?r=eyJrIjoiMzk5ZmExNGUtZTA4NC00NDgyLTk0YjItNzlhN2ZhY2VlMWQ4IiwidCI6ImFhYzBjNTY0LTZjNWUtNGIwNS04ZGMzLTQwODA4N2Y3N2Y3NiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>"""
+def add_border_radius(image_url, radius):
+    return f"<img src='{image_url}' style='border-radius: {radius}px;' />"
+
+
+def render_predict():
+    st.title("Predict Section")
+    
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
+
     if uploaded_image is not None:
-        # Create a temporary directory
+
         temp_dir = tempfile.TemporaryDirectory()
         
         temp_image_path = os.path.join(temp_dir.name, "uploaded_image.jpg")
         with open(temp_image_path, "wb") as f:
             f.write(uploaded_image.read())
-        
-        # Process the uploaded image and get similar image IDs
-        # similar_image_ids = [572, 66, 674, 59, 917, 860, 111, 24, 935, 594, 166, 599, 994, 246, 1025, 38, 1051, 355, 584, 160, 801, 1065, 879, 1032, 223, 591, 521, 191, 874, 180, 953, 616, 603, 343, 564, 425, 672, 891, 649, 235, 797, 283, 906, 927, 888, 610, 858, 386, 63, 411, 338, 82, 931, 456, 811, 667, 207, 360, 510, 567, 449, 700, 989, 454, 398, 841, 626, 183, 248, 740, 288, 929, 914, 991, 546, 242, 798, 13, 303, 1028, 955, 709, 894, 754, 963, 687, 569, 554, 671, 821, 469, 587, 910, 486, 430, 20, 402, 652, 775, 415, 418, 336, 1001, 765, 302, 243, 1049, 453, 299, 1059, 68, 437, 990, 377, 802, 716, 34, 333, 820, 875, 119, 729, 195, 1042, 960, 833, 311, 134, 638, 525, 541, 838, 620, 435, 170, 733, 785, 136, 768, 915, 764, 461, 125, 61, 392, 362, 852, 265, 933, 393, 176, 943, 421, 606, 444, 214, 3, 190, 113, 977, 738, 509, 364, 383, 518, 792, 157, 1039, 384, 556, 257, 48, 574, 272, 394, 121, 719, 196, 714, 407, 330, 604, 405, 950, 749, 179, 692, 1009, 45, 332, 395, 463, 549, 500, 999, 896, 781, 1015, 93, 109, 358, 76, 98, 1017, 1, 835, 698, 310, 531, 527, 233, 653, 632, 46, 1035, 120, 998, 347, 847, 192, 936, 787, 688, 145, 1024, 537, 842, 92, 930, 866, 241, 708, 880, 285, 782, 773, 623, 497, 645, 350, 624, 640, 208, 636, 598, 966, 803, 854, 857, 69, 292, 379, 67, 374, 324, 573, 689, 193, 177, 559, 968, 941, 357, 483, 538, 329, 669, 1000, 832, 123, 503, 648, 29, 387, 1048, 685, 739, 261, 947, 830, 419, 266, 137, 596, 641, 328, 1063, 149, 8, 426, 490, 693, 158, 651, 516, 926, 54, 762, 14, 600, 165, 440, 776, 267, 73, 178, 979, 720, 16, 133, 978, 872, 657, 725, 334, 980, 10, 932, 460, 9, 519, 1036, 423, 268, 751, 694, 416, 681, 194, 647, 103, 959, 517, 245, 885, 167, 181, 142, 331, 139, 954, 236, 65, 1014, 529, 1047, 318, 851, 115, 1064, 100, 856, 255, 105, 84, 508, 809, 560, 274, 586, 710, 297, 705, 200, 767, 1013, 351, 791, 436, 388, 80, 704, 993, 230, 595, 209, 315, 399, 683, 296, 99, 827, 25, 766, 889, 639, 467, 1054, 146, 156, 1040, 919, 378, 487, 222, 923, 981, 582, 789, 492, 40, 148, 724, 478, 579, 91, 761, 253, 307, 618, 489, 369, 558, 249, 870, 723, 555, 741, 628, 1030, 676, 232, 210, 281, 221, 615, 597, 682, 504, 522, 155, 673, 795, 871, 228, 459, 769, 887, 848, 342, 844, 1010, 202, 715, 406, 151, 434, 630, 892, 951, 552, 199, 1033, 477, 97, 902, 613, 886, 530, 185, 397, 934, 354, 414, 964, 1038, 883, 677, 132, 11, 381, 956, 822, 64, 264, 74, 666, 605, 513, 198, 340, 206, 635, 326, 42, 498, 697, 128, 1056, 41, 925, 804, 44, 114, 213, 774, 512, 429, 143, 86, 859, 536, 884, 718, 308, 301, 263, 625, 928, 722, 742, 717, 87, 533, 735, 75, 957, 938, 973, 562, 1057, 12, 107, 643, 561, 169, 108, 217, 837, 70, 433, 290, 732, 188, 571, 836, 352, 1062, 110, 164, 237, 992, 913, 607, 658, 543, 779, 763, 696, 580, 229, 646, 771, 901, 126, 1026, 608, 473, 135, 252, 501, 862, 588, 855, 422, 102, 482, 112, 197, 439, 1052, 601, 287, 1002, 916, 373, 464, 970, 984, 976, 701, 755, 168, 918, 27, 578, 897, 320, 882, 259, 634, 380, 280, 853, 258, 1044, 275, 577, 731, 493, 987, 922, 152, 410, 661, 1034, 909, 451, 129, 15, 772, 593, 458, 312, 26, 1027, 391, 592, 921, 53, 1016, 945, 808, 346, 104, 659, 71, 339, 824, 427, 940, 551, 747, 622, 314, 238, 304, 566, 58, 309, 1004, 800, 22, 828, 1029, 466, 187, 325, 750, 986, 89, 576, 412, 511, 565, 77, 447, 908, 777, 668, 62, 470, 730, 203, 507, 363, 1043, 295, 289, 972, 468, 438, 371, 21, 670, 868, 317, 877, 479, 370, 51, 770, 590, 996, 1045, 441, 818, 420, 890, 163, 713, 173, 6, 849, 1050, 602, 31, 282, 234, 982, 39, 401, 589, 813, 240, 1053, 675, 760, 544, 757, 961, 937, 323, 7, 337, 4, 850, 665, 985, 826, 372, 400, 575, 376, 737, 550, 327, 1018, 825, 727, 35, 144, 495, 706, 172, 539, 481, 997, 389, 244, 409, 1021, 322, 817, 131, 284, 920, 748, 506, 581, 881, 455, 480, 286, 942, 619, 834, 864, 726, 313, 893, 47, 520, 294, 212, 496, 161, 815, 905, 690, 159, 843, 707, 535, 349, 736, 969, 239, 30, 57, 1066, 796, 162, 43, 758, 356, 171, 457, 788, 153, 988, 861, 17, 614, 502, 5, 783, 814, 56, 417, 1023, 345, 617, 974, 1031, 545, 702, 907, 499, 95, 799, 361, 367, 291, 831, 939, 445, 404, 585, 52, 184, 612, 33, 94, 316, 746, 1005, 0, 204, 79, 794, 650, 475, 472, 319, 19, 869, 903, 839, 276, 548, 523, 446, 965, 462, 784, 656, 1060, 846, 116, 816, 609, 269, 703, 679, 1011, 975, 655, 78, 911, 344, 450, 32, 895, 247, 413, 211, 396, 72, 1058, 944, 219, 36, 256, 443, 664, 807, 189, 138, 130, 744, 81, 1008, 1020, 873, 878, 432, 491, 1006, 534, 553, 876, 904, 60, 474, 485, 442, 359, 271, 278, 505, 484, 88, 226, 55, 542, 390, 583, 488, 778, 983, 660, 863, 912, 752, 37, 23, 899, 967, 805, 348, 96, 335, 526, 375, 205, 366, 1003, 306, 85, 637, 629, 695, 1037, 118, 250, 924, 793, 721, 691, 341, 845, 471, 540, 216, 254, 90, 227, 154, 277, 431, 867, 122, 174, 127, 231, 900, 547, 448, 712, 465, 786, 300, 611, 865, 83, 756, 699, 958, 365, 117, 270, 840, 514, 627, 305, 684, 949, 298, 743, 279, 563, 224, 745, 273, 218, 678, 971, 806, 952, 631, 1012, 532, 753, 686, 1055, 680, 2, 734, 711]
-        
+
         target_size = (224, 280)  # Size to resize the images
 
         search_image = read_image(temp_image_path)
@@ -83,7 +211,6 @@ def main():
 
         similar_image_ids = data['similar_image_ids'][0]
 
-        # Get the image paths of the similar images
         similar_image_paths = get_image_paths(similar_image_ids)
 
         st.write(f"Found {len(similar_image_ids)} similar images.")
@@ -97,7 +224,6 @@ def main():
         end_idx = min(start_idx + images_per_page, len(similar_image_ids))
 
         images_per_row = 4
-        
 
         for i in range(start_idx, end_idx, images_per_row):
             row_images = similar_image_paths[i:i + images_per_row]
@@ -111,8 +237,92 @@ def main():
                 else:
                     st.write(f"Image not found: {similar_image_path}")
 
+        createPrediction(temp_image_path)
+
+
+def render_dashboard():
+    st.title("Dashboard Section")
+    
+    view_option = st.radio("Select a view:", ("Show Dashboard", "Show Model Performance", "Show User Sentiment Analysis"))
+
+    if view_option == "Show Dashboard":
+        st.subheader("Power BI Dashboard")
+        dashboard_container = st.empty()
+        dashboard_container.markdown(powerbi_embed_code, unsafe_allow_html=True)
+    elif view_option == "Show Model Performance":
+        st.subheader("Model Performance")
+        show_average_rating_per_day()
+
+    elif view_option == "Show User Sentiment Analysis":
+        st.subheader("User Sentiment Analysis")
+        show_sentiment()
+
+    
+
+def render_feedback():
+    st.title("Feedback Section")
+    st.write("Provide your feedback and rating here:")
+    st.write("Rate the feedback:")
+    user = f"user{np.random.randint(1, 301)}"
+    rating = st.radio("Select your rating (1-5 stars)", [1, 2, 3, 4, 5])
+    if st.button("Submit Rating"):
+        createRating(user, rating)
+        st.write(f"You rated the feedback as {rating} star(s).")
+
+    user_feedback = st.text_area("Enter your feedback here:")
+    if st.button("Submit Feedback"):
+        createFeedback(user, user_feedback)
+        st.write("Feedback submitted successfully!")
+
+
+def main():
+
+    # Add CSS styles for the navigation buttons
+    st.markdown(
+        """
+        <style>
+        .navigation-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .navigation-button:hover {
+            background-color: #555;
+        }
+        .selected-button {
+            background-color: #000;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Create a sidebar navigation bar
+    st.sidebar.markdown("<h1 style='color:black;'>Navigation</h1>", unsafe_allow_html=True)
+
+    # Define the navigation options
+    navigation_options = ["Predict", "Dashboard", "Feedback"]
+
+    # Create buttons for navigation
+    selected_option = st.sidebar.radio("Go to", navigation_options, index=0, key="navigation")
+
+    # Display the selected option in the sidebar
+    st.sidebar.write(f"Selected: {selected_option}")
+
+    # Render different sections based on the selected option
+    if selected_option == "Predict":
+        # Call the render_predict() function
+        render_predict()
+    elif selected_option == "Dashboard":
+        # Call the render_dashboard() function
+        render_dashboard()
+    elif selected_option == "Feedback":
+        # Call the render_feedback() function
+        render_feedback()
+
+st.set_page_config(layout="wide")
+
 if __name__ == "__main__":
-
-    # st.title("Image Similarity Search")
-
     main()
