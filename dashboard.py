@@ -103,42 +103,60 @@ def run():
         st.metric(label=title + indicator_units.get(title, ''),
                 value=f"${current_value:.2f}",
                 delta=f"{growth_icon} ${abs(difference):.2f} ({growth_rate:.2f}%) vs previous 3 weeks")
+        
+    # Main application
+    industries = ["Overall economy", "Agriculture", "Construction", "Manufacturing", "Retail", "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"]
 
-# New functions for displaying the main dashboard and resetting the state
-def show_main_dashboard():
+    selected_industry = st.sidebar.selectbox('Select Industry:', industries, 0)
+
+    # Use the hash of the industry name as the seed
+    industry_hash = int(hashlib.sha256(selected_industry.encode('utf-8')).hexdigest(), 16) % (10**8)  # Hash to a number
+    np.random.seed(industry_hash)
+
     st.title(f"Dashboard for {selected_industry}")
 
-    for group in indicators_grouped:
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.plotly_chart(draw_plot(group[0]), use_container_width=True)
-        with col2:
-            st.plotly_chart(draw_plot(group[1]), use_container_width=True)
-        with col3:
-            st.plotly_chart(draw_plot(group[2]), use_container_width=True)
+    indicators_grouped = [
+    ["GDP", "Indicator: FDI inflows", "Unemployment rate"],
+    ["PMI", "Interest rate", "Levels of wages"],
+    ["Foreign trade", "Stock market volatility (VIX)", "CPI (core? Or inflation?)"],
+    ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans", "Personal consumption spending"]
+    ]
 
-    detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
-    if detailed_metric != "None":
-        if st.sidebar.button(f"View {detailed_metric} in detail"):
-            st.session_state.view_detailed_metric = True
-            st.session_state.detailed_metric_name = detailed_metric
+    # New functions for displaying the main dashboard and resetting the state
+    def show_main_dashboard():
+        st.title(f"Dashboard for {selected_industry}")
 
-def reset_state():
-    st.session_state.view_detailed_metric = False
-    show_main_dashboard()
+        for group in indicators_grouped:
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.plotly_chart(draw_plot(group[0]), use_container_width=True)
+            with col2:
+                st.plotly_chart(draw_plot(group[1]), use_container_width=True)
+            with col3:
+                st.plotly_chart(draw_plot(group[2]), use_container_width=True)
 
-# Check if the detailed view page is set in the state
-try:
-    if st.session_state.view_detailed_metric:
-        # If the detailed metric page is set, display it and then reset the flag
-        detailed_metric = st.session_state.detailed_metric_name
-        display_growth_metric(detailed_metric)
-        st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
-        st.button('Go back to dashboard', on_click=reset_state)
-    else:
+        detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
+        if detailed_metric != "None":
+            if st.sidebar.button(f"View {detailed_metric} in detail"):
+                st.session_state.view_detailed_metric = True
+                st.session_state.detailed_metric_name = detailed_metric
+
+    def reset_state():
+        st.session_state.view_detailed_metric = False
         show_main_dashboard()
-except AttributeError:
-    show_main_dashboard()
+
+    # Check if the detailed view page is set in the state
+    try:
+        if st.session_state.view_detailed_metric:
+            # If the detailed metric page is set, display it and then reset the flag
+            detailed_metric = st.session_state.detailed_metric_name
+            display_growth_metric(detailed_metric)
+            st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
+            st.button('Go back to dashboard', on_click=reset_state)
+        else:
+            show_main_dashboard()
+    except AttributeError:
+        show_main_dashboard()
 
 if __name__ == '__main__':
     run()
