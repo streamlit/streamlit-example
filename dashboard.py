@@ -45,6 +45,8 @@ def run():
             data = np.random.uniform(0, 10, 11)  # Loan defaults
         elif indicator == "Personal consumption spending":
             data = np.linspace(1000, 2000, 11)  # Consumption spending trend
+        else:
+            data = np.random.rand(len(weeks)) * 100  # Fallback random data
 
         return weeks, data
 
@@ -64,7 +66,7 @@ def run():
     }
 
     def draw_plot(title, detailed=False):
-        weeks, data = generate_data(title)
+        weeks, data = generate_data(indicator=title)
 
         # Create the figure
         fig = go.Figure()
@@ -111,6 +113,7 @@ def run():
             st.plotly_chart(draw_plot(group[1]), use_container_width=True)
         with col3:
             st.plotly_chart(draw_plot(group[2]), use_container_width=True)
+
     # Sidebar option to select a detailed view of a metric
     detailed_metric = st.sidebar.selectbox("Select a metric for detailed view:", ["None"] + industries, 0)
 
