@@ -50,11 +50,11 @@ def run():
 
 
   # Function to draw the plots
-  def draw_plot(title):
-      weeks, data = generate_data()
+  def draw_plot(indicator):
+      weeks, data = generate_data(indicator)
       fig = go.Figure()
       fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
-      fig.update_layout(title=title, margin=dict(t=20, b=20, l=30, r=30), height=150, font=dict(size=10), title_font=dict(size=12))
+      fig.update_layout(title=indicator, margin=dict(t=20, b=20, l=30, r=30), height=150, font=dict(size=10), title_font=dict(size=12))
       return fig
 
   # Main application
