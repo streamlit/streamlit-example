@@ -144,7 +144,7 @@ def run():
                 st.session_state.view_detailed_metric = True
                 st.session_state.detailed_metric_name = detailed_metric
 
-    def reset_state():
+    def reset_state(selected_industry, indicators_grouped):
         st.session_state.view_detailed_metric = False
         show_main_dashboard(selected_industry, indicators_grouped)
 
