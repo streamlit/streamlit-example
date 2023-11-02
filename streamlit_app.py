@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-import cv2
 from PIL import Image
 import tempfile
 import pandas as pd
@@ -15,6 +14,8 @@ from textblob import TextBlob
 import numpy as np
 import requests
 import base64
+import cv2
+
 
 firebaseConfig = {
   "apiKey": "AIzaSyBIa20ao3DoT4XTiG-hxlTtAu6l4HIVOSE",

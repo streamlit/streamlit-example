@@ -4,10 +4,10 @@ streamlit
 torch
 torchvision
 open-clip-torch
-opencv-python
 gradio_client
 plotly
 textblob
 pyrebase4
 numpy
+opencv-python-headless
 requests
