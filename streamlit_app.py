@@ -56,7 +56,7 @@ def get_image_paths(prod_ids):
     return image_paths
 
 
-powerbi_embed_code = """<iframe title="Report Section" width="1400" height="850" src="https://app.powerbi.com/view?r=eyJrIjoiMWIwMjZkNzAtMTY3NS00OTg3LWIxOWUtZmE2NDc3OGE5NjU2IiwidCI6ImFhYzBjNTY0LTZjNWUtNGIwNS04ZGMzLTQwODA4N2Y3N2Y3NiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>"""
+powerbi_embed_code = """<iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMWIwMjZkNzAtMTY3NS00OTg3LWIxOWUtZmE2NDc3OGE5NjU2IiwidCI6ImFhYzBjNTY0LTZjNWUtNGIwNS04ZGMzLTQwODA4N2Y3N2Y3NiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>"""
 
 def render_predict():
     st.title("Predict Section")
@@ -180,7 +180,7 @@ def main():
         <style>
         .sidebar-content {
             background: #333;
-            padding: 20px;
+            padding: 10px;
             color: white;
         }
         </style>
