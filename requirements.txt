@@ -10,3 +10,4 @@ plotly
 textblob
 pyrebase4
 numpy
+requests

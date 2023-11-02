@@ -13,7 +13,8 @@ import pandas as pd
 import plotly.express as px
 from textblob import TextBlob
 import numpy as np
-
+import requests
+import base64
 
 firebaseConfig = {
   "apiKey": "AIzaSyBIa20ao3DoT4XTiG-hxlTtAu6l4HIVOSE",
@@ -191,6 +192,23 @@ def render_predict():
         with open(temp_image_path, "wb") as f:
             f.write(uploaded_image.read())
 
+        with open(temp_image_path, 'rb') as image_file:
+            # Read the image data
+            image_data = image_file.read()
+
+        base64_encoded = base64.b64encode(image_data).decode('utf-8')
+
+        # Print or use the base64_encoded string as needed
+        # print(base64_encoded)
+
+        response = requests.post("https://awacke1-image-to-text-salesforce-blip-image-capt-f549b46.hf.space/run/predict", json={
+            "data": [
+                f"data:image/png;base64,{base64_encoded}",
+            ]
+        }).json()
+
+        data = response["data"][0]
+
         target_size = (224, 280)  # Size to resize the images
 
         search_image = read_image(temp_image_path)
@@ -198,6 +216,8 @@ def render_predict():
         resized_search_image = Image.fromarray(search_image).resize(target_size)
                     
         st.image(resized_search_image, caption="Input Image", use_column_width=False)
+
+        st.markdown(f"<h3>{data}</h3>", unsafe_allow_html=True)
 
 
         client = Client("https://thenujan-vpr-deploy.hf.space/")
@@ -323,6 +343,8 @@ def main():
         render_feedback()
 
 st.set_page_config(layout="wide")
+# st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
     main()
