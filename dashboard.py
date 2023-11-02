@@ -100,8 +100,9 @@ def run():
         
         growth_icon = "🔺" if difference > 0 else "🔻"  # Change icon based on growth direction
         
-        st.subheader(title + indicator_units.get(title, ''))
-        st.markdown(f"**${current_value:.2f}** {growth_icon} ${abs(difference):.2f} ({growth_rate:.2f}%) vs previous 3 weeks")
+        st.metric(label=title + indicator_units.get(title, ''),
+                value=f"${current_value:.2f}",
+                delta=f"{growth_icon} ${abs(difference):.2f} ({growth_rate:.2f}%) vs previous 3 weeks")
 
     # Main application
     industries = ["Overall economy", "Agriculture", "Construction", "Manufacturing", "Retail", "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"]
@@ -137,7 +138,6 @@ def run():
     detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
 
     if detailed_metric != "None":
-        st.subheader(f"Detailed view: {detailed_metric}")
         display_growth_metric(detailed_metric)
         st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
 
