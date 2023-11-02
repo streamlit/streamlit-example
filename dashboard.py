@@ -19,7 +19,7 @@ def run():
 
     # Generate random data for each indicator
     def generate_data(indicator):
-        weeks = np.array([i for i in range(1, 12)])
+        weeks = np.array([i for i in range(23, 36)])
 
         if indicator == "GDP":
             data = np.linspace(350, 400, 11)  # Simulate steady growth
@@ -63,13 +63,30 @@ def run():
         "Personal consumption spending": " (Billions USD)"
     }
 
-    def draw_plot(title):
+    def draw_plot(title, detailed=False):
         weeks, data = generate_data(title)
-        unit = indicator_units.get(title, "")
-        full_title = f"{title}{unit}"  # Include unit in title
+
+        # Create the figure
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
-        fig.update_layout(title=full_title, margin=dict(t=20, b=20, l=30, r=30), height=150, font=dict(size=10), title_font=dict(size=12))
+
+        # Check if a detailed view is requested
+        if detailed:
+            # Display the larger plot with annotations or detailed information
+            fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers', name=title))
+            fig.update_layout(margin=dict(t=20, b=20, l=30, r=30), height=300)
+
+            # Calculate and display trend information
+            if len(data) >= 3:
+                # Calculate the growth rate over the last 3 weeks
+                growth_rate = ((data[-1] - data[-4]) / data[-4]) * 100
+                fig.add_annotation(x=weeks[-1], y=data[-1],
+                                text=f"Growth over last 3 weeks: {growth_rate:.2f}%",
+                                showarrow=True, arrowhead=1)
+        else:
+            # Display the regular plot
+            fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
+            fig.update_layout(title=f"{title}{indicator_units.get(title, '')}", margin=dict(t=20, b=20, l=30, r=30), height=150, font=dict(size=10), title_font=dict(size=12))
+
         return fig
 
     # Main application
@@ -94,6 +111,12 @@ def run():
             st.plotly_chart(draw_plot(group[1]), use_container_width=True)
         with col3:
             st.plotly_chart(draw_plot(group[2]), use_container_width=True)
+    # Sidebar option to select a detailed view of a metric
+    detailed_metric = st.sidebar.selectbox("Select a metric for detailed view:", ["None"] + industries, 0)
+
+    if detailed_metric != "None":
+        st.subheader(f"Detailed view: {detailed_metric}")
+        st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
 
 if __name__ == '__main__':
     run()
