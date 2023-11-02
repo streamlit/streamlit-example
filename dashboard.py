@@ -154,9 +154,9 @@ def run():
             st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
             st.button('Go back to dashboard', on_click=reset_state)
         else:
-            show_main_dashboard()
+            show_main_dashboard(selected_industry, indicators_grouped)
     except AttributeError:
-        show_main_dashboard()
+        show_main_dashboard(selected_industry, indicators_grouped)
 
 if __name__ == '__main__':
     run()
