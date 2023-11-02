@@ -1,3 +1,8 @@
 altair
 pandas
 streamlit
+gradio_client
+opencv-python-headless
+torch
+torchvision
+open-clip-torch
