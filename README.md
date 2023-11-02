@@ -11,7 +11,9 @@ In here we trained the model with a different kind of backbone to get embeddings
 We deployed our model in the Google Cloud platform.
 The app was made using Streamlit.
 
-Team Members: 😄
-🤖 Thenujan Nagaratnam -[github](https://github.com/Thenujan-Nagaratnam)
+# Team Members
+🤖 Thenujan Nagaratnam -[github](https://github.com/Thenujan-Nagaratnam) 
+
 🤖 Dinindu Tharinda - [github](https://github.com/Dinindu-20)
+
 🤖 Bashadi Thennakoon - [github](https://github.com/basadhi)
