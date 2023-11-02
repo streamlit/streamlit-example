@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
 from streamlit.logger import get_logger
+import hashlib
 
 LOGGER = get_logger(__name__)
 
@@ -100,6 +101,10 @@ def run():
     industries = ["Overall economy", "Agriculture", "Construction", "Manufacturing", "Retail", "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"]
 
     selected_industry = st.sidebar.selectbox('Select Industry:', industries, 0)
+
+    # Use the hash of the industry name as the seed
+    industry_hash = int(hashlib.sha256(selected_industry.encode('utf-8')).hexdigest(), 16) % (10**8)  # Hash to a number
+    np.random.seed(industry_hash)
 
     st.title(f"Dashboard for {selected_industry}")
 
