@@ -146,7 +146,7 @@ def run():
 
     def reset_state():
         st.session_state.view_detailed_metric = False
-        show_main_dashboard()
+        show_main_dashboard(selected_industry, indicators_grouped)
 
     # Check if the detailed view page is set in the state
     try:
