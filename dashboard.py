@@ -146,17 +146,17 @@ def run():
         st.session_state.view_detailed_metric = False
         show_main_dashboard(selected_industry, indicators_grouped)
 
-    # Check if the detailed view page is set in the state
-    try:
-        if st.session_state.view_detailed_metric:
-            # If the detailed metric page is set, display it and then reset the flag
-            detailed_metric = st.session_state.detailed_metric_name
-            display_growth_metric(detailed_metric)
-            st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
-            st.button('Go back to dashboard', on_click=reset_state)
-        else:
-            show_main_dashboard(selected_industry, indicators_grouped)
-    except AttributeError:
+    # Main function or part of your script where the button is included
+    if st.session_state.get('view_detailed_metric', False):
+        detailed_metric = st.session_state.get('detailed_metric_name', '')
+        display_growth_metric(detailed_metric)
+        st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
+        
+        if st.button('Go back to dashboard'):
+            st.session_state.view_detailed_metric = False
+            # You don't need to call show_main_dashboard here as 
+            # the page will rerun automatically after the state change
+    else:
         show_main_dashboard(selected_industry, indicators_grouped)
 
 if __name__ == '__main__':
