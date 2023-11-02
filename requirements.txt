@@ -8,5 +8,5 @@ opencv-python
 gradio_client
 plotly
 textblob
-pyrebase
+pyrebase4
 numpy
