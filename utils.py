@@ -29,9 +29,24 @@ def generate_data(indicator):
     elif indicator == "Placeholder for an SMB indicator":
         data = np.random.randint(100, 200, 11)  # Placeholder SMB values
     elif indicator == "Loans defaults/Nonperforming loans to total loans":
-        data = np.random.uniform(0, 10, 11)  # Loan defaults
+        data = np.random.uniform(0, 10, 11)
     elif indicator == "Personal consumption spending":
-        data = np.linspace(1000, 2000, 11)  # Consumption spending trend
+        data = np.random.uniform(5, 50, 11)
+    elif indicator == "Sales CAGR of industry leaders":
+        data = np.random.uniform(0, 20, 11)
+    elif indicator == "Net working capital and cash reserves as a percentage of turnover":
+        data = np.random.uniform(10, 60, 11)
+    elif indicator == "Demand for Labor":
+        data = np.random.uniform(50, 150, 11)
+    elif indicator == "OpEx CAGR of industry leaders":
+        data = np.random.uniform(0, 20, 11)
+    elif indicator == "# companies closed / opened":
+        data = np.random.randint(-10, 10, 11)
+    elif indicator == "Total investments":
+        data = np.random.uniform(0, 500, 11)
+    else:
+        print(f"Unexpected indicator value: {indicator}")
+        data = np.array([])  # Default case to ensure `data` is always initialized
 
     return weeks, data
 
@@ -90,7 +105,13 @@ indicator_units = {
         "CPI (core? Or inflation?)": " (%)",
         "Placeholder for an SMB indicator": " (Index Points)",
         "Loans defaults/Nonperforming loans to total loans": " (%)",
-        "Personal consumption spending": " (Billions USD)"
+        "Personal consumption spending": " (Billions USD)",
+        "Sales CAGR of industry leaders": " (%)",
+        "Net working capital and cash reserves as a percentage of turnover": " (%)",
+        "Demand for Labor": " (Index Points)",
+        "OpEx CAGR of industry leaders": " (%)",
+        "# companies closed / opened": " (Count)",
+        "Total investments": " (Millions USD)",
     }
 
 industries = [
@@ -98,9 +119,24 @@ industries = [
     "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"
 ]
 
-indicators_grouped = [
-    ["GDP", "Indicator: FDI inflows", "Unemployment rate"],
-    ["PMI", "Interest rate", "Levels of wages"],
-    ["Foreign trade", "Stock market volatility (VIX)", "CPI (core? Or inflation?)"],
-    ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans", "Personal consumption spending"]
-]
+indicators_grouped = {
+    "Overall economy": [
+        ["GDP", "Indicator: FDI inflows", "Unemployment rate"],
+        ["PMI", "Interest rate", "Levels of wages"],
+        ["Foreign trade", "Stock market volatility (VIX)", "CPI (core? Or inflation?)"],
+        ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans", "Personal consumption spending"]
+    ],
+    "Agriculture": [
+        ["Sales CAGR of industry leaders", "Net working capital and cash reserves as a percentage of turnover", "Demand for Labor"],
+        ["OpEx CAGR of industry leaders", "# companies closed / opened", "Levels of wages"],
+        ["Foreign trade", "Total investments", "Personal consumption spending"],
+        ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans"]
+    ],
+    "Construction": [],
+    "Manufacturing": [],
+    "Retail": [],
+    "Health/social sector": [],
+    "Retail / Wholesale": [],
+    "Education": [],
+    "Transportation and storage": []
+}

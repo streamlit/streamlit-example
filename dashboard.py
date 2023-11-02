@@ -21,19 +21,30 @@ def run():
 
     # New functions for displaying the main dashboard and resetting the state
     def show_main_dashboard(selected_industry, indicators_grouped):
+        industry_specific_indicators = indicators_grouped[selected_industry]
+        
+        # Check if the industry has any indicators
+        if not industry_specific_indicators:
+            st.title(f"{selected_industry} Dashboard")
+            st.write("Under construction!")
+            return
+
         st.title(f"Dashboard for {selected_industry}")
 
-        for group in indicators_grouped:
+        for group in industry_specific_indicators:
             col1, col2, col3 = st.columns(3)
-            with col1:
-                st.plotly_chart(draw_plot(group[0]), use_container_width=True)
-            with col2:
-                st.plotly_chart(draw_plot(group[1]), use_container_width=True)
-            with col3:
-                st.plotly_chart(draw_plot(group[2]), use_container_width=True)
+            if group[0]:
+                with col1:
+                    st.plotly_chart(draw_plot(group[0]), use_container_width=True)
+            if len(group) > 1 and group[1]:
+                with col2:
+                    st.plotly_chart(draw_plot(group[1]), use_container_width=True)
+            if len(group) > 2 and group[2]:
+                with col3:
+                    st.plotly_chart(draw_plot(group[2]), use_container_width=True)
         
         # Flatten the list of indicators
-        all_indicators = [indicator for group in indicators_grouped for indicator in group]
+        all_indicators = [indicator for group in industry_specific_indicators for indicator in group]
 
         detailed_metric = st.sidebar.selectbox("Select an indicator for a detailed view:", ["None"] + all_indicators, 0)
         if detailed_metric != "None":
@@ -41,11 +52,7 @@ def run():
                 st.session_state['view_detailed_metric'] = True
                 st.session_state['detailed_metric_name'] = detailed_metric
                 # Force a rerun after updating the session state
-                st.experimental_rerun()
-
-    def reset_state():
-        st.session_state.view_detailed_metric = False
-        show_main_dashboard(selected_industry, indicators_grouped)
+                st.rerun()
 
     if st.session_state.get('view_detailed_metric', False):
         detailed_metric = st.session_state.get('detailed_metric_name', '')
