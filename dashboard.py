@@ -72,21 +72,9 @@ def run():
 
         # Check if a detailed view is requested
         if detailed and title in indicator_units:  # Making sure the detailed view is only for the main indicators
-            # Display the larger plot with annotations or detailed information
+            # Display the larger plot without annotations for growth rate
             fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers', name=title))
             fig.update_layout(margin=dict(t=20, b=20, l=30, r=30), height=300)
-
-            # Calculate and display trend information specifically for the last 3 weeks
-            if len(data) >= 3:
-                # Calculate the growth rate over the last 3 weeks
-                growth_rate = ((data[-1] - data[-4]) / data[-4]) * 100
-                fig.add_annotation(x=weeks[-1], y=data[-1],
-                                text=f"Growth over last 3 weeks: {growth_rate:.2f}%",
-                                showarrow=True, arrowhead=1)
-                # Adding visual cues for growth
-                fig.add_shape(type="line",
-                            x0=weeks[-4], y0=data[-4], x1=weeks[-1], y1=data[-1],
-                            line=dict(color="Red", width=2))
         else:
             # Display the regular plot
             fig.add_trace(go.Scatter(x=weeks, y=data, mode='lines+markers'))
@@ -96,6 +84,24 @@ def run():
                             title_font=dict(size=12))
 
         return fig
+    
+    def display_growth_metric(title):
+        weeks, data = generate_data(indicator=title)
+
+        if len(data) >= 3:
+            # Calculate the difference and percentage change over the last 30 days (approximated to 3 weeks here)
+            difference = data[-1] - data[-3]
+            growth_rate = ((data[-1] - data[-3]) / data[-3]) * 100
+        else:
+            difference = 0
+            growth_rate = 0
+
+        current_value = data[-1]
+        
+        growth_icon = "🔺" if difference > 0 else "🔻"  # Change icon based on growth direction
+        
+        st.subheader(title + indicator_units.get(title, ''))
+        st.markdown(f"**${current_value:.2f}** {growth_icon} ${abs(difference):.2f} ({growth_rate:.2f}%) vs previous 3 weeks")
 
     # Main application
     industries = ["Overall economy", "Agriculture", "Construction", "Manufacturing", "Retail", "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"]
@@ -132,6 +138,7 @@ def run():
 
     if detailed_metric != "None":
         st.subheader(f"Detailed view: {detailed_metric}")
+        display_growth_metric(detailed_metric)
         st.plotly_chart(draw_plot(detailed_metric, detailed=True), use_container_width=True)
 
 if __name__ == '__main__':
