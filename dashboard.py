@@ -15,6 +15,9 @@ def run():
         </style>
     """, unsafe_allow_html=True)
 
+    # Set the title of the tab
+    st.set_page_config(page_title="JDC Dashboard")
+
     # New functions for displaying the main dashboard and resetting the state
     def show_main_dashboard(selected_industry, indicators_grouped):
         industry_specific_indicators = indicators_grouped[selected_industry]
