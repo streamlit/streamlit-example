@@ -6,7 +6,7 @@ from utils import indicator_units, industries, indicators_grouped
 def run():
     # Set the title of the tab
     st.set_page_config(page_title="JDC Dashboard", layout="wide")
-    
+
     st.markdown("""
         <style>
             .st-emotion-cache-1y4p8pa {
@@ -17,9 +17,6 @@ def run():
             }
         </style>
     """, unsafe_allow_html=True)
-
-    # Set the title of the tab
-    st.set_page_config(page_title="JDC Dashboard", layout="wide")
 
     # New functions for displaying the main dashboard and resetting the state
     def show_main_dashboard(selected_industry, indicators_grouped):
