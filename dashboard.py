@@ -5,7 +5,7 @@ from utils import indicator_units, industries, indicators_grouped
 
 def run():
     # Set the title of the tab
-    st.set_page_config(page_title="JDC Dashboard", layout="wide")
+    st.set_page_config(page_title=None, page_icon=None, layout="centered", initial_sidebar_state="auto", menu_items=None)
 
     st.markdown("""
         <style>
