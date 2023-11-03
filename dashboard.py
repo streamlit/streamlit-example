@@ -4,6 +4,9 @@ from utils import generate_data, draw_plot, display_growth_metric, get_industry_
 from utils import indicator_units, industries, indicators_grouped
 
 def run():
+    # Set the title of the tab
+    st.set_page_config(page_title="JDC Dashboard", layout="wide")
+
     st.markdown("""
         <style>
             .st-emotion-cache-1y4p8pa {
