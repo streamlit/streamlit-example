@@ -12,7 +12,7 @@ def run():
             .st-emotion-cache-1y4p8pa {
                 flex: 1 1 0%;
                 width: 100%;
-                padding: 6rem 1rem 10rem;
+                padding: 1rem 1rem 1rem;
                 max-width: 100rem;
             }
         </style>

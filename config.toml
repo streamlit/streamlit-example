@@ -1,0 +1,68 @@
+# config.toml is a configuration file that contains the names of the indicators and industries
+
+[indicator_units]
+GDP = " (Billions USD)"
+Indicator_FDI_inflows = " (Millions USD)"
+Unemployment_rate = " (%)"
+PMI = " (Index)"
+Interest_rate = " (%)"
+Levels_of_wages = " (USD)"
+Foreign_trade = " (Millions USD)"
+Stock_market_volatility_VIX = " (Index Points)"
+CPI_core_or_inflation = " (%)"
+Placeholder_for_an_SMB_indicator = " (Index Points)"
+Loans_defaults_Nonperforming_loans_to_total_loans = " (%)"
+Personal_consumption_spending = " (Billions USD)"
+Sales_CAGR_of_industry_leaders = " (%)"
+Net_working_capital_and_cash_reserves_as_a_percentage_of_turnover = " (%)"
+Demand_for_Labor = " (Index Points)"
+OpEx_CAGR_of_industry_leaders = " (%)"
+companies_closed_opened = " (Count)"
+Total_investments = " (Millions USD)"
+
+[industries]
+names = [
+  "Overall economy",
+  "Agriculture",
+  "Construction",
+  "Manufacturing",
+  "Retail",
+  "Health/social sector",
+  "Retail / Wholesale",
+  "Education",
+  "Transportation and storage"
+]
+
+[indicators_grouped.Overall_economy]
+group1 = ["GDP", "Indicator: FDI inflows", "Unemployment rate"]
+group2 = ["PMI", "Interest rate", "Levels of wages"]
+group3 = ["Foreign trade", "Stock market volatility (VIX)", "CPI (core? Or inflation?)"]
+group4 = ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans", "Personal consumption spending"]
+
+[indicators_grouped.Agriculture]
+group1 = ["Sales CAGR of industry leaders", "Net working capital and cash reserves as a percentage of turnover", "Demand for Labor"]
+group2 = ["OpEx CAGR of industry leaders", "# companies closed / opened", "Levels of wages"]
+group3 = ["Foreign trade", "Total investments", "Personal consumption spending"]
+group4 = ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans"]
+
+# Other industries have no indicators specified yet, but placeholders are created for consistency
+[indicators_grouped.Construction]
+# Empty for now, add groups similar to above when ready
+
+[indicators_grouped.Manufacturing]
+# Empty for now, add groups similar to above when ready
+
+[indicators_grouped.Retail]
+# Empty for now, add groups similar to above when ready
+
+[indicators_grouped.Health_social_sector]
+# Empty for now, add groups similar to above when ready
+
+[indicators_grouped.Retail_Wholesale]
+# Empty for now, add groups similar to above when ready
+
+[indicators_grouped.Education]
+# Empty for now, add groups similar to above when ready
+
+[indicators_grouped.Transportation_and_storage]
+# Empty for now, add groups similar to above when ready
