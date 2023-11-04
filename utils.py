@@ -4,6 +4,17 @@ import plotly.graph_objects as go
 import hashlib
 import numpy as np
 import datetime
+import toml
+import plotly.express as px
+
+# Load configuration from config.toml
+with open('config.toml', 'r') as config_file:
+    config = toml.load(config_file)
+
+# Extract configurations
+indicator_units = config['indicator_units']
+industries = config['industries']['names']
+indicators_grouped = {key: [group for group in config['indicators_grouped'][key].values()] for key in config['indicators_grouped']}
 
 # Generate random data for each indicator
 def generate_data(indicator):
@@ -100,51 +111,3 @@ def display_growth_metric(title):
 
 def get_industry_hash(selected_industry):
     return int(hashlib.sha256(selected_industry.encode('utf-8')).hexdigest(), 16) % (10**8)
-
-indicator_units = {
-        "GDP": " (Billions USD)",
-        "Indicator: FDI inflows": " (Millions USD)",
-        "Unemployment rate": " (%)",
-        "PMI": " (Index)",
-        "Interest rate": " (%)",
-        "Levels of wages": " (USD)",
-        "Foreign trade": " (Millions USD)",
-        "Stock market volatility (VIX)": " (Index Points)",
-        "CPI (core? Or inflation?)": " (%)",
-        "Placeholder for an SMB indicator": " (Index Points)",
-        "Loans defaults/Nonperforming loans to total loans": " (%)",
-        "Personal consumption spending": " (Billions USD)",
-        "Sales CAGR of industry leaders": " (%)",
-        "Net working capital and cash reserves as a percentage of turnover": " (%)",
-        "Demand for Labor": " (Index Points)",
-        "OpEx CAGR of industry leaders": " (%)",
-        "# companies closed / opened": " (Count)",
-        "Total investments": " (Millions USD)",
-    }
-
-industries = [
-    "Overall economy", "Agriculture", "Construction", "Manufacturing", "Retail",
-    "Health/social sector", "Retail / Wholesale", "Education", "Transportation and storage"
-]
-
-indicators_grouped = {
-    "Overall economy": [
-        ["GDP", "Indicator: FDI inflows", "Unemployment rate"],
-        ["PMI", "Interest rate", "Levels of wages"],
-        ["Foreign trade", "Stock market volatility (VIX)", "CPI (core? Or inflation?)"],
-        ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans", "Personal consumption spending"]
-    ],
-    "Agriculture": [
-        ["Sales CAGR of industry leaders", "Net working capital and cash reserves as a percentage of turnover", "Demand for Labor"],
-        ["OpEx CAGR of industry leaders", "# companies closed / opened", "Levels of wages"],
-        ["Foreign trade", "Total investments", "Personal consumption spending"],
-        ["Placeholder for an SMB indicator", "Loans defaults/Nonperforming loans to total loans"]
-    ],
-    "Construction": [],
-    "Manufacturing": [],
-    "Retail": [],
-    "Health/social sector": [],
-    "Retail / Wholesale": [],
-    "Education": [],
-    "Transportation and storage": []
-}

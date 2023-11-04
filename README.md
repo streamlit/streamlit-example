@@ -1,3 +1,3 @@
 # Welcome to the mock up dashboard!
 
-Edit `/dashboard.py` to customize this app to your heart's desire. :heart:
+This is an example dashboard for the mock up. This repository will be update with the ETL pipeline.
