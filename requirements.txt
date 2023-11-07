@@ -3,4 +3,4 @@ pandas
 streamlit
 streamlit_chat
 langchain
-openai 
+openai ==1.1.1

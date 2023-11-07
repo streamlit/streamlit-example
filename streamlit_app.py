@@ -1,6 +1,6 @@
 import streamlit as st
+import openai
 from streamlit_chat import message
-import os
 
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import (
@@ -12,8 +12,6 @@ from langchain.schema import (
 
 def init():
    
-
-
     # setup streamlit page
     st.set_page_config(
         page_title="Your own ChatGPT",
