@@ -1,6 +1,15 @@
-# Welcome to Streamlit!
+Install requirements:
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+pip install -r requirements.txt
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+on VS Code:
+py -m pip install -r requirements.txt
+
+
+
+Run app : 
+streamlit run main.py
+
+on VS Code:
+py -m streamlit run main.py
+
