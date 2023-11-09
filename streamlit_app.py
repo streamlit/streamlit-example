@@ -2,7 +2,7 @@ import io
 import streamlit as st
 from PIL import Image
 import numpy as np
-import keras.api as keras
+import keras
 from keras.applications import EfficientNetB0
 from keras.preprocessing import image
 from keras.applications.efficientnet import preprocess_input
