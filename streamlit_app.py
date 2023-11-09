@@ -1,40 +1,68 @@
-import altair as alt
-import numpy as np
-import pandas as pd
+import io
 import streamlit as st
+from PIL import Image
+from tensorflow.keras.applications import EfficientNetB0
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.efficientnet import preprocess_input
+from tensorflow.keras.applications.efficientnet import decode_predictions
+import numpy as np
 
-"""
-# Welcome to Streamlit!
+# Декоратор @st.cache говорит Streamlit, что модель нужно загрузить только один раз, чтобы избежать утечек памяти
+@st.cache(allow_output_mutation=True)
+# загружает нейронную сеть
+def load_model():
+    return EfficientNetB0(weights='imagenet')
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# выполняет предварительную обработку изображения для подготовки к распознаванию
+def preprocess_image(img):
+    img = img.resize((224, 224))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+    return x
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+def load_image():
+    """Создание формы для загрузки изображения"""
+    # Форма для загрузки изображения средствами Streamlit
+    uploaded_file = st.file_uploader(
+        label='Выберите изображение для распознавания')
+    if uploaded_file is not None:
+        # Получение загруженного изображения
+        image_data = uploaded_file.getvalue()
+        # Показ загруженного изображения на Web-странице средствами Streamlit
+        st.image(image_data)
+        # Возврат изображения в формате PIL
+        return Image.open(io.BytesIO(image_data))
+    else:
+        return None
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+# печатает названия и вероятность для ТОП 3 классов, выданных моделью
+def print_predictions(preds):
+    classes = decode_predictions(preds, top=3)[0]
+    for cl in classes:
+        st.write(cl[1], cl[2])
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+# Загружаем предварительно обученную модель
+model = load_model()
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
+# Выводим заголовок страницы средствами Streamlit
+st.title('Классификации изображений в облаке Streamlit')
 
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+# Вызываем функцию создания формы загрузки изображения
+# Выводим форму загрузки изображения и получаем изображение
+img = load_image()
+
+# Показывам кнопку для запуска распознавания изображения
+result = st.button('Распознать изображение')
+# Если кнопка нажата, то запускаем распознавание изображения
+if result:
+    # Предварительная обработка изображения
+    x = preprocess_image(img)
+    # Распознавание изображения
+    preds = model.predict(x)
+    # Выводим заголовок результатов распознавания жирным шрифтом
+    # используя форматирование Markdown
+    st.write('**Результаты распознавания:**')
+    # Выводим результаты распознавания
+    print_predictions(preds)
