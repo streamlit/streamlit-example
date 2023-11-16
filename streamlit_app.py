@@ -61,6 +61,7 @@ def display_stats(stats):
     # Display the stats
     st.write("Statistics from your Hinge Matches Data:")
 
+    
     # Likes Received Stats
     likes_received_data = {
         "Received Like, Match": [stats['incoming_match']],
@@ -68,9 +69,7 @@ def display_stats(stats):
         "Total Likes Received": [stats['total_likes_received']]
     }
     st.table(pd.DataFrame(likes_received_data, index=['Stats']).T)
-    df = pd.DataFrame(likes_received_data, index=['Stats']).T
-    df_fmt = df.style.format("{:,.2f}")
-    st.table(df_fmt)
+
     
     # Match / No Match % from Likes Received
     match_percent_likes_received = {
@@ -78,6 +77,7 @@ def display_stats(stats):
         "No Match % from Likes Received": [round(stats['percent_rejected'], 2)]
     }
     st.table(pd.DataFrame(match_percent_likes_received, index=['Stats']).T)
+
     
     # Likes Sent Stats
     likes_sent_data = {
@@ -87,6 +87,7 @@ def display_stats(stats):
     }
     st.table(pd.DataFrame(likes_sent_data, index=['Stats']).T)
 
+    
     # Match / No Match % from Likes Sent
     match_percent_likes_sent = {
         "Match % from Likes Sent": [round(stats['percent_they_matched'], 2)],
@@ -94,7 +95,6 @@ def display_stats(stats):
     }
     st.table(pd.DataFrame(match_percent_likes_sent, index=['Stats']).T)
 
-    
 
     # Total Matches and Paths Crossed
     total_matches_data = {
