@@ -91,17 +91,6 @@ def display_stats(stats):
     st.success('You did it!', icon="✅")
     st.divider()
     st.header("Step 2: Read your results", divider="grey")
-    
-    # col1, col2, col3 = st.columns(3)
-    # with col1:
-    #     st.write("Oldest:")
-    #     st.write("Most Recent:")
-    #     st.write("Years of Data:")
-    # with col2:
-    #     st.write(stats["oldest"])
-    #     st.write(stats["newest"])
-    #     years_of_data = stats["years_of_data"]
-    #     st.write(round(stats["years_of_data"], 2))
 
     # green
     st.markdown("""
@@ -155,14 +144,15 @@ def display_stats(stats):
 
     # YEARS OF DATA
     st.write("test")
-    st.write(f"Oldest: {stats["oldest"]}")
-    st.write(f"Newest: {stats["newest"]}")
+    st.write(f"Oldest: {stats['oldest']}")
+    st.write(f"Newest: {stats['newest']}")
+
     
     yrs = stats["years_of_data"]
     st.header(":violet[Years of Data]")
     st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
 
-
+    
     # LIKES RECEIVED
     st.header(":violet[Likes Received]")
     with st.container():
