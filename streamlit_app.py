@@ -39,7 +39,6 @@ def process_file(uploaded_file):
 
     # Normalize the JSON using pandas
     data = pd.json_normalize(matches)
-    data.to_json("matches.json")
 
     # ==================================
     # Gathering the Data
@@ -155,16 +154,13 @@ def display_stats(stats):
     div_color = "violet"
 
     # YEARS OF DATA
+    st.write("test")
     st.write(f"Oldest: {stats["oldest"]}")
     st.write(f"Newest: {stats["newest"]}")
     
     yrs = stats["years_of_data"]
-    if yrs < 1:
-        st.header(":violet[Months of Data]")
-        st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.1f}</span>', unsafe_allow_html=True)
-    else:
-        st.header(":violet[Years of Data]")
-        st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
+    st.header(":violet[Years of Data]")
+    st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
 
 
     # LIKES RECEIVED
