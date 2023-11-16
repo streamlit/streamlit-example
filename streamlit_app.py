@@ -99,7 +99,7 @@ def display_stats(stats):
         .number-highlight-nb {
             
             border-radius: 10px;       /* Rounded corners */
-            color: gray;              /* White text color */
+            color: gray;              /* gray text color */
             padding: 0px 5px;         /* Some padding */
             font-weight: bold;         /* Make the number bold */
             display: inline-block;     /* Align inline with the text */
