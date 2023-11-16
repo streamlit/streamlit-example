@@ -61,9 +61,6 @@ def display_stats(stats):
     # Display the stats
     st.write("Statistics from your Hinge Matches Data:")
 
-
-    
-
     # Likes Received Stats
     likes_received_data = {
         "Received Like, Match": [stats['incoming_match']],
@@ -71,11 +68,14 @@ def display_stats(stats):
         "Total Likes Received": [stats['total_likes_received']]
     }
     
-    df = pd.DataFrame(likes_received_data, index=['Stats'])
+    st.table(pd.DataFrame(likes_received_data, index=['Stats']).T)
 
-    st.table(df.T)
-
-
+    # Likes Sent Stats
+    likes_sent_data = {
+        "Sent Like, Match": [stats['outgoing_matches']],
+        "Sent Like, No Match": [stats['outgoing_no_matches']],
+        "Total Likes Sent": [stats['total_likes_sent']]
+    }
 
 # Streamlit interface
 st.title(":red[Hinge Matches Analysis]")
