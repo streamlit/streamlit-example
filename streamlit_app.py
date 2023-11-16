@@ -61,7 +61,7 @@ def display_stats(stats):
     st.divider()
     st.header("Step 2: Read your results", divider="grey")
 
-    # Define your styles once at the start of your app.
+    # green
     st.markdown("""
         <style>
         .number-highlight-green {
@@ -77,6 +77,7 @@ def display_stats(stats):
         """, unsafe_allow_html=True
     )
 
+    # red
     st.markdown("""
         <style>
         .number-highlight-red {
@@ -92,12 +93,13 @@ def display_stats(stats):
         """, unsafe_allow_html=True
     )
 
+    # no background
     st.markdown("""
         <style>
         .number-highlight-nb {
             
             border-radius: 10px;       /* Rounded corners */
-            color: white;              /* White text color */
+            color: gray;              /* White text color */
             padding: 0px 5px;         /* Some padding */
             font-weight: bold;         /* Make the number bold */
             display: inline-block;     /* Align inline with the text */
