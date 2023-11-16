@@ -2,11 +2,40 @@
 import streamlit as st
 import pandas as pd
 import json
+from datetime import datetime
 
+def find_timestamps(data):
+
+    # Extract all timestamps
+    timestamps = []
+    for entry in data:
+        for action in entry.values():
+            for item in action:
+                timestamps.append(item['timestamp'])
+                if 'like' in item:
+                    timestamps.extend([like_item['timestamp'] for like_item in item['like']])
+                if 'match' in item:
+                    timestamps.extend([match_item['timestamp'] for match_item in item['match']])
+                if 'chats' in item:
+                    timestamps.extend([chat_item['timestamp'] for chat_item in item['chats']])
+
+    # Convert timestamps to datetime objects
+    timestamps = [datetime.strptime(ts, "%Y-%m-%d %H:%M:%S.%f" if '.' in ts else "%Y-%m-%d %H:%M:%S") for ts in timestamps]
+
+    # Find the oldest and most recent timestamps
+    oldest_timestamp = min(timestamps)
+    most_recent_timestamp = max(timestamps)
+
+    return oldest_timestamp, most_recent_timestamp
 
 def process_file(uploaded_file):
     # Read the uploaded file
     matches = json.load(uploaded_file)
+
+    oldest, newest = find_timestamps(matches)
+    duration_in_days = (newest - oldest).days
+    years_of_data = duration_in_days / 365.25
+    
 
     # Normalize the JSON using pandas
     data = pd.json_normalize(matches)
@@ -52,6 +81,9 @@ def process_file(uploaded_file):
         "total_matches": total_matches,
         "total_paths": total_paths,
         "percent_matches_of_paths": total_matches / total_paths * 100 if total_paths > 0 else 0,
+        "oldest": oldest,
+        "newest": newest,
+        "years_of_data": years_of_data,
     }
 
 
@@ -60,6 +92,17 @@ def display_stats(stats):
     st.success('You did it!', icon="✅")
     st.divider()
     st.header("Step 2: Read your results", divider="grey")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("Oldest:")
+        st.write("Most Recent:")
+        st.write("Years of Data:")
+    with col2:
+        st.write(stats["oldest"])
+        st.write(stats["newest"])
+        years_of_data = stats["years_of_data"]
+        st.write(round(stats["years_of_data"], 2))
 
     # green
     st.markdown("""
@@ -129,7 +172,6 @@ def display_stats(stats):
             st.markdown(f'<span class="number-highlight-red">{stats["incoming_no_match"]:,}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-nb">{stats["total_likes_sent"]:,}</span>', unsafe_allow_html=True)
 
-    
         with col3:
             st.subheader("% of Received", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
@@ -174,10 +216,12 @@ def display_stats(stats):
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"]:,}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-nb">{stats["total_paths"]:,}</span>', unsafe_allow_html=True)
 
-
         with col3:
             st.subheader("% of Paths", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
+
+
+
 
 
 # Streamlit interface
