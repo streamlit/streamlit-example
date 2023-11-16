@@ -99,7 +99,7 @@ def display_stats(stats):
         .number-highlight-nb {
             
             border-radius: 10px;       /* Rounded corners */
-            color: gray;              /* gray text color */
+            
             padding: 0px 5px;         /* Some padding */
             font-weight: bold;         /* Make the number bold */
             display: inline-block;     /* Align inline with the text */
@@ -128,12 +128,12 @@ def display_stats(stats):
             st.markdown(f'<span class="number-highlight-green">{stats["incoming_match"]:,}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-red">{stats["incoming_no_match"]:,}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-nb">{stats["total_likes_sent"]:,}</span>', unsafe_allow_html=True)
+
     
         with col3:
             st.subheader("% of Received", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_no_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
-
 
     # LIKES SENT
     st.divider()
