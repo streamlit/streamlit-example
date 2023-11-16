@@ -93,16 +93,16 @@ def display_stats(stats):
     st.divider()
     st.header("Step 2: Read your results", divider="grey")
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.write("Oldest:")
-        st.write("Most Recent:")
-        st.write("Years of Data:")
-    with col2:
-        st.write(stats["oldest"])
-        st.write(stats["newest"])
-        years_of_data = stats["years_of_data"]
-        st.write(round(stats["years_of_data"], 2))
+    # col1, col2, col3 = st.columns(3)
+    # with col1:
+    #     st.write("Oldest:")
+    #     st.write("Most Recent:")
+    #     st.write("Years of Data:")
+    # with col2:
+    #     st.write(stats["oldest"])
+    #     st.write(stats["newest"])
+    #     years_of_data = stats["years_of_data"]
+    #     st.write(round(stats["years_of_data"], 2))
 
     # green
     st.markdown("""
@@ -153,6 +153,15 @@ def display_stats(stats):
     )
 
     div_color = "violet"
+
+    # YEARS OF DATA
+    yrs = stats["years_of_data"]
+    if yrs < 1:
+        st.header(":violet[Months of Data]")
+        st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.1f}</span>', unsafe_allow_html=True)
+    else:
+        st.header(":violet[Years of Data]")
+        st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
 
 
     # LIKES RECEIVED
@@ -219,9 +228,6 @@ def display_stats(stats):
         with col3:
             st.subheader("% of Paths", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
-
-
-
 
 
 # Streamlit interface
