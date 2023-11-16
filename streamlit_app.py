@@ -143,14 +143,26 @@ def display_stats(stats):
     div_color = "violet"
 
     # YEARS OF DATA
-    st.write("test")
-    st.write(f"Oldest: {stats['oldest']}")
-    st.write(f"Newest: {stats['newest']}")
+
+    st.header(":violet[Years of Data]")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("Oldest:")
+        st.write("Most Recent:")
+        st.write("Years of Data:")
+    with col2:
+        st.write(stats["oldest"])
+        st.write(stats["newest"])
+        years_of_data = stats["years_of_data"]
+        st.write(round(stats["years_of_data"], 2))
+    
+    # st.write(f"Oldest: {stats['oldest']}")
+    # st.write(f"Newest: {stats['newest']}")
 
     
-    yrs = stats["years_of_data"]
-    st.header(":violet[Years of Data]")
-    st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
+    # yrs = stats["years_of_data"]
+    
+    # st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
 
     
     # LIKES RECEIVED
