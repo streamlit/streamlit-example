@@ -92,7 +92,6 @@ def display_stats(stats):
     st.success('You did it!', icon="✅")
     st.divider()
     st.header("Step 2: Read your results", divider="grey")
-    st.write("TradeMarkRobery")
     
     # col1, col2, col3 = st.columns(3)
     # with col1:
@@ -230,6 +229,8 @@ def display_stats(stats):
             st.subheader("% of Paths", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
 
+    st.write("")
+    st.write("TradeMarkRobery")
 
 # Streamlit interface
 st.title(":violet[Hinge Matches Analysis]")
