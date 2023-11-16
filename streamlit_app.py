@@ -178,9 +178,6 @@ def display_stats(stats):
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
 
 
-[theme]
-base="light"
-
 # Streamlit interface
 st.title(":violet[Hinge Matches Analysis]")
 st.header("Step 1: Upload your matches.json file", divider="grey")
