@@ -155,6 +155,9 @@ def display_stats(stats):
     div_color = "violet"
 
     # YEARS OF DATA
+    st.write(f"Oldest: {stats["oldest"]}")
+    st.write(f"Newest: {stats["newest"]}")
+    
     yrs = stats["years_of_data"]
     if yrs < 1:
         st.header(":violet[Months of Data]")
