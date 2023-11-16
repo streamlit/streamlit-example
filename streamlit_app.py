@@ -55,9 +55,13 @@ def process_file(uploaded_file):
     }
 
 
-def text_output(stats):
+def display_stats(stats):
+    st.balloons()
+    st.success('You did it!', icon="✅")
+    st.divider()
+    st.header("Step 2: Read your results", divider="grey")
 
-     # Define your styles once at the start of your app.
+    # Define your styles once at the start of your app.
     st.markdown("""
         <style>
         .number-highlight-green {
@@ -105,6 +109,7 @@ def text_output(stats):
 
     div_color = "violet"
 
+
     # LIKES RECEIVED
     st.header(":violet[Likes Received]")
     with st.container():
@@ -126,7 +131,8 @@ def text_output(stats):
             st.subheader("% of Received", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_no_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
-            
+
+
     # LIKES SENT
     st.divider()
     st.header(":violet[Likes Sent]")
@@ -172,13 +178,8 @@ def text_output(stats):
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
 
 
-def display_stats(stats):
-    st.balloons()
-    st.success('You did it!', icon="✅")
-    st.divider()
-    st.header("Step 2: Read your results", divider="grey")
-    text_output(stats)
-
+[theme]
+base="light"
 
 # Streamlit interface
 st.title(":violet[Hinge Matches Analysis]")
