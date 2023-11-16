@@ -70,12 +70,41 @@ def display_stats(stats):
         "Received Like, No Match": [stats['incoming_no_match']],
         "Total Likes Received": [stats['total_likes_received']]
     }
+    st.table(pd.DataFrame(likes_received_data, index=['Stats']).T)
+
     
-    df = pd.DataFrame(likes_received_data, index=['Stats'])
+    # Match / No Match % from Likes Received
+    match_percent_likes_received = {
+        "Match % from Likes Received": [round(stats['percent_liked_back'], 2)],
+        "No Match % from Likes Received": [round(stats['percent_rejected'], 2)]
+    }
+    st.table(pd.DataFrame(match_percent_likes_received, index=['Stats']).T)
 
-    st.table(df.T)
+    
+    # Likes Sent Stats
+    likes_sent_data = {
+        "Sent Like, Match": [stats['outgoing_matches']],
+        "Sent Like, No Match": [stats['outgoing_no_matches']],
+        "Total Likes Sent": [stats['total_likes_sent']]
+    }
+    st.table(pd.DataFrame(likes_sent_data, index=['Stats']).T)
+
+    
+    # Match / No Match % from Likes Sent
+    match_percent_likes_sent = {
+        "Match % from Likes Sent": [round(stats['percent_they_matched'], 2)],
+        "No Match % from Likes Sent": [round(stats['percent_they_rejected'], 2)]
+    }
+    st.table(pd.DataFrame(match_percent_likes_sent, index=['Stats']).T)
 
 
+    # Total Matches and Paths Crossed
+    total_matches_data = {
+        "Total Matches": [stats['total_matches']],
+        "Total Paths Crossed": [stats['total_paths']],
+        "Matches as % of Total Paths Crossed": [round(stats['percent_matches_of_paths'], 2)]
+    }
+    st.table(pd.DataFrame(total_matches_data, index=['Stats']).T)
 
 # Streamlit interface
 st.title(":red[Hinge Matches Analysis]")
