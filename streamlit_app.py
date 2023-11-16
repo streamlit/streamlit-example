@@ -68,15 +68,16 @@ def display_stats(stats):
         "Total Likes Received": [stats['total_likes_received']]
     }
     st.table(pd.DataFrame(likes_received_data, index=['Stats']).T)
-
+    df = pd.DataFrame(likes_received_data, index=['Stats']).T
+    df_fmt = df.style.format("{:,.2f}")
+    st.table(df_fmt)
+    
     # Match / No Match % from Likes Received
     match_percent_likes_received = {
         "Match % from Likes Received": [round(stats['percent_liked_back'], 2)],
         "No Match % from Likes Received": [round(stats['percent_rejected'], 2)]
     }
-    df = pd.DataFrame(match_percent_likes_received, index=['Stats']).T
-    df_fmt = df.style.format("{:,.2f}")
-    st.table(df)
+    st.table(pd.DataFrame(match_percent_likes_received, index=['Stats']).T)
     
     # Likes Sent Stats
     likes_sent_data = {
