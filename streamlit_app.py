@@ -4,6 +4,127 @@ import pandas as pd
 import json
 
 
+def text_output(stats):
+
+     # Define your styles once at the start of your app.
+    st.markdown("""
+        <style>
+        .number-highlight-green {
+            background-color: #4CAF50; /* Green background */
+            border-radius: 10px;       /* Rounded corners */
+            color: white;              /* White text color */
+            padding: 0px 5px;         /* Some padding */
+            font-weight: bold;         /* Make the number bold */
+            display: inline-block;     /* Align inline with the text */
+            margin-left: 5px;          /* Space from the preceding text */
+        }
+        </style>
+        """, unsafe_allow_html=True
+    )
+
+    st.markdown("""
+        <style>
+        .number-highlight-red {
+            background-color: #FF0000; /* Green background */
+            border-radius: 10px;       /* Rounded corners */
+            color: white;              /* White text color */
+            padding: 0px 5px;         /* Some padding */
+            font-weight: bold;         /* Make the number bold */
+            display: inline-block;     /* Align inline with the text */
+            margin-left: 5px;          /* Space from the preceding text */
+        }
+        </style>
+        """, unsafe_allow_html=True
+    )
+
+    st.markdown("""
+        <style>
+        .number-highlight-nb {
+            
+            border-radius: 10px;       /* Rounded corners */
+            color: white;              /* White text color */
+            padding: 0px 5px;         /* Some padding */
+            font-weight: bold;         /* Make the number bold */
+            display: inline-block;     /* Align inline with the text */
+            margin-left: 5px;          /* Space from the preceding text */
+        }
+        </style>
+        """, unsafe_allow_html=True
+    )
+
+    div_color = "violet"
+
+
+    # LIKES RECEIVED
+    st.header(":violet[Likes Received]")
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.subheader("Item", divider=div_color)
+            st.write("Received Like, You Matched")
+            st.write("Revieved Match, You Rejected")
+            st.markdown("**Total Likes Recieved**")
+        
+        with col2:
+            st.subheader("Number", divider=div_color)
+            st.markdown(f'<span class="number-highlight-green">{stats["incoming_match"]:,}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-red">{stats["incoming_no_match"]:,}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-nb">{stats["total_likes_sent"]:,}</span>', unsafe_allow_html=True)
+    
+        with col3:
+            st.subheader("% of Received", divider=div_color)
+            st.markdown(f'<span class="number-highlight-nb">{stats["incoming_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-nb">{stats["incoming_no_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
+            
+    # LIKES SENT
+    st.divider()
+    st.header(":violet[Likes Sent]")
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.subheader("Item", divider=div_color)
+            st.write("Sent Like, They Matched")
+            st.write("Sent Like, They Rejected")
+            st.markdown("**Total Likes Sent**")
+        
+        with col2:
+            st.subheader("Number", divider=div_color)
+            st.markdown(f'<span class="number-highlight-green">{stats["outgoing_matches"]:,}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-red">{stats["outgoing_no_matches"]:,}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-nb">{stats["total_likes_sent"]:,}</span>', unsafe_allow_html=True)
+        
+        with col3:
+            st.subheader("% of Sent", divider=div_color)
+            st.markdown(f'<span class="number-highlight-nb">{stats["outgoing_matches"] / stats["total_likes_sent"]:.0%}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-nb">{stats["outgoing_no_matches"] / stats["total_likes_sent"]:.0%}</span>', unsafe_allow_html=True)
+
+
+    # GRAND TOTALS
+    st.divider()
+    st.header(":violet[Grand Totals]")
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.subheader("Item", divider=div_color)
+            st.write("Total Matches")
+            st.write("Total Paths Crossed")
+
+        with col2:
+            st.subheader("Number", divider=div_color)
+            st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"]:,}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-nb">{stats["total_paths"]:,}</span>', unsafe_allow_html=True)
+
+
+        with col3:
+            st.subheader("% of Paths", divider=div_color)
+            st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
+
+
+
+
 def process_file(uploaded_file):
     # Read the uploaded file
     matches = json.load(uploaded_file)
@@ -57,62 +178,19 @@ def process_file(uploaded_file):
 def display_stats(stats):
     st.balloons()
     st.success('You did it!', icon="✅")
-    st.header("Step 2: Read your results", divider="red")
-    # Display the stats
-    st.write("Statistics from your Hinge Matches Data:")
+    st.divider()
+    st.header("Step 2: Read your results", divider="grey")
 
 
-    
+    text_output(stats)
 
-    # Likes Received Stats
-    likes_received_data = {
-        "Received Like, Match": [stats['incoming_match']],
-        "Received Like, No Match": [stats['incoming_no_match']],
-        "Total Likes Received": [stats['total_likes_received']]
-    }
-    st.table(pd.DataFrame(likes_received_data, index=['Stats']).T)
-
-    
-    # Match / No Match % from Likes Received
-    match_percent_likes_received = {
-        "Match % from Likes Received": [round(stats['percent_liked_back'], 2)],
-        "No Match % from Likes Received": [round(stats['percent_rejected'], 2)]
-    }
-    st.table(pd.DataFrame(match_percent_likes_received, index=['Stats']).T)
-
-    
-    # Likes Sent Stats
-    likes_sent_data = {
-        "Sent Like, Match": [stats['outgoing_matches']],
-        "Sent Like, No Match": [stats['outgoing_no_matches']],
-        "Total Likes Sent": [stats['total_likes_sent']]
-    }
-    st.table(pd.DataFrame(likes_sent_data, index=['Stats']).T)
-
-    
-    # Match / No Match % from Likes Sent
-    match_percent_likes_sent = {
-        "Match % from Likes Sent": [round(stats['percent_they_matched'], 2)],
-        "No Match % from Likes Sent": [round(stats['percent_they_rejected'], 2)]
-    }
-    st.table(pd.DataFrame(match_percent_likes_sent, index=['Stats']).T)
-
-
-    # Total Matches and Paths Crossed
-    total_matches_data = {
-        "Total Matches": [stats['total_matches']],
-        "Total Paths Crossed": [stats['total_paths']],
-        "Matches as % of Total Paths Crossed": [round(stats['percent_matches_of_paths'], 2)]
-    }
-    st.table(pd.DataFrame(total_matches_data, index=['Stats']).T)
 
 # Streamlit interface
-st.title(":red[Hinge Matches Analysis]")
-st.header("Step 1: Upload your matches.json file", divider="red")
+st.title(":violet[Hinge Matches Analysis]")
+st.header("Step 1: Upload your matches.json file", divider="grey")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload your matches.json file", type="json")
-
 
 
 if uploaded_file is not None:
