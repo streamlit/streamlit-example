@@ -170,7 +170,7 @@ def display_stats(stats):
             st.subheader("Number", divider=div_color)
             st.markdown(f'<span class="number-highlight-green">{stats["incoming_match"]:,}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-red">{stats["incoming_no_match"]:,}</span>', unsafe_allow_html=True)
-            st.markdown(f'<span class="number-highlight-nb">{stats["total_likes_sent"]:,}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="number-highlight-nb">{stats["total_likes_received"]:,}</span>', unsafe_allow_html=True)
 
         with col3:
             st.subheader("% of Received", divider=div_color)
