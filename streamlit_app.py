@@ -69,6 +69,13 @@ def display_stats(stats):
     }
     st.table(pd.DataFrame(likes_received_data, index=['Stats']).T)
 
+    # Match / No Match % from Likes Received
+    match_percent_likes_received = {
+        "Match % from Likes Received": [round(stats['percent_liked_back'], 2)],
+        "No Match % from Likes Received": [round(stats['percent_rejected'], 2)]
+    }
+    st.table(pd.DataFrame(match_percent_likes_received, index=['Stats']).T)
+    
     # Likes Sent Stats
     likes_sent_data = {
         "Sent Like, Match": [stats['outgoing_matches']],
@@ -84,12 +91,7 @@ def display_stats(stats):
     }
     st.table(pd.DataFrame(match_percent_likes_sent, index=['Stats']).T)
 
-    # Match / No Match % from Likes Received
-    match_percent_likes_received = {
-        "Match % from Likes Received": [round(stats['percent_liked_back'], 2)],
-        "No Match % from Likes Received": [round(stats['percent_rejected'], 2)]
-    }
-    st.table(pd.DataFrame(match_percent_likes_received, index=['Stats']).T)
+    
 
     # Total Matches and Paths Crossed
     total_matches_data = {
