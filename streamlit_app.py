@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import json
-
+import os
 
 def text_output(stats):
 
@@ -53,7 +53,6 @@ def text_output(stats):
     )
 
     div_color = "violet"
-
 
     # LIKES RECEIVED
     st.header(":violet[Likes Received]")
@@ -123,14 +122,13 @@ def text_output(stats):
             st.markdown(f'<span class="number-highlight-nb">{stats["total_matches"] / stats["total_paths"]:.0%}</span>', unsafe_allow_html=True)
 
 
-
-
 def process_file(uploaded_file):
     # Read the uploaded file
     matches = json.load(uploaded_file)
 
     # Normalize the JSON using pandas
     data = pd.json_normalize(matches)
+    data.to_json("matches.json")
 
     # ==================================
     # Gathering the Data
@@ -194,6 +192,7 @@ uploaded_file = st.file_uploader("Upload your matches.json file", type="json")
 
 
 if uploaded_file is not None:
-    # Process and display the file
+
+    # Process the file then display stats 
     stats = process_file(uploaded_file)
     display_stats(stats)
