@@ -38,7 +38,7 @@ with pestaña3:
         left_column, right_column = st.columns(2)
         with left_column:
             st.button("2022", type="primary")
-        with right_button:
+        with right_column:
             st.button("2023", type="primary")
             st.caption("Los datos de este gráfico no están actualizados a la fecha actual.")
 
