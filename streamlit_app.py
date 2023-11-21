@@ -3,4 +3,77 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-st.title('Análisis de Población identificada con DNI de mayor de edad por condición de donante de órganos')
+titulos_pestanas = ['Página principal', 'Nacional', 'Internacional','Departamentos','Países','Sobre nosotras']
+pestaña1, pestaña2, pestaña3, pestaña4, pestaña5, pestaña6 = st.tabs(titulos_pestanas)
+
+with pestaña1:
+    st.title('Análisis de Población identificada con DNI de mayor de edad por condición de donante de órganos')
+    st.write("Texto sobre donación de órganos")
+    st.write("")
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+            st.button("Nacional", type="secondary")
+            chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+            st.bar_chart(chart_data)
+        with right_column:
+            st.button("Internacional", type="secondary") 
+            chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+            st.bar_chart(chart_data)
+            st.caption('Los datos de este gráfico no están actualizados a la fecha actual.')
+
+with pestaña2:
+    st.title("Condición de donante de órganos a nivel nacional")
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+            st.button("2022", type="secondary")
+        with right_column:
+            st.button("2023", type="secondary")
+            st.caption('Los datos de este gráfico no están actualizados a la fecha actual.')
+
+with pestaña3:
+    st.title("Condición de donante de órganos a nivel internacional")
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+            st.button("2022", type="secondary")
+        with right_column:
+            st.button("2023", type="secondary")
+            st.caption('Los datos de este gráfico no están actualizados a la fecha actual.')
+
+with pestaña4:
+    st.title("Condición de donante de órganos por departamentos")
+    option = st.selectbox(
+        'Departamentos',
+        ('Lima','Trujillo','Ica','Puno'))
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+            option2 = st.selectbox(
+                'Año',
+                ('2022','2023'))
+        #with right_column:
+        #mapa nacional
+    
+with pestaña5:
+    st.title("Condición de donante de órganos por países")
+    option = st.selectbox(
+        'Países',
+        ('España','Uganda','Japón'))
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+            option2 = st.selectbox(
+                'Año',
+                ('2022','2023'))
+        #with right_column:
+        #mapa internacional
+
+with pestaña6:
+    st.title("Sobre nosotras")
+    image = Image.open('Láska y Junak.png')
+    st.image(image, caption='Láska y Junak')
+
+
+st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
