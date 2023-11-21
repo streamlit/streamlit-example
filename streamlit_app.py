@@ -42,6 +42,8 @@ with pestaña3:
             st.button("2023", type="primary")
             st.caption("Los datos de este gráfico no están actualizados a la fecha actual.")
 
-
+with pestaña4:
+    st.title("Condición de donante de órganos por departamentos")
+    
 
 st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
