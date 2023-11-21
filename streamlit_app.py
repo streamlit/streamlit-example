@@ -32,4 +32,7 @@ with pestaña2:
             st.button("2023", type="secondary")
             st.caption("Los datos de este gráfico no están actualizados a la fecha actual.")
 
+with pestaña3:
+    st.title ("Condición de donante de órganos a nivel internacional")
+
 st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
