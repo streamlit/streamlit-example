@@ -44,6 +44,11 @@ with pestaña3:
 
 with pestaña4:
     st.title("Condición de donante de órganos por departamentos")
-    
+
+with pestaña5:
+    st.title("Condición de donante de órganos por países")
+
+with pestaña6:
+    st.title("Sobre nosotras")
 
 st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
