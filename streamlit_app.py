@@ -68,6 +68,14 @@ with pestaña5:
         option5 = st.selectbox(
             "Elige un país",
             ("Catar","India"))
+    elif option3 == "Europa":
+        option5 = st.selectbox(
+            "ELige un país",
+            ("Alemania","Austria"))
+    elif option3 == "Oceanía":
+        option5 = st.selectbox(
+            "Elige un país",
+            ("Australia","Nueva Zelanda"))
     option4 = st.selectbox(
         "Elige un año",
         (" 2022","2023"))
