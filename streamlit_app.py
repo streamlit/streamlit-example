@@ -53,6 +53,9 @@ with pestaña4:
 
 with pestaña5:
     st.title("Condición de donante de órganos por países")
+    option4 = st.selectbox(
+        "Elige un continente",
+        ("África","América","Asia","Europa","Oceanía"))
     option3 = st.selectbox(
         "Elige un año",
         (" 2022"," 2023"))
