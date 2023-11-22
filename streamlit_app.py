@@ -92,7 +92,5 @@ with pestaña6:
     st.title("Sobre nosotras")
     with st.container:
         left_column, right_column = st.columns(2)
-    with left_column:
-        <span>![</span><span></span><span>]</span><span>(</span><span>https://github.com/JimenaVegaS/streamlit-example/blob/master/Brigitte.jpeg</span><span>)</span>
 
 st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
