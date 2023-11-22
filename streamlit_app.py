@@ -36,24 +36,21 @@ def process_file(uploaded_file):
     duration_in_days = (newest - oldest).days
     years_of_data = duration_in_days / 365.25
     
-
     # Normalize the JSON using pandas
     data = pd.json_normalize(matches)
 
-    # ==================================
-    # Gathering the Data
-    # ==================================
+    """ 
+    Gathering the Data
+    We are going to pull apart each type of "like" you can receive on the app from the
+    messy JSON file that Hinge sends us.
+    Basically, the logic I'm using is as follows:
+        
+        - If "like" is not null, and "match" is not null, then this is where we sent a like and got a match.
+        - If "like" is not null, and "match" is null, then this is where we sent a like and got no match.
+        - If "match" is not null, and "like" is null, then this is where we received a like and got a match.
+        - If "match" is null, and "like" is null, then this is where we redeived a like but did not match.
+    """
 
-    # We are going to pull apart each type of "like" you can receive on the app from the
-    # messy JSON file that Hinge sends us.
-    # Basically, the logic I'm using is as follows:
-    #
-    # - If "like" is not null, and "match" is not null, then this is where we sent a like and got a match.
-    # - If "like" is not null, and "match" is null, then this is where we sent a like and got no match.
-    # - If "match" is not null, and "like" is null, then this is where we received a like and got a match.
-    # - If "match" is null, and "like" is null, then this is where we redeived a like but did not match.
-
-    # Get data
     outgoing_matches = data.loc[(data["like"].isna() == False) & (data["match"].isna() == False)].reset_index()
     outgoing_no_matches = data.loc[(data["like"].isna() == False) & (data["match"].isna() == True)].reset_index()
     incoming_match = data.loc[(data["match"].isna() == False) & (data["like"].isna() == True)].reset_index()
@@ -91,6 +88,7 @@ def display_stats(stats):
     st.success('You did it!', icon="✅")
     st.divider()
     st.header("Step 2: Read your results", divider="grey")
+    div_color = "violet"
 
     # green
     st.markdown("""
@@ -140,10 +138,8 @@ def display_stats(stats):
         """, unsafe_allow_html=True
     )
 
-    div_color = "violet"
-
+    
     # YEARS OF DATA
-
     st.header(":violet[Years of Data]")
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -155,14 +151,6 @@ def display_stats(stats):
         st.write(stats["newest"])
         years_of_data = stats["years_of_data"]
         st.write(round(stats["years_of_data"], 2))
-    
-    # st.write(f"Oldest: {stats['oldest']}")
-    # st.write(f"Newest: {stats['newest']}")
-
-    
-    # yrs = stats["years_of_data"]
-    
-    # st.markdown(f'<span class="number-highlight-nb">{stats["years_of_data"]:.2f}</span>', unsafe_allow_html=True)
 
     
     # LIKES RECEIVED
@@ -173,7 +161,7 @@ def display_stats(stats):
         with col1:
             st.subheader("Item", divider=div_color)
             st.write("Received Like, You Matched")
-            st.write("Revieved Like, You Rejected")
+            st.write("Received Like, You Rejected")
             st.markdown("**Total Likes Recieved**")
         
         with col2:
@@ -186,6 +174,7 @@ def display_stats(stats):
             st.subheader("% of Received", divider=div_color)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
             st.markdown(f'<span class="number-highlight-nb">{stats["incoming_no_match"] / stats["total_likes_received"]:.0%}</span>', unsafe_allow_html=True)
+
 
     # LIKES SENT
     st.divider()
@@ -239,7 +228,6 @@ st.header("Step 1: Upload your matches.json file", divider="grey")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload your matches.json file", type="json")
-
 
 if uploaded_file is not None:
 
