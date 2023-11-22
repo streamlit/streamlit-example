@@ -58,12 +58,9 @@ with pestaña5:
         ("África","América","Asia","Europa","Oceanía"))
     if option3 == "África":
         option5 = st.selectbox(
-			"Elige un país",
-			("Angola","Argelia"))
-	elif option3 == "América":
-		option5 = st.selectbox(
-			"Elige un país",
-			("Antillas Holandesas"))
+                "Elige un país",
+                ("Argelia","Costa de Marfil"))
+
     option4 = st.selectbox(
         "Elige un año",
         (" 2022","2023"))
