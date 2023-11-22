@@ -53,16 +53,32 @@ with pestaña4:
 
 with pestaña5:
     st.title("Condición de donante de órganos por países")
-    option4 = st.selectbox(
+    option3 = st.selectbox(
         "Elige un continente",
         ("África","América","Asia","Europa","Oceanía"))
-    if option4 == "África":
+    if option3 == "África":
         st.selectbox(
             "Elige un país",
             ("Angola","Argelia"))
-    option3 = st.selectbox(
+    elif option3 == "América":
+        st.selectbox(
+            "Elige un país","Argentia",
+            ("Antillas Holandesas","Bahamas"))
+    elif option3 == "Asia":
+        st.selectbox(
+            "Elige un país",
+            ("Arabia Saudita","Bahréin","Bangladesh"))
+    elif option3 == "Europa":
+        st.selectbox(
+        "Elige un país",
+        ("Albania","Alemania","Austria"))
+    elif option3 == "Oceanía":
+        st.selectbox(
+            "Elige un país",
+            ("Australia","Nueva Zelanda","Palau"))
+    option4 = st.selectbox(
         "Elige un año",
-        (" 2022"," 2023"))
+        (" 2022","2023"))
 
 with pestaña6:
     st.title("Sobre nosotras")
