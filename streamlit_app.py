@@ -57,25 +57,13 @@ with pestaña5:
         "Elige un continente",
         ("África","América","Asia","Europa","Oceanía"))
     if option3 == "África":
-        st.selectbox(
-            "Elige un país",
-            ("Angola","Argelia"))
-    elif option3 == "América":
-        st.selectbox(
-            "Elige un país","Argentia",
-            ("Antillas Holandesas","Bahamas"))
-    elif option3 == "Asia":
-        st.selectbox(
-            "Elige un país",
-            ("Arabia Saudita","Bahréin","Bangladesh"))
-    elif option3 == "Europa":
-        st.selectbox(
-        "Elige un país",
-        ("Albania","Alemania","Austria"))
-    elif option3 == "Oceanía":
-        st.selectbox(
-            "Elige un país",
-            ("Australia","Nueva Zelanda","Palau"))
+        option5 = st.selectbox(
+			"Elige un país",
+			("Angola","Argelia"))
+	elif option3 == "América":
+		option5 = st.selectbox(
+			"Elige un país",
+			("Antillas Holandesas"))
     option4 = st.selectbox(
         "Elige un año",
         (" 2022","2023"))
