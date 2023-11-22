@@ -27,7 +27,7 @@ with pestaña2:
     with st.container():
         left_column, right_column = st.columns(2)
         with left_column:
-            st.button("2022", type="seconry")
+            st.button("2022", type="secondary")
         with right_column:
             st.button("2023", type="secondary")
             st.caption("Los datos de este gráfico no están actualizados a la fecha actual.")
