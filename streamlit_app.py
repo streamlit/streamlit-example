@@ -1,40 +1,25 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+import pandas as pd
+import numpy as np
+from PIL import Image
 
-"""
-# Welcome to Streamlit!
+titulos_pestanas = ['Página principal', 'Nacional', 'Internacional','Departamentos','Países','Sobre nosotras']
+pestaña1, pestaña2, pestaña3, pestaña4, pestaña5, pestaña6 = st.tabs(titulos_pestanas)
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+with pestaña1:
+    st.title('Análisis de Población identificada con DNI de mayor de edad por condición de donante de órganos')
+    st.write("Texto sobre donación de órganos")
+    st.write("")
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+            st.button("Nacional", type="secondary")
+            chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+            st.bar_chart(chart_data)
+        with right_column:
+            st.button("Internacional", type="secondary") 
+            chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+            st.bar_chart(chart_data)
+            st.caption('Los datos de este gráfico no están actualizados a la fecha actual.')
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
-
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
-
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
-
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
