@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-#ho
 titulos_pestanas = ['Página principal', 'Nacional', 'Internacional','Departamentos','Países','Sobre nosotras']
 pestaña1, pestaña2, pestaña3, pestaña4, pestaña5, pestaña6 = st.tabs(titulos_pestanas)
 
