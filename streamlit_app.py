@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
+#hola
 titulos_pestanas = ['Página principal', 'Nacional', 'Internacional','Departamentos','Países','Sobre nosotras']
 pestaña1, pestaña2, pestaña3, pestaña4, pestaña5, pestaña6 = st.tabs(titulos_pestanas)
 
@@ -88,9 +89,4 @@ with pestaña5:
         "Elige un año",
         (" 2022","2023"))
 
-with pestaña6:
-    st.title("Sobre nosotras")
-    imagen = Image.open('Brigitte.jpeg')
-    st.image(imagen)
-    
 st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
