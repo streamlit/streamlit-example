@@ -90,7 +90,11 @@ with pestaña5:
 
 with pestaña6:
     st.title("Sobre nosotras")
-    imagen = Image.open('Brigitte.jpeg')
-    st.image(imagen)
+    left_column, right_column = st.columns(2)
+    with left_column:
+        imagen = Image.open('Brigitte.jpeg')
+        st.image(imagen)
+    with right_column:
+        st.write = ("Brigitte Bernal Belisario")
     
 st.link_button("Para más información de click aquí", "https://www.datosabiertos.gob.pe/dataset/reniec-poblaci%C3%B3n-identificada-con-dni-de-mayor-de-edad-por-condici%C3%B3n-de-donante-de-%C3%B3rganos")
