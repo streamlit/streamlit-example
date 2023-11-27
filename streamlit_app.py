@@ -221,6 +221,7 @@ def display_stats(stats):
 
     st.write("")
     st.write("TradeMarkRobery")
+    st.write("MRJ")
 
 # Streamlit interface
 st.title(":violet[Hinge Matches Analysis]")
