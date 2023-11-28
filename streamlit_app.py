@@ -3,6 +3,10 @@ import pandas as pd
 from utils import bin_packing_fair_seeding  # import your function
 from utils import schedule_matches  # import your function
 from utils import schedule_to_dataframe  # import your function
+import importlib.util
+if importlib.util.find_spec("openpyxl") is None:
+    st.error("openpyxl is not installed. Please install it to continue.")
+
 
 # Streamlit UI components
 st.title('Tournament Scheduling Application')
