@@ -42,7 +42,19 @@ if uploaded_file is not None:
     if st.button('Generate Schedule'):
         # Seeding teams into groups
         groups = bin_packing_fair_seeding(teams_info_rank, group_size)
-        st.write("Generated Groups:", groups)
+
+        #display the groups to the user
+        display_groups = groups
+        flattened_data = []
+        for group_number, group in enumerate(groups, start=1):
+            for team in group:
+                team_name, points = team
+                flattened_data.append({"Group Number": group_number, "Team Name": team_name, "Points": points})
+        
+        df_groups = pd.DataFrame(flattened_data)
+        
+        # Display the DataFrame
+        st.dataframe(df_groups)
 
 
         # Defining available times (this could also be user input)
