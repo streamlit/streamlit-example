@@ -10,11 +10,19 @@ st.title('Tournament Scheduling Application')
 # File upload
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-    data = pd.read_excel(uploaded_file)  # Adjust if a different format is used
+    # Read the uploaded Excel file
+    data = pd.read_excel(uploaded_file)
 
-    # Process the file to extract teams and their rankings
-    # Assuming a specific format; adjust as necessary
-    teams_info_rank = list(zip(data['Team Name Column'], data['Rank Column']))
+    # Drop the header row and reset the index for a clean dataframe
+    data = data.drop(0).reset_index(drop=True)
+
+    # Convert columns to numeric for sorting
+    data['Average Points'] = pd.to_numeric(data['Unnamed: 10'])
+    data['Player1 Rank'] = pd.to_numeric(data['Unnamed: 4'])
+
+    # Extract team information (Team Name and Average Rank)
+    teams_info_rank = list(zip(data['Unnamed: 9'], data['Average Points']))
+
 
     # User inputs for scheduling
     group_size = st.slider('Select Group Size', 2, 10, 3)  # Adjust the range as needed
