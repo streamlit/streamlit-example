@@ -38,7 +38,7 @@ if uploaded_file is not None:
         groups = bin_packing_fair_seeding(teams_info_rank, group_size)
 
         # Defining available times (this could also be user input)
-        available_times = = {
+        available_times = {
     "Thursday": [(datetime(2023, 11, 23, 18, 0), datetime(2023, 11, 23, 23, 59))],
     "Friday": [(datetime(2023, 11, 24, 14, 0), datetime(2023, 11, 24, 20, 0))],
     "Saturday": [(datetime(2023, 11, 25, 14, 0), datetime(2023, 11, 25, 22, 0))]
