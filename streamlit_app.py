@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
-from bin_packing_fair_seeding import bin_packing_fair_seeding  # import your function
-from schedule_matches import schedule_matches  # import your function
-from schedule_to_dataframe import schedule_to_dataframe  # import your function
+from utils import bin_packing_fair_seeding  # import your function
+from utils import schedule_matches  # import your function
+from utils import schedule_to_dataframe  # import your function
 
 # Streamlit UI components
 st.title('Tournament Scheduling Application')
