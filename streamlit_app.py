@@ -54,6 +54,7 @@ if uploaded_file is not None:
         df_groups = pd.DataFrame(flattened_data)
         
         # Display the DataFrame
+        st.write('Generated groups ....')
         st.dataframe(df_groups)
 
 
@@ -69,4 +70,5 @@ if uploaded_file is not None:
 
         # Convert schedule to DataFrame
         schedule_df = schedule_to_dataframe(scheduled_matches)
+        st.write('Generated Schedules ...')
         st.dataframe(schedule_df)
