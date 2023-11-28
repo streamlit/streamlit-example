@@ -19,6 +19,10 @@ if uploaded_file is not None:
     # Read the uploaded Excel file
     data = pd.read_excel(uploaded_file)
 
+    #show the data to the user
+    st.write('Uploaded Data:...')
+    st.dataframe(data.head())
+
     # Drop the header row and reset the index for a clean dataframe
     data = data.drop(0).reset_index(drop=True)
 
