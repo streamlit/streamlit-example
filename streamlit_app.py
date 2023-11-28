@@ -20,7 +20,7 @@ if uploaded_file is not None:
     data = pd.read_excel(uploaded_file)
 
     #show the data to the user
-    st.write('Uploaded Data:...')
+    st.write('Uploaded Data (This only shows a sinppet of the data):...')
     st.dataframe(data.head())
 
     # Drop the header row and reset the index for a clean dataframe
@@ -42,6 +42,8 @@ if uploaded_file is not None:
     if st.button('Generate Schedule'):
         # Seeding teams into groups
         groups = bin_packing_fair_seeding(teams_info_rank, group_size)
+        st.write("Generated Groups:", groups)
+
 
         # Defining available times (this could also be user input)
         available_times = {
