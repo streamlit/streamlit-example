@@ -1,6 +1,7 @@
 import pandas as pd
 import itertools
 from datetime import datetime, timedelta
+import pulp
 
 def bin_packing_fair_seeding(teams, group_size):
     """
@@ -169,3 +170,89 @@ def schedule_matches_v1(groups, available_times, match_duration, num_courts, max
     return scheduled_matches
 
 
+
+def schedule_matches_mip(groups, available_times, match_duration, num_courts):
+    # Generate matches within each group
+    matches = [match for group in groups for match in itertools.combinations([team for team, _ in group], 2)]
+    match_indices = range(len(matches))
+
+    # Extract individual players
+    players = set(player for group in groups for team, _ in group for player in team.split(' - '))
+
+    # Generate list of available time slots
+    time_slots = []
+    for day, times in available_times.items():
+        for start, end in times:
+            current_time = start
+            while current_time + timedelta(minutes=match_duration) <= end:
+                time_slots.append(current_time)
+                current_time += timedelta(minutes=match_duration)
+    time_slot_indices = range(len(time_slots))
+
+    # Create a PuLP problem
+    problem = pulp.LpProblem("Match_Scheduling_Minimize_Total_Time", pulp.LpMinimize)
+
+    # Decision variables
+    match_vars = pulp.LpVariable.dicts("match",
+                                       ((match_idx, time_slot_idx, court) for match_idx in match_indices for time_slot_idx in time_slot_indices for court in range(num_courts)),
+                                       0, 1, pulp.LpBinary)
+
+    # Additional variables to handle consecutive match constraint
+    consecutive_match_vars = pulp.LpVariable.dicts("consecutive_match",
+                                                  ((player, time_slot_idx) for player in players for time_slot_idx in time_slot_indices),
+                                                  0, 1, pulp.LpBinary)
+
+
+    # Objective: Minimize the latest time slot used
+    problem += pulp.lpSum([time_slot_idx * match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices for time_slot_idx in time_slot_indices for court in range(num_courts)])
+
+    # Constraint: Each match is scheduled exactly once
+    for match_idx in match_indices:
+        problem += pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for time_slot_idx in time_slot_indices for court in range(num_courts)]) == 1
+
+    # Constraint: No player plays more than once at the same time
+    for time_slot_idx in time_slot_indices:
+        for player in players:
+            problem += pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices for court in range(num_courts) if player in ' - '.join(matches[match_idx])]) <= 1
+
+    # Constraint: Only one match per court per time slot
+    for time_slot_idx in time_slot_indices:
+        for court in range(num_courts):
+            problem += pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices]) <= 1
+
+    # Constraints for consecutive matches
+    for player in players:
+        for time_slot_idx in time_slot_indices[:-1]:  # Consider up to the second last time slot for consecutive checks
+            # Constraint for identifying consecutive matches
+            problem += consecutive_match_vars[player, time_slot_idx] <= pulp.lpSum([match_vars[match_idx, time_slot_idx, court] + match_vars[match_idx, time_slot_idx + 1, court] for match_idx in match_indices for court in range(num_courts) if player in ' - '.join(matches[match_idx])])
+
+            # Constraint to limit consecutive matches to 2, then a gap is needed
+            if time_slot_idx < len(time_slots) - 2:  # Ensure the index + 2 is within range
+                problem += pulp.lpSum([consecutive_match_vars[player, ts] for ts in range(time_slot_idx, time_slot_idx + 3)]) <= 2
+
+
+                problem += pulp.lpSum([consecutive_match_vars[player, ts] for ts in range(time_slot_idx, min(time_slot_idx + 3, len(time_slots)))]) <= 2
+
+
+    # Constraint for same court in consecutive matches
+    for player in players:
+        for time_slot_idx in time_slot_indices[:-1]:
+            for court in range(num_courts):
+                problem += (consecutive_match_vars[player, time_slot_idx] + pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices if player in ' - '.join(matches[match_idx])])) <= 1
+
+    # Solve the problem
+    problem.solve()
+
+    # Extract the schedule
+    scheduled_matches = []
+    if problem.status == pulp.LpStatusOptimal:
+        for match_idx in match_indices:
+            for time_slot_idx in time_slot_indices:
+                for court in range(num_courts):
+                    if pulp.value(match_vars[match_idx, time_slot_idx, court]) == 1:
+                        match_time = time_slots[time_slot_idx]
+                        scheduled_matches.append((match_time, f'Match_{matches[match_idx][0]}_{matches[match_idx][1]}', f'Court {court + 1}'))
+        return scheduled_matches
+    else:
+        print("No feasible solution found.")
+        return None
