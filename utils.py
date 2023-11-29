@@ -36,7 +36,8 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: Filtered dataframe
     """
-    modify = st.checkbox("Add filters")
+    # modify = st.checkbox("Add filters")
+    modify = st.checkbox("Add filters", key=f'add_filters_{key_suffix}')
 
     if not modify:
         return df
