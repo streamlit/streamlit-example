@@ -26,18 +26,30 @@ import pandas as pd
 import streamlit as st
 
 def calculate_total_duration(schedule_df, match_duration):
-    if schedule_df.empty:
-        return timedelta(0)
+    """
+    Calculate the total duration of the matches.
+
+    Args:
+        schedule_df (pd.DataFrame): DataFrame containing the match schedule.
+        match_duration (int): Duration of a match in minutes.
+
+    Returns:
+        Total duration as a datetime.timedelta object.
+    """
+
     # Ensure the 'Time' column is in datetime format
-    if not pd.api.types.is_datetime64_any_dtype(schedule_df['Time']):
-        schedule_df['Time'] = pd.to_datetime(schedule_df['Time'])
+    schedule_df['Time'] = pd.to_datetime(schedule_df['Day'] + ' ' + schedule_df['Time'])
 
-    # Calculate the last match end time
-    last_match_time = schedule_df['Time'].max()
-    last_match_end_time = last_match_time + timedelta(minutes=match_duration)
+    # Calculate the end time for each match
+    schedule_df['End Time'] = schedule_df['Time'] + timedelta(minutes=match_duration)
 
-    first_match_start_time = schedule_df['Time'].min()
-    total_duration = last_match_end_time - first_match_start_time
+    # Find the earliest start time and latest end time
+    start_time = schedule_df['Time'].min()
+    end_time = schedule_df['End Time'].max()
+
+    # Calculate the total duration
+    total_duration = end_time - start_time
+
     return total_duration
 
 def filter_dataframe(df: pd.DataFrame, key_suffix: str) -> pd.DataFrame:
