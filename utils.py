@@ -1,6 +1,16 @@
 import pandas as pd
 import itertools
 from datetime import datetime, timedelta
+try:
+    import pulp
+except ImportError:
+    import subprocess
+    import sys
+
+    # Install the package and re-import
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pulp"])
+    import pulp
+
 import importlib.util
 if importlib.util.find_spec("pulp") is None:
     raise ImportError("The 'pulp' library is not installed. Please install it to continue.")
