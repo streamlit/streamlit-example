@@ -72,6 +72,9 @@ if uploaded_file is not None:
         st.title('Original version of the schedule')
         schedule_df = schedule_to_dataframe(scheduled_matches)
         st.write('Generated Schedules ...')
+        total_duration_original = calculate_total_duration(original_filtered)
+        st.write(f"Total Duration (Original): {total_duration_original}")
+
         original_filtered = filter_dataframe(schedule_df, 'schedule_df')
         st.dataframe(original_filtered)
 
@@ -79,6 +82,8 @@ if uploaded_file is not None:
         st.title('version 1 of the schedule')
         schedule_df_v1 = schedule_to_dataframe(scheduled_matches_v1)
         st.write('Generated Schedules ...')
+        total_duration_v1 = calculate_total_duration(v1_filtered)
+        st.write(f"Total Duration (V1): {total_duration_v1}")
         v1_filtered = filter_dataframe(schedule_df_v1, 'schedule_df_v1')
         st.dataframe(v1_filtered)
         
@@ -89,5 +94,7 @@ if uploaded_file is not None:
         st.title('version mip of the schedule')
         schedule_df_mip = schedule_to_dataframe(scheduled_matches_mip)
         st.write('Generated Schedules ...')
+        total_duration_mip = calculate_total_duration(mip_filtered)
+        st.write(f"Total Duration (MIP): {total_duration_mip}")
         mip_filtered = filter_dataframe(schedule_df_mip, 'schedule_df_mip')
         st.dataframe(mip_filtered)
