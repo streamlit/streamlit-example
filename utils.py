@@ -66,6 +66,7 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                     f"Values for {column}",
                     df[column].unique(),
                     default=list(df[column].unique()),
+                    key=f'cat_{column}'  # Unique key
                 )
                 df = df[df[column].isin(user_cat_input)]
             elif is_numeric_dtype(df[column]):
@@ -78,6 +79,7 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                     max_value=_max,
                     value=(_min, _max),
                     step=step,
+                    key=f'num_{column}'  # Unique key
                 )
                 df = df[df[column].between(*user_num_input)]
             elif is_datetime64_any_dtype(df[column]):
@@ -87,6 +89,7 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                         df[column].min(),
                         df[column].max(),
                     ),
+                    key=f'date_{column}'  # Unique key
                 )
                 if len(user_date_input) == 2:
                     user_date_input = tuple(map(pd.to_datetime, user_date_input))
@@ -95,6 +98,7 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
             else:
                 user_text_input = right.text_input(
                     f"Substring or regex in {column}",
+                    key=f'text_{column}'  # Unique key
                 )
                 if user_text_input:
                     df = df[df[column].astype(str).str.contains(user_text_input)]
