@@ -1,7 +1,10 @@
 import pandas as pd
 import itertools
 from datetime import datetime, timedelta
-import pulp
+import importlib.util
+if importlib.util.find_spec("pulp") is None:
+    raise ImportError("The 'pulp' library is not installed. Please install it to continue.")
+
 
 def bin_packing_fair_seeding(teams, group_size):
     """
