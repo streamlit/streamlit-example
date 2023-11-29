@@ -25,6 +25,13 @@ from pandas.api.types import (
 import pandas as pd
 import streamlit as st
 
+def calculate_total_duration(schedule_df):
+    if schedule_df.empty:
+        return timedelta(0)
+    last_match_end_time = schedule_df['Time'].max() + timedelta(minutes=match_duration)
+    first_match_start_time = schedule_df['Time'].min()
+    total_duration = last_match_end_time - first_match_start_time
+    return total_duration
 
 def filter_dataframe(df: pd.DataFrame, key_suffix: str) -> pd.DataFrame:
     """
