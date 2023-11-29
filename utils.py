@@ -28,7 +28,14 @@ import streamlit as st
 def calculate_total_duration(schedule_df, match_duration):
     if schedule_df.empty:
         return timedelta(0)
-    last_match_end_time = schedule_df['Time'].max() + timedelta(minutes=match_duration)
+    # Ensure the 'Time' column is in datetime format
+    if not pd.api.types.is_datetime64_any_dtype(schedule_df['Time']):
+        schedule_df['Time'] = pd.to_datetime(schedule_df['Time'])
+
+    # Calculate the last match end time
+    last_match_time = schedule_df['Time'].max()
+    last_match_end_time = last_match_time + timedelta(minutes=match_duration)
+
     first_match_start_time = schedule_df['Time'].min()
     total_duration = last_match_end_time - first_match_start_time
     return total_duration
