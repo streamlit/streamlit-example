@@ -65,27 +65,26 @@ if uploaded_file is not None:
 
         # Generating the schedule
         scheduled_matches = schedule_matches(groups, available_times, match_duration, num_courts)
-        scheduled_matches_v1 = schedule_matches(groups, available_times, match_duration, num_courts)
+        scheduled_matches_v1 = schedule_matches_v1(groups, available_times, match_duration, num_courts)
+        scheduled_matches_mip = schedule_matches_mip(groups, available_times, match_duration, num_courts)
 
-        # Convert schedule to DataFrame
+        # Convert schedule to DataFrame - Original
         st.write('Original version of the schedule')
         schedule_df = schedule_to_dataframe(scheduled_matches)
         st.write('Generated Schedules ...')
         st.dataframe(schedule_df)
-        # Generating the schedule
-        scheduled_matches = schedule_matches(groups, available_times, match_duration, num_courts)
 
-        # Convert schedule to DataFrame
+        # Convert schedule to DataFrame - V1
         st.write('version 1 of the scheduile')
-        schedule_df = schedule_to_dataframe(scheduled_matches_v1)
+        schedule_df_v1 = schedule_to_dataframe(scheduled_matches_v1)
         st.write('Generated Schedules ...')
-        st.dataframe(schedule_df)
+        st.dataframe(schedule_df_v1)
         
 
 
-        # Convert schedule to DataFrame
-        #add mlp scheduling
+        # Convert schedule to DataFrame - mip
+        # add mip scheduling
         st.write('version 1 of the scheduile')
-        schedule_df = schedule_to_dataframe(scheduled_matches_mip)
+        schedule_df_mip = schedule_to_dataframe(scheduled_matches_mip)
         st.write('Generated Schedules ...')
-        st.dataframe(schedule_df)
+        st.dataframe(schedule_df_mip)
