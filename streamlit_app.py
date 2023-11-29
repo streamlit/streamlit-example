@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from io import BytesIO
-from utils import bin_packing_fair_seeding, schedule_matches, schedule_matches_v1, schedule_to_dataframe, schedule_matches_mip, filter_dataframe   # import your function
+from utils import bin_packing_fair_seeding, schedule_matches, schedule_matches_v1, schedule_to_dataframe, schedule_matches_mip, filter_dataframe, calculate_total_duration   # import your function
 import importlib.util
 if importlib.util.find_spec("openpyxl") is None:
     st.error("openpyxl is not installed. Please install it to continue.")
