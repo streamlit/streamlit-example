@@ -25,7 +25,7 @@ from pandas.api.types import (
 import pandas as pd
 import streamlit as st
 
-def calculate_total_duration(schedule_df):
+def calculate_total_duration(schedule_df, match_duration):
     if schedule_df.empty:
         return timedelta(0)
     last_match_end_time = schedule_df['Time'].max() + timedelta(minutes=match_duration)
