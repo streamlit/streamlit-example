@@ -110,3 +110,62 @@ def schedule_to_dataframe(schedule):
     # Create DataFrame
     df = pd.DataFrame(data)
     return df
+
+from datetime import datetime, timedelta
+import itertools
+
+def schedule_matches_v1(groups, available_times, match_duration, num_courts, max_consecutive=2):
+    # Generate matches within each group
+    matches = [match for group in groups for match in itertools.combinations([team for team, _ in group], 2)]
+
+    # Initialize tracking for players
+    all_players = {player: {'last_court': None, 'consecutive': 0} for group in groups for team, _ in group for player in team.split(' - ')}
+
+    # Generate list of available time slots
+    time_slots = []
+    for day, times in available_times.items():
+        for start, end in times:
+            current_time = start
+            while current_time + timedelta(minutes=match_duration) <= end:
+                for court in range(num_courts):
+                    time_slots.append((current_time, court + 1))
+                current_time += timedelta(minutes=match_duration)
+
+    def is_player_free(player, time_slot, scheduled_matches, court):
+        player_info = all_players[player]
+        # Check if player needs rest
+        if player_info['consecutive'] >= max_consecutive:
+            return False
+        # Check if player has a match at this time slot
+        for scheduled_time, scheduled_match, scheduled_court in scheduled_matches:
+            if scheduled_time == time_slot and player in scheduled_match.replace('Match_', '').replace('_', ' - '):
+                # Check for same court if consecutive match
+                if player_info['consecutive'] > 0 and scheduled_court != court:
+                    return False
+                return False
+        return True
+
+    # Schedule the matches
+    scheduled_matches = []
+    for time_slot, court in time_slots:
+        for match in list(matches):
+            players = match[0].split(' - ') + match[1].split(' - ')
+            if all(is_player_free(player, time_slot, scheduled_matches, court) for player in players):
+                match_str = f'Match_{match[0]}_{match[1]}'
+                scheduled_matches.append((time_slot, match_str, f'Court {court}'))
+                matches.remove(match)
+                # Update player info
+                for player in players:
+                    if all_players[player]['last_court'] == court:
+                        all_players[player]['consecutive'] += 1
+                    else:
+                        all_players[player] = {'last_court': court, 'consecutive': 1}
+                break
+            # Reset consecutive count after a gap
+            for player in players:
+                if not is_player_free(player, time_slot, scheduled_matches, court):
+                    all_players[player]['consecutive'] = 0
+
+    return scheduled_matches
+
+
