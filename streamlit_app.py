@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from io import BytesIO
-from utils import bin_packing_fair_seeding  # import your function
-from utils import schedule_matches  # import your function
-from utils import schedule_to_dataframe  # import your function
+from utils import bin_packing_fair_seeding, schedule_matches, schedule_matches_v1, schedule_to_dataframe   # import your function
 import importlib.util
 if importlib.util.find_spec("openpyxl") is None:
     st.error("openpyxl is not installed. Please install it to continue.")
@@ -67,8 +65,18 @@ if uploaded_file is not None:
 
         # Generating the schedule
         scheduled_matches = schedule_matches(groups, available_times, match_duration, num_courts)
+        scheduled_matches_v1 = schedule_matches(groups, available_times, match_duration, num_courts)
 
         # Convert schedule to DataFrame
+        st.write('Original version of the schedule')
         schedule_df = schedule_to_dataframe(scheduled_matches)
+        st.write('Generated Schedules ...')
+        st.dataframe(schedule_df)
+        # Generating the schedule
+        scheduled_matches = schedule_matches(groups, available_times, match_duration, num_courts)
+
+        # Convert schedule to DataFrame
+        st.write('version 1 of the scheduile')
+        schedule_df = schedule_to_dataframe(scheduled_matches_v1)
         st.write('Generated Schedules ...')
         st.dataframe(schedule_df)
