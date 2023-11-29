@@ -69,13 +69,13 @@ if uploaded_file is not None:
         scheduled_matches_mip = schedule_matches_mip(groups, available_times, match_duration, num_courts)
 
         # Convert schedule to DataFrame - Original
-        st.write('Original version of the schedule')
+        st.title('Original version of the schedule')
         schedule_df = schedule_to_dataframe(scheduled_matches)
         st.write('Generated Schedules ...')
         st.dataframe(filter_dataframe(schedule_df))
 
         # Convert schedule to DataFrame - V1
-        st.write('version 1 of the schedule')
+        st.title('version 1 of the schedule')
         schedule_df_v1 = schedule_to_dataframe(scheduled_matches_v1)
         st.write('Generated Schedules ...')
         st.dataframe(filter_dataframe(schedule_df_v1))
@@ -84,7 +84,7 @@ if uploaded_file is not None:
 
         # Convert schedule to DataFrame - mip
         # add mip scheduling
-        st.write('version mip of the schedule')
+        st.title('version mip of the schedule')
         schedule_df_mip = schedule_to_dataframe(scheduled_matches_mip)
         st.write('Generated Schedules ...')
         st.dataframe(filter_dataframe(schedule_df_mip))
