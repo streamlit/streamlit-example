@@ -75,7 +75,7 @@ if uploaded_file is not None:
         st.dataframe(schedule_df)
 
         # Convert schedule to DataFrame - V1
-        st.write('version 1 of the scheduile')
+        st.write('version 1 of the schedule')
         schedule_df_v1 = schedule_to_dataframe(scheduled_matches_v1)
         st.write('Generated Schedules ...')
         st.dataframe(schedule_df_v1)
@@ -84,7 +84,7 @@ if uploaded_file is not None:
 
         # Convert schedule to DataFrame - mip
         # add mip scheduling
-        st.write('version 1 of the scheduile')
+        st.write('version mip of the schedule')
         schedule_df_mip = schedule_to_dataframe(scheduled_matches_mip)
         st.write('Generated Schedules ...')
         st.dataframe(schedule_df_mip)
