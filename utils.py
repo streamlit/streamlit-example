@@ -50,7 +50,10 @@ def calculate_total_duration(schedule_df, match_duration):
     # Calculate the total duration
     total_duration = end_time - start_time
 
-    return total_duration
+    # Convert total duration to hours
+    total_duration_in_hours = total_duration.total_seconds() / 3600
+
+    return total_duration_in_hours
 
 def filter_dataframe(df: pd.DataFrame, key_suffix: str) -> pd.DataFrame:
     """
