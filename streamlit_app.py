@@ -13,28 +13,26 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+import streamlit as st
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+# Function to create the sidebar
+def create_sidebar():
+    st.sidebar.image("path_to_your_logo.png", use_column_width=True)
+    st.sidebar.write("## Navigation")
+    st.sidebar.button("Usage")
+    st.sidebar.button("Users")
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+# Function to create the top menu bar
+def create_top_menu():
+    st.button("Sign In/Sign Out")
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
+# Main page layout
+def main():
+    create_top_menu()
+    create_sidebar()
 
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+    st.title("Backoffice Homepage")
+    st.write("Welcome to the Backoffice Dashboard.")
+
+if __name__ == "__main__":
+    main()
