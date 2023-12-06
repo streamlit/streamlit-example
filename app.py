@@ -23,8 +23,8 @@ create_session_state()
 st.title(":red[PaLM 2] :blue[Vertex AI] Text Generation")
 
 with st.sidebar:
-    image = Image.open('./image/sidebar_image.jpg')
-    st.image(image)
+    #image = Image.open('./image/sidebar_image.jpg')
+    #st.image(image)
     st.markdown("<h2 style='text-align: center; color: red;'>Setting Tab</h2>", unsafe_allow_html=True)
 
 
