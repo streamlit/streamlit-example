@@ -18,8 +18,8 @@ create_session_state()
 
 
 
-image = Image.open('./image/palm.jpg')
-st.image(image)
+#image = Image.open('./image/palm.jpg')
+#st.image(image)
 st.title(":red[PaLM 2] :blue[Vertex AI] Text Generation")
 
 with st.sidebar:
