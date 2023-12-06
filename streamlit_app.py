@@ -1,69 +1,40 @@
-#chatbot with langchain
 
-# First
-import openai import streamlit as st
-with st.sidebar:
-    openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
-    "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
-    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
-    "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
+import streamlit as st
+import pandas as pd
+import numpy as np
 
-st.title("💬 Chatbot") if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+st.title('Uber pickups in NYC')
 
-for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
+DATE_COLUMN = 'date/time'
+DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
+            'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
 
-if prompt := st.chat_input():
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
+@st.cache_data
+def load_data(nrows):
+    data = pd.read_csv(DATA_URL, nrows=nrows)
+    lowercase = lambda x: str(x).lower()
+    data.rename(lowercase, axis='columns', inplace=True)
+    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+    return data
 
-    openai.api_key = openai_api_key
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-    msg = response.choices[0].message
-    st.session_state.messages.append(msg)
-    st.chat_message("assistant").write(msg.content)
+data_load_state = st.text('Loading data...')
+data = load_data(10000)
+data_load_state.text("Done! (using st.cache_data)")
 
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(data)
 
-# import streamlit as st
-# import pandas as pd
-# import numpy as np
+st.subheader('Number of pickups by hour')
+hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
+st.bar_chart(hist_values)
 
-# st.title('Uber pickups in NYC')
+# Some number in the range 0-23
+hour_to_filter = st.slider('hour', 0, 23, 17)
+filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
-# DATE_COLUMN = 'date/time'
-# DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-#             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
-
-# @st.cache_data
-# def load_data(nrows):
-#     data = pd.read_csv(DATA_URL, nrows=nrows)
-#     lowercase = lambda x: str(x).lower()
-#     data.rename(lowercase, axis='columns', inplace=True)
-#     data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-#     return data
-
-# data_load_state = st.text('Loading data...')
-# data = load_data(10000)
-# data_load_state.text("Done! (using st.cache_data)")
-
-# if st.checkbox('Show raw data'):
-#     st.subheader('Raw data')
-#     st.write(data)
-
-# st.subheader('Number of pickups by hour')
-# hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-# st.bar_chart(hist_values)
-
-# # Some number in the range 0-23
-# hour_to_filter = st.slider('hour', 0, 23, 17)
-# filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-
-# st.subheader('Map of all pickups at %s:00' % hour_to_filter)
-# st.map(filtered_data)
+st.subheader('Map of all pickups at %s:00' % hour_to_filter)
+st.map(filtered_data)
 
 
 # # import altair as alt
