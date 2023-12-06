@@ -1,55 +1,93 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+import pandas as pd
+import numpy as np
 
-"""
-# Welcome to Streamlit!
+st.title('Uber pickups in NYC')
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+DATE_COLUMN = 'date/time'
+DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
+            'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+@st.cache_data
+def load_data(nrows):
+    data = pd.read_csv(DATA_URL, nrows=nrows)
+    lowercase = lambda x: str(x).lower()
+    data.rename(lowercase, axis='columns', inplace=True)
+    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+    return data
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+data_load_state = st.text('Loading data...')
+data = load_data(10000)
+data_load_state.text("Done! (using st.cache_data)")
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(data)
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+st.subheader('Number of pickups by hour')
+hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
+st.bar_chart(hist_values)
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
+# Some number in the range 0-23
+hour_to_filter = st.slider('hour', 0, 23, 17)
+filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+st.subheader('Map of all pickups at %s:00' % hour_to_filter)
+st.map(filtered_data)
 
 
-# """
-# # My first app
-# Here's our first attempt at using data to create a table:
-# """
-
-# import streamlit as st
+# import altair as alt
+# import numpy as np
 # import pandas as pd
+# import streamlit as st
+
+# """
+# # Welcome to Streamlit!
+
+# Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
+# If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
+# forums](https://discuss.streamlit.io).
+
+# In the meantime, below is an example of what you can do with just a few lines of code:
+# """
+
+# num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
+# num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+
+# indices = np.linspace(0, 1, num_points)
+# theta = 2 * np.pi * num_turns * indices
+# radius = indices
+
+# x = radius * np.cos(theta)
+# y = radius * np.sin(theta)
+
 # df = pd.DataFrame({
-#   'first column': [1, 2, 3, 4],
-#   'second column': [10, 20, 30, 40]
+#     "x": x,
+#     "y": y,
+#     "idx": indices,
+#     "rand": np.random.randn(num_points),
 # })
 
-# df
+# st.altair_chart(alt.Chart(df, height=700, width=700)
+#     .mark_point(filled=True)
+#     .encode(
+#         x=alt.X("x", axis=None),
+#         y=alt.Y("y", axis=None),
+#         color=alt.Color("idx", legend=None, scale=alt.Scale()),
+#         size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
+#     ))
+
+
+# # """
+# # # My first app
+# # Here's our first attempt at using data to create a table:
+# # """
+
+# # import streamlit as st
+# # import pandas as pd
+# # df = pd.DataFrame({
+# #   'first column': [1, 2, 3, 4],
+# #   'second column': [10, 20, 30, 40]
+# # })
+
+# # df
