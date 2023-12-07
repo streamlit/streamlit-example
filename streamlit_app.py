@@ -13,15 +13,21 @@ def draw_rectangles(image_path, rectangles):
     draw = ImageDraw.Draw(img)
     font = ImageFont.load_default()
 
-    for rect_info in rectangles:
+    for rect_info ,name in zip(rectangles,names):
         xmin = rect_info.get("xmin", 0)
         ymin = rect_info.get("ymin", 0)
         xmax = rect_info.get("xmax", 0)
         ymax = rect_info.get("ymax", 0)
-        text = "Shark"  # Assuming there is no "name" key in the rectangles
+        text = name
 
         coordinates = (xmin, ymin, xmax, ymax)
-        font= ImageFont.truetype("arial.ttf", 70)
+        box_width = xmax - xmin
+
+
+
+        font_size = int(box_width * 0.16)
+
+        font= ImageFont.truetype("arial.ttf", font_size)
 
         draw.rectangle(coordinates, outline="red", width=3)
 
@@ -32,7 +38,7 @@ def draw_rectangles(image_path, rectangles):
 st.set_page_config(page_title="OZ Fish", page_icon=":fish:", layout="centered")
 
 """
-# OZ Fish 🐟
+# OZ Fish 🐟🐟
 """
 image_file = st.file_uploader("Please upload Image/Video")
 img_placeholder = st.empty()
@@ -43,11 +49,14 @@ if image_file is not None:
 
     img_placeholder.image(load_image(image_file))
 
-    url = "http://127.0.0.1:8000/"
+    url = "https://yolooo-gvzmtv7baq-ew.a.run.app/"
+
     # response = requests.get(url).json()
 
     payload = {"file": image_file.getvalue()}
     post_response = requests.post(url=f"{url}upload/", files=payload)
+    post2_response= requests.post(url=f"{url}predict/", files=payload)
+    names = post2_response.json()
 
     rectangles = post_response.json()  # Assuming the response is a JSON array
 
@@ -55,6 +64,5 @@ if image_file is not None:
         st.write('I was clicked 🎉')
         drawn_image = draw_rectangles(image_file, rectangles)
         img_placeholder.image(drawn_image, caption="Image with Rectangles.", use_column_width=True)
-        #st.write(post_response.json())
     else:
         st.write('I was not clicked 😞')
