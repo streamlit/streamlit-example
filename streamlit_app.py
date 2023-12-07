@@ -1,40 +1,68 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+from PIL import Image, ImageDraw, ImageFont
+import requests
+import base64
+import json
+
+def load_image(image_file):
+    img = Image.open(image_file)
+    return img
+
+def draw_rectangles(image_path, rectangles):
+    img = load_image(image_path)
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.load_default()
+
+    for rect_info ,name in zip(rectangles,names):
+        xmin = rect_info.get("xmin", 0)
+        ymin = rect_info.get("ymin", 0)
+        xmax = rect_info.get("xmax", 0)
+        ymax = rect_info.get("ymax", 0)
+        text = name
+
+        coordinates = (xmin, ymin, xmax, ymax)
+        box_width = xmax - xmin
+
+
+
+        font_size = int(box_width * 0.16)
+
+        font= ImageFont.truetype("arial.ttf", font_size)
+
+        draw.rectangle(coordinates, outline="red", width=3)
+
+        draw.text((xmin, ymin-70), text, fill="red", font=font)
+
+    return img
+
+st.set_page_config(page_title="OZ Fish", page_icon=":fish:", layout="centered")
 
 """
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+# OZ Fish 🐟🐟
 """
+image_file = st.file_uploader("Please upload Image/Video")
+img_placeholder = st.empty()
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+if image_file is not None:
+    file_details = {"filename": image_file.name, "filetype": image_file.type, "filesize": image_file.size}
+    #st.write(file_details)
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+    img_placeholder.image(load_image(image_file))
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+    url = "https://yolooo-gvzmtv7baq-ew.a.run.app/"
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
+    # response = requests.get(url).json()
 
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+    payload = {"file": image_file.getvalue()}
+    post_response = requests.post(url=f"{url}upload/", files=payload)
+    post2_response= requests.post(url=f"{url}predict/", files=payload)
+    names = post2_response.json()
+
+    rectangles = post_response.json()  # Assuming the response is a JSON array
+
+    if st.button("Analyse Image"):
+        st.write('I was clicked 🎉')
+        drawn_image = draw_rectangles(image_file, rectangles)
+        img_placeholder.image(drawn_image, caption="Image with Rectangles.", use_column_width=True)
+    else:
+        st.write('I was not clicked 😞')
