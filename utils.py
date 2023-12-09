@@ -139,7 +139,7 @@ def filter_dataframe(df: pd.DataFrame, key_suffix: str) -> pd.DataFrame:
 def bin_packing_fair_seeding(teams, group_size):
     """
     Distribute teams into groups to minimize the average point difference between groups.
-    
+
     This function sorts teams by their points and then assigns them to groups in a way that
     aims to balance the total points in each group. Teams are distributed alternatively to
     each group based on their ranking.
@@ -219,7 +219,7 @@ def schedule_to_dataframe(schedule):
     Returns:
     - DataFrame: A pandas DataFrame with columns for Date, Time, Team 1, Team 2, and Court.
     """
-    
+
     # Prepare data for DataFrame
     data = []
     for entry in schedule:
@@ -336,9 +336,28 @@ def schedule_matches_mip(groups, available_times, match_duration, num_courts):
                                                   0, 1, pulp.LpBinary)
 
 
-    # Objective: Minimize the latest time slot used
-    problem += pulp.lpSum([time_slot_idx * match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices for time_slot_idx in time_slot_indices for court in range(num_courts)])
+    # Create a dictionary to store the day of the first match for each group
+    group_start_days = {group: None for _, group in matches}
 
+    # Add penalty for matches from the same group scheduled on different days
+    penalty = 100  # Adjust the penalty weight as needed
+    for group in group_start_days:
+        day_diff = None
+        for match, match_group in matches:
+            if match_group == group:
+                # Find the day of the first match for this group
+                if day_diff is None:
+                    day_diff = available_times[match[0][0]][0][0].date()
+                else:
+                    day_diff = max(day_diff, available_times[match[0][0]][0][0].date())
+        if day_diff is not None:
+            group_start_days[group] = day_diff
+
+    # Objective: Minimize the latest time slot used + Penalty for different days for group matches
+    problem += (
+        pulp.lpSum([time_slot_idx * match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices for time_slot_idx in time_slot_indices for court in range(num_courts)]) +
+        penalty * pulp.lpSum([1 if day_diff is not None and (available_times[match[0][0]][0][0].date() - day_diff).days > 0 else 0 for match, day_diff in group_start_days.items()])
+    )
     # Constraint: Each match is scheduled exactly once
     for match_idx in match_indices:
         problem += pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for time_slot_idx in time_slot_indices for court in range(num_courts)]) == 1
