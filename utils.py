@@ -368,10 +368,10 @@ def schedule_matches_mip(groups, available_times, match_duration, num_courts):
 
 
     # Constraint for same court in consecutive matches
-    for player in players:
-        for time_slot_idx in time_slot_indices[:-1]:
-            for court in range(num_courts):
-                problem += (consecutive_match_vars[player, time_slot_idx] + pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices if player in ' - '.join(matches[match_idx])])) <= 1
+    # for player in players:
+    #     for time_slot_idx in time_slot_indices[:-1]:
+    #         for court in range(num_courts):
+    #             problem += (consecutive_match_vars[player, time_slot_idx] + pulp.lpSum([match_vars[match_idx, time_slot_idx, court] for match_idx in match_indices if player in ' - '.join(matches[match_idx])])) <= 1
 
     # Solve the problem
     problem.solve()
