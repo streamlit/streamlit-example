@@ -7,8 +7,54 @@ import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 
+st.header('Unit Conversions', divider="rainbow")
+cols = st.columns(4)
+with cols[0]:
+    m_type = st.selectbox("Select type of measurement", ("Length", "Force", "Pressure"))
+with cols[1]:
+    mmt = st.number_input("Measurement", value=0, placeholder="measurement")
+with cols[2]:
+    if m_type == "Length":
+        i_u = st.selectbox("Measurement unit", ("ft", "in", "m", "cm", "mm"))
+        if i_u == "ft":
+            mmt = mmt/3.281
+        elif i_u == "cm":
+            mmt = mmt/100
+        elif i_u == "mm":
+            mmt = mmt/1000
+        elif i_u == "in":
+            mmt = mmt/39.3701
+    elif m_type == "Force":
+        i_u = st.selectbox("Measurement unit", ("lb", "N"))
+        if i_u == "lb":
+            mmt = mmt*4.4482216153
+    elif m_type == "Pressure":
+        i_u = st.selectbox("Measurement unit", ("lb/ft^2", "kN/m^2"))
+        if i_u == "lb/ft^2":
+            mmt = mmt*0.004788026
+with cols[3]:
+    if m_type == "Length":
+        o_u = st.selectbox("Conversion unit", ("ft", "in", "m", "cm", "mm"))
+        if o_u == "ft":
+            mmt = mmt*3.281
+        elif o_u == "cm":
+            mmt = mmt*100
+        elif o_u == "mm":
+            mmt = mmt*1000
+        elif o_u == "in":
+            mmt = mmt*39.3701
+    elif m_type == "Force":
+        o_u = st.selectbox("Conversion unit", ("lb", "N"))
+        if o_u == "lb":
+            mmt = mmt/4.4482216153
+    elif m_type == "Pressure":
+        o_u = st.selectbox("Conversion unit", ("lb/ft^2", "kN/m^2"))
+        if o_u == "lb/ft^2":
+            mmt = mmt/0.004788026
+if st.button("Convert"):
+    st.write(np.round(mmt, decimals=2))
 
-st.header('General Distributed Load Analysis By Kuval Bora', divider='rainbow')
+st.header("Distributed Loads Calculator - Kuval Bora", divider="rainbow")
 image = Image.open('HW2.png')
 st.image(image)
 
@@ -30,7 +76,6 @@ if(f == None): f = 0
 
 #Debugging
 st.write(la,lb,l,a,b,f)
-
 if st.button('Calculate'):
     #Declare variables
     x1 = la
