@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Laad je Excel-bestand met de vragen en antwoorden
-excel_file_path = 'jouw_excel_bestand.xlsx'  # Vervang dit met het pad naar jouw bestand
+excel_file_path = 'champion-title.xlsx'  # Vervang dit met het pad naar jouw bestand
 df = pd.read_excel(excel_file_path)
 
 # Functie om een willekeurige vraag op te halen
