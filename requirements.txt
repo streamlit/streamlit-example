@@ -2,7 +2,7 @@ altair
 pandas
 streamlit
 numpy
-scikit-learn
+scikit-learn==1.2.2
 statsmodels
 plotly
 statsmodels
