@@ -1,7 +1,3 @@
-pandas
-streamlit
-numpy==1.23.5
 opencv_python
-opencv_python_headless
 paddleocr
 paddlepaddle
