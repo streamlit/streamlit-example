@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import cv2
+#import cv2
 import os
 import base64
 from paddleocr import PPStructure,draw_structure_result,save_structure_res
