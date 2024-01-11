@@ -6,6 +6,9 @@ import base64
 #import cv2
 #from paddleocr import PPStructure,draw_structure_result,save_structure_res
 
+pip = os.popen('pip list').read()
+st.code(pip,language=None)
+
 st.title('Explain my test results please!')
 st.header('Instructions')
 st.markdown('Take a picture of your lab test results, upload it, and we will explain it to you!')
