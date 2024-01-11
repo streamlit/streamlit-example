@@ -1,3 +1,4 @@
-altair
+cv2
 pandas
 streamlit
+paddleocr
