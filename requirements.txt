@@ -1,4 +1,9 @@
 pandas
 streamlit
 paddleocr
-opencv-python
+numpy==1.23.5
+opencv_contrib_python==4.9.0.80
+opencv_python==4.8.1.78
+opencv_python_headless==4.9.0.80
+paddleocr==2.6.0.1
+paddleocr.egg==info
