@@ -13,28 +13,31 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+import streamlit as st
+import pandas as pd
+import numpy as np
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+st.title('Explain my test results please!')
+st.header('Instructions')
+st.markdown('Take a picture of your lab test results, upload it, and we will explain it to you!')
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+def load_image():
+    uploaded_file = st.file_uploader(label='Upload your test results image below:')
+    if uploaded_file is not None:
+        image_data = uploaded_file.getvalue()
+        st.image(image_data, caption='', width=600)
+        return image_data
+        
+image = load_image()
+if  image is not None:
+    image = np.asarray(Image.open(BytesIO(image)).convert('RGB'))
+if st.button('Process Image'):
+    result = ocr_model.ocr(image)
+    texts = [res[1][0] for res in result[0] if len(res[1][0]) > 1]
+    result = llm(prompt_template_extract.format(text=",".join(texts)))
+    print("result: ", result)
+    result = literal_eval(result)
+    result['drug'] = " ".join(result['drug'].split(" ")[:2])
+    
+st.caption('Disclaimer: Not medical advice, not liable, blah')
