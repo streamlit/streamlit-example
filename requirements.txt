@@ -2,3 +2,4 @@ cv2
 pandas
 streamlit
 paddleocr
+Pillow
