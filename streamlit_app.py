@@ -4,7 +4,7 @@ import numpy as np
 import os
 import base64
 from paddleocr import PaddleOCR
-#import cv2
+import cv2
 #from paddleocr import PPStructure,draw_structure_result,save_structure_res
 
 pip = os.popen('pip list').read()
