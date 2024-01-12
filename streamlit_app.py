@@ -12,9 +12,6 @@ st.title('Explain my test results please!')
 st.header('Instructions')
 st.markdown('Take a picture of your lab test results, upload it, and we will explain it to you!')
 
-result = os.popen('pip list').read()
-st.code(result, language=None)
-
 def load_image():
     uploaded_file = st.file_uploader(label='Upload your test results image below:')
     if uploaded_file is not None:
