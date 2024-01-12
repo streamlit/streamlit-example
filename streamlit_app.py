@@ -27,9 +27,11 @@ image = load_image()
 if st.button('Process Image'):
     start_time = time.time()
     result = ocr_model.ocr(image)
+    result = result[0]
+    #idk why this needs a result[0] instead of result
     st.code(result)
     extracted_text = ''
-    for idx in range(len(result[0])): #idk why this needs a result[0] instead of result
+    for idx in range(len(result)): 
         txt = result[idx][1][0]
         st.write(txt)
         extracted_text += txt + " "
