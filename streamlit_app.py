@@ -30,6 +30,7 @@ if st.button('Process Image'):
     extracted_text = ''
     for idx in range(len(result)):
         txt = result[idx][1][0]
+        st.write(txt)
         extracted_text += txt + " "
     end_time = time.time()
     extract_time = int(end_time - start_time)
