@@ -4,9 +4,9 @@ import numpy as np
 import os
 import base64
 from openai import OpenAI
-from paddleocr import PaddleOCR
-#import cv2
-#from paddleocr import PPStructure,draw_structure_result,save_structure_res
+#from paddleocr import PaddleOCR
+import cv2
+from paddleocr import PPStructure,draw_structure_result,save_structure_res
 
 st.title('Explain my test results please!')
 st.header('Instructions')
