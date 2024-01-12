@@ -4,7 +4,7 @@ import numpy as np
 import os
 import base64
 from openai import OpenAI
-#from paddleocr import PaddleOCR
+from paddleocr import PaddleOCR
 #import cv2
 #from paddleocr import PPStructure,draw_structure_result,save_structure_res
 
@@ -14,7 +14,7 @@ st.markdown('Take a picture of your lab test results, upload it, and we will exp
 
 result = os.popen('pip list').read()
 st.code(result, language=None)
-client = OpenAI()
+
 def load_image():
     uploaded_file = st.file_uploader(label='Upload your test results image below:')
     if uploaded_file is not None:
