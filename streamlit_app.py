@@ -29,7 +29,7 @@ if st.button('Process Image'):
     result = ocr_model.ocr(image)
     st.code(result)
     extracted_text = ''
-    for idx in range(len(result[0]): #idk why this needs a result[0] instead of result
+    for idx in range(len(result[0]):
         txt = result[idx][1][0]
         st.write(txt)
         extracted_text += txt + " "
