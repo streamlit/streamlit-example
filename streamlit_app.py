@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 import base64
+import openai
 #from paddleocr import PaddleOCR
 #import cv2
 #from paddleocr import PPStructure,draw_structure_result,save_structure_res
