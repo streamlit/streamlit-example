@@ -7,6 +7,12 @@ import requests_cache
 from datetime import date
 from retry_requests import retry
 
+st.set_page_config(
+        page_title="San Francisco Rainfall",
+)
+
+st.title("San Francisco Rainfall")
+
 DATE_RANGE = st.date_input("Time range", value=[date(2020, 10, 1), date.today()])
 
 def get_season_from_date(datetime):
@@ -21,6 +27,10 @@ def get_day_season_rank(datetime):
     date = datetime.date()
     delta = date - get_season_start_date_from_season(get_season_from_date(datetime))
     return delta.days
+
+def get_day_in_season(datetime):
+    return datetime.strftime("%b %d")
+
 
 # Setup the Open-Meteo API client with cache and retry on error
 cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
@@ -58,15 +68,24 @@ daily_data["precipitation_sum"] = daily_precipitation_sum
 
 daily_dataframe = pd.DataFrame(data = daily_data)
 daily_dataframe["date"] = daily_dataframe["date"].apply(lambda x: pd.to_datetime(x))
-daily_dataframe["season_date"] = daily_dataframe["date"].apply(get_day_season_rank)
+daily_dataframe["x_rank"] = daily_dataframe["date"].apply(get_day_season_rank)
+daily_dataframe["Day"] = daily_dataframe["date"].apply(get_day_in_season)
 daily_dataframe["season"] = daily_dataframe["date"].apply(lambda x: str(get_season_from_date(x)))
-daily_dataframe["Cumulative_Precip"] = daily_dataframe.groupby('season')['precipitation_sum'].cumsum()
-st.dataframe(daily_dataframe)
+daily_dataframe["Cumulative Rainfall (Inches)"] = daily_dataframe.groupby('season')['precipitation_sum'].cumsum()
+daily_dataframe["14 Day Rolling Rainfall (Inches)"] = daily_dataframe.groupby('season')['precipitation_sum'].rolling(window=14,min_periods=14).sum().reset_index(0,drop=True)
 
-st.altair_chart(alt.Chart(daily_dataframe, height=700, width=700)
+st.altair_chart(alt.Chart(daily_dataframe, height=700, width=700, title="Cumulative Seasonal Rainfall")
     .mark_line().encode(
-    x='season_date',
-    y='Cumulative_Precip',
-    color='season'
+    x=alt.X('Day', sort=alt.EncodingSortField(field="x_rank", op="min")),
+    y='Cumulative Rainfall (Inches)',
+    color='season',
+    )
+)
+
+st.altair_chart(alt.Chart(daily_dataframe, height=700, width=700, title="14 Day Rolling Rainfall")
+    .mark_line().encode(
+    x=alt.X('Day', sort=alt.EncodingSortField(field="x_rank", op="min")),
+    y='14 Day Rolling Rainfall (Inches)',
+    color='season',
     )
 )
