@@ -14,6 +14,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 num_points = st.text_input("Enter a number")
+num_points2 = st.text_input("Enter a number")
 num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
 
 indices = np.linspace(0, 1, num_points)
