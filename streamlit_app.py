@@ -13,8 +13,8 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
-num_points = st.text_input("First", "Enter a number")
-num_points2 = st.text_input("Second", "Enter a number")
+num_points = st.text_input("First", placeholder="Enter a number")
+num_points2 = st.text_input("Second", placeholder="Enter a number")
 num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
 
 indices = np.linspace(0, 1, num_points)
