@@ -7,7 +7,7 @@ The calculator takes six inputs: Iterations to Show, two numbers, the operation,
 25-50 iterations have been sufficient to reveal consistent patterns. More may be needed for operations between more complex numbers.
 
 The two numbers can be any number expressed with digits. Numbers with repeating digit sets are expressed with parenthesis around the digit set.
-  Ex: 1.(3) = 1.3333...; (4)9 = ...4444449
+  Ex: 1.(3) = 1.3333...; (4)9 = 444444...9
 
 Acceptable operations include '+' (addition), '-' (subtraction), '*' (multiplication), '/' (division), '//' (integer division), '%' (modulo), '^' (exponent), '=' (comparison)
 
