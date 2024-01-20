@@ -49,49 +49,56 @@ Example output json template
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"hb:{
+	"hb":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"uric_acid:{
+    "rbc_count":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"hba1c:{
+	"uric_acid":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"systolic_bp:{
+	"hba1c":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"diastolic_bp:{
+	"systolic_bp":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"height:{
+	"diastolic_bp":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"weight:{
+	"height":{
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
+	"weight":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
