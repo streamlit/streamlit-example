@@ -5,6 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hello world action
-        run: python streamlit-example/streamlit_app.py
+        run: echo "JUST LOADING SECRET ONLY"
         env: 
           API_KEY: ${{ secrets.API_KEY }}
