@@ -1,0 +1,5 @@
+name: secret-test
+on: [push]
+env: 
+  API_KEY: ${{ secrets.API_KEY }}
+  
