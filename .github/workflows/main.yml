@@ -5,5 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hello world action
-        env: # Or as an environment variable
+        run: python streamlit-example.py
+        env: 
           API_KEY: ${{ secrets.API_KEY }}
