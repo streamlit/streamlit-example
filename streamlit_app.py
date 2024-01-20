@@ -56,6 +56,13 @@ Example output json template
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
+    "rbc_count":{
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
 	"uric_acid":{
 		"test_found":False,
 		"test_value":False,
