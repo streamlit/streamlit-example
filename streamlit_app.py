@@ -17,7 +17,7 @@ test_attributes = {}
 client = OpenAI(api_key=API_KEY)
 
 template_prompt = """
-Extract the items from the health screening result listed below into a json format, using the example json template. Ignore other items not listed in the json template. Output data types are "test_found" (True/False), "test_value" (float), "test_unit" (string in lower case), "test_ref_min" (float), "test_ref_max" (float). If test item is not found, output False for "test_found", and output False for the other values. If test is found but reference max, reference min, or reference range is not found, output False for "test_ref_min" and "test_ref_max". 
+Extract the items from the health screening result listed below into a json format, using the example json template. Ignore other items not listed in the json template. Output data types are "test_found" (True/False), "test_value" (float), "test_unit" (string), "test_ref_min" (float), "test_ref_max" (float). If test item is not found, output False for "test_found", and output False for the other values. If test is found but reference max, reference min, or reference range is not found, output False for "test_ref_min" and "test_ref_max". 
 
 Example output json template
 {
