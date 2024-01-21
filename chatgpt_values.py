@@ -56,7 +56,7 @@ Example output json template
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"uric_acid":{
+	"glucose":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
