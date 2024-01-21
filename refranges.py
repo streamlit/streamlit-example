@@ -4,21 +4,21 @@ from lipids_ranges import getLDLtarget
 testdict = {
 	"ldl_cholesterol": {
 		"test_found":True,
-		"test_value":20,
+		"test_value":2.0,
 		"test_unit":"mmol/l",
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"hdl_cholesterol": {
 		"test_found":True,
-		"test_value":20,
+		"test_value":1.2,
 		"test_unit":"mmol/l",
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"total_cholesterol": {
 		"test_found":True,
-		"test_value":20,
+		"test_value":5.0,
 		"test_unit":"mmol/l",
 		"test_ref_min":False,
 		"test_ref_max":False
@@ -44,7 +44,7 @@ testdict = {
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-	"uric_acid":{
+	"glucose":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
@@ -88,16 +88,9 @@ testdict = {
 		}
 }
 
-test_attributes = {
-    "age" : 35, 
-    "sex" :"male", #0 for male, 1 for female 
-    "smoker" : True, 
-    "stroke" : False,
-    "diabetes" : False ,
-    "heart_attack" : False ,
-    "race" :"chinese",
-    "systolic_blood_pressure" : 140,
-    "on_BP_meds" : False,
-    "total_cholesterol" : testdict["CHOLESTEROL"], #masterdict["CHOLESTEROL"]
-    "hdl_cholesterol" : testdict["HDL CHOLESTEROL"] #masterdict["HDL CHOLESTEROL"]
-}
+
+def bmi_advice(weight, height):
+    
+    return output_string
+
+output = bmi_advice(test_attributes["weight"], test_attributes["height"])

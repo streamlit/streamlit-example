@@ -1,34 +1,53 @@
-import json
+#REMEMBER TO CHANGE BP TO TESTVALS
+# import json
 
+# # Open the file containing the JSON data
+# with open('Sample json extraction\sample json extraction.txt') as f:
+#     # Load the JSON data from the file
+#     data = json.load(f)
 
-# Open the file containing the JSON data
-with open('Sample json extraction\sample json extraction.txt') as f:
-    # Load the JSON data from the file
-    data = json.load(f)
-
-# add data to a dictionary where key is test name and value is dictionary of test name/results etc. 
-masterdict = {}
-# Access each individual object and list the attributes
-for dict in data['test_results']:
-    masterdict [dict["test_name"]] = dict
+# # add data to a dictionary where key is test name and value is dictionary of test name/results etc. 
+# masterdict = {}
+# # Access each individual object and list the attributes
+# for dict in data['test_results']:
+#     masterdict [dict["test_name"]] = dict
 
 testdict = {
-  "CHOLESTEROL":
-    {
-      "test_name": "CHOLESTEROL",
-      "test_value": 5.1,
-      "test_ref_min": "NA",
-      "test_ref_max": "NA",
-      "test_unit": "mmol/l"
-    },
-    "HDL CHOLESTEROL":
-    {
-      "test_name": "HDL CHOLESTEROL",
-      "test_value": 1.6,
-      "test_ref_min": "NA",
-      "test_ref_max": "NA",
-      "test_unit": "mmol/l"
-    }
+	"ldl_cholesterol": {
+		"test_found":True,
+		"test_value":5.8,
+		"test_unit":"mmol/l",
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
+	"hdl_cholesterol": {
+		"test_found":True,
+		"test_value":1.0,
+		"test_unit":"mmol/l",
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
+	"total_cholesterol": {
+		"test_found":True,
+		"test_value":4.1,
+		"test_unit":"mmol/l",
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
+    "systolic_bp":{
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
+	"diastolic_bp":{
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
+		"test_ref_min":False,
+		"test_ref_max":False
+		},
 }
 
 
@@ -37,24 +56,25 @@ testdict = {
 
 #sample of attributes needed
 test_attributes = {
-    "age" : 35, 
+    "age" : 40, 
     "sex" :"male", #0 for male, 1 for female 
     "smoker" : True, 
     "stroke" : False,
     "diabetes" : False ,
+    "ckd" : False,
     "heart_attack" : False ,
-    "race" :"chinese",
-    "systolic_blood_pressure" : 140,
+    "race" :"indian",
     "on_BP_meds" : False,
-    "total_cholesterol" : testdict["CHOLESTEROL"], #masterdict["CHOLESTEROL"]
-    "hdl_cholesterol" : testdict["HDL CHOLESTEROL"] #masterdict["HDL CHOLESTEROL"]
 }
 
-def getLDLtarget (attributes):
+def getLDLtarget (attributes,testvals):
     if(attributes["stroke"]):
         return 1.8
-    if(attributes["diabetes"]):
-        return 2.6
+    if(attributes["diabetes"] or attributes["ckd"]):
+        if (attributes["diabetes"] and attributes["ckd"]):
+            return 1.8
+        else:
+            return 2.6
     if(attributes["heart_attack"]):
         return 1.4
     #SGFRS scoring, only if no stroke or diabetes then proceed 
@@ -135,14 +155,14 @@ def getLDLtarget (attributes):
     score = 0
     sex = 0 if attributes["sex"] == "male" else 1
     age = attributes["age"]
-    tcval = attributes ["total_cholesterol"]["test_value"]
-    if attributes ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
+    tcval = testvals ["total_cholesterol"]["test_value"]
+    if testvals ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
         if tcval > 280: cholbracket = 3
         elif tcval > 240: cholbracket = 2
         elif tcval > 200: cholbracket = 1
         elif tcval > 160: cholbracket = 0
         else: cholbracket = -1 
-    elif attributes ["total_cholesterol"]["test_unit"].lower() =="mmol/l":
+    elif testvals ["total_cholesterol"]["test_unit"].lower() =="mmol/l":
         if tcval > 7.2: cholbracket = 3
         elif tcval > 6.1: cholbracket = 2
         elif tcval > 5.1: cholbracket = 1
@@ -218,10 +238,42 @@ def getLDLtarget (attributes):
         print (f"agescore {agescore} after smoking")
 
     score += agescore
+    match attributes["race"]:
+        case "indian":
+            raceint = 0
+        case "malay":
+            raceint = 1
+        case "chinese":
+            raceint = 2
 
+#matching to cardiovascular risk bracket 
+    cvriskdict = {
+        ">20": ((16, 24), (17, 25), (19, 27)), 
+        "10-20": ((12, 20), (14, 22), (16, 24)),
+        "5-10": ((9, 18), (11, 19), (13, 21)),
+        "<5": ((8, 17), (10, 18), (12, 20)),
+    }
+    recmeds = True
+    if score >= cvriskdict[">20"][raceint][sex]:
+        LDLtargetcalc = 1.8
+    elif score >= cvriskdict["10-20"][raceint][sex]:
+        LDLtargetcalc = 2.6
+    elif score >= cvriskdict["5-10"][raceint][sex]:
+        LDLtargetcalc = 3.4
+    elif score <= cvriskdict["<5"][raceint][sex]:
+        LDLtargetcalc = 3.4
+        recmeds = False
         
-    print (f"score {score}") 
-    return LDLtarget
+    print (f"score {score} LDL target {LDLtargetcalc}") 
+    if attributes ["ldl_cholesterol"]["test_value"] > LDLtargetcalc:
+        output_phrase = "your LDL cholesterol is high. Eat a healthy balanced diet - using My Healthy Plates (filling a quarter of the plate with wholegrains, quarter with good sources of protein (fish, lean meat, tofu and other bean products, nuts), and half with fruit and vegetables. increase soluble fibre intake, avoid food with trans fat,replace saturated fat with polyunsaturated fats. Certain diets like ketogenic diet increase LDL-C levels. Aim for regular moderate-intensity physical activity for 150-300min a week. For people who are overweight or obese, weight reduction of 5–10\% could be beneficial for improving lipid profile. Limit alcohol intake to 1 drink per day for females, and 2 drinks per day for males."
+        if recmeds:
+            output_phrase +=  "You may require cholesterol lowering medications, consult your doctor. "
+        if attributes["smoker"]:
+            output_phrase += "Quit smoking."
+    else:
+        output_phrase = "Your LDL cholesterol is within target range. Keep up the good work!"
+    return output_phrase
 
-LDLtarget = getLDLtarget (test_attributes)
-print (f"LDL target {LDLtarget}") 
+print (f"advice is {getLDLtarget (test_attributes)}")
+
