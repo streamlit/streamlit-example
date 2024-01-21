@@ -22,7 +22,7 @@ def load_image():
 
 def extract_text(image):
     result = ocr_model.ocr(image)
-    #result = result[0] #idk why this needs a result[0] instead of result for Github
+    result = result[0] #idk why this needs a result[0] instead of result for Github
     extracted_text = ''
     for idx in range(len(result)):
         txt = result[idx][1][0]
