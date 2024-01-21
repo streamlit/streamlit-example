@@ -91,7 +91,7 @@ with tab1:
                     st.text("")
             # Insert YT logic
             #test_results test_attributes
-            for key, value in test_results.iter():
+            for key, value in test_results.items():
                 if value["test_found"]:
                     if key == "mcv":
                         st.write (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
