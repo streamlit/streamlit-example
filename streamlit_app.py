@@ -101,8 +101,8 @@ with tab1:
                         st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
                         print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
                     elif key == "glucose":
-                        st.write (f"LDL/BP {get_dm_advice(test_attributes, test_results)}")
-                        print (f"LDL/BP {get_dm_advice(test_attributes, test_results)}")
+                        st.write (f"glucose {get_dm_advice(test_attributes, test_results)}")
+                        print (f"glucose {get_dm_advice(test_attributes, test_results)}")
                     elif key == "systolic_bp":
                         if not test_results["ldl_cholesterol"]["test_found"]:
                             st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
