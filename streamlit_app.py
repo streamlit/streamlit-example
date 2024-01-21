@@ -93,4 +93,4 @@ with tab2:
     st.markdown(measurements_list)
     st.write('Other lab tests will be added soon...stay tuned!')
     
-st.caption('Disclaimer: Information provided through our app is for informational and educational purposes only and is not intended as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. The use of any information provided on this app is solely at your own risk.')
+st.caption('Disclaimer: Information provided through our app is for informational and educational purposes only and is not intended as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.')
