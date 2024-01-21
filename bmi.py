@@ -18,6 +18,7 @@ test_results = {
 
 def bmi_advice(test_results):
     print ("in bmi advice")
+    output_string = "I didn't catch that"
     weight = test_results["weight"]["test_value"]
     height = test_results["height"]["test_value"]
     bmi = weight / pow(height,2)

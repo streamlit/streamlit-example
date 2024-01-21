@@ -227,7 +227,7 @@ def getLDLBPtarget (attributes,testvals):
             curdict = agedict[20]
             agebracket = 0 if age <35 else 1  
         else: 
-            print ("you are too young to use this calculator")
+            output_phrase = "you are too young to use this calculator"
             return 0
 
         # age only points

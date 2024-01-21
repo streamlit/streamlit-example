@@ -31,7 +31,7 @@ test_attributes = {
 
 def get_dm_advice(inputattributes, inputdict):
     print ("in dm advice")
-    output_phrase = ""
+    output_phrase = "i didn't catch that"
     lifestyle = False
     #known dm
     a1c_value = inputdict["hba1c"]["test_value"]

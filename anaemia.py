@@ -24,6 +24,7 @@ testdict = {
 #mcv need fl RBC need 10^6/uL
 #returns tuple - bool whether anaemia, and bool whether iron deficient 
 def anaemia_analysis (hbdict):
+	output_phrase = "i didn't catch that"
 	print ("in anaemia analysis")
 	hblevel = hbdict["hb"]["test_value"]
 	emergency = True if hblevel < 7 else False 
@@ -62,6 +63,8 @@ def get_anaemia_advice (input_tuple):
 			output_phrase = "you have anaemia, which may be caused by low folate (vitamin B9) or vitamin B12 levels. Other causes may include chronic alcohol intake, thyroid problems, and liver problems. Consider taking more foods high in folate, such as broccoli, spinach, and brown rice, and foods high in vitamin B12, such as meat, milk, cheese and eggs."
 		elif anaemia_type == "normocytic":
 			output_phrase = "you have anaemia, which may be associated with chronic illness such as kidney disease, or chronic inflammatory conditions."
+	else:
+		output_phrase = "you don't have anaemia."
 	return output_phrase 
 
 #print (f"here is result: {get_anaemia_advice(anaemia_analysis (testdict))}")
