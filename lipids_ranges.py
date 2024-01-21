@@ -279,7 +279,7 @@ def getLDLBPtarget (attributes,testvals):
     else:
         output_phrase = "Your LDL cholesterol is within target range."
     if testvals["systolic_bp"]["test_found"]:
-        bp = (testvals["systolic_bp"]["test_value"], testvals["diastolic _bp"]["test_value"])
+        bp = (testvals["systolic_bp"]["test_value"], testvals["diastolic_bp"]["test_value"])
         if bp[0] > BP_target[0] or bp[1] > BP_target[1]:
             if bp[0] > 180 or bp[1] > 120:
                 output_phrase += " \n Your blood pressure is dangerously high. Visit a doctor for assessment.\n"
