@@ -158,7 +158,7 @@ def getLDLBPtarget (attributes,testvals):
         #start scoring 
         #print (f"scoring now") 
         score = 0
-        sex = 0 if attributes["sex"] == "male" else 1
+        sex = 0 if attributes["sex"].lower() == "male" else 1
         age = attributes["age"]
         tcval = testvals ["total_cholesterol"]["test_value"]
         if testvals ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
@@ -245,11 +245,11 @@ def getLDLBPtarget (attributes,testvals):
             #print (f"agescore {agescore} after smoking")
 
         score += agescore
-        if attributes["race"] == "indian":
+        if attributes["race"].lower() == "indian":
             raceint = 0
-        elif attributes["race"] == "malay":
+        elif attributes["race"].lower() == "malay":
             raceint = 1
-        elif attributes["race"] == "chinese":
+        elif attributes["race"].lower() == "chinese":
             raceint = 2
 
     #matching to cardiovascular risk bracket 
