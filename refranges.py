@@ -1,5 +1,7 @@
 import json 
 from lipids_ranges import getLDLtarget
+from diabetes import get_dm_advice
+from anaemia import anaemia_analysis, get_anaemia_advice
 
 testdict = {
 	"ldl_cholesterol": {
@@ -89,8 +91,3 @@ testdict = {
 }
 
 
-def bmi_advice(weight, height):
-    
-    return output_string
-
-output = bmi_advice(test_attributes["weight"], test_attributes["height"])
