@@ -30,7 +30,7 @@ heart_attack = st.checkbox("Have you ever had a heart attack?")
 on_bp_meds = st.checkbox("Are you taking blood pressure medication?")
 systolic_bp = st.number_input("Enter your last recorded systolic blood pressure (leave blank if not available)", min_value=50,max_value=300,value=None)
         
-image = load_image(ocr_model)
+image = load_image()
     
 if st.button('Analyse my results'):
     # Save test attributes
@@ -49,7 +49,7 @@ if st.button('Analyse my results'):
         st.error("Upload an image of your test results first!",icon="🚨")
     else: # Image uploaded
         ocr_start_time = time.time()
-        extracted_text = extract_text(image)
+        extracted_text = extract_text(image,ocr_model)
         ocr_end_time = time.time()
         ocr_time = int(ocr_end_time - ocr_start_time)
         st.markdown(extracted_text)
