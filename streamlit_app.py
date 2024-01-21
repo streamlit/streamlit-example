@@ -10,6 +10,10 @@ from openai import OpenAI
 from paddleocr import PaddleOCR
 from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
+from lipids_ranges import getLDLBPtarget
+from diabetes import get_dm_advice
+from anaemia import anaemia_analysis, get_anaemia_advice
+from bmi import bmi_advice
 
 API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
 
@@ -86,6 +90,24 @@ with tab1:
                     st.markdown(f"**Test Value:** {test_info['test_value']} {test_info['test_unit']}")
                     st.text("")
             # Insert YT logic
+            #test_results test_attributes
+            for key, value in test_results.iter():
+                if value["test_found"]:
+                    if key == "mcv":
+                        st.write (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
+                    elif key == "ldl_cholesterol":
+                        st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
+                    elif key == "glucose":
+                        st.write (f"LDL/BP {get_dm_advice(test_attributes, test_results)}")
+                    elif key == "systolic_bp":
+                        if not test_results["ldl_cholesterol"]["test_found"]:
+                            st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
+                    elif key == "weight":
+                        st.write (f"BMI {bmi_advice(test_results)}")              
+                        
+
+
+                    
             
 
 with tab2:

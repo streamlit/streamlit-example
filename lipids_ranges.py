@@ -35,15 +35,15 @@ testdict = {
 		"test_ref_max":False
 		},
     "systolic_bp":{
-		"test_found":False,
-		"test_value":False,
+		"test_found":True,
+		"test_value":200,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"diastolic_bp":{
-		"test_found":False,
-		"test_value":False,
+		"test_found":True,
+		"test_value":100,
 		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
@@ -67,7 +67,7 @@ test_attributes = {
     "on_BP_meds" : False,
 }
 
-def getLDLtarget (attributes,testvals):
+def getLDLBPtarget (attributes,testvals):
     LDLtargetcalc = 0 
     BP_target = (0, 0)
     if(attributes["stroke"]):
@@ -279,14 +279,19 @@ def getLDLtarget (attributes,testvals):
 
     else:
         output_phrase = "Your LDL cholesterol is within target range."
-    if testvals["systolic _bp"] > BP_target[0] or testvals["diastolic _bp"] > BP_target[1]:
-        output_phrase += "\n Your blood pressure is high. Your target should be " + BP_target[0] + "/" + BP_target[1] + " . Take a healthy diet (e.g., reducing salt intake and alcohol consumption), increase physical activity, lose weight if overweight or obese."
-        if attributes["stroke"]:
-            output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
+    if testvals["systolic_bp"]["test_found"]:
+        bp = (testvals["systolic _bp"]["test_value"], testvals["diastolic _bp"]["test_value"])
+        if bp[0] > BP_target[0] or bp[1] > BP_target[1]:
+            if bp[0] > 180 or bp[1] > 120:
+                output_phrase += " \n Your blood pressure is dangerously high. Visit a doctor for assessment.\n"
+            else:
+                output_phrase += "\n Your blood pressure is high. Your target should be " + BP_target[0] + "/" + BP_target[1] + " . Take a healthy diet (e.g., reducing salt intake and alcohol consumption), increase physical activity, lose weight if overweight or obese."
+            if attributes["stroke"]:
+                output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
     if attributes["smoker"]:
         output_phrase += "\nQuit smoking."
     return output_phrase
 
-print (f"advice is {getLDLtarget (test_attributes, testdict)}")
+print (f"advice is {getLDLBPtarget (test_attributes, testdict)}")
 
 
