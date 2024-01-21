@@ -288,6 +288,8 @@ def getLDLBPtarget (attributes,testvals):
                 output_phrase += "\n Your blood pressure is high. Your target should be " + BP_target[0] + "/" + BP_target[1] + " . Take a healthy diet (e.g., reducing salt intake and alcohol consumption), increase physical activity, lose weight if overweight or obese."
             if attributes["stroke"]:
                 output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
+        else:
+            output_phrase += "your BP is in the normal range."
     if attributes["smoker"]:
         output_phrase += "\nQuit smoking."
     return output_phrase
