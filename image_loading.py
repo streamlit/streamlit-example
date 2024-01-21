@@ -6,6 +6,7 @@ import time
 import base64
 import json
 import cv2
+import re
 from openai import OpenAI
 from paddleocr import PaddleOCR
 
@@ -15,7 +16,11 @@ def load_image():
         image_data = uploaded_file.getvalue()
         st.image(image_data, caption='', use_column_width=True)  # Adjust width for mobile screens
         return image_data
-        
+
+def remove_nric(text):
+    pattern = r'[STFG]\d{7}[A-Z]'
+    replaced_text = re.sub(pattern, ' ', text)
+    return replaced_text
 
 def extract_text(image,ocr_model):
     ocr_start_time = time.time()
@@ -25,6 +30,7 @@ def extract_text(image,ocr_model):
     for idx in range(len(result)):
         txt = result[idx][1][0]
         extracted_text += txt + " "
+    extracted_text_clean = remove_nric(extracted_text)
     ocr_end_time = time.time()
     ocr_time = int(ocr_end_time - ocr_start_time)
-    return extracted_text, ocr_time
+    return extracted_text_clean, ocr_time
