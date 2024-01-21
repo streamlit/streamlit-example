@@ -11,6 +11,8 @@ from paddleocr import PaddleOCR
 from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
 
+ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
+
 test_attributes = {}
 
 st.title('Explain my test results please!')
