@@ -9,9 +9,8 @@ import cv2
 from openai import OpenAI
 from paddleocr import PaddleOCR
 
-ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
 
-def load_image():
+def load_image(ocr_model):
     uploaded_file = st.file_uploader(label='Upload your test results image below:')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
