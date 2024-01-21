@@ -14,7 +14,6 @@ ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
 def load_image():
     uploaded_file = st.file_uploader(label='Upload your test results image below:')
     if uploaded_file is not None:
-        st.toast("Image uploaded")  # Toast message
         image_data = uploaded_file.getvalue()
         st.image(image_data, caption='', use_column_width=True)  # Adjust width for mobile screens
         return image_data
