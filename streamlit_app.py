@@ -11,7 +11,6 @@ from paddleocr import PaddleOCR
 from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
 
-# REMOVE THIS BEFORE COPYING TO GITHUB!
 API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
 
 client = OpenAI(api_key=API_KEY)
@@ -20,9 +19,23 @@ ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
 
 test_attributes = {}
 
+measurements_list = """
+    - Height
+    - Weight
+    - Cholesterol
+    - Haemoglobin
+    - Mean Corpuscular Volume (MCV)
+    - Red Blood Cell (RBC)
+    - Glucose
+    - HbA1c
+    - Blood Pressure (BP) - systolic/diastolic
+"""
 st.title('Explain my test results please!')
+with st.sidebar as sidebar:
+    st.header('Lab measurements available')
+    st.markdown(measurements_list)
 st.header('Instructions')
-st.markdown('Answer the questions, take a picture of your lab test results, upload it, and we will explain it to you!')
+st.markdown('Answer the questions, take a picture of your lab test results, and get your results explained!')
     
 # User inputs
 age = st.number_input("Enter your age", min_value=0, max_value=140, step=1,value="min")
@@ -59,8 +72,6 @@ if st.button('Analyse my results'):
             extracted_text,ocr_time = extract_text(image,ocr_model)
             st.markdown(extracted_text)
             st.success(f"Processed image in {ocr_time} seconds.")  # Use status instead of toast/success
-            # Remove NRIC from extracted text
-        
             # Extract structured data from text using ChatGPT
             # TODO: PUT TRY AND ERROR IF FAIL 
             st.write("Extracting values from image...")
@@ -73,8 +84,7 @@ if st.button('Analyse my results'):
             if test_info["test_found"]:
                 st.markdown(f"**Test Name:** {test_name.replace('_', ' ').upper()}")
                 st.markdown(f"**Test Value:** {test_info['test_value']} {test_info['test_unit']}")
-                #st.markdown(f"**Reference Range:** {test_info['test_ref_min']} - {test_info['test_ref_max']} {test_info['test_unit']}")
                 st.text("")
         # Insert YT logic
         
-st.caption('Disclaimer: Not medical advice, not liable, blah')
+st.caption('Disclaimer: Please be aware that the information provided through our app is for informational and educational purposes only and is not intended as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. The use of any information provided on this app is solely at your own risk.')
