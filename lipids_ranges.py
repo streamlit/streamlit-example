@@ -68,6 +68,7 @@ test_attributes = {
 }
 
 def getLDLBPtarget (attributes,testvals):
+    print ("in ldl target")
     LDLtargetcalc = 0 
     BP_target = (0, 0)
     if(attributes["stroke"]):
@@ -155,7 +156,7 @@ def getLDLBPtarget (attributes,testvals):
             )
         }
         #start scoring 
-        print (f"scoring now") 
+        #print (f"scoring now") 
         score = 0
         sex = 0 if attributes["sex"] == "male" else 1
         age = attributes["age"]
@@ -231,17 +232,17 @@ def getLDLBPtarget (attributes,testvals):
 
         # age only points
         agescore += curdict["age"][agebracket][sex] 
-        print (f"agescore {agescore} after age only")
+        #print (f"agescore {agescore} after age only")
 
         # age and cholesterol points
         if cholbracket > -1: #no points if cholesterol is <4.1 
             agescore += curdict["tchol"][cholbracket][sex]
-            print (f"agescore {agescore} after chol")
+            #print (f"agescore {agescore} after chol")
 
         # age and smoking points 
         if attributes["smoker"]:
             agescore += curdict["smoker"][sex]
-            print (f"agescore {agescore} after smoking")
+            #print (f"agescore {agescore} after smoking")
 
         score += agescore
         if attributes["race"] == "indian":
@@ -291,6 +292,6 @@ def getLDLBPtarget (attributes,testvals):
         output_phrase += "\nQuit smoking."
     return output_phrase
 
-print (f"advice is {getLDLBPtarget (test_attributes, testdict)}")
+#print (f"advice is {getLDLBPtarget (test_attributes, testdict)}")
 
 
