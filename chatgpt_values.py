@@ -9,6 +9,7 @@ import cv2
 from openai import OpenAI
 from paddleocr import PaddleOCR
 
+
 template_prompt = """
 Extract the items from the health screening result listed below into a json format, using the example json template. Ignore other items not listed in the json template. Output data types are "test_found" (True/False), "test_value" (float), "test_unit" (string), "test_ref_min" (float), "test_ref_max" (float). If test item is not found, output False for "test_found", and output False for the other values. If test is found but reference max, reference min, or reference range is not found, output False for "test_ref_min" and "test_ref_max". 
 
@@ -49,7 +50,7 @@ Example output json template
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
-        "rbc_count":{
+    "rbc_count":{
 		"test_found":False,
 		"test_value":False,
 		"test_unit":False,
@@ -103,7 +104,8 @@ Example output json template
 Health screening result:
 """
 
-def extract_values(extracted_text):
+def extract_values(client,extracted_text):
+    extract_start_time = time.time()
     extract_prompt = f"{template_prompt} {extracted_text}"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo-1106",
@@ -114,4 +116,6 @@ def extract_values(extracted_text):
         ]
     )
     test_results = json.loads(response.choices[0].message.content)
-    return response,test_results
+    extract_end_time = time.time()
+    extract_time = int(extract_end_time - extract_start_time)
+    return response,test_results,extract_time
