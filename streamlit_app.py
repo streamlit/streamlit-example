@@ -92,6 +92,7 @@ with tab1:
             # Insert YT logic
             #test_results test_attributes
             for key, value in test_results.items():
+                print ("looking at {key} and {value}")
                 if value["test_found"]:
                     if key == "mcv":
                         print (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
