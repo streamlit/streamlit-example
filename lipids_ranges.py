@@ -270,7 +270,7 @@ def getLDLBPtarget (attributes,testvals):
             LDLtargetcalc = 3.4
             recmeds = False
         
-    print (f"score {score} LDL target {LDLtargetcalc}") 
+    #print (f"score {score} LDL target {LDLtargetcalc}") 
     if testvals ["ldl_cholesterol"]["test_value"] > LDLtargetcalc:
         output_phrase = "your LDL cholesterol is high. Eat a healthy balanced diet - using My Healthy Plates (filling a quarter of the plate with wholegrains, quarter with good sources of protein (fish, lean meat, tofu and other bean products, nuts), and half with fruit and vegetables. increase soluble fibre intake, avoid food with trans fat,replace saturated fat with polyunsaturated fats. Certain diets like ketogenic diet increase LDL-C levels. Aim for regular moderate-intensity physical activity for 150-300min a week. For people who are overweight or obese, weight reduction of 5–10% could be beneficial for improving lipid profile. Limit alcohol intake to 1 drink per day for females, and 2 drinks per day for males."
         if recmeds:

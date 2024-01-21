@@ -94,11 +94,14 @@ with tab1:
             for key, value in test_results.items():
                 if value["test_found"]:
                     if key == "mcv":
+                        print (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
                         st.write (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
                     elif key == "ldl_cholesterol":
                         st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
+                        print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
                     elif key == "glucose":
                         st.write (f"LDL/BP {get_dm_advice(test_attributes, test_results)}")
+                        print (f"LDL/BP {get_dm_advice(test_attributes, test_results)}")
                     elif key == "systolic_bp":
                         if not test_results["ldl_cholesterol"]["test_found"]:
                             st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
