@@ -12,7 +12,7 @@ from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
 
 # REMOVE THIS BEFORE COPYING TO GITHUB!
-API_KEY = os.environ['OPENAI_KEY']
+API_KEY = os.environ['API_KEY']
 client = OpenAI(api_key=API_KEY)
 
 ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
