@@ -30,7 +30,7 @@ heart_attack = st.checkbox("Have you ever had a heart attack?")
 on_bp_meds = st.checkbox("Are you taking blood pressure medication?")
 systolic_bp = st.number_input("Enter your last recorded systolic blood pressure (leave blank if not available)", min_value=50,max_value=300,value=None)
         
-image = load_image()
+image = load_image(ocr_model)
     
 if st.button('Analyse my results'):
     # Save test attributes
