@@ -12,7 +12,8 @@ from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
 
 # REMOVE THIS BEFORE COPYING TO GITHUB!
-API_KEY = os.environ['API_KEY'] # it takes from streamlit secret
+API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
+
 client = OpenAI(api_key=API_KEY)
 
 ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
@@ -49,28 +50,25 @@ if st.button('Analyse my results'):
     test_attributes["ckd"] = ckd
     test_attributes["on_BP_meds"] = on_bp_meds
     test_attributes["systolic_blood_pressure"] = systolic_bp #null or integer
-    st.json(test_attributes)
     # Extract text from image
     if not image: #Image not uploaded
         st.error("Upload an image of your test results first!",icon="🚨")
     else: # Image uploaded
-        ocr_start_time = time.time()
-        extracted_text = extract_text(image,ocr_model)
-        ocr_end_time = time.time()
-        ocr_time = int(ocr_end_time - ocr_start_time)
-        st.markdown(extracted_text)
-        st.success(f"Processed image in {ocr_time} seconds.")  # Use status instead of toast/success
-        # Remove NRIC from extracted text
-    
-        # Extract structured data from text using ChatGPT
-        # TODO: PUT TRY AND ERROR IF FAIL 
-        extract_start_time = time.time()
-        response,test_results = extract_values(client,extracted_text) # use chatgpt to extract
-        st.json(test_results)
-        st.text(response.usage)
-        extract_end_time = time.time()
-        extract_time = int(extract_end_time - extract_start_time)
-        st.success(f"Extracted values in {extract_time} seconds.")  # Use status instead of toast/success
+        with st.status('Reading image...', expanded=True) as status:
+            st.json(test_attributes)
+            extracted_text = extract_text(image,ocr_model,ocr_time)
+            st.markdown(extracted_text)
+            st.success(f"Processed image in {ocr_time} seconds.")  # Use status instead of toast/success
+            # Remove NRIC from extracted text
+        
+            # Extract structured data from text using ChatGPT
+            # TODO: PUT TRY AND ERROR IF FAIL 
+            st.write("Extracting values from image...")
+            response,test_results,extract_time = extract_values(client,extracted_text) # use chatgpt to extract
+            st.json(test_results)
+            st.text(response.usage)
+            status.update(label="Analysed results!", state="complete", expanded=False)
+            st.success(f"Extracted values in {extract_time} seconds.")  # Use status instead of toast/success
         for test_name, test_info in test_results.items():
             if test_info["test_found"]:
                 st.markdown(f"**Test Name:** {test_name.replace('_', ' ').upper()}")
