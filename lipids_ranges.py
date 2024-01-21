@@ -244,13 +244,12 @@ def getLDLBPtarget (attributes,testvals):
             print (f"agescore {agescore} after smoking")
 
         score += agescore
-        match attributes["race"]:
-            case "indian":
-                raceint = 0
-            case "malay":
-                raceint = 1
-            case "chinese":
-                raceint = 2
+        if attributes["race"] == "indian":
+            raceint = 0
+        elif attributes["race"] == "malay":
+            raceint = 1
+        elif attributes["race"] == "chinese":
+            raceint = 2
 
     #matching to cardiovascular risk bracket 
         cvriskdict = {

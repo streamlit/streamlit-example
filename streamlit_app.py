@@ -103,7 +103,8 @@ with tab1:
                         if not test_results["ldl_cholesterol"]["test_found"]:
                             st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
                     elif key == "weight":
-                        st.write (f"BMI {bmi_advice(test_results)}")              
+                        st.write (f"BMI {bmi_advice(test_results)}")
+                    
                         
 
 
