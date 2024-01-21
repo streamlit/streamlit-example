@@ -56,7 +56,7 @@ if st.button('Analyse my results'):
     else: # Image uploaded
         with st.status('Reading image...', expanded=True) as status:
             st.json(test_attributes)
-            extracted_text = extract_text(image,ocr_model,ocr_time)
+            extracted_text,ocr_time = extract_text(image,ocr_model)
             st.markdown(extracted_text)
             st.success(f"Processed image in {ocr_time} seconds.")  # Use status instead of toast/success
             # Remove NRIC from extracted text
