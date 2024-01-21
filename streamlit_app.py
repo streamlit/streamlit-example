@@ -11,6 +11,10 @@ from paddleocr import PaddleOCR
 from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
 
+# REMOVE THIS BEFORE COPYING TO GITHUB!
+API_KEY = os.environ['OPENAI_KEY']
+client = OpenAI(api_key=API_KEY)
+
 ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
 
 test_attributes = {}
@@ -59,7 +63,7 @@ if st.button('Analyse my results'):
         # Extract structured data from text using ChatGPT
         # TODO: PUT TRY AND ERROR IF FAIL 
         extract_start_time = time.time()
-        response,test_results = extract_values(extracted_text) # use chatgpt to extract
+        response,test_results = extract_values(client,extracted_text) # use chatgpt to extract
         st.json(test_results)
         st.text(response.usage)
         extract_end_time = time.time()
