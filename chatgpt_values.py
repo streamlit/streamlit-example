@@ -10,8 +10,7 @@ from openai import OpenAI
 from paddleocr import PaddleOCR
 
 # REMOVE THIS BEFORE COPYING TO GITHUB!
-#API_KEY = os.environ['API_KEY']
-API_KEY = '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'
+API_KEY = os.environ['API_KEY']
 
 client = OpenAI(api_key=API_KEY)
 
