@@ -30,6 +30,7 @@ test_attributes = {
 
 
 def get_dm_advice(inputattributes, inputdict):
+    print ("in dm advice")
     output_phrase = ""
     lifestyle = False
     #known dm
@@ -69,4 +70,4 @@ def get_dm_advice(inputattributes, inputdict):
         output_phrase += "Quit smoking."
     return output_phrase 
 
-print(f"advice {get_dm_advice(test_attributes, testdict)}")
+#print(f"advice {get_dm_advice(test_attributes, testdict)}")

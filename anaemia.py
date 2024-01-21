@@ -24,6 +24,7 @@ testdict = {
 #mcv need fl RBC need 10^6/uL
 #returns tuple - bool whether anaemia, and bool whether iron deficient 
 def anaemia_analysis (hbdict):
+	print ("in anaemia analysis")
 	hblevel = hbdict["hb"]["test_value"]
 	emergency = True if hblevel < 7 else False 
 	mcv = hbdict["mcv"]["test_value"]
@@ -46,6 +47,7 @@ def anaemia_analysis (hbdict):
 	return (anaemia, antype, iron, emergency)
 
 def get_anaemia_advice (input_tuple):
+	print ("in anaemia advice")
 	output_phrase = ""
 	(anaemia_bool, anaemia_type, iron_deficient, emerg) = input_tuple
 	if anaemia_bool:
@@ -62,6 +64,6 @@ def get_anaemia_advice (input_tuple):
 			output_phrase = "you have anaemia, which may be associated with chronic illness such as kidney disease, or chronic inflammatory conditions."
 	return output_phrase 
 
-print (f"here is result: {get_anaemia_advice(anaemia_analysis (testdict))}")
+#print (f"here is result: {get_anaemia_advice(anaemia_analysis (testdict))}")
 
 
