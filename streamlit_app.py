@@ -13,7 +13,7 @@ from chatgpt_values import extract_values
 
 # REMOVE THIS BEFORE COPYING TO GITHUB!
 API_KEY = os.environ['OPENAI_KEY']
-client = OpenAI(api_key=API_KEY) #etest
+client = OpenAI(api_key=API_KEY)
 
 ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
 
@@ -31,6 +31,7 @@ smoker = st.checkbox("Are you a smoker?")
 stroke = st.checkbox("Have you ever had a stroke?")
 diabetes = st.checkbox("Do you have a history of diabetes?")
 heart_attack = st.checkbox("Have you ever had a heart attack?")
+ckd = st.checkbox("Do you have chronic kidney disease?")
 on_bp_meds = st.checkbox("Are you taking blood pressure medication?")
 systolic_bp = st.number_input("Enter your last recorded systolic blood pressure (leave blank if not available)", min_value=50,max_value=300,value=None)
         
@@ -45,6 +46,7 @@ if st.button('Analyse my results'):
     test_attributes["stroke"] = stroke
     test_attributes["diabetes"] = diabetes
     test_attributes["heart_attack"] = heart_attack
+    test_attributes["ckd"] = ckd
     test_attributes["on_BP_meds"] = on_bp_meds
     test_attributes["systolic_blood_pressure"] = systolic_bp #null or integer
     st.json(test_attributes)
