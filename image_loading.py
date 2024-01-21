@@ -10,7 +10,7 @@ from openai import OpenAI
 from paddleocr import PaddleOCR
 
 
-def load_image(ocr_model):
+def load_image():
     uploaded_file = st.file_uploader(label='Upload your test results image below:')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
@@ -18,7 +18,7 @@ def load_image(ocr_model):
         return image_data
         
 
-def extract_text(image):
+def extract_text(image,ocr_model):
     result = ocr_model.ocr(image)
     result = result[0] #idk why this needs a result[0] instead of result for Github
     extracted_text = ''
