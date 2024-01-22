@@ -65,12 +65,15 @@ test_attributes = {
     "heart_attack" : False ,
     "race" :"indian",
     "on_BP_meds" : False,
+    "sys_BP": 120
 }
 
 def getLDLBPtarget (attributes,testvals):
     print ("in ldl target")
     LDLtargetcalc = 0 
     BP_target = (0, 0)
+    bval = testvals ["systolic_bp"]["test_value"] if testvals["systolic_bp"]["test_found"] else attributes["sys_bp"]
+    # check all attributes present else return "invalid"
     if(attributes["stroke"]):
         LDLtargetcalc = 1.8
         BP_target = (140, 90) #with disclaimer
@@ -82,13 +85,16 @@ def getLDLBPtarget (attributes,testvals):
             LDLtargetcalc = 2.6
     if(attributes["heart_attack"]):
         LDLtargetcalc = 1.4
+	BP_target = (130, 80)   
     #SGFRS scoring, only if no stroke or diabetes then proceed 
     if LDLtargetcalc == 0:
         #dictionary with the values (M, F), corresponding to lower bound of age e.g. 20-40 would be 20
         # first sieve out all 20-40, then split into 20-34 and 35-39 for age score, and total chol for chol score 
         # age as tuple (-9, -7,-4, -3): 20-34 M -9 F -7, 35-39 M -4 F -3 ; 
         # total chol as tuple ((4, 4), (7, 8), (9, 11), (11, 13)) for 4.1-5.1 : M 4 F 4, 5.2-6.1 : M 7 F 8, 6.2-7.2 : M 9 F 11, >7.3 : M 11 F 13
-        agedict = {
+        if bval * attributes["age"] * attributes["sex"] * attributes["race"] == 0:
+		return "more information is needed to calculate your blood pressure or cholesterol target. In general, BP <140/90 and LDL <3.4 if no other risk factors."
+	agedict = {
             20 : {
                 "age": (
                     (-9, -7), #20-34 (M, F)
@@ -192,7 +198,6 @@ def getLDLBPtarget (attributes,testvals):
             hdlbracket = -1
             print ("invalid cholesterol units")
 
-        bval = testvals ["systolic_bp"]["test_value"]
         if bval > 159: bpbracket = 3
         elif bval > 139: bpbracket = 2
         elif bval > 129: bpbracket = 1
