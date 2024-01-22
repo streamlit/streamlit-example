@@ -93,7 +93,7 @@ def getLDLBPtarget (attributes,testvals):
         # age as tuple (-9, -7,-4, -3): 20-34 M -9 F -7, 35-39 M -4 F -3 ; 
         # total chol as tuple ((4, 4), (7, 8), (9, 11), (11, 13)) for 4.1-5.1 : M 4 F 4, 5.2-6.1 : M 7 F 8, 6.2-7.2 : M 9 F 11, >7.3 : M 11 F 13
         if bval * attributes["age"] * attributes["sex"] * attributes["race"] * testvals["total_cholesterol"]["test_value"]* testvals ["hdl_cholesterol"]["test_value"]== 0:
-            return "more information is needed to calculate your blood pressure or cholesterol target. In general, BP <140/90 and LDL <3.4 if no other risk factors."
+            return "More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above. In general, BP <140/90 and LDL <3.4 if no other risk factors."
 	agedict = {
             20 : {
                 "age": (
@@ -232,8 +232,7 @@ def getLDLBPtarget (attributes,testvals):
             curdict = agedict[20]
             agebracket = 0 if age <35 else 1  
         else: 
-            output_phrase = "you are too young to use this calculator"
-            return 0
+            return "You are too young to use this calculator. In general, aim BP <140/90 and LDL < 3.4."
 
         # age only points
         agescore += curdict["age"][agebracket][sex] 
