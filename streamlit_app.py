@@ -108,12 +108,7 @@ with tab1:
                             st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
                     elif key == "weight":
                         st.write (f"BMI {bmi_advice(test_results)}")
-                    
-                        
-
-
-                    
-            
+     
 
 with tab2:
     st.header('Lab measurements included for analysis')
