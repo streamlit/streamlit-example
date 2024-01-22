@@ -1,3 +1,8 @@
+from lipids_ranges import getLDLBPtarget
+from diabetes import get_dm_advice
+from anaemia import anaemia_analysis, get_anaemia_advice
+from bmi import bmi_advice
+
 test_attributes = {
     "age":57
     "sex":"Female"
