@@ -14,8 +14,10 @@ from lipids_ranges import getLDLBPtarget
 from diabetes import get_dm_advice
 from anaemia import anaemia_analysis, get_anaemia_advice
 from bmi import bmi_advice
+#from dotenv import load_dotenv
 
-API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
+#load_dotenv()
+API_KEY = os.environ['API_KEY'] # API_KEY in secret
 
 client = OpenAI(api_key=API_KEY)
 
@@ -90,6 +92,8 @@ with tab1:
                     st.markdown(f"**Test Value:** {test_info['test_value']} {test_info['test_unit']}")
                     st.text("")
             # Insert YT logic
+            print (test_results)
+            print (test_attributes)
             #test_results test_attributes
             for key, value in test_results.items():
                 print (f"looking at {key} and {value}")

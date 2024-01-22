@@ -25,11 +25,11 @@ def remove_nric(text):
 def extract_text(image,ocr_model):
     ocr_start_time = time.time()
     result = ocr_model.ocr(image)
-    result = result[0] #idk why this needs a result[0] instead of result for Github
+    #result = result[0] #idk why this needs a result[0] instead of result for Github
     extracted_text = ''
     for idx in range(len(result)):
         txt = result[idx][1][0]
-        extracted_text += txt + " "
+        extracted_text += str(txt) + " "
     extracted_text_clean = remove_nric(extracted_text)
     ocr_end_time = time.time()
     ocr_time = int(ocr_end_time - ocr_start_time)
