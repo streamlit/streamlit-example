@@ -1,14 +1,14 @@
 test_attributes = {
-"age":57
-"sex":"Female"
-"race":"Chinese"
-"smoker":false
-"stroke":false
-"diabetes":false
-"heart_attack":false
-"ckd":false
-"on_BP_meds":false
-"systolic_blood_pressure":NULL
+    "age":57
+    "sex":"Female"
+    "race":"Chinese"
+    "smoker":false
+    "stroke":false
+    "diabetes":false
+    "heart_attack":false
+    "ckd":false
+    "on_BP_meds":false
+    "systolic_blood_pressure":NULL
 }
 
 test_results = {
@@ -24,7 +24,7 @@ test_results = {
     'diastolic_bp': {'test_found': True, 'test_value': 73, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'height': {'test_found': True, 'test_value': 1.61, 'test_unit': 'm', 'test_ref_min': False, 'test_ref_max': False}, 
     'weight': {'test_found': True, 'test_value': 58, 'test_unit': 'kg', 'test_ref_min': False, 'test_ref_max': False}
-    }
+}
 
 for key, value in test_results.items():
     print (f"looking at {key} and {value}")
