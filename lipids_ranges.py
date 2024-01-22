@@ -94,7 +94,7 @@ def getLDLBPtarget (attributes,testvals):
         # total chol as tuple ((4, 4), (7, 8), (9, 11), (11, 13)) for 4.1-5.1 : M 4 F 4, 5.2-6.1 : M 7 F 8, 6.2-7.2 : M 9 F 11, >7.3 : M 11 F 13
         if bval * attributes["age"] * attributes["sex"] * attributes["race"] * testvals["total_cholesterol"]["test_value"]* testvals ["hdl_cholesterol"]["test_value"]== 0:
             return "More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above. In general, BP <140/90 and LDL <3.4 if no other risk factors."
-	agedict = {
+        agedict = {
             20 : {
                 "age": (
                     (-9, -7), #20-34 (M, F)
