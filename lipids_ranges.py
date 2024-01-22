@@ -260,6 +260,7 @@ def getLDLBPtarget (attributes,testvals):
             "<5": ((8, 17), (10, 18), (12, 20)),
         }
         recmeds = True
+	BP_target = (140,90)
         if score >= cvriskdict[">20"][raceint][sex]:
             LDLtargetcalc = 1.8
             BP_target = (130, 80)
