@@ -89,7 +89,9 @@ def getLDLBPtarget (attributes,testvals):
     #SGFRS scoring, only if no stroke or diabetes then proceed 
     if LDLtargetcalc == 0:
         #function "all" returns true if no values are false (0 values map to false) i.e. if any of these are 0 or empty, return
-        if all ((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])):
+        if not all ((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])):
+            print ("something missing "+str((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])))
+            print(bool(bval), bool(attributes["age"]), bool (attributes["sex"]), bool(attributes["race"]), bool(testvals["total_cholesterol"]["test_value"]), bool(testvals ["hdl_cholesterol"]["test_value"]))
             return "More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above. In general, BP <140/90 and LDL <3.4 if no other risk factors."
         #dictionary with the values (M, F), corresponding to lower bound of age e.g. 20-40 would be 20
         # first sieve out all 20-40, then split into 20-34 and 35-39 for age score, and total chol for chol score 
@@ -168,13 +170,13 @@ def getLDLBPtarget (attributes,testvals):
         sex = 0 if attributes["sex"].lower() == "male" else 1
         age = attributes["age"]
         tcval = testvals ["total_cholesterol"]["test_value"]
-        if testvals ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
-            if tcval > 280: cholbracket = 3
-            elif tcval > 240: cholbracket = 2
-            elif tcval > 200: cholbracket = 1
-            elif tcval > 160: cholbracket = 0
-            else: cholbracket = -1 
-        elif testvals ["total_cholesterol"]["test_unit"].lower() =="mmol/l":
+        # if testvals ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
+        #     if tcval > 280: cholbracket = 3
+        #     elif tcval > 240: cholbracket = 2
+        #     elif tcval > 200: cholbracket = 1
+        #     elif tcval > 160: cholbracket = 0
+        #     else: cholbracket = -1 
+        if testvals ["total_cholesterol"]["test_unit"].lower() =="mmol/l":
             if tcval > 7.2: cholbracket = 3
             elif tcval > 6.1: cholbracket = 2
             elif tcval > 5.1: cholbracket = 1
@@ -182,14 +184,14 @@ def getLDLBPtarget (attributes,testvals):
             else: cholbracket = -1 
         else: 
             cholbracket = -1
-            print ("invalid cholesterol units")
+            return "invalid cholesterol units"
 
-        hval = testvals ["hdl_cholesterol"]["test_value"]
-        if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mg/dl":
-            if hval > 59: hdlbracket = 0
-            elif hval > 49: hdlbracket = 1
-            elif hval > 40: hdlbracket = 2
-            else: hdlbracket = 3
+        # hval = testvals ["hdl_cholesterol"]["test_value"]
+        # if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mg/dl":
+        #     if hval > 59: hdlbracket = 0
+        #     elif hval > 49: hdlbracket = 1
+        #     elif hval > 40: hdlbracket = 2
+        #     else: hdlbracket = 3
         if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mmol/l":
             if hval > 1.5: hdlbracket = 0
             elif hval > 1.2: hdlbracket = 1
@@ -197,7 +199,7 @@ def getLDLBPtarget (attributes,testvals):
             else: hdlbracket = 3
         else: 
             hdlbracket = -1
-            print ("invalid cholesterol units")
+            return "invalid cholesterol units"
 
         if bval > 159: bpbracket = 3
         elif bval > 139: bpbracket = 2
@@ -291,7 +293,7 @@ def getLDLBPtarget (attributes,testvals):
             if bp[0] > 180 or bp[1] > 120:
                 output_phrase += " \n Your blood pressure is dangerously high. Visit a doctor for assessment.\n"
             else:
-                output_phrase += "\n Your blood pressure is high. Your target should be " + BP_target[0] + "/" + BP_target[1] + " . Take a healthy diet (e.g., reducing salt intake and alcohol consumption), increase physical activity, lose weight if overweight or obese."
+                output_phrase += "\n Your blood pressure is high. Your target should be " + str(BP_target[0]) + "/" + str(BP_target[1]) + " . Take a healthy diet (e.g., reducing salt intake and alcohol consumption), increase physical activity, lose weight if overweight or obese."
             if attributes["stroke"]:
                 output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
         else:
