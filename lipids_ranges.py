@@ -186,7 +186,7 @@ def getLDLBPtarget (attributes,testvals):
             cholbracket = -1
             return "invalid cholesterol units"
 
-        # hval = testvals ["hdl_cholesterol"]["test_value"]
+        hval = testvals ["hdl_cholesterol"]["test_value"]
         # if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mg/dl":
         #     if hval > 59: hdlbracket = 0
         #     elif hval > 49: hdlbracket = 1
@@ -286,18 +286,18 @@ def getLDLBPtarget (attributes,testvals):
             output_phrase +=  "You may require cholesterol lowering medications, consult your doctor. "
 
     else:
-        output_phrase = "Your LDL cholesterol is within target range."
+        output_phrase = "Your LDL cholesterol is within target range, less than " + str(LDLtargetcalc)
     if testvals["systolic_bp"]["test_found"]:
         bp = (testvals["systolic_bp"]["test_value"], testvals["diastolic_bp"]["test_value"])
         if bp[0] > BP_target[0] or bp[1] > BP_target[1]:
             if bp[0] > 180 or bp[1] > 120:
-                output_phrase += " \n Your blood pressure is dangerously high. Visit a doctor for assessment.\n"
+                output_phrase += " \n Your blood pressure is dangerously high, SBP >180 or DBP >120. Visit a doctor for assessment.\n"
             else:
                 output_phrase += "\n Your blood pressure is high. Your target should be " + str(BP_target[0]) + "/" + str(BP_target[1]) + " . Take a healthy diet (e.g., reducing salt intake and alcohol consumption), increase physical activity, lose weight if overweight or obese."
             if attributes["stroke"]:
                 output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
         else:
-            output_phrase += "your BP is in the normal range."
+            output_phrase += "Your BP is in the normal range, less than "+ str(BP_target[0]) + "/" + str(BP_target[1])
     if attributes["smoker"]:
         output_phrase += "\nQuit smoking."
     return output_phrase

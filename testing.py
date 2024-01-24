@@ -1,7 +1,7 @@
 
 from lipids_ranges import getLDLBPtarget
 from diabetes import get_dm_advice
-from anaemia import anaemia_analysis, get_anaemia_advice
+from anaemia import anaemia_analysis
 from bmi import bmi_advice
 
 test_attributes = {
@@ -24,8 +24,8 @@ test_results = {
     'mcv': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
     'hb': {'test_found': True, 'test_value': 15.6, 'test_unit': 'g/dL', 'test_ref_min': False, 'test_ref_max': False}, 
     'rbc_count': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
-    'glucose': {'test_found': True, 'test_value': 5.3, 'test_unit': 'mmol/L', 'test_ref_min': False, 'test_ref_max': False}, 
-    'hba1c': {'test_found': True, 'test_value': 5.8, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
+    'glucose': {'test_found': True, 'test_value': 9, 'test_unit': 'mmol/L', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hba1c': {'test_found': True, 'test_value': 8, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
     'systolic_bp': {'test_found': True, 'test_value': 141, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'diastolic_bp': {'test_found': True, 'test_value': 73, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'height': {'test_found': True, 'test_value': 1.61, 'test_unit': 'm', 'test_ref_min': False, 'test_ref_max': False}, 
@@ -35,14 +35,14 @@ test_results = {
 for key, value in test_results.items():
     print (f"looking at {key} and {value}")
     if value["test_found"]:
-        if key == "mcv":
-            print (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
+        if key == "hb":
+            print (f"FBC {anaemia_analysis (test_results)}")
         elif key == "ldl_cholesterol":
             print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
         elif key == "glucose":
             print (f"glucose {get_dm_advice(test_attributes, test_results)}")
         elif key == "systolic_bp":
-            if not test_results["ldl_cholesterol"]["test_found"]:
+            if not test_results["total_cholesterol"]["test_found"] or not test_results["hdl_cholesterol"]["test_found"]:
                 print("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
         elif key == "weight":
             print (f"BMI {bmi_advice(test_results)}")

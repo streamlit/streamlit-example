@@ -98,9 +98,9 @@ with tab1:
             for key, value in test_results.items():
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
-                    if key == "mcv":
-                        print (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
-                        st.write (f"FBC {get_anaemia_advice(anaemia_analysis (test_results))}")
+                    if key == "hb":
+                        print (f"FBC {anaemia_analysis (test_results)}")
+                        st.write (f"FBC {anaemia_analysis (test_results)}")
                     elif key == "ldl_cholesterol":
                         st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
                         print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
