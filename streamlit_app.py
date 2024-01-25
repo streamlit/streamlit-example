@@ -40,7 +40,7 @@ measurements_list = """
 """
 
 with tab1:
-    st.title('Explain my test results please!')
+    st.title('LAB-LOKUN')
     st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately!')
 
     # User inputs
