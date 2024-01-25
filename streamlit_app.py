@@ -12,7 +12,7 @@ from image_loading import load_image, extract_text
 from chatgpt_values import extract_values
 from lipids_ranges import getLDLBPtarget
 from diabetes import get_dm_advice
-from anaemia import anaemia_analysis, get_anaemia_advice
+from anaemia import anaemia_analysis
 from bmi import bmi_advice
 #from dotenv import load_dotenv
 

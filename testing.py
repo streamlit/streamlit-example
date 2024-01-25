@@ -6,7 +6,7 @@ from bmi import bmi_advice
 
 test_attributes = {
     "age":57,
-    "sex":"Female",
+    "sex":"male",
     "race":"Chinese",
     "smoker":False,
     "stroke":False,
@@ -22,12 +22,12 @@ test_results = {
     'hdl_cholesterol': {'test_found': True, 'test_value': 1, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
     'total_cholesterol': {'test_found': True, 'test_value': 3.7, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
     'mcv': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
-    'hb': {'test_found': True, 'test_value': 15.6, 'test_unit': 'g/dL', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hb': {'test_found': False, 'test_value': False, 'test_unit': 'g/dL', 'test_ref_min': False, 'test_ref_max': False}, 
     'rbc_count': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
-    'glucose': {'test_found': True, 'test_value': 9, 'test_unit': 'mmol/L', 'test_ref_min': False, 'test_ref_max': False}, 
-    'hba1c': {'test_found': True, 'test_value': 8, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
-    'systolic_bp': {'test_found': True, 'test_value': 141, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
-    'diastolic_bp': {'test_found': True, 'test_value': 73, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
+    'glucose': {'test_found': False, 'test_value': False, 'test_unit': 'mmol/L', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hba1c': {'test_found': False, 'test_value': False, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
+    'systolic_bp': {'test_found': False, 'test_value': False, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
+    'diastolic_bp': {'test_found': False, 'test_value': False, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'height': {'test_found': True, 'test_value': 1.61, 'test_unit': 'm', 'test_ref_min': False, 'test_ref_max': False}, 
     'weight': {'test_found': True, 'test_value': 58, 'test_unit': 'kg', 'test_ref_min': False, 'test_ref_max': False}
 }

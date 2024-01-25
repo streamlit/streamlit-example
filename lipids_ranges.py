@@ -65,15 +65,20 @@ test_attributes = {
     "heart_attack" : False ,
     "race" :"indian",
     "on_BP_meds" : False,
-    "sys_BP": 120
+    "systolic_blood_pressure": 120
 }
 
 def getLDLBPtarget (attributes,testvals):
     print ("in ldl target")
     LDLtargetcalc = 0 
     BP_target = (0, 0)
-    bval = testvals ["systolic_bp"]["test_value"] if testvals["systolic_bp"]["test_found"] else attributes["sys_bp"]
     # check all attributes present else return "invalid"
+    if testvals["systolic_bp"]["test_found"]:
+        bval = testvals ["systolic_bp"]["test_value"] 
+    elif attributes["systolic_blood_pressure"] and  attributes["systolic_blood_pressure"] > 0 :
+        bval = attributes["systolic_blood_pressure"]
+    else:
+        bval = 0
     if(attributes["stroke"]):
         LDLtargetcalc = 1.8
         BP_target = (140, 90) #with disclaimer
@@ -92,11 +97,12 @@ def getLDLBPtarget (attributes,testvals):
         if not all ((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])):
             print ("something missing "+str((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])))
             print(bool(bval), bool(attributes["age"]), bool (attributes["sex"]), bool(attributes["race"]), bool(testvals["total_cholesterol"]["test_value"]), bool(testvals ["hdl_cholesterol"]["test_value"]))
-            return "More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above. In general, BP <140/90 and LDL <3.4 if no other risk factors."
+            return "More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above (age, sex, race, systolic blood pressure). In general, BP <140/90 and LDL <3.4 if no other risk factors."
         #dictionary with the values (M, F), corresponding to lower bound of age e.g. 20-40 would be 20
         # first sieve out all 20-40, then split into 20-34 and 35-39 for age score, and total chol for chol score 
         # age as tuple (-9, -7,-4, -3): 20-34 M -9 F -7, 35-39 M -4 F -3 ; 
         # total chol as tuple ((4, 4), (7, 8), (9, 11), (11, 13)) for 4.1-5.1 : M 4 F 4, 5.2-6.1 : M 7 F 8, 6.2-7.2 : M 9 F 11, >7.3 : M 11 F 13
+        
         agedict = {
             20 : {
                 "age": (
@@ -258,6 +264,8 @@ def getLDLBPtarget (attributes,testvals):
             raceint = 1
         elif attributes["race"].lower() == "chinese":
             raceint = 2
+        else:
+            return "This calculator is not validated for other races. In general, aim LDL <3.4 and BP <140/90."
 
     #matching to cardiovascular risk bracket 
         cvriskdict = {
