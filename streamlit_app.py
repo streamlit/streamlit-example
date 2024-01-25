@@ -41,7 +41,7 @@ measurements_list = """
 
 with tab1:
     st.title('Explain my test results please!')
-    st.subheader('Answer the questions, take a picture of your lab test results, and get your results explained!')
+    st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately!')
 
     # User inputs
     age = st.number_input("Enter your age", min_value=0, max_value=140, step=1,value="min")
