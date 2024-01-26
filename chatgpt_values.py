@@ -108,7 +108,7 @@ def extract_values(client,extracted_text):
     extract_start_time = time.time()
     extract_prompt = f"{template_prompt} {extracted_text}"
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-1106",
         response_format={ "type": "json_object" },
         messages=[
             {"role": "system", "content": "You are a helpful assistant designed to output JSON."},
