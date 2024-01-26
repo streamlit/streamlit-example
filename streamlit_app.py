@@ -102,29 +102,27 @@ with tab1:
                     if key == "hb":
                         fbc_output = anaemia_analysis (test_results)
                         print (f"FBC {fbc_output}")
-                        st.write (f"FBC {fbc_output}")
-                        full_output += f"FBC {fbc_output}\n"
+                        full_output += f"**FBC**  \n{fbc_output}  \n\n" # streamlit needs 2 whitespace before newline char
                     elif key == "ldl_cholesterol":
                         chol_output = getLDLBPtarget (test_attributes, test_results)
                         print (f"LDL/BP {chol_output}")
-                        st.write (f"LDL/BP {chol_output}")
-                        full_output += f"LDL/BP {chol_output}\n"
+                        full_output += f"**LDL/BP**  \n{chol_output}  \n\n"
                     elif key == "glucose":
                         glucose_output = get_dm_advice(test_attributes, test_results)
-                        st.write (f"glucose {glucose_output}")
-                        print (f"glucose {glucose_output}")
-                        full_output += f"glucose {glucose_output}\n"
+                        full_output += f"**Glucose**  \n{glucose_output}  \n\n"
                     elif key == "systolic_bp":
                         if not test_results["ldl_cholesterol"]["test_found"]:
-                            bp_output = "we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90."
-                            st.write(f"BP {bp_output}")
-                            full_output += f"BP {bp_output}\n"
+                            bp_output = "We need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.  \n\n"
+                            full_output += f"**BP**  \n{bp_output}\n"
                     elif key == "weight":
                         bmi_output = bmi_advice(test_results)
-                        st.write (f"BMI {bmi_output}")
-                        full_output += f"BMI {bmi_output}\n"
+                        full_output += f"**BMI**  \n{bmi_output}  \n\n"
             print(full_output)
-            st.markdown(full_output)
+            if full_output == "": # if no supported lab results found
+                full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in our About page."
+                st.error(f"{full_output}",icon="🚨")
+            else:
+                st.markdown(full_output)
      
 
 with tab2:
