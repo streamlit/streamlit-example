@@ -17,23 +17,23 @@ Convert height to metres and weight to kg.
 Example output json template
 {
 	"ldl_cholesterol": {
-		"test_found":True,
-		"test_value":20,
-		"test_unit":"mmol/l",
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"hdl_cholesterol": {
 		"test_found":True,
-		"test_value":20,
-		"test_unit":"mmol/l",
+		"test_value":False,
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"total_cholesterol": {
-		"test_found":True,
-		"test_value":20,
-		"test_unit":"mmol/l",
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
