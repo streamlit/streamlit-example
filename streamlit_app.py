@@ -95,23 +95,36 @@ with tab1:
             print (test_results)
             print (test_attributes)
             #test_results test_attributes
+            full_output = ""
             for key, value in test_results.items():
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
                     if key == "hb":
-                        print (f"FBC {anaemia_analysis (test_results)}")
-                        st.write (f"FBC {anaemia_analysis (test_results)}")
+                        fbc_output = anaemia_analysis (test_results)
+                        print (f"FBC {fbc_output}")
+                        st.write (f"FBC {fbc_output}")
+                        full_output += f"FBC {fbc_output}\n"
                     elif key == "ldl_cholesterol":
-                        st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
-                        print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
+                        chol_output = getLDLBPtarget (test_attributes, test_results)
+                        print (f"LDL/BP {chol_output}")
+                        st.write (f"LDL/BP {chol_output}")
+                        full_output += f"LDL/BP {chol_output}\n"
                     elif key == "glucose":
-                        st.write (f"glucose {get_dm_advice(test_attributes, test_results)}")
-                        print (f"glucose {get_dm_advice(test_attributes, test_results)}")
+                        glucose_output = get_dm_advice(test_attributes, test_results)
+                        st.write (f"glucose {glucose_output}")
+                        print (f"glucose {glucose_output}")
+                        full_output += f"glucose {glucose_output}\n"
                     elif key == "systolic_bp":
                         if not test_results["ldl_cholesterol"]["test_found"]:
-                            st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
+                            bp_output = "we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90."
+                            st.write(f"BP {bp_output}")
+                            full_output += f"BP {bp_output}\n"
                     elif key == "weight":
-                        st.write (f"BMI {bmi_advice(test_results)}")
+                        bmi_output = bmi_advice(test_results)
+                        st.write (f"BMI {bmi_output}")
+                        full_output += f"BMI {bmi_output}\n"
+            print(full_output)
+            st.markdown(full_output)
      
 
 with tab2:
