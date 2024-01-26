@@ -40,7 +40,7 @@ measurements_list = """
 """
 
 with tab1:
-    st.title('LAB-LOKUN')
+    st.title('LAB LOKUN')
     st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately!')
 
     # User inputs
@@ -115,7 +115,7 @@ with tab1:
      
 
 with tab2:
-    st.markdown("**Lab-Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab-Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times.")
+    st.markdown("**Lab Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times.")
     st.header('Lab measurements included for analysis')
     st.markdown(measurements_list)
     st.write('Other lab tests will be added soon...stay tuned!')
