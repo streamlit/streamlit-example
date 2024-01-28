@@ -44,8 +44,7 @@ with tab1:
     with col1:
         st.image("https://i.ibb.co/869GgfZ/stethoscope-logo-text.jpg", width=100)
     with col2:
-        st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately')
-    #st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately')
+        st.subheader('Instructions:  \n1. Fill in the form below  \n 2. Upload a picture of your lab test results  \n3. Click "Generate my report!" button')
 
     # User inputs
     age = st.number_input("Enter your age", min_value=0, max_value=140, step=1,value="min")
@@ -61,7 +60,7 @@ with tab1:
             
     image = load_image()
         
-    if st.button('Analyse my results'):
+    if st.button('Generate my report!'):
         # Save test attributes
         test_attributes["age"] = age
         test_attributes["sex"] = sex
@@ -90,21 +89,16 @@ with tab1:
                 st.text(response.usage)
                 status.update(label="Analysed results!", state="complete", expanded=False)
                 st.success(f"Extracted values in {extract_time} seconds.")  # Use status instead of toast/success
-            for test_name, test_info in test_results.items():
-                if test_info["test_found"]:
-                    st.markdown(f"**Test Name:** {test_name.replace('_', ' ').upper()}")
-                    st.markdown(f"**Test Value:** {test_info['test_value']} {test_info['test_unit']}")
-                    st.text("")
             # Insert YT logic
             print (test_results)
             print (test_attributes)
             #test_results test_attributes
-            full_output = ""
+            full_output = ""            
+            dm = False
+            anaemia = False 
+            LDLBP = False 
+            BMI = False 
             for key, value in test_results.items():
-                dm = False
-                anaemia = False 
-                LDLBP = False 
-                BMI = False 
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
                     if key == "hb":
@@ -126,13 +120,21 @@ with tab1:
                         if not BMI:
                             bmi_output = bmi_advice(test_results)
                             BMI = True 
-                        full_output += f"**Height/Weight (BMI)**  \n{bmi_output}  \n\n"
+                            full_output += f"**Height/Weight (BMI)**  \n{bmi_output}  \n\n"
             print(full_output)
             if full_output == "": # if no supported lab results found
-                full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in our About page."
+                full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in the About page."
                 st.error(f"{full_output}",icon="🚨")
             else:
+                st.subheader('REPORT')
                 st.markdown(full_output)
+            # print test results
+            st.subheader('Measurement values detected')
+            for test_name, test_info in test_results.items():
+                if test_info["test_found"]:
+                    st.markdown(f"**Test Name:** {test_name.replace('_', ' ').upper()}")
+                    st.markdown(f"**Test Value:** {test_info['test_value']} {test_info['test_unit']}")
+                    st.text("")
                             
 
 with tab2:
@@ -140,7 +142,8 @@ with tab2:
     with col1:
         st.image("https://i.ibb.co/869GgfZ/stethoscope-logo-text.jpg", width=100)
     with col2:
-        st.markdown("**Lab Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times.")
+        st.text("")
+        st.markdown("**Lab Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times. :joy:")
     st.subheader('Lab measurements included for analysis')
     st.markdown(measurements_list)
     st.write('Other lab tests will be added soon...stay tuned!')    
