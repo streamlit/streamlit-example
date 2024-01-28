@@ -98,8 +98,6 @@ with tab1:
             full_output = ""
             for key, value in test_results.items():
                 dm = False
-                anaemia = False 
-                LDLBP = False 
                 BMI = False 
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
