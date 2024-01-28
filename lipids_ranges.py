@@ -16,21 +16,21 @@ testdict = {
 	"ldl_cholesterol": {
 		"test_found":True,
 		"test_value":5.8,
-		"test_unit":"mmol/l",
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"hdl_cholesterol": {
 		"test_found":True,
 		"test_value":1.0,
-		"test_unit":"mmol/l",
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"total_cholesterol": {
 		"test_found":True,
 		"test_value":4.1,
-		"test_unit":"mmol/l",
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
