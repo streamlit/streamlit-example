@@ -16,7 +16,7 @@ from anaemia import anaemia_analysis
 from bmi import bmi_advice
 #from dotenv import load_dotenv
 
-
+#load_dotenv()
 API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
 
 client = OpenAI(api_key=API_KEY)
@@ -109,24 +109,24 @@ with tab1:
                 if value["test_found"]:
                     if key == "hb":
                         fbc_output = anaemia_analysis (test_results)
-                        full_output += f"**FBC**  \n{fbc_output}  \n\n" # streamlit needs 2 whitespace before newline char
+                        full_output += f"**Full Blood Count**  \n{fbc_output}  \n\n" # streamlit needs 2 whitespace before newline char
                     elif key == "ldl_cholesterol":
                         chol_output = getLDLBPtarget (test_attributes, test_results)
-                        full_output += f"**LDL/BP**  \n{chol_output}  \n\n"
+                        full_output += f"**Cholesterol and Blood Pressure**  \n{chol_output}  \n\n"
                     elif key == "glucose" or key == "hba1c":
                         if not dm:
                             glucose_output = get_dm_advice(test_attributes, test_results)
-                            full_output += f"**Glucose**  \n{glucose_output}  \n\n"
+                            full_output += f"**Blood Sugar**  \n{glucose_output}  \n\n"
                             dm = True 
                     elif key == "systolic_bp":
                         if not test_results["hdl_cholesterol"]["test_found"]:
                             bp_output = "We need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.  \n\n"
-                            full_output += f"**BP**  \n{bp_output}\n"
+                            full_output += f"**Blood Pressure**  \n{bp_output}\n"
                     elif key == "weight" or key == "height":
                         if not BMI:
                             bmi_output = bmi_advice(test_results)
                             BMI = True 
-                        full_output += f"**BMI**  \n{bmi_output}  \n\n"
+                        full_output += f"**Height/Weight (BMI)**  \n{bmi_output}  \n\n"
             print(full_output)
             if full_output == "": # if no supported lab results found
                 full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in our About page."
