@@ -96,9 +96,9 @@ with tab1:
             print (test_attributes)
             #test_results test_attributes
             full_output = ""
+            dm = False
+            BMI = False 
             for key, value in test_results.items():
-                dm = False
-                BMI = False 
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
                     if key == "hb":
@@ -110,6 +110,7 @@ with tab1:
                         print (f"LDL/BP {chol_output}")
                         full_output += f"**LDL/BP**  \n{chol_output}  \n\n"
                     elif key == "glucose" or key == "hba1c":
+                        print (f"in DM and checking if entered before {dm}")
                         if not dm:
                             glucose_output = get_dm_advice(test_attributes, test_results)
                             full_output += f"**Glucose**  \n{glucose_output}  \n\n"
@@ -119,10 +120,11 @@ with tab1:
                             bp_output = "We need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.  \n\n"
                             full_output += f"**BP**  \n{bp_output}\n"
                     elif key == "weight" or key == "height":
+                        print (f"in BMI and checking if entered before {BMI}")
                         if not BMI:
                             bmi_output = bmi_advice(test_results)
                             BMI = True 
-                        full_output += f"**BMI**  \n{bmi_output}  \n\n"
+                            full_output += f"**BMI**  \n{bmi_output}  \n\n"
             print(full_output)
             if full_output == "": # if no supported lab results found
                 full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in our About page."
