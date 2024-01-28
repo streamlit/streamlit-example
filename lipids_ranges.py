@@ -296,7 +296,7 @@ def getLDLBPtarget (attributes,testvals):
             output_phrase +=  "You may require cholesterol lowering medications, consult your doctor. "
 
     else:
-        output_phrase = ":large_green_circle: Your LDL cholesterol is within target range, less than " + str(LDLtargetcalc) + "."
+        output_phrase = ":large_green_circle: Your LDL cholesterol is within target range (less than " + str(LDLtargetcalc) + ")."
     if testvals["systolic_bp"]["test_found"]:
         bp = (testvals["systolic_bp"]["test_value"], testvals["diastolic_bp"]["test_value"])
         if bp[0] > BP_target[0] or bp[1] > BP_target[1]:
@@ -307,7 +307,7 @@ def getLDLBPtarget (attributes,testvals):
             if attributes["stroke"]:
                 output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
         else:
-            output_phrase += ":large_green_circle: Your BP is in the normal range, less than "+ str(BP_target[0]) + "/" + str(BP_target[1]) + "."
+            output_phrase += ":large_green_circle: Your BP is in the normal range (less than "+ str(BP_target[0]) + "/" + str(BP_target[1]) + ")."
     if attributes["smoker"]:
         output_phrase += "  \nYou are highly encouraged to quit smoking."
     return output_phrase
