@@ -285,7 +285,7 @@ def getLDLBPtarget (attributes,testvals):
             recmeds = False
         
     #print (f"score {score} LDL target {LDLtargetcalc}") 
-    if not testvals ["ldl_cholesterol"]["test_found]:
+    if not testvals ["ldl_cholesterol"]["test_found"]:
         return "LDL cholesterol not found. LDL cholesterol is the main cholesterol that affects medical management."
     if testvals ["ldl_cholesterol"]["test_unit"].lower() =="mg/dl":
         testvals ["ldl_cholesterol"]["test_value"] *= 0.02586
