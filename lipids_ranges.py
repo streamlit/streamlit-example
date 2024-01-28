@@ -97,7 +97,7 @@ def getLDLBPtarget (attributes,testvals):
         if not all ((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])):
             print ("something missing "+str((bval, attributes["age"], attributes["sex"], attributes["race"], testvals["total_cholesterol"]["test_value"], testvals ["hdl_cholesterol"]["test_value"])))
             print(bool(bval), bool(attributes["age"]), bool (attributes["sex"]), bool(attributes["race"]), bool(testvals["total_cholesterol"]["test_value"]), bool(testvals ["hdl_cholesterol"]["test_value"]))
-            return "More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above (age, sex, race, systolic blood pressure). We also need your HDL cholesterol and total cholesterol. In general, BP <140/90 and LDL <3.4 if no other risk factors."
+            return ":large_yellow_circle: More information is needed to calculate your blood pressure or cholesterol target. Please fill in the boxes above (age, sex, race, systolic blood pressure). In general, aim for BP <140/90 and LDL <3.4 if you have no other risk factors."
         #dictionary with the values (M, F), corresponding to lower bound of age e.g. 20-40 would be 20
         # first sieve out all 20-40, then split into 20-34 and 35-39 for age score, and total chol for chol score 
         # age as tuple (-9, -7,-4, -3): 20-34 M -9 F -7, 35-39 M -4 F -3 ; 
@@ -176,10 +176,12 @@ def getLDLBPtarget (attributes,testvals):
         sex = 0 if attributes["sex"].lower() == "male" else 1
         age = attributes["age"]
         tcval = testvals ["total_cholesterol"]["test_value"]
-        if testvals ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
-            tcval *=  0.02586
-            testvals ["total_cholesterol"]["test_value"] *= 0.02586
-            testvals ["total_cholesterol"]["test_unit"] = "mmol/L"
+        # if testvals ["total_cholesterol"]["test_unit"].lower() =="mg/dl":
+        #     if tcval > 280: cholbracket = 3
+        #     elif tcval > 240: cholbracket = 2
+        #     elif tcval > 200: cholbracket = 1
+        #     elif tcval > 160: cholbracket = 0
+        #     else: cholbracket = -1 
         if testvals ["total_cholesterol"]["test_unit"].lower() =="mmol/l":
             if tcval > 7.2: cholbracket = 3
             elif tcval > 6.1: cholbracket = 2
@@ -191,10 +193,11 @@ def getLDLBPtarget (attributes,testvals):
             return "invalid cholesterol units"
 
         hval = testvals ["hdl_cholesterol"]["test_value"]
-        if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mg/dl":
-            hval *=  0.02586
-            testvals ["hdl_cholesterol"]["test_value"] *= 0.02586
-            testvals ["hdl_cholesterol"]["test_unit"] = "mmol/L"
+        # if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mg/dl":
+        #     if hval > 59: hdlbracket = 0
+        #     elif hval > 49: hdlbracket = 1
+        #     elif hval > 40: hdlbracket = 2
+        #     else: hdlbracket = 3
         if testvals ["hdl_cholesterol"]["test_unit"].lower() =="mmol/l":
             if hval > 1.5: hdlbracket = 0
             elif hval > 1.2: hdlbracket = 1
@@ -238,7 +241,7 @@ def getLDLBPtarget (attributes,testvals):
             curdict = agedict[20]
             agebracket = 0 if age <35 else 1  
         else: 
-            return "You are too young to use this calculator. In general, aim BP <140/90 and LDL < 3.4."
+            return ":large_yellow_circle: You are too young to use this calculator. In general, aim for BP <140/90 and LDL < 3.4."
 
         # age only points
         agescore += curdict["age"][agebracket][sex] 
@@ -262,7 +265,7 @@ def getLDLBPtarget (attributes,testvals):
         elif attributes["race"].lower() == "chinese":
             raceint = 2
         else:
-            return "This calculator is not validated for other races. In general, aim LDL <3.4 and BP <140/90."
+            return ":large_yellow_circle: This calculator is not validated for other races. In general, aim for LDL <3.4 and BP <140/90."
 
     #matching to cardiovascular risk bracket 
         cvriskdict = {
@@ -285,18 +288,13 @@ def getLDLBPtarget (attributes,testvals):
             recmeds = False
         
     #print (f"score {score} LDL target {LDLtargetcalc}") 
-    if not testvals ["ldl_cholesterol"]["test_found"]:
-        return "LDL cholesterol not found. LDL cholesterol is the main cholesterol that affects medical management."
-    if testvals ["ldl_cholesterol"]["test_unit"].lower() =="mg/dl":
-        testvals ["ldl_cholesterol"]["test_value"] *= 0.02586
-        testvals ["ldl_cholesterol"]["test_unit"] = "mmol/L"
     if testvals ["ldl_cholesterol"]["test_value"] > LDLtargetcalc:
-        output_phrase = "your LDL cholesterol is high. Eat a healthy balanced diet - using My Healthy Plates (filling a quarter of the plate with wholegrains, quarter with good sources of protein (fish, lean meat, tofu and other bean products, nuts), and half with fruit and vegetables. increase soluble fibre intake, avoid food with trans fat,replace saturated fat with polyunsaturated fats. Certain diets like ketogenic diet increase LDL-C levels. Aim for regular moderate-intensity physical activity for 150-300min a week. For people who are overweight or obese, weight reduction of 5–10% could be beneficial for improving lipid profile. Limit alcohol intake to 1 drink per day for females, and 2 drinks per day for males."
+        output_phrase = ":large_orange_circle:  Your LDL cholesterol is high. Eat a healthy balanced diet - using My Healthy Plates (filling a quarter of the plate with wholegrains, quarter with good sources of protein (fish, lean meat, tofu and other bean products, nuts), and half with fruit and vegetables. increase soluble fibre intake, avoid food with trans fat,replace saturated fat with polyunsaturated fats. Certain diets like ketogenic diet increase LDL-C levels. Aim for regular moderate-intensity physical activity for 150-300min a week. For people who are overweight or obese, weight reduction of 5–10% could be beneficial for improving lipid profile. Limit alcohol intake to 1 drink per day for females, and 2 drinks per day for males."
         if recmeds:
             output_phrase +=  "You may require cholesterol lowering medications, consult your doctor. "
 
     else:
-        output_phrase = "Your LDL cholesterol is within target range, less than " + str(LDLtargetcalc)
+        output_phrase = ":large_green_circle: Your LDL cholesterol is within target range, less than " + str(LDLtargetcalc) + "."
     if testvals["systolic_bp"]["test_found"]:
         bp = (testvals["systolic_bp"]["test_value"], testvals["diastolic_bp"]["test_value"])
         if bp[0] > BP_target[0] or bp[1] > BP_target[1]:
@@ -307,9 +305,9 @@ def getLDLBPtarget (attributes,testvals):
             if attributes["stroke"]:
                 output_phrase += "Since you have had a stroke before, your blood pressure targets may need to be customised according to the type of stroke. Seek advice from your stroke doctor for specific blood pressure targets."
         else:
-            output_phrase += "Your BP is in the normal range, less than "+ str(BP_target[0]) + "/" + str(BP_target[1])
+            output_phrase += ":large_green_circle: Your BP is in the normal range, less than "+ str(BP_target[0]) + "/" + str(BP_target[1])
     if attributes["smoker"]:
-        output_phrase += "\nQuit smoking."
+        output_phrase += "\nYou are highly encouraged to quit smoking."
     return output_phrase
 
 #print (f"advice is {getLDLBPtarget (test_attributes, testdict)}")
