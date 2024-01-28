@@ -34,10 +34,10 @@ def get_dm_advice(inputattributes, inputdict):
     output_phrase = "I didn't catch that."
     lifestyle = False
     #known dm
-    a1c_value = inputdict["hba1c"]["test_value"]
-    glucose_value = inputdict["glucose"]["test_value"]
+    a1c_value = inputdict["hba1c"]["test_value"] if inputdict["hba1c"]["test_found"] else 0 
+    glucose_value = inputdict["glucose"]["test_value"] if inputdict["glucose"]["test_found"] else 0 
     if inputattributes["diabetes"]:
-        if inputdict["hba1c"]["test_found"]:
+        if a1c_value >0:
             if inputattributes["age"] >= 80:
                 a1ctarget = 8
             elif inputattributes["age"] <=40:
@@ -49,7 +49,7 @@ def get_dm_advice(inputattributes, inputdict):
                 lifestyle = True
             else:
                 output_phrase = "your HbA1c is within range for a diabetic, <7."
-        else:
+        if glucose_value >0:
             if glucose_value > 6:
                 output_phrase += "\nYour fasting glucose level is slightly high. Please consult your doctor for your specific glucose targets. Having a HbA1c measurement may be helpful to better evauate your diabetes control."
             else:
@@ -59,12 +59,12 @@ def get_dm_advice(inputattributes, inputdict):
         if a1c_value >= 6.5 or glucose_value >= 7:
             output_phrase = "You have diabetes. Consult a doctor for advice, you may need to be started on medications."
             lifestyle = True
-        elif a1c_value >= 5.7 or glucose_value >=5.6:
+        elif a1c_value >= 6.1 or glucose_value >=6.1:
             output_phrase = "You have prediabetes."
             if a1c_value >= 5.7:
-                output_phrase += " Your HbA1c is >5.7." 
+                output_phrase += " Your HbA1c is >6.0." 
             if glucose_value >=5.6:
-                output_phrase += " Your fasting glucose is >5.6. If this was a non-fasting sample, it may be difficult to assess. A fasting sample is preferred."
+                output_phrase += " Your fasting glucose is >6.0. If this was a non-fasting sample, it may be difficult to assess. A fasting sample is preferred."
             lifestyle = True
         else:
             output_phrase = "You do not have diabetes."

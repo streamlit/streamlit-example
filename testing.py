@@ -14,7 +14,7 @@ test_attributes = {
     "heart_attack":False,
     "ckd":False,
     "on_BP_meds":False,
-    "systolic_blood_pressure": None
+    "systolic_blood_pressure": 120
 }
 
 test_results = {
@@ -22,10 +22,10 @@ test_results = {
     'hdl_cholesterol': {'test_found': True, 'test_value': 1, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
     'total_cholesterol': {'test_found': True, 'test_value': 3.7, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
     'mcv': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
-    'hb': {'test_found': False, 'test_value': False, 'test_unit': 'g/dL', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hb': {'test_found': False, 'test_value': False, 'test_unit': 'g/dL', 'test_ref_min': False, 'test_ref_max': False},
     'rbc_count': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
     'glucose': {'test_found': False, 'test_value': False, 'test_unit': 'mmol/L', 'test_ref_min': False, 'test_ref_max': False}, 
-    'hba1c': {'test_found': False, 'test_value': False, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hba1c': {'test_found': True, 'test_value': 6.0, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
     'systolic_bp': {'test_found': False, 'test_value': False, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'diastolic_bp': {'test_found': False, 'test_value': False, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'height': {'test_found': True, 'test_value': 1.61, 'test_unit': 'm', 'test_ref_min': False, 'test_ref_max': False}, 

@@ -96,6 +96,10 @@ with tab1:
             print (test_attributes)
             #test_results test_attributes
             for key, value in test_results.items():
+                dm = False
+                anaemia = False 
+                LDLBP = False 
+                BMI = False 
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
                     if key == "hb":
@@ -104,15 +108,18 @@ with tab1:
                     elif key == "ldl_cholesterol":
                         st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
                         print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
-                    elif key == "glucose":
-                        st.write (f"glucose {get_dm_advice(test_attributes, test_results)}")
-                        print (f"glucose {get_dm_advice(test_attributes, test_results)}")
+                    elif key == "glucose" or key == "hba1c":
+                        if not dm:
+                            st.write (f"glucose {get_dm_advice(test_attributes, test_results)}")
+                            print (f"glucose {get_dm_advice(test_attributes, test_results)}")
+                            dm = True 
                     elif key == "systolic_bp":
-                        if not test_results["ldl_cholesterol"]["test_found"]:
+                        if not test_results["hdl_cholesterol"]["test_found"]:
                             st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
-                    elif key == "weight":
-                        st.write (f"BMI {bmi_advice(test_results)}")
-     
+                    elif key == "weight" or key == "height":
+                        if not BMI:
+                            st.write (f"BMI {bmi_advice(test_results)}")
+                            BMI = True 
 
 with tab2:
     st.header('Lab measurements included for analysis')
