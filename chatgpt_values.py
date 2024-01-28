@@ -11,28 +11,29 @@ from paddleocr import PaddleOCR
 
 
 template_prompt = """
-Extract the items from the health screening result listed below into a json format, using the example json template. Ignore other items not listed in the json template. Output data types are "test_found" (True/False), "test_value" (float), "test_unit" (string), "test_ref_min" (float), "test_ref_max" (float). If test item is not found, output False for "test_found", and output False for the other values. If test is found but reference max, reference min, or reference range is not found, output False for "test_ref_min" and "test_ref_max". Convert height to metres and weight to kg.  
+Extract the items from the health screening result listed below into a json format, using the example json template. Ignore other items not listed in the json template. Output data types are "test_found" (True/False), "test_value" (float), "test_unit" (string), "test_ref_min" (float), "test_ref_max" (float). If test item is not found, output False for "test_found", and output False for the other values. If test is found but reference max, reference min, or reference range is not found, output False for "test_ref_min" and "test_ref_max". 
+Convert height to metres and weight to kg.
 
 Example output json template
 {
 	"ldl_cholesterol": {
-		"test_found":True,
-		"test_value":20,
-		"test_unit":"mmol/l",
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"hdl_cholesterol": {
 		"test_found":True,
-		"test_value":20,
-		"test_unit":"mmol/l",
+		"test_value":False,
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},
 	"total_cholesterol": {
-		"test_found":True,
-		"test_value":20,
-		"test_unit":"mmol/l",
+		"test_found":False,
+		"test_value":False,
+		"test_unit":False,
 		"test_ref_min":False,
 		"test_ref_max":False
 		},

@@ -17,13 +17,13 @@ from bmi import bmi_advice
 #from dotenv import load_dotenv
 
 #load_dotenv()
-API_KEY = os.environ['API_KEY'] # API_KEY in secret
+API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
 
 client = OpenAI(api_key=API_KEY)
 
 ocr_model = PaddleOCR(use_angle_cls=True, lang='en')
 
-tab1, tab2 = st.tabs(["Main", "More Info"])
+tab1, tab2 = st.tabs(["Main", "About"])
 
 test_attributes = {}
 
@@ -40,8 +40,8 @@ measurements_list = """
 """
 
 with tab1:
-    st.title('Explain my test results please!')
-    st.subheader('Answer the questions, take a picture of your lab test results, and get your results explained!')
+    st.title('LAB LOKUN')
+    st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately!')
 
     # User inputs
     age = st.number_input("Enter your age", min_value=0, max_value=140, step=1,value="min")
@@ -95,6 +95,7 @@ with tab1:
             print (test_results)
             print (test_attributes)
             #test_results test_attributes
+            full_output = ""
             for key, value in test_results.items():
                 dm = False
                 anaemia = False 
@@ -103,25 +104,37 @@ with tab1:
                 print (f"looking at {key} and {value}")
                 if value["test_found"]:
                     if key == "hb":
-                        print (f"FBC {anaemia_analysis (test_results)}")
-                        st.write (f"FBC {anaemia_analysis (test_results)}")
+                        fbc_output = anaemia_analysis (test_results)
+                        print (f"FBC {fbc_output}")
+                        full_output += f"**FBC**  \n{fbc_output}  \n\n" # streamlit needs 2 whitespace before newline char
                     elif key == "ldl_cholesterol":
-                        st.write (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
-                        print (f"LDL/BP {getLDLBPtarget (test_attributes, test_results)}")
+                        chol_output = getLDLBPtarget (test_attributes, test_results)
+                        print (f"LDL/BP {chol_output}")
+                        full_output += f"**LDL/BP**  \n{chol_output}  \n\n"
                     elif key == "glucose" or key == "hba1c":
                         if not dm:
-                            st.write (f"glucose {get_dm_advice(test_attributes, test_results)}")
-                            print (f"glucose {get_dm_advice(test_attributes, test_results)}")
+                            glucose_output = get_dm_advice(test_attributes, test_results)
+                            full_output += f"**Glucose**  \n{glucose_output}  \n\n"
                             dm = True 
                     elif key == "systolic_bp":
                         if not test_results["hdl_cholesterol"]["test_found"]:
-                            st.write("we need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.")
+                            bp_output = "We need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.  \n\n"
+                            full_output += f"**BP**  \n{bp_output}\n"
                     elif key == "weight" or key == "height":
                         if not BMI:
-                            st.write (f"BMI {bmi_advice(test_results)}")
+                            bmi_output = bmi_advice(test_results)
                             BMI = True 
+                        full_output += f"**BMI**  \n{bmi_output}  \n\n"
+            print(full_output)
+            if full_output == "": # if no supported lab results found
+                full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in our About page."
+                st.error(f"{full_output}",icon="🚨")
+            else:
+                st.markdown(full_output)
+                            
 
 with tab2:
+    st.markdown("**Lab Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times.")
     st.header('Lab measurements included for analysis')
     st.markdown(measurements_list)
     st.write('Other lab tests will be added soon...stay tuned!')
