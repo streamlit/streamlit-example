@@ -19,14 +19,12 @@ test_results = {
 def bmi_advice(test_results):
     print ("in bmi advice")
     output_string = "I didn't catch that"
-    if not test_results["weight"]["test_found"] or not test_results["height"]["test_found"]:
-        return "I need both your weight and height to calculate your BMI."
     weight = test_results["weight"]["test_value"]
     height = test_results["height"]["test_value"]
     if weight > 0 and height > 0:
         bmi = round(weight / pow(height,2), 2)
     else:
-        return"I need both your weight and height to calculate your BMI."
+        return "You need both weight and height to calculate BMI."
     weightloss = False
     if bmi >=27.5: 
         output_string = "You are obese. Your BMI is " + str(bmi)
