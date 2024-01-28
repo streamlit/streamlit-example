@@ -126,10 +126,10 @@ with tab1:
                 full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in the About page."
                 st.error(f"{full_output}",icon="🚨")
             else:
-                st.subheader('REPORT')
+                st.subheader(':bookmark_tabs: Your Report')
                 st.markdown(full_output)
             # print test results
-            st.subheader('Measurement values detected')
+            st.subheader(':test_tube: Measurement values detected')
             for test_name, test_info in test_results.items():
                 if test_info["test_found"]:
                     st.markdown(f"**Test Name:** {test_name.replace('_', ' ').upper()}")
