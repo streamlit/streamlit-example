@@ -14,9 +14,10 @@ from lipids_ranges import getLDLBPtarget
 from diabetes import get_dm_advice
 from anaemia import anaemia_analysis
 from bmi import bmi_advice
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
+
 #os.environ['API_KEY']='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'
 API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
 
@@ -45,8 +46,7 @@ with tab1:
     with col1:
         st.image("https://i.ibb.co/869GgfZ/stethoscope-logo-text.jpg", width=100)
     with col2:
-        st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately')
-    #st.subheader('Answer the questions, take a picture of your lab test results, and get your personal report immediately')
+        st.subheader('Instructions:  \n1. Fill in the form below  \n 2. Upload a picture of your lab test results  \n3. Click "Generate my report!" button')
 
     # User inputs
     age = st.number_input("Enter your age", min_value=0, max_value=140, step=1,value="min")
@@ -62,7 +62,7 @@ with tab1:
             
     image = load_image()
         
-    if st.button('Analyse my results'):
+    if st.button('Generate my report!'):
         # Save test attributes
         test_attributes["age"] = age
         test_attributes["sex"] = sex
@@ -91,49 +91,52 @@ with tab1:
                 st.text(response.usage)
                 status.update(label="Analysed results!", state="complete", expanded=False)
                 st.success(f"Extracted values in {extract_time} seconds.")  # Use status instead of toast/success
+            # Insert YT logic
+            print (test_results)
+            print (test_attributes)
+            #test_results test_attributes
+            full_output = ""            
+            dm = False
+            anaemia = False 
+            LDLBP = False 
+            BMI = False 
+            for key, value in test_results.items():
+                print (f"looking at {key} and {value}")
+                if value["test_found"]:
+                    if key == "hb":
+                        fbc_output = anaemia_analysis (test_results)
+                        full_output += f"**Full Blood Count**  \n{fbc_output}  \n\n" # streamlit needs 2 whitespace before newline char
+                    elif key == "ldl_cholesterol":
+                        chol_output = getLDLBPtarget (test_attributes, test_results)
+                        full_output += f"**Cholesterol and Blood Pressure**  \n{chol_output}  \n\n"
+                    elif key == "glucose" or key == "hba1c":
+                        if not dm:
+                            glucose_output = get_dm_advice(test_attributes, test_results)
+                            full_output += f"**Blood Sugar**  \n{glucose_output}  \n\n"
+                            dm = True 
+                    elif key == "systolic_bp":
+                        if not test_results["hdl_cholesterol"]["test_found"]:
+                            bp_output = "We need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.  \n\n"
+                            full_output += f"**Blood Pressure**  \n{bp_output}\n"
+                    elif key == "weight" or key == "height":
+                        if not BMI:
+                            bmi_output = bmi_advice(test_results)
+                            BMI = True 
+                            full_output += f"**Height/Weight (BMI)**  \n{bmi_output}  \n\n"
+            print(full_output)
+            if full_output == "": # if no supported lab results found
+                full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in the About page."
+                st.error(f"{full_output}",icon="🚨")
+            else:
+                st.subheader(':bookmark_tabs: Your Report')
+                st.markdown(full_output)
+            # print test results
+            st.subheader(':test_tube: Measurement values detected')
             for test_name, test_info in test_results.items():
                 if test_info["test_found"]:
                     st.markdown(f"**Test Name:** {test_name.replace('_', ' ').upper()}")
                     st.markdown(f"**Test Value:** {test_info['test_value']} {test_info['test_unit']}")
                     st.text("")
-            # Insert YT logic
-            print (test_results)
-            print (test_attributes)
-            #test_results test_attributes
-            full_output = ""
-            for key, value in test_results.items():
-                dm = False
-                anaemia = False 
-                LDLBP = False 
-                BMI = False 
-                print (f"looking at {key} and {value}")
-                if value["test_found"]:
-                    if key == "hb":
-                        fbc_output = anaemia_analysis (test_results)
-                        full_output += f"**FBC**  \n{fbc_output}  \n\n" # streamlit needs 2 whitespace before newline char
-                    elif key == "ldl_cholesterol":
-                        chol_output = getLDLBPtarget (test_attributes, test_results)
-                        full_output += f"**LDL/BP**  \n{chol_output}  \n\n"
-                    elif key == "glucose" or key == "hba1c":
-                        if not dm:
-                            glucose_output = get_dm_advice(test_attributes, test_results)
-                            full_output += f"**Glucose**  \n{glucose_output}  \n\n"
-                            dm = True 
-                    elif key == "systolic_bp":
-                        if not test_results["hdl_cholesterol"]["test_found"]:
-                            bp_output = "We need your cholesterol levels to interpret the blood pressure targets better. In general, aim for a blood pressure <140/90.  \n\n"
-                            full_output += f"**BP**  \n{bp_output}\n"
-                    elif key == "weight" or key == "height":
-                        if not BMI:
-                            bmi_output = bmi_advice(test_results)
-                            BMI = True 
-                        full_output += f"**BMI**  \n{bmi_output}  \n\n"
-            print(full_output)
-            if full_output == "": # if no supported lab results found
-                full_output = "No supported medical lab results detected in your image.  \nCheck if your image contains lab results listed in our About page."
-                st.error(f"{full_output}",icon="🚨")
-            else:
-                st.markdown(full_output)
                             
 
 with tab2:
@@ -141,7 +144,8 @@ with tab2:
     with col1:
         st.image("https://i.ibb.co/869GgfZ/stethoscope-logo-text.jpg", width=100)
     with col2:
-        st.markdown("**Lab Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times.")
+        st.text("")
+        st.markdown("**Lab Lokun** is an AI-assisted app that interprets and explains blood and lab test reports to provide personalised health advice and recommendations using Singapore ACG guidelines. **Lab Lokun** is co-created by doctors and non-doctors who have interpreted indecipherable lab results to their friends and family too many times. :joy:")
     st.subheader('Lab measurements included for analysis')
     st.markdown(measurements_list)
     st.write('Other lab tests will be added soon...stay tuned!')    
