@@ -14,10 +14,10 @@ from lipids_ranges import getLDLBPtarget
 from diabetes import get_dm_advice
 from anaemia import anaemia_analysis
 from bmi import bmi_advice
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-#load_dotenv()
-os.environ['API_KEY']='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'
+load_dotenv()
+#os.environ['API_KEY']='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'
 API_KEY = os.environ['API_KEY'] # API_KEY in streamlit secret
 
 client = OpenAI(api_key=API_KEY)

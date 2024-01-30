@@ -30,10 +30,12 @@ def anaemia_analysis (hbdict):
 	if hblevel < 7:
 		return ":large_orange_circle: Your haemoglobin level is dangerously low. Please visit a doctor immediately."
 	if hblevel < hbdict["hb"]["test_ref_min"]:
-		if not hbdict["mcv"]["test_found"] or not hbdict["rbc_count"]["test_found"]:
-			return ":large_orange_circle: You lkely have anaemia, but there is not enough information to determine the cause. Visit a doctor if you have any concerns of blood loss."
+		if not hbdict["mcv"]["test_found"]:
+			return ":large_orange_circle: You likely have anaemia, but there is not enough information to determine the cause. Visit a doctor if you have any concerns of blood loss."
 		mcv = hbdict["mcv"]["test_value"]
 		if mcv < hbdict["mcv"]["test_ref_min"]: #microcytic
+			if not hbdict["rbc_count"]["test_found"]:
+				return ":large_orange_circle: You likely have anaemia, but there is not enough information to determine the cause. Visit a doctor if you have any concerns of blood loss."
 			mentzer = mcv/ hbdict["rbc_count"]["test_value"]
 			if mentzer > 13:
 				output_phrase = ":large_orange_circle: You likely have anaemia, which could be due to iron deficiency. This can be caused by minor bleeding e.g. menstruation, or from the gastrointestinal tract. Visit your doctor for an assessment to rule out sources of bleeding. Consider taking iron supplements and foods rich in iron, such as green leafy vegetables, meat, especially red meat (beef, mutton, pork), seafood, and organs (kidney, liver)."

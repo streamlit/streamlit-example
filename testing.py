@@ -18,18 +18,18 @@ test_attributes = {
 }
 
 test_results = {
-    'ldl_cholesterol': {'test_found': True, 'test_value': 2.2, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
-    'hdl_cholesterol': {'test_found': True, 'test_value': 1, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
-    'total_cholesterol': {'test_found': True, 'test_value': 3.7, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
-    'mcv': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
-    'hb': {'test_found': False, 'test_value': False, 'test_unit': 'g/dL', 'test_ref_min': False, 'test_ref_max': False},
-    'rbc_count': {'test_found': False, 'test_value': False, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
+    'ldl_cholesterol': {'test_found': False, 'test_value': 2.2, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hdl_cholesterol': {'test_found': False, 'test_value': 1, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
+    'total_cholesterol': {'test_found': False, 'test_value': 3.7, 'test_unit': 'mmol/l', 'test_ref_min': False, 'test_ref_max': False}, 
+    'mcv': {'test_found': True, 'test_value': 100, 'test_unit': False, 'test_ref_min': 85, 'test_ref_max': 90}, 
+    'hb': {'test_found': True, 'test_value': 10, 'test_unit': 'g/dL', 'test_ref_min': 11.5, 'test_ref_max': 15.5},
+    'rbc_count': {'test_found': True, 'test_value': 4.2, 'test_unit': False, 'test_ref_min': False, 'test_ref_max': False}, 
     'glucose': {'test_found': False, 'test_value': False, 'test_unit': 'mmol/L', 'test_ref_min': False, 'test_ref_max': False}, 
-    'hba1c': {'test_found': True, 'test_value': 6.0, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
+    'hba1c': {'test_found': False, 'test_value': 6.0, 'test_unit': '%', 'test_ref_min': False, 'test_ref_max': False}, 
     'systolic_bp': {'test_found': False, 'test_value': False, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
     'diastolic_bp': {'test_found': False, 'test_value': False, 'test_unit': 'mmHg', 'test_ref_min': False, 'test_ref_max': False}, 
-    'height': {'test_found': True, 'test_value': 1.61, 'test_unit': 'm', 'test_ref_min': False, 'test_ref_max': False}, 
-    'weight': {'test_found': True, 'test_value': 58, 'test_unit': 'kg', 'test_ref_min': False, 'test_ref_max': False}
+    'height': {'test_found': False, 'test_value': 1.61, 'test_unit': 'm', 'test_ref_min': False, 'test_ref_max': False}, 
+    'weight': {'test_found': False, 'test_value': 58, 'test_unit': 'kg', 'test_ref_min': False, 'test_ref_max': False}
 }
 
 for key, value in test_results.items():
