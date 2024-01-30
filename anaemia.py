@@ -44,7 +44,8 @@ def anaemia_analysis (hbdict):
 		elif mcv > hbdict["mcv"]["test_ref_max"]: # macrocytic
 			output_phrase = ":large_orange_circle: You likely have anaemia, which may be caused by low folate (vitamin B9) or vitamin B12 levels. Other causes may include chronic alcohol intake, thyroid problems, and liver problems. Consider taking more foods high in folate, such as broccoli, spinach, and brown rice, and foods high in vitamin B12, such as meat, milk, cheese and eggs."
 		else: #normocytic 
-			output_phrase = ":large_orange_circle: You likely have anaemia, which may be associated with chronic illness such as kidney disease, or chronic inflammatory conditions."
+			output_phrase = ":large_orange_circle: You likely have anaemia, which may be caused by low folate (vitamin B9) or vitamin B12 levels. Other causes may include chronic alcohol intake, thyroid problems, and liver problems. Consider taking more foods high in folate, such as broccoli, spinach, and brown rice, and foods high in vitamin B12, such as meat, milk, cheese and eggs."
+			#output_phrase = ":large_orange_circle: You likely have anaemia, which may be associated with chronic illness such as kidney disease, or chronic inflammatory conditions."
 	else:
 		output_phrase = ":large_green_circle: You likely do not have anaemia."
 	return output_phrase
