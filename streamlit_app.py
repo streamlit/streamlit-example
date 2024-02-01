@@ -20,8 +20,8 @@ height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inch
 if height_unit == "Centimeters":
   cm_height = st.slider("Select Height (in centimeters):", min_value=100, max_value=250)
 else:
-  feet_height = st.selectbox(range(3, 8), placeholder="Feet")
-  inch_height = st.selectbox(range(0, 12), placeholder="Inches")
+  feet_height = st.selectbox("Select Feet:", range(3, 8), placeholder="Feet")
+  inch_height = st.selectbox("Select Inches", range(0, 12), placeholder="Inches")
 
 weight = st.slider("Select Weight (in centimeters):", min_value=100, max_value=250)
 if 'weight' not in st.session_state:
