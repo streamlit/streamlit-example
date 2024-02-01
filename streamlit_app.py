@@ -71,6 +71,22 @@ cap_model = LogisticRegression(max_iter=1000, C=0.0001, penalty="l2", solver="li
 cap_model.fit(X_train_PCA,y_train_over)
 
 
+import joblib
+joblib.dump(cap_model, "cap_model.sav")
+
+
+from prediction import predict
+def predict(data):
+    cap_model = joblib.load("cap_model.sav")
+
+    return cap_model.predict(data)
+
+data = [bmi, smoking, drinking, physicalhealth, mentalhealth, diffwalking,
+ sex, age, race, activity, genhealth, sleep, asthma]
+
+if button:
+    def predict(data):
+        st.success(f'The value of the house is ${result}')
 
 
 """
