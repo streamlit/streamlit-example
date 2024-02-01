@@ -15,14 +15,7 @@ sex = st.radio("Select Gender:", ("Male", "Female"))
 age = st.selectbox("Select Age Group:", ["Select One", "18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
                                         "55-59", "60-64", "65-69", "70-74", "75-79", "80 or older"])
 race = ("Select Race:", ["Select One", "White", "Hispanic", "Black", "Asian", "American Indian/Alaskan Native"])
-height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inches"])
-
-if height_unit == "Centimeters":
-  cm_height = st.number_input("Enter your Height (in centimeters):", min_value=100, max_value=250, step=10)
-else:
-  feet_height = st.selectbox("Select Feet:", range(3, 8))
-  inch_height = st.selectbox("Select Inches", range(0, 12))
-
+height = st.number_input("Enter your Height (in centimeters):", min_value=100, max_value=250, step=10)
 weight = st.number_input("Enter your Weight (in kilograms):", min_value=30.00, max_value=200.00, step=10.00)
 
 
@@ -38,6 +31,44 @@ physicalhealth = st.selectbox("During the past month, how many days did you have
 mentalhealth = st.selectbox("During the past month, how many days did you have mental health problem?:", range(0, 31))
 diffwalking = st.radio("Do you have serious difficulty walking or climbing stairs?:", ("Yes", "No"))
 asthma = st.radio("(Ever told) (you had) asthma?:", ("Yes", "No"))
+
+bmi = weight / height**2
+
+
+### Creating a Machine Learning Model ###
+from sklearn.feature_selection import RFE
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+over_sampled_df = pd.read_csv("./over_sampled_df_fe.csv")
+test_sampled_df = pd.read_csv("./test_sampled_df_fe.csv")
+
+scaler = StandardScaler()
+scaler.fit(X_train_over)
+X_scaled_train = scaler.transform(X_train_over)
+X_scaled_test = scaler.transform(X_test_sampled)
+   
+rfe_over = RFE(estimator=LogisticRegression(max_iter=1000, random_state=42), n_features_to_select=11)
+rfe_over.fit(X_scaled_train,y_train_over)
+    
+scaler = StandardScaler()
+scaler.fit(X_train_over.loc[:, rfe_over.support_])
+X_scaled_train = scaler.transform(X_train_over.loc[:, rfe_over.support_])
+X_scaled_test = scaler.transform(X_test_sampled.loc[:, rfe_over.support_])
+    
+my_PCA = PCA()
+my_PCA.fit(X_scaled_train)
+
+X_train_PCA = my_PCA.transform(X_scaled_train)
+X_test_PCA = my_PCA.transform(X_scaled_test)
+    
+cap_model = LogisticRegression(max_iter=1000, C=0.0001, penalty="l2", solver="liblinear", random_state=42)
+cap_model.fit(X_train_PCA,y_train_over)
+
+
+
 
 """
 
