@@ -12,6 +12,8 @@ import streamlit as st
 st.title("Personal Detail Question")
 username = st.text_input("Enter your name")
 sex = st.radio("Select Gender:", ("Male", "Female"))
+
+"""
 age = 
 race = 
 hight = 
@@ -30,7 +32,7 @@ asthma =
 
 
 
-"""
+
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
 If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
 forums](https://discuss.streamlit.io).
