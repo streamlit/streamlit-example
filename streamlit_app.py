@@ -1,4 +1,4 @@
-import altair as alt
+cimport altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -12,11 +12,18 @@ import streamlit as st
 st.title("Personal Detail Question")
 username = st.text_input("Enter your name")
 sex = st.radio("Select Gender:", ("Male", "Female"))
-age = st.selectbox("Select Age Group:", ["18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
+age = st.selectbox("Select Age Group:", ["Select One", "18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
                                         "55-59", "60-64", "65-69", "70-74", "75-79", "80 or older"])
-race = ("Select Race:", ["White", "Hispanic", "Black", "Asian", "American Indian/Alaskan Native"])
+race = ("Select Race:", ["Select One", "White", "Hispanic", "Black", "Asian", "American Indian/Alaskan Native"])
+height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inches"])
+
+if height_unit == "Centimeters":
+  cm_height = st.number_input("Enter Height in Centimeters:", 50, 250, 1)
+else:
+  feet_height = st.number_input("Enter Height in Centimeters:", 3, 7, 1)
+  inch_height = st.number_input("Enter Height in Centimeters:", 0, 11, 1)
+
 """
-hight = 
 weight = 
 
 sleep = 
