@@ -12,10 +12,10 @@ import streamlit as st
 st.title("Personal Detail Question")
 username = st.text_input("Enter your name")
 sex = st.radio("Select Gender:", ("Male", "Female"))
-
+age = st.selectbox("Select Age Group:", ["18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
+                                        "55-59", "60-64", "65-69", "70-74", "75-79", "80 or older"])
+race = ("Select Race:", ["White", "Hispanic", "Black", "Asian", "American Indian/Alaskan Native"])
 """
-age = 
-race = 
 hight = 
 weight = 
 
