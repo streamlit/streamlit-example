@@ -23,28 +23,25 @@ else:
   feet_height = st.selectbox("Enter Height in Centimeters:", range(3, 8))
   inch_height = st.selectbox("Enter Height in Centimeters:", range(0, 12))
 
-def main():
-    st.title("Weight Tab")
+st.title("Weight Tab")
 
     # Initialize weight
-    weight = 30.00
+weight = 30.00
 
     # Layout
-    col1, col2, col3 = st.columns([1, 3, 1])
+col1, col2, col3 = st.columns([1, 3, 1])
 
     # Button to decrease weight
-    if col1.button("-"):
-        weight = max(30.00, weight - 1.00)
+if col1.button("-"):
+    weight = max(30.00, weight - 1.00)
 
     # Display weight
-    col2.write(f"Weight: {weight:.2f} kg")
+col2.write(f"Weight: {weight:.2f} kg")
 
     # Button to increase weight
-    if col3.button("+"):
-        weight = min(150.00, weight + 1.00)
+if col3.button("+"):
+    weight = min(150.00, weight + 1.00)
 
-if __name__ == "__main__":
-    main()
 
 """
 sleep = 
