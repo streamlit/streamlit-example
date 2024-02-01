@@ -21,7 +21,7 @@ if height_unit == "Centimeters":
   cm_height = st.slider("Select Height (in centimeters):", min_value=100, max_value=250)
 else:
   feet_height = st.number_input("Enter Height in Centimeters:", range(3, 8))
-  inch_height = st.number_input("Enter Height in Centimeters:", tange(0, 12)
+  inch_height = st.number_input("Enter Height in Centimeters:", tange(0, 12))
 
 """
 weight = 
