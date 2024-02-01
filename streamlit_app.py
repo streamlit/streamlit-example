@@ -26,7 +26,7 @@ else:
 weight_unit = st.selectbox("Select Height Unit:", ["kg", "lb"])
 
 if weight_unit == "kg":
-  kg_weight = st.selectbox("Select Weight (in kilograms):", [f"{weight:.2f}" for weight in range(30, 151, 0.5)])
+  kg_weight = st.selectbox("Select Weight (in kilograms):", [f"{weight:.2f}" for weight in range(30, 151)])
 else:
   lb_weight = st.selectbox("Enter Height in Centimeters:", range(60, 301))
 """
