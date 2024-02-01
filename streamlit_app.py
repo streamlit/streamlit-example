@@ -3,6 +3,12 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from sklearn.feature_selection import RFE
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
 """
 # Heart Disease Risk Prediction
 
@@ -36,12 +42,6 @@ bmi = weight / height**2
 
 
 # Creating a Machine Learning Model 
-
-from sklearn.feature_selection import RFE
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
 
 over_sampled_df = pd.read_csv("./over_sampled_df_fe.csv")
 test_sampled_df = pd.read_csv("./test_sampled_df_fe.csv")
