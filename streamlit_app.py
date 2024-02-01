@@ -35,8 +35,8 @@ asthma = st.radio("(Ever told) (you had) asthma?:", ("Yes", "No"))
 bmi = weight / height**2
 
 
-### Creating a Machine Learning Model ###
-pip3 install scikit-learn
+# Creating a Machine Learning Model 
+pip install scikit-learn
 from sklearn.feature_selection import RFE
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
