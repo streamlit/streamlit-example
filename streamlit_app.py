@@ -9,7 +9,7 @@ import streamlit as st
 ## Fill out the Following Questions:
 """
 
-st.title("Personal Detail Question")
+st.subtitle("Personal Detail Question")
 username = st.text_input("Enter your name")
 sex = st.radio("Select Gender:", ("Male", "Female"))
 age = st.selectbox("Select Age Group:", ["Select One", "18-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
