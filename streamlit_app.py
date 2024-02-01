@@ -34,7 +34,7 @@ drinking = st.radio("Do you drink a lot (adult men having more than 14 drinks pe
 
 st.write("Health Status")
 genhealth = st.selectbox("Would you say that in general your health is:", ['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
-physicalhealth = st.number_input("During the past month, how many days did you have physical health problem, which includes physical illness and injury?:", min_value=0, max_value=30, step=1)
+physicalhealth = st.selectbox("During the past month, how many days did you have physical health problem, which includes physical illness and injury?:", range(0, 31))
 """
 mentalhealth =
 diffwalking = 
