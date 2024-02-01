@@ -36,7 +36,7 @@ bmi = weight / height**2
 
 
 ### Creating a Machine Learning Model ###
-from sklearn.feature_selection import RFE
+from scikit-learn.feature_selection import RFE
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
