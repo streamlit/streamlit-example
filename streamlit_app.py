@@ -30,25 +30,6 @@ if weight_unit == "kg":
 else:
   lb_weight = st.selectbox("Enter Height in Centimeters:", range(60, 301))
 
-if 'weight' not in st.session_state:
-    st.session_state.weight = 70.0
-
-# Create a column layout
-col1, col2 = st.columns(2)
-
-# Button to decrease weight
-if col1.button('-'):
-    st.session_state.weight = max(30.0, st.session_state.weight - 1.0)
-
-# Display the weight
-col1.write(f"Weight: {st.session_state.weight:.2f} kg")
-
-# Button to increase weight
-if col2.button('+'):
-    st.session_state.weight = min(150.0, st.session_state.weight + 1.0)
-
-# Display the adjusted weight
-col2.write(f"Adjusted Weight: {st.session_state.weight:.2f} kg")
 """
 sleep = 
 activity = 
