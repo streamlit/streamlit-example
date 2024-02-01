@@ -26,13 +26,13 @@ else:
 weight = st.number_input("Enter your Weight (in kilograms):", min_value=30.00, max_value=200.00, step=10.00)
 
 
-st.title("Daily Activity Question")
+st.write("Daily Activity Question")
 sleep = st.number_input("Enter Average Sleep Time:", min_value=0.0, max_value=24.0, step=1.0)
 activity = st.radio("During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?:", ("Yes", "No"))
 smoking = st.radio("Have you smoked at least 100 cigarettes in your entire life?:", ("Yes", "No"))
 drinking = st.radio("Do you drink a lot (adult men having more than 14 drinks per week or adult women having more than 7 drinks per week)?:", ("Yes", "No"))
 
-st.title("Health Status")
+st.write("Health Status")
 genhealth = st.selectbox("Would you say that in general your health is:", ['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
 """
 physicalhealth = 
