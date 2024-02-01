@@ -9,7 +9,26 @@ import streamlit as st
 ## Fill out the Following Questions:
 """
 
+st.title("Personal Detail Question")
 username = st.text_input("Enter your name")
+sex = st.radio("Select Gender:", ("Male", "Female"))
+age = 
+race = 
+hight = 
+weight = 
+
+sleep = 
+activity = 
+smoking = 
+drinking =
+
+genhealth = 
+physicalhealth =
+mentalhealth =
+diffwalking = 
+asthma = 
+
+
 
 """
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
