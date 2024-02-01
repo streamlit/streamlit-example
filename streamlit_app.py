@@ -20,21 +20,10 @@ height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inch
 if height_unit == "Centimeters":
   cm_height = st.slider("Select Height (in centimeters):", min_value=100, max_value=250)
 else:
-  feet_height = st.selectbox("Select Feet:", range(3, 8), placeholder="Feet")
-  inch_height = st.selectbox("Select Inches", range(0, 12), placeholder="Inches")
+  feet_height = st.selectbox("Select Feet:", range(3, 8))
+  inch_height = st.selectbox("Select Inches", range(0, 12))
 
-weight = st.slider("Select Weight (in centimeters):", min_value=100, max_value=250)
-if 'weight' not in st.session_state:
-    st.session_state.weight = 70.0
-
-# Create buttons for adjusting weight
-if st.button('-'):
-    st.session_state.weight = max(30.0, st.session_state.weight - 0.01)
-if st.button('+'):
-    st.session_state.weight = min(150.0, st.session_state.weight + 0.01)
-
-# Display the adjusted weight
-st.success(f"Adjusted Weight: {st.session_state.weight:.2f} kg")
+weight = st.number_input("Select Weight (in kg):", min_value=30, max_value=150)
 
 
 """
