@@ -35,12 +35,11 @@ drinking = st.radio("Do you drink a lot (adult men having more than 14 drinks pe
 st.write("Health Status")
 genhealth = st.selectbox("Would you say that in general your health is:", ['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
 physicalhealth = st.selectbox("During the past month, how many days did you have physical health problem, which includes physical illness and injury?:", range(0, 31))
+mentalhealth = st.selectbox("During the past month, how many days did you have mental health problem?:", range(0, 31))
+diffwalking = st.radio("Do you have serious difficulty walking or climbing stairs?:", ("Yes", "No"))
+asthma = st.radio("(Ever told) (you had) asthma?:", ("Yes", "No"))
+
 """
-mentalhealth =
-diffwalking = 
-asthma = 
-
-
 
 
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
