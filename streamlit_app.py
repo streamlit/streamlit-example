@@ -33,14 +33,22 @@ else:
 if 'weight' not in st.session_state:
     st.session_state.weight = 70.0
 
-# Create buttons for adjusting weight
-if st.button('-'):
+# Create a column layout
+col1, col2 = st.columns(2)
+
+# Button to decrease weight
+if col1.button('-'):
     st.session_state.weight = max(30.0, st.session_state.weight - 1.0)
-if st.button('+'):
+
+# Display the weight
+col1.write(f"Weight: {st.session_state.weight:.2f} kg")
+
+# Button to increase weight
+if col2.button('+'):
     st.session_state.weight = min(150.0, st.session_state.weight + 1.0)
 
 # Display the adjusted weight
-st.success(f"Adjusted Weight: {st.session_state.weight:.2f} kg")
+col2.write(f"Adjusted Weight: {st.session_state.weight:.2f} kg")
 """
 sleep = 
 activity = 
