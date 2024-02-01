@@ -23,7 +23,7 @@ else:
   feet_height = st.selectbox("Select Feet:", range(3, 8))
   inch_height = st.selectbox("Select Inches", range(0, 12))
 
-weight = st.number_input("Enter Weight (in kg):", min_value=30.00, max_value=150.00)
+weight = st.number_input("Enter Weight (in kg):", min_value=30.00, max_value=150.00, step=10)
 
 
 """
