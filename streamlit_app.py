@@ -18,7 +18,7 @@ race = ("Select Race:", ["Select One", "White", "Hispanic", "Black", "Asian", "A
 height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inches"])
 
 if height_unit == "Centimeters":
-  cm_height = st.number_input("Enter Height in Centimeters:", 50, 250, 1)
+  cm_height = st.slider("Select Height (in centimeters):", min_value=50, max_value=250)
 else:
   feet_height = st.number_input("Enter Height in Centimeters:", 3, 7, 1)
   inch_height = st.number_input("Enter Height in Centimeters:", 0, 11, 1)
