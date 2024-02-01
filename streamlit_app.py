@@ -18,22 +18,24 @@ race = ("Select Race:", ["Select One", "White", "Hispanic", "Black", "Asian", "A
 height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inches"])
 
 if height_unit == "Centimeters":
-  cm_height = st.number_input("Select Height (in centimeters):", min_value=100, max_value=250, step=10)
+  cm_height = st.number_input("Enter your Height (in centimeters):", min_value=100, max_value=250, step=10)
 else:
   feet_height = st.selectbox("Select Feet:", range(3, 8))
   inch_height = st.selectbox("Select Inches", range(0, 12))
 
-weight = st.number_input("Enter Weight (in kg):", min_value=30.00, max_value=150.00, step=10.00)
+weight = st.number_input("Enter your Weight (in kilograms):", min_value=30.00, max_value=200.00, step=10.00)
 
 
+st.title("Daily Activity Question")
+sleep = st.number_input("Enter Average Sleep Time:", min_value=0.0, max_value=24.0, step=1.0)
+activity = st.radio("During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?:", ("Yes", "No"))
+smoking = st.radio("Have you smoked at least 100 cigarettes in your entire life?:", ("Yes", "No"))
+drinking = st.radio("Do you drink a lot (adult men having more than 14 drinks per week or adult women having more than 7 drinks per week)?:", ("Yes", "No"))
+
+st.title("Health Status")
+genhealth = st.selectbox("Would you say that in general your health is:", ['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
 """
-sleep = 
-activity = 
-smoking = 
-drinking =
-
-genhealth = 
-physicalhealth =
+physicalhealth = 
 mentalhealth =
 diffwalking = 
 asthma = 
