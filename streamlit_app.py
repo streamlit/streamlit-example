@@ -20,27 +20,21 @@ height_unit = st.selectbox("Select Height Unit:", ["Centimeters", "Feet and Inch
 if height_unit == "Centimeters":
   cm_height = st.slider("Select Height (in centimeters):", min_value=100, max_value=250)
 else:
-  feet_height = st.selectbox("Enter Height in Centimeters:", "Select One", range(3, 8))
-  inch_height = st.selectbox("Enter Height in Centimeters:", range(0, 12))
+  feet_height = st.selectbox("", range(3, 8))
+  inch_height = st.selectbox("", range(0, 12))
 
-st.title("Weight Tab")
+weight = st.slider("Select Weight (in centimeters):", min_value=100, max_value=250)
+if 'weight' not in st.session_state:
+    st.session_state.weight = 70.0
 
-    # Initialize weight
-weight = 30.00
+# Create buttons for adjusting weight
+if st.button('-'):
+    st.session_state.weight = max(30.0, st.session_state.weight - 0.01)
+if st.button('+'):
+    st.session_state.weight = min(150.0, st.session_state.weight + 0.01)
 
-    # Layout
-col1, col2, col3 = st.columns([1, 3, 1])
-
-    # Button to decrease weight
-if col1.button("-"):
-    weight = max(30.00, weight - 1.00)
-
-    # Display weight
-col2.write(f"Weight: {weight:.2f} kg")
-
-    # Button to increase weight
-if col3.button("+"):
-    weight = min(150.00, weight + 1.00)
+# Display the adjusted weight
+st.success(f"Adjusted Weight: {st.session_state.weight:.2f} kg")
 
 
 """
