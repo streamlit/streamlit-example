@@ -63,7 +63,6 @@ X_scaled_test = scaler.transform(X_test_sampled)
    
 rfe_over = RFE(estimator=LogisticRegression(max_iter=1000, random_state=42), n_features_to_select=11)
 rfe_over.fit(X_scaled_train,y_train_over)
-
 import joblib
 joblib.dump(rfe_over, "cap_rfe.sav")
     
@@ -71,12 +70,18 @@ scaler = StandardScaler()
 scaler.fit(X_train_over.loc[:, rfe_over.support_])
 X_scaled_train = scaler.transform(X_train_over.loc[:, rfe_over.support_])
 X_scaled_test = scaler.transform(X_test_sampled.loc[:, rfe_over.support_])
-
 import joblib
 joblib.dump(scaler, "cap_scaler.sav")
+
+my_PCA = PCA()
+my_PCA.fit(X_scaled_train)
+X_train_PCA = my_PCA.transform(X_scaled_train)
+X_test_PCA = my_PCA.transform(X_scaled_test)
+import joblib
+joblib.dump(my_PCA, "cap_pca.sav")
     
-cap_model = DecisionTreeClassifier(max_depth=9, min_samples_leaf=23, random_state=42)
-cap_model.fit(X_scaled_train, y_train_over)
+cap_model = LogisticRegression(max_iter=1000, C=0.0001, penalty="l2", solver="liblinear", random_state=42)
+cap_model.fit(X_train_PCA,y_train_over)
 import joblib
 joblib.dump(cap_model, "cap_model.sav")
 
@@ -85,6 +90,7 @@ joblib.dump(cap_model, "cap_model.sav")
 def predict(df):
     scaler = joblib.load("cap_scaler.sav")
     rfe_over = joblib.load("cap_rfe.sav")
+    my_PCA = joblib.load("cap_pca.sav")
     cap_model = joblib.load("cap_model.sav")
 
     yes_no_columns = ["Smoking", "AlcoholDrinking", "DiffWalking", "PhysicalActivity", "Asthma"]
@@ -112,8 +118,10 @@ def predict(df):
 
     scaled_df = scaler.transform(cap_df.loc[:, rfe_over.support_])
 
-    cap_proba = cap_model.predict_proba(scaled_df)
-    cap_pred = cap_model.predict(scaled_df)
+    pca_df = my_PCA.transform(scaled_df)
+
+    cap_proba = cap_model.predict_proba(pca_df)
+    cap_pred = (cap_proba[:, 1] >= 0.52).astype(int)
 
     if cap_pred == 1:
         st.text(f"Based from the Machine Learning model, your risk of developing Cardiovascular Disease (CVD) is:\nHIGH\n{cap_proba[:, 1]}")
