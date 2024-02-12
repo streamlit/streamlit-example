@@ -2,7 +2,7 @@ import streamlit as st
 from transformers import pipeline
 
 # Load the text-to-speech pipeline
-tts_pipeline = pipeline("text-to-speech", model="your_chosen_model_name")
+tts_pipeline = pipeline("text-to-speech")
 
 # Text input field
 text_input = st.text_input("Enter text to be spoken:")
