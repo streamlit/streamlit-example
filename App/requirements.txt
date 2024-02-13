@@ -1,0 +1,4 @@
+altair
+pandas
+streamlit
+scikit-learn
