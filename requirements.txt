@@ -1,3 +1,9 @@
 altair
 pandas
 streamlit
+transformers
+torch
+GoogleBard
+langchain
+ProGPT
+edge-tts
