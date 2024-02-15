@@ -2,3 +2,6 @@ altair
 pandas
 streamlit
 scikit-learn
+prediction
+colour
+
