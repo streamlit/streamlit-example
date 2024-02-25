@@ -1,3 +1,5 @@
-altair
-pandas
+opencv_python
+paddleocr
+paddlepaddle
 streamlit
+openai
