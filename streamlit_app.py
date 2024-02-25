@@ -11,6 +11,7 @@ If you have any questions, checkout our [documentation](https://docs.streamlit.i
 forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
+TEST
 """
 
 num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
@@ -29,6 +30,8 @@ df = pd.DataFrame({
     "idx": indices,
     "rand": np.random.randn(num_points),
 })
+
+st.write("It's Alive!")
 
 st.altair_chart(alt.Chart(df, height=700, width=700)
     .mark_point(filled=True)
