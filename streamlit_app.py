@@ -5,9 +5,9 @@ import streamlit as st
 import eda_view as view1
 import prediction_view as view2
 
-st.sidebar.title('Selecciona una vista')
-options = ['Gestión de incidencias - Análisis exploratorio de datos', 'Nueva incidencia - predicciones y LLM']
-menu = st.sidebar.selectbox('Select a view', options)
+# st.sidebar.title('Selecciona una vista')
+options = ['Gestión de incidencias EDA', 'Nueva incidencia']
+menu = st.sidebar.selectbox('Selecciona una vista', options)
 
 if menu == options[0]:
     view1.run()
