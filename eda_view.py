@@ -11,50 +11,51 @@ from plotly.subplots import make_subplots
 
 
 def run(df):  
-    col = st.columns((4,4), gap='medium')
-
+    # LAYOUT DEL DASHBOARD
     # Primera fila con una sola columna
-    row1 = st.container()
-
+    row1,row12 = st.columns((2,1), gap='medium')
     # Segunda fila con dos columnas
     col1, col2 = st.columns(2)
-
     # Tercera fila con dos columnas
-    col3, col4 = st.columns(2)
-
-    # Cuarta fila con una sola columna
+    col3, col4, col5, col6 = st.columns(4)
+    # quarta fila con una sola columna
+    row21 = st.container()
+    # Quinta fila con una sola columna
     row2 = st.container()
-
-    # Ahora puedes usar row1, col1, col2, col3, col4, y row2 para agregar contenido a tu dashboard
-    # Por ejemplo:
-    row1.header("Este es el encabezado de la primera fila")
-    col1.write("Este es el contenido de la segunda fila, primera columna")
-    col2.write("Este es el contenido de la segunda fila, segunda columna")
-    col3.write("Este es el contenido de la tercera fila, primera columna")
-    col4.write("Este es el contenido de la tercera fila, segunda columna")
-    row2.header("Este es el encabezado de la cuarta fila")
-
-
-    st.title('Gestión de incidencias - Overview')
+  
+    # Añadimos contenido
+    row1.header('Gestión de incidencias - Overview')
 
     total_incidencias = df['task_id'].nunique()  # Mostrar el número total de incidencias
-    st.write(f'Número total de incidencias: {total_incidencias}')
+    row12.markdown(f'<div style="border:1px solid black; padding:10px;">Número total de incidencias: {total_incidencias}</div>', unsafe_allow_html=True)
 
     # Insertar graficos
-    variable = st.selectbox('Seleccione la variable para agrupar:', ['priority', 'has_breached', 'assignment_group', 'company', 'contact_type','impact'])
+    variable = col1.selectbox('Seleccione la variable para agrupar:', ['priority', 'has_breached', 'assignment_group', 'company', 'contact_type','impact'])
+    incidencias_timeline_fig = incidencias_timeline(df, variable) # grafico de barras, analisis temporal
+    tiempo_trabajado_fig = tiempo_trabajado(df, variable) # priority vs time worked
+    col1.plotly_chart(incidencias_timeline_fig)
+    col2.plotly_chart(tiempo_trabajado_fig)
 
-    incidencias_timeline(df, variable) # grafico de barras, analisis temporal
-    tiempo_trabajado(df, variable) # priority vs time worked
+    # Pie charts 
+    pie1 = pie_chart_menos_24h(df)
+    pie2 = pie_chart_mas_24h(df)
+    pie3 = pie_chart_reasigned(df)
+    pie4 = pie_chart_not_reasigned(df)
+
+    col3.plotly_chart(pie1)
+    col4.plotly_chart(pie2)
+    col5.plotly_chart(pie3)
+    col6.plotly_chart(pie4)
+
+
+    var_select = col4.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'priority'])
+    contact_type_fig = contact_type(df, var_select)
+    row21.plotly_chart(contact_type_fig)
     
-    # contact_type(df)
-    # pie_charts(df)
-    # tabla(df) # summary table
-    # pie_chart_menos_24h(df)
-    # pie_chart_mas_24h(df)
-    # pie_chart_reasigned(df)
-    # pie_chart_not_reasigned(df)
-    
-    
+    variable_select = row2.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'contact_type'])
+    table = tabla(df, variable_select)
+    row2.table(table)
+
     
 # FUNCIONES GRAFICOS ---------------------------------------------------------------------------------
 def incidencias_timeline(df, variable):
@@ -68,7 +69,7 @@ def incidencias_timeline(df, variable):
                  labels={'task_id':'Número de incidencias'}, height=400)
     incidencias_timeline_fig.update_layout(barmode='stack')
     incidencias_timeline_fig.update_xaxes(title_text='Mes y año de finalización')
-    st.plotly_chart(incidencias_timeline_fig)
+    #st.plotly_chart(incidencias_timeline_fig)
     return incidencias_timeline_fig
 
 def tiempo_trabajado(df, variable):
@@ -81,9 +82,7 @@ def tiempo_trabajado(df, variable):
     #st.plotly_chart(tiempo_trabajado_fig)   
     return tiempo_trabajado_fig 
 
-def tabla(df):
-    variable_select = st.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'contact_type'])
-   
+def tabla(df, variable_select):
     priority_counts = df.groupby([variable_select, 'priority']).size().reset_index(name='counts')
     total_counts = df.groupby(variable_select).size()
     priority_counts['percentage'] = priority_counts.apply(lambda row: (row['counts'] / total_counts[row[variable_select]]) * 100, axis=1)
@@ -126,10 +125,10 @@ def tabla(df):
 
     # apply styles
     grouped_table = grouped_table.style.applymap(color_cell_priority).set_properties(**{'text-align': 'center'}).set_table_styles([dict(selector='th', props=[('background', '#54B4CE'), ('color', 'white')])])
-    st.table(grouped_table)
+    #st.table(grouped_table)
+    return grouped_table
 
-def contact_type(df):
-    var_select = st.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'priority'])
+def contact_type(df, var_select):
     fig3 = px.bar(df, x=var_select, y='task_id', color='contact_type', labels={'task_id':'Número de incidencias'})
     fig3.update_layout(
         title= f'{var_select} vs tipo de contacto',
@@ -139,9 +138,10 @@ def contact_type(df):
     ax = plt.gca()  # get current axes
     ax.set_yticklabels([]) 
     fig3.update_layout(barmode='stack')
-    st.plotly_chart(fig3)
+    #st.plotly_chart(fig3)
+    return fig3
 
-def pie_charts(df):
+#def pie_charts(df):
     selection_variable = st.selectbox('Seleccione la variable para agrupar:', ['reassingment_count_bool','u_24_7'])
     contact_types = df['contact_type'].unique()
     
@@ -168,7 +168,8 @@ def pie_chart_menos_24h(df):
     pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias resueltas en menos de 24h - {porcentaje_less:.2f}%', 
                  labels={'contact_type':'Tipo de contacto'}, height=400)
 
-    st.plotly_chart(pie)
+    #st.plotly_chart(pie)
+    return pie
 
 def pie_chart_mas_24h(df):
     
@@ -183,7 +184,7 @@ def pie_chart_mas_24h(df):
     pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias resueltas en más de 24h - {porcentaje_more:.2f}%', 
                  labels={'contact_type':'Tipo de contacto'}, height=400)
 
-    st.plotly_chart(pie)
+    return pie
 
 def pie_chart_reasigned(df):
     
@@ -197,7 +198,7 @@ def pie_chart_reasigned(df):
     pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias reasignadas - {porcentaje_reasigned:.2f}%', 
                  labels={'contact_type':'Tipo de contacto'}, height=400)
 
-    st.plotly_chart(pie)
+    return pie
 
 def pie_chart_not_reasigned(df):
     # cambiar los 1 por 0 y los 0 por 1
@@ -211,7 +212,7 @@ def pie_chart_not_reasigned(df):
     pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias no reasignadas - {porcentaje_not_reasigned:.2f}%', 
                  labels={'contact_type':'Tipo de contacto'}, height=400)
 
-    st.plotly_chart(pie)
+    return pie
 
 
 
