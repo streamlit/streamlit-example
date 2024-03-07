@@ -5,67 +5,83 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import seaborn as sns
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 
 
-def run():  
+def run(df):  
+    col = st.columns((4,4), gap='medium')
 
-    set_page_layout('80%', 'center')
+    # Primera fila con una sola columna
+    row1 = st.container()
+
+    # Segunda fila con dos columnas
+    col1, col2 = st.columns(2)
+
+    # Tercera fila con dos columnas
+    col3, col4 = st.columns(2)
+
+    # Cuarta fila con una sola columna
+    row2 = st.container()
+
+    # Ahora puedes usar row1, col1, col2, col3, col4, y row2 para agregar contenido a tu dashboard
+    # Por ejemplo:
+    row1.header("Este es el encabezado de la primera fila")
+    col1.write("Este es el contenido de la segunda fila, primera columna")
+    col2.write("Este es el contenido de la segunda fila, segunda columna")
+    col3.write("Este es el contenido de la tercera fila, primera columna")
+    col4.write("Este es el contenido de la tercera fila, segunda columna")
+    row2.header("Este es el encabezado de la cuarta fila")
 
 
-    #df = pd.read_excel('/Users/carlotapersonal/Library/CloudStorage/OneDrive-UFV/CURSO_5/PFG/Code/proyecto-fin-de-grado-2024-2-carlotagomezr/data-analysis/eda/dataset_post_EDA.xlsx')
-    df = pd.read_excel('/Users/carlotro/Desktop/Escritorio/Personal-Carlota/UFV/PFG/APP-REPO/dataset_post_EDA.xlsx')
-    print(df.columns.tolist())
-    
-    # 1) TITULO -----------------------------------------------------------------------------------
-    st.title('Gestión de incidencias - EDA')
+    st.title('Gestión de incidencias - Overview')
 
     total_incidencias = df['task_id'].nunique()  # Mostrar el número total de incidencias
     st.write(f'Número total de incidencias: {total_incidencias}')
 
-
-    # 2) GRAFICO DE BARRAS, ANALISIS TEMPORAL ---------------------------------------------------------------------------------
-    df['end_time'] = pd.to_datetime(df['end_time'])  
-    df.set_index('end_time', inplace=True) 
+    # Insertar graficos
     variable = st.selectbox('Seleccione la variable para agrupar:', ['priority', 'has_breached', 'assignment_group', 'company', 'contact_type','impact'])
 
-    # Agrupar por la variable seleccionada y resample por mes
+    incidencias_timeline(df, variable) # grafico de barras, analisis temporal
+    tiempo_trabajado(df, variable) # priority vs time worked
+    
+    # contact_type(df)
+    # pie_charts(df)
+    # tabla(df) # summary table
+    # pie_chart_menos_24h(df)
+    # pie_chart_mas_24h(df)
+    # pie_chart_reasigned(df)
+    # pie_chart_not_reasigned(df)
+    
+    
+    
+# FUNCIONES GRAFICOS ---------------------------------------------------------------------------------
+def incidencias_timeline(df, variable):
+    df['end_time'] = pd.to_datetime(df['end_time'])  
+    df.set_index('end_time', inplace=True) 
+    
     grouped = df.groupby(variable).resample('M')['task_id'].nunique().reset_index()
 
     # Crear un gráfico de barras apilado con colores basados en la variable seleccionada
-    fig = px.bar(grouped, x='end_time', y='task_id', color=variable, title='Número de incidencias por mes', 
+    incidencias_timeline_fig = px.bar(grouped, x='end_time', y='task_id', color=variable, title='Número de incidencias por mes', 
                  labels={'task_id':'Número de incidencias'}, height=400)
-    fig.update_layout(barmode='stack')
-    fig.update_xaxes(title_text='Mes y año de finalización')
-    st.plotly_chart(fig)
+    incidencias_timeline_fig.update_layout(barmode='stack')
+    incidencias_timeline_fig.update_xaxes(title_text='Mes y año de finalización')
+    st.plotly_chart(incidencias_timeline_fig)
+    return incidencias_timeline_fig
 
-  
-
-
-    # 3) GRAFICO DE BARRAS CON PRIORITY VS TIME_WORKED ---------------------------------------------------------------------------
-    fig2 = px.bar(df, x='time_worked', y='priority', color=variable)
-    fig2.update_layout(
+def tiempo_trabajado(df, variable):
+    tiempo_trabajado_fig = px.bar(df, y='time_worked', x='priority', color=variable)
+    tiempo_trabajado_fig.update_layout(
         title='Relación entre la prioridad y el tiempo trabajado',
-        xaxis_title='Tiempo trabajado',
-        yaxis_title='Prioridad'
+        yaxis_title='Tiempo trabajado',
+        xaxis_title='Prioridad'
     )
-    st.plotly_chart(fig2)
-    
-    # 4) TABLA FORMAS DE CONTACTO -------------------------------------------------------------------------------------------
-    var_select = st.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'priority'])
-    fig3 = px.bar(df, x=var_select, y='task_id', color='contact_type', labels={'task_id':'Número de incidencias'})
-    fig3.update_layout(
-        title= f'{var_select} vs tipo de contacto',
-        xaxis_title=var_select,
-        yaxis_title='Número de incidencias'
-    )
-    ax = plt.gca()  # get current axes
-    ax.set_yticklabels([]) 
-    fig3.update_layout(barmode='stack')
-    st.plotly_chart(fig3)
+    #st.plotly_chart(tiempo_trabajado_fig)   
+    return tiempo_trabajado_fig 
 
-
-    # 5) TABLA SUMMARY BY GROUP, COMPANY AND USER TYPE ---------------------------------------------------------------------------
+def tabla(df):
     variable_select = st.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'contact_type'])
    
     priority_counts = df.groupby([variable_select, 'priority']).size().reset_index(name='counts')
@@ -112,24 +128,94 @@ def run():
     grouped_table = grouped_table.style.applymap(color_cell_priority).set_properties(**{'text-align': 'center'}).set_table_styles([dict(selector='th', props=[('background', '#54B4CE'), ('color', 'white')])])
     st.table(grouped_table)
 
+def contact_type(df):
+    var_select = st.selectbox('Seleccione la variable para agrupar:', ['assignment_group', 'company', 'priority'])
+    fig3 = px.bar(df, x=var_select, y='task_id', color='contact_type', labels={'task_id':'Número de incidencias'})
+    fig3.update_layout(
+        title= f'{var_select} vs tipo de contacto',
+        xaxis_title=var_select,
+        yaxis_title='Número de incidencias'
+    )
+    ax = plt.gca()  # get current axes
+    ax.set_yticklabels([]) 
+    fig3.update_layout(barmode='stack')
+    st.plotly_chart(fig3)
 
+def pie_charts(df):
+    selection_variable = st.selectbox('Seleccione la variable para agrupar:', ['reassingment_count_bool','u_24_7'])
+    contact_types = df['contact_type'].unique()
+    
+    fig6 = make_subplots(rows=1, cols=len(contact_types), subplot_titles=contact_types, specs=[[{'type':'domain'}]*len(contact_types)])
+
+    for i, contact_type in enumerate(contact_types):
+        data = df[df['contact_type'] == contact_type][selection_variable].value_counts()
+        fig6.add_trace(go.Pie(labels=data.index, values=data, name=contact_type), 1, i+1)
+
+    fig6.update_layout(height=600, width=900, title_text=f'Tipo de contacto vs {selection_variable}',
+                       legend_title_text=f'{selection_variable}', title_x=0.5, title_y=0.95)
+    st.plotly_chart(fig6)
+
+def pie_chart_menos_24h(df):
+    
+    df['less_24h'] = df['u_24_7'].apply(lambda x: 1 if x == True else 0) # 1 si ha sido resuelta en menos de 24h
+
+    # guardar en una variable el % de incidencias que han sido resueltas en menos de 24h
+    porcentaje_less = df['less_24h'].sum() / df['less_24h'].count() * 100
+    
+    df_filtered = df[df['less_24h'] == 1] # solo aquellas incidencias que han sido resueltas en menos de 24h 
+
+    # un único pie chart coloreado por tipo de contacto, indicando el % de incidencias que han sido resueltas en menos de 24h
+    pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias resueltas en menos de 24h - {porcentaje_less:.2f}%', 
+                 labels={'contact_type':'Tipo de contacto'}, height=400)
+
+    st.plotly_chart(pie)
+
+def pie_chart_mas_24h(df):
+    
+    df['more_24h'] = df['u_24_7'].apply(lambda x: 1 if x == False else 0) # 1 si ha sido resuelta en menos de 24h
+
+    # guardar en una variable el % de incidencias que han sido resueltas en menos de 24h
+    porcentaje_more = df['more_24h'].sum() / df['less_24h'].count() * 100
+    
+    df_filtered = df[df['more_24h'] == 1] # solo aquellas incidencias que han sido resueltas en menos de 24h 
+
+    # un único pie chart coloreado por tipo de contacto, indicando el % de incidencias que han sido resueltas en menos de 24h
+    pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias resueltas en más de 24h - {porcentaje_more:.2f}%', 
+                 labels={'contact_type':'Tipo de contacto'}, height=400)
+
+    st.plotly_chart(pie)
+
+def pie_chart_reasigned(df):
     
     
+    # guardar en una variable el % de incidencias que han sido resueltas en menos de 24h
+    porcentaje_reasigned = df['reassingment_count_bool'].sum() / df['reassingment_count_bool'].count() * 100
     
-    # 6) GRAFICO RELACION ---------------------------------------------------------------------------------
-    # quiero hacer un grafico --> Reassignment Count, 24_7, and Contact Type'
-    # plt.figure(figsize=(10, 6))
-    # sns.scatterplot(x='reassignment_count', y='u_24_7', hue='contact_type', data=df)
-    # plt.title('Relationship between Reassignment Count, Resolution Time, and Contact Type')
-    # plt.show()
+    df_filtered = df[df['reassingment_count_bool'] == 1] # solo aquellas incidencias que han sido resueltas en menos de 24h 
 
+    # un único pie chart coloreado por tipo de contacto, indicando el % de incidencias que han sido resueltas en menos de 24h
+    pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias reasignadas - {porcentaje_reasigned:.2f}%', 
+                 labels={'contact_type':'Tipo de contacto'}, height=400)
 
+    st.plotly_chart(pie)
 
-   
-  
-
+def pie_chart_not_reasigned(df):
+    # cambiar los 1 por 0 y los 0 por 1
+    df['reassingment_count_bool'] = df['reassingment_count_bool'].apply(lambda x: 0 if x == 1 else 1)
+    # guardar en una variable el % de incidencias que han sido resueltas en menos de 24h
+    porcentaje_not_reasigned = df['reassingment_count_bool'].sum() / df['reassingment_count_bool'].count() * 100
     
-# FUNCIONES ---------------------------------------------------------------------------------
+    df_filtered = df[df['reassingment_count_bool'] == 1] # solo aquellas incidencias que han sido resueltas en menos de 24h 
+
+    # un único pie chart coloreado por tipo de contacto, indicando el % de incidencias que han sido resueltas en menos de 24h
+    pie = px.pie(df_filtered, names='contact_type', title=f'Incidencias no reasignadas - {porcentaje_not_reasigned:.2f}%', 
+                 labels={'contact_type':'Tipo de contacto'}, height=400)
+
+    st.plotly_chart(pie)
+
+
+
+# FUNCIONES AUXILIARES ---------------------------------------------------------------------------------
 
 def add_warning_icon(val):
     if isinstance(val, str) and val.endswith('%'):

@@ -7,29 +7,26 @@ import prediction_view as view2
 import streamlit_option_menu
 from streamlit_option_menu import option_menu
 
-# # st.sidebar.title('Selecciona una vista')
-# options = ['Gestión de incidencias EDA', 'Nueva incidencia']
-# menu = st.sidebar.selectbox('Selecciona una vista', options)
-
-# if menu == options[0]:
-#     view1.run()
-# elif menu == options[1]:
-#     view2.run()
-
-
+st.set_page_config(layout="wide",
+                   initial_sidebar_state="expanded")
+alt.themes.enable("dark")
 
 with st.sidebar:
+    st.title("Gestión de incidencias")
     selected = option_menu(
     menu_title = "Menu",
-    options = ['Gestión de incidencias EDA', 'Nueva incidencia'],
+    options = ['Overview', 'Nueva incidencia'],
     icons = ["house","gear"],
     menu_icon = "cast",
     default_index = 0,
-    #orientation = "horizontal",
 )
     
+#df = pd.read_excel('/Users/carlotapersonal/Library/CloudStorage/OneDrive-UFV/CURSO_5/PFG/Code/proyecto-fin-de-grado-2024-2-carlotagomezr/data-analysis/eda/dataset_post_EDA.xlsx')
+df = pd.read_excel('/Users/carlotro/Desktop/Escritorio/Personal-Carlota/UFV/PFG/APP-REPO/dataset_post_EDA.xlsx')
+df['reassingment_count_bool'] = df['reassignment_count'].apply(lambda x: 1 if x > 0 else 0) # indicar si ha habido reasignacion o no
+ 
 
-if selected == 'Gestión de incidencias EDA':
-    view1.run()
+if selected == 'Overview':
+    view1.run(df)
 elif selected == 'Nueva incidencia':
-    view2.run() 
+    view2.run(df) 
