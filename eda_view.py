@@ -76,6 +76,9 @@ def run():
 
     grouped_table.set_index(variable_select, inplace=True)
     grouped_table['% de incumplimiento SLA'] = grouped_table['% de incumplimiento SLA'].apply(add_warning_icon)
+
+    # if  'Critical', 'High', 'Moderate', 'Low','Planning' == nana -> 0%
+    grouped_table = grouped_table.fillna('0%')
    
     
     grouped_table = grouped_table.style.set_properties(**{'text-align': 'center'}).set_table_styles([dict(selector='th',
