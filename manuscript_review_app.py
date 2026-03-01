@@ -2049,6 +2049,213 @@ def render_disagreement_heatmap():
     st.altair_chart(chart, use_container_width=True)
 
 
+def generate_review_report_text() -> str:
+    """生成完整的审稿报告文本 (可下载)"""
+    ms_state = st.session_state.get('ms_state')
+    review_history = st.session_state.get('review_history', [])
+    revision_history = st.session_state.get('revision_history', [])
+    final_decision = st.session_state.get('final_decision', {})
+
+    lines = []
+    lines.append("=" * 60)
+    lines.append("          分布式审稿协调系统 - 完整审稿报告")
+    lines.append("   Distributed Storage Coordination Agent Review Report")
+    lines.append("=" * 60)
+    lines.append("")
+
+    if ms_state:
+        lines.append(f"稿件编号: {ms_state.manuscript_id}")
+        lines.append(f"审稿轮数: {ms_state.current_round}")
+        lines.append(f"稿件版本: v{ms_state.current_version}")
+        lines.append(f"最终状态: {ms_state.status}")
+        if ms_state.versions:
+            v1 = ms_state.versions[0]
+            lines.append(f"论文标题: {v1.get('title', '未知')}")
+            lines.append(f"摘要: {v1.get('abstract', '')}")
+        lines.append("")
+
+    # 最终决定
+    if final_decision:
+        lines.append("-" * 40)
+        lines.append("【最终决定】")
+        lines.append(f"  决定: {final_decision.get('decision', '未知')}")
+        lines.append(f"  原因: {final_decision.get('reason', '')}")
+        lines.append(f"  平均分: {final_decision.get('avg_score', 0):.1f}/10")
+        lines.append("")
+
+    # 各轮审稿
+    for i, rh in enumerate(review_history, 1):
+        lines.append("=" * 40)
+        lines.append(f"第 {i} 轮审稿")
+        lines.append("=" * 40)
+
+        synthesis = rh.get('synthesis', {})
+        lines.append(f"EIC建议: {synthesis.get('eic_recommendation', '?')}")
+        lines.append(f"综合评分: {synthesis.get('overall_avg', 0):.1f}/10")
+        lines.append(f"共识度: {synthesis.get('consensus_level', 1.0):.0%}")
+        lines.append(f"关键问题: {synthesis.get('critical_count', 0)} | "
+                     f"重要问题: {synthesis.get('major_count', 0)} | "
+                     f"小问题: {synthesis.get('minor_count', 0)}")
+        lines.append("")
+
+        for report in rh.get('reports', []):
+            lines.append(f"  --- {report.get('reviewer_name', '?')} ---")
+            lines.append(f"  总评分: {report.get('overall_score', 0):.1f}/10")
+            lines.append(f"  建议: {report.get('decision', '?')}")
+            lines.append(f"  信心: {report.get('confidence', 0):.0%}")
+
+            scores = report.get('scores', {})
+            if scores:
+                lines.append("  维度评分:")
+                for dim, score in scores.items():
+                    dim_name = REVIEW_DIMENSIONS.get(dim, {}).get('name', dim)
+                    lines.append(f"    {dim_name}: {score:.1f}/10")
+
+            comments = report.get('comments', [])
+            if comments:
+                lines.append("  审稿意见:")
+                for c in comments:
+                    sev = c.get('severity', '')
+                    cat = REVIEW_DIMENSIONS.get(c.get('category', ''), {}).get('name', c.get('category', ''))
+                    resolution = c.get('resolution', '')
+                    res_tag = f" [{resolution}]" if resolution and resolution != 'pending' else ""
+                    lines.append(f"    [{sev.upper()}][{cat}] {c.get('comment', '')}{res_tag}")
+            lines.append(f"  总结: {report.get('summary', '')}")
+            lines.append("")
+
+        # EIC指导意见
+        guidance = synthesis.get('guidance', '')
+        if guidance:
+            lines.append("  EIC指导意见:")
+            for gl in guidance.split('\n'):
+                lines.append(f"    {gl}")
+            lines.append("")
+
+    # 修改历史
+    if revision_history:
+        lines.append("=" * 40)
+        lines.append("修改历史")
+        lines.append("=" * 40)
+
+        for i, rev in enumerate(revision_history, 1):
+            lines.append(f"\n第 {i} 次修改 (版本 v{rev.get('version_number', '?')})")
+            response = rev.get('response', {})
+            lines.append(f"策略: {response.get('strategy_summary', '')}")
+            lines.append(f"总意见数: {response.get('total_issues', 0)} | "
+                         f"已解决: {response.get('addressed_count', 0)}")
+
+            for j, resp in enumerate(response.get('responses', []), 1):
+                conflict_tag = " [冲突]" if resp.get('is_conflict') else ""
+                lines.append(f"  问题{j} [{resp.get('severity', '').upper()}]"
+                             f"[{resp.get('category', '')}]{conflict_tag}")
+                lines.append(f"    审稿意见: {resp.get('original_comment', '')}")
+                lines.append(f"    作者回复: {resp.get('response', '')}")
+                lines.append(f"    解决状态: {resp.get('resolution', '')}")
+            lines.append("")
+
+    # 意见追踪摘要
+    summary = CommentTracker.get_resolution_summary(review_history)
+    if summary['total'] > 0:
+        lines.append("=" * 40)
+        lines.append("意见解决状态摘要")
+        lines.append("=" * 40)
+        lines.append(f"总意见数: {summary['total']}")
+        lines.append(f"已解决: {summary['addressed']}")
+        lines.append(f"部分解决: {summary['partially_addressed']}")
+        lines.append(f"未解决: {summary['not_addressed']}")
+        lines.append(f"待定: {summary['pending']}")
+        lines.append(f"解决率: {summary['addressed'] / summary['total']:.0%}")
+
+    lines.append("\n" + "=" * 60)
+    lines.append("报告生成时间: " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    lines.append("=" * 60)
+
+    return "\n".join(lines)
+
+
+def generate_export_json() -> str:
+    """生成JSON格式的完整审稿数据 (可下载)"""
+    ms_state = st.session_state.get('ms_state')
+    export = {
+        'manuscript': {
+            'id': ms_state.manuscript_id if ms_state else '',
+            'round': ms_state.current_round if ms_state else 0,
+            'version': ms_state.current_version if ms_state else 0,
+            'status': ms_state.status if ms_state else '',
+            'versions': ms_state.versions if ms_state else [],
+        },
+        'review_history': st.session_state.get('review_history', []),
+        'revision_history': st.session_state.get('revision_history', []),
+        'final_decision': st.session_state.get('final_decision', {}),
+        'messages': st.session_state.get('store_messages', []),
+        'export_time': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    return json.dumps(export, ensure_ascii=False, indent=2, default=str)
+
+
+def render_download_panel():
+    """渲染下载面板"""
+    st.markdown("### 📥 文档下载")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        report_text = generate_review_report_text()
+        ms_state = st.session_state.get('ms_state')
+        filename = f"review_report_{ms_state.manuscript_id if ms_state else 'draft'}.txt"
+        st.download_button(
+            label="📄 下载审稿报告 (TXT)",
+            data=report_text,
+            file_name=filename,
+            mime="text/plain",
+            use_container_width=True
+        )
+
+    with col2:
+        json_data = generate_export_json()
+        json_filename = f"review_data_{ms_state.manuscript_id if ms_state else 'draft'}.json"
+        st.download_button(
+            label="📊 下载完整数据 (JSON)",
+            data=json_data,
+            file_name=json_filename,
+            mime="application/json",
+            use_container_width=True
+        )
+
+    with col3:
+        # CSV格式的评分汇总
+        review_history = st.session_state.get('review_history', [])
+        csv_rows = []
+        for rh in review_history:
+            round_num = rh.get('round', 1)
+            for report in rh.get('reports', []):
+                row = {
+                    '轮次': round_num,
+                    '审稿人': report.get('reviewer_name', '?'),
+                    '总评分': report.get('overall_score', 0),
+                    '建议': report.get('decision', ''),
+                    '信心': report.get('confidence', 0),
+                }
+                for dim, score in report.get('scores', {}).items():
+                    dim_name = REVIEW_DIMENSIONS.get(dim, {}).get('name', dim)
+                    row[dim_name] = score
+                csv_rows.append(row)
+
+        if csv_rows:
+            csv_df = pd.DataFrame(csv_rows)
+            csv_data = csv_df.to_csv(index=False, encoding='utf-8-sig')
+            csv_filename = f"review_scores_{ms_state.manuscript_id if ms_state else 'draft'}.csv"
+            st.download_button(
+                label="📈 下载评分数据 (CSV)",
+                data=csv_data,
+                file_name=csv_filename,
+                mime="text/csv",
+                use_container_width=True
+            )
+        else:
+            st.button("📈 评分数据 (暂无)", disabled=True, use_container_width=True)
+
+
 def render_message_flow():
     """渲染消息流"""
     store = st.session_state.get('store_messages', [])
@@ -2367,6 +2574,10 @@ def main():
         with tab_convergence:
             render_convergence_chart()
             render_score_trend()
+
+        # 下载面板
+        st.divider()
+        render_download_panel()
 
     # ---- 底部面板 ----
     st.divider()
