@@ -37,6 +37,13 @@ class ReviewDecision(str, Enum):
     PENDING = "pending"
 
 
+class CommentResolution(str, Enum):
+    PENDING = "pending"
+    ADDRESSED = "addressed"
+    PARTIALLY_ADDRESSED = "partially_addressed"
+    NOT_ADDRESSED = "not_addressed"
+
+
 class AgentRole(str, Enum):
     EIC = "eic"
     REVIEWER = "reviewer"
@@ -71,13 +78,19 @@ class AgentMessage:
 
 @dataclass
 class ReviewComment:
-    """单条审稿意见"""
+    """单条审稿意见 (with resolution tracking)"""
+    id: str = field(default_factory=lambda: str(uuid.uuid4())[:8])
     reviewer_id: str = ""
     category: str = ""  # methodology, writing, novelty, data, structure
     severity: str = ""  # critical, major, minor, suggestion
     comment: str = ""
     addressed: bool = False
+    resolution: str = CommentResolution.PENDING.value
     response: str = ""
+    author_response: str = ""
+    verification_note: str = ""
+    round_created: int = 1
+    round_resolved: int = 0
 
 
 @dataclass
@@ -120,6 +133,105 @@ class ManuscriptState:
     eic_decisions: list = field(default_factory=list)
     message_log: list = field(default_factory=list)
     assigned_reviewers: list = field(default_factory=list)
+    comment_resolutions: dict = field(default_factory=dict)  # {comment_id: resolution_status}
+
+
+# ============================================================
+# 1.5 工具类 (Utility Classes)
+# ============================================================
+
+class CommentTracker:
+    """跨轮次审稿意见生命周期追踪"""
+
+    @staticmethod
+    def get_all_comments(review_history: list) -> list:
+        """收集所有轮次中的唯一审稿意见"""
+        all_comments = []
+        seen_texts = set()
+        for rh in review_history:
+            for report in rh.get('reports', []):
+                for c in report.get('comments', []):
+                    comment_key = (c.get('reviewer_id', ''), c.get('comment', ''))
+                    if comment_key not in seen_texts:
+                        seen_texts.add(comment_key)
+                        all_comments.append(c)
+        return all_comments
+
+    @staticmethod
+    def get_resolution_summary(review_history: list) -> dict:
+        """获取意见解决状态摘要"""
+        comments = CommentTracker.get_all_comments(review_history)
+        summary = {
+            'total': len(comments),
+            'addressed': 0,
+            'partially_addressed': 0,
+            'not_addressed': 0,
+            'pending': 0
+        }
+        for c in comments:
+            status = c.get('resolution', CommentResolution.PENDING.value)
+            if status == CommentResolution.ADDRESSED.value:
+                summary['addressed'] += 1
+            elif status == CommentResolution.PARTIALLY_ADDRESSED.value:
+                summary['partially_addressed'] += 1
+            elif status == CommentResolution.NOT_ADDRESSED.value:
+                summary['not_addressed'] += 1
+            else:
+                summary['pending'] += 1
+        return summary
+
+
+class VersionDiffer:
+    """稿件版本对比工具"""
+
+    @staticmethod
+    def diff_versions(v1: dict, v2: dict) -> dict:
+        """对比两个版本的章节差异"""
+        sections_v1 = v1.get('content_sections', {})
+        sections_v2 = v2.get('content_sections', {})
+        all_sections = set(list(sections_v1.keys()) + list(sections_v2.keys()))
+        diffs = {}
+
+        for sec in sorted(all_sections):
+            old = sections_v1.get(sec, '')
+            new = sections_v2.get(sec, '')
+            if sec not in sections_v1:
+                diffs[sec] = {'status': 'added', 'old': '', 'new': new}
+            elif sec not in sections_v2:
+                diffs[sec] = {'status': 'removed', 'old': old, 'new': ''}
+            elif old != new:
+                diffs[sec] = {'status': 'modified', 'old': old, 'new': new}
+            else:
+                diffs[sec] = {'status': 'unchanged', 'old': old, 'new': new}
+
+        return {
+            'v1_version': v1.get('version', '?'),
+            'v2_version': v2.get('version', '?'),
+            'v1_hash': v1.get('content_hash', ''),
+            'v2_hash': v2.get('content_hash', ''),
+            'section_diffs': diffs,
+            'modified_sections': [s for s, d in diffs.items() if d['status'] != 'unchanged'],
+            'total_sections': len(all_sections)
+        }
+
+    @staticmethod
+    def get_version_timeline(manuscript_id: str, store) -> list:
+        """获取版本时间线"""
+        versions = store.get_manuscript_versions(manuscript_id)
+        timeline = []
+        for i, v in enumerate(versions):
+            entry = {
+                'version': v.get('version', i + 1),
+                'timestamp': v.get('timestamp', ''),
+                'hash': v.get('content_hash', ''),
+                'revision_notes': v.get('revision_notes', ''),
+                'sections_modified': []
+            }
+            if i > 0:
+                diff = VersionDiffer.diff_versions(versions[i - 1], v)
+                entry['sections_modified'] = diff['modified_sections']
+            timeline.append(entry)
+        return timeline
 
 
 # ============================================================
@@ -474,6 +586,7 @@ class EICAgent:
         EIC的核心协调功能：
         - 识别审稿人共识意见
         - 标注分歧点
+        - 专家加权评分
         - 形成优先级排序的修改指导
         """
         reviews = self.store.get_reviews(manuscript.manuscript_id, manuscript.current_round)
@@ -482,15 +595,10 @@ class EICAgent:
 
         # 收集所有评论
         all_comments = []
-        score_summary = {}
         decisions = []
 
         for review in reviews:
             decisions.append(review.get('decision', 'pending'))
-            for dim, score in review.get('scores', {}).items():
-                if dim not in score_summary:
-                    score_summary[dim] = []
-                score_summary[dim].append(score)
             for comment in review.get('comments', []):
                 all_comments.append(comment)
 
@@ -499,26 +607,45 @@ class EICAgent:
         major_issues = [c for c in all_comments if c.get('severity') == 'major']
         minor_issues = [c for c in all_comments if c.get('severity') == 'minor']
 
-        # 计算维度平均分
-        avg_scores = {dim: sum(s) / len(s) for dim, s in score_summary.items() if s}
+        # 共识分析 (专家加权 + 方差检测)
+        consensus = self._compute_consensus(reviews)
 
-        # EIC决策逻辑
-        overall_avg = sum(avg_scores.values()) / len(avg_scores) if avg_scores else 0
+        avg_scores = consensus['weighted_avg']
+        overall_avg = sum(
+            avg_scores.get(d, 0) * REVIEW_DIMENSIONS[d]['weight']
+            for d in avg_scores
+        ) if avg_scores else 0
+
+        # 轨迹分析
+        trajectory = self._analyze_trajectory()
+
+        # EIC决策逻辑 (考虑共识度和分歧)
         has_critical = len(critical_issues) > 0
+        has_major_disagreement = len(consensus['disagreement_dims']) > 0
 
         if overall_avg >= 8.0 and not has_critical:
             eic_recommendation = ReviewDecision.ACCEPT.value
         elif overall_avg >= 6.0 and not has_critical:
-            eic_recommendation = ReviewDecision.MINOR_REVISION.value
+            if has_major_disagreement and overall_avg < 7.0:
+                eic_recommendation = ReviewDecision.MAJOR_REVISION.value
+            else:
+                eic_recommendation = ReviewDecision.MINOR_REVISION.value
         elif overall_avg >= 4.0 or has_critical:
             eic_recommendation = ReviewDecision.MAJOR_REVISION.value
         else:
+            eic_recommendation = ReviewDecision.REJECT.value
+
+        # 趋势修正：如果质量持续下降且偏低，倾向拒稿
+        if (trajectory.get('trend') == 'declining' and
+                eic_recommendation == ReviewDecision.MAJOR_REVISION.value and
+                overall_avg < 5.0):
             eic_recommendation = ReviewDecision.REJECT.value
 
         synthesis = {
             "round": manuscript.current_round,
             "reviewer_count": len(reviews),
             "avg_scores": avg_scores,
+            "simple_avg_scores": consensus['simple_avg'],
             "overall_avg": round(overall_avg, 2),
             "critical_count": len(critical_issues),
             "major_count": len(major_issues),
@@ -528,7 +655,15 @@ class EICAgent:
             "minor_issues": minor_issues,
             "reviewer_decisions": decisions,
             "eic_recommendation": eic_recommendation,
-            "guidance": self._generate_guidance(eic_recommendation, critical_issues, major_issues, avg_scores)
+            "consensus_level": consensus['consensus_level'],
+            "disagreement_dims": consensus['disagreement_dims'],
+            "outlier_reviewers": consensus['outlier_reviewers'],
+            "score_variance": consensus['variance'],
+            "trajectory": trajectory,
+            "guidance": self._generate_guidance(
+                eic_recommendation, critical_issues, major_issues,
+                avg_scores, manuscript.current_round, consensus, trajectory
+            )
         }
 
         # 发送综合反馈
@@ -546,10 +681,117 @@ class EICAgent:
 
         return synthesis
 
-    def _generate_guidance(self, recommendation: str, critical: list, major: list, scores: dict) -> str:
-        """生成EIC指导意见"""
+    def _compute_consensus(self, reviews: list) -> dict:
+        """
+        计算专家加权共识评分
+
+        - 专长维度权重 1.5x
+        - 检测维度分歧 (最大分差 > 2.0)
+        - 检测离群审稿人 (偏离均值 > 2.0)
+        """
+        score_data = {}  # dim -> [(score, reviewer_id, is_expert)]
+        for review in reviews:
+            rid = review.get('reviewer_id', '')
+            profile = next((p for p in REVIEWER_PROFILES if p['id'] == rid), None)
+            expertise = profile.get('expertise', []) if profile else []
+            for dim, score in review.get('scores', {}).items():
+                if dim not in score_data:
+                    score_data[dim] = []
+                score_data[dim].append({
+                    'score': score, 'reviewer_id': rid,
+                    'is_expert': dim in expertise
+                })
+
+        result = {
+            'weighted_avg': {}, 'simple_avg': {}, 'variance': {},
+            'disagreement_dims': [], 'outlier_reviewers': [],
+            'consensus_level': 1.0
+        }
+
+        all_variances = []
+        for dim, entries in score_data.items():
+            scores = [e['score'] for e in entries]
+            simple_avg = sum(scores) / len(scores)
+            weights = [1.5 if e['is_expert'] else 1.0 for e in entries]
+            weighted_avg = sum(s * w for s, w in zip(scores, weights)) / sum(weights)
+            variance = sum((s - simple_avg) ** 2 for s in scores) / len(scores) if len(scores) > 1 else 0
+
+            result['weighted_avg'][dim] = round(weighted_avg, 2)
+            result['simple_avg'][dim] = round(simple_avg, 2)
+            result['variance'][dim] = round(variance, 2)
+            all_variances.append(variance)
+
+            # 分歧检测
+            if len(scores) >= 2:
+                max_diff = max(scores) - min(scores)
+                if max_diff > 2.0:
+                    result['disagreement_dims'].append({
+                        'dimension': dim,
+                        'max_diff': round(max_diff, 2),
+                        'scores': {e['reviewer_id']: e['score'] for e in entries}
+                    })
+
+            # 离群审稿人
+            for entry in entries:
+                if abs(entry['score'] - simple_avg) > 2.0:
+                    result['outlier_reviewers'].append({
+                        'reviewer_id': entry['reviewer_id'],
+                        'dimension': dim,
+                        'score': entry['score'],
+                        'mean': round(simple_avg, 2),
+                        'deviation': round(entry['score'] - simple_avg, 2)
+                    })
+
+        # 共识度: 1 - 归一化方差 (0=完全分歧, 1=完全共识)
+        if all_variances:
+            avg_var = sum(all_variances) / len(all_variances)
+            result['consensus_level'] = round(max(0, 1 - avg_var / 10), 2)
+
+        return result
+
+    def _analyze_trajectory(self) -> dict:
+        """分析评分趋势 (轮次间改善方向和速度)"""
+        history = st.session_state.get('review_history', [])
+        if len(history) < 2:
+            return {'trend': 'insufficient_data', 'improvement_rate': 0, 'round_averages': []}
+
+        round_avgs = []
+        for rh in history:
+            scores = [r.get('overall_score', 0) for r in rh.get('reports', [])]
+            avg = sum(scores) / len(scores) if scores else 0
+            round_avgs.append(avg)
+
+        improvements = [round_avgs[i + 1] - round_avgs[i] for i in range(len(round_avgs) - 1)]
+        avg_improvement = sum(improvements) / len(improvements) if improvements else 0
+
+        if avg_improvement > 1.0:
+            trend = 'strong_improvement'
+        elif avg_improvement > 0.3:
+            trend = 'moderate_improvement'
+        elif avg_improvement > 0:
+            trend = 'slight_improvement'
+        elif avg_improvement > -0.3:
+            trend = 'stagnant'
+        else:
+            trend = 'declining'
+
+        current_avg = round_avgs[-1]
+        projected = max(0, (7.5 - current_avg) / avg_improvement) if avg_improvement > 0 else float('inf')
+
+        return {
+            'trend': trend,
+            'improvement_rate': round(avg_improvement, 2),
+            'round_averages': [round(a, 2) for a in round_avgs],
+            'projected_rounds_to_accept': round(projected, 1),
+            'current_avg': round(current_avg, 2)
+        }
+
+    def _generate_guidance(self, recommendation: str, critical: list, major: list,
+                           scores: dict, current_round: int = 1,
+                           consensus: dict = None, trajectory: dict = None) -> str:
+        """生成EIC指导意见 (含共识分析和趋势)"""
         lines = []
-        lines.append(f"【EIC综合评审意见 - 第{st.session_state.get('ms_state', {}).get('current_round', 1) if isinstance(st.session_state.get('ms_state'), dict) else 1}轮】\n")
+        lines.append(f"【EIC综合评审意见 - 第{current_round}轮】\n")
 
         if recommendation == ReviewDecision.ACCEPT.value:
             lines.append("综合评定：接受 (Accept)")
@@ -582,6 +824,28 @@ class EICAgent:
             for d in weak_dims:
                 dim_info = REVIEW_DIMENSIONS.get(d, {})
                 lines.append(f"  - {dim_info.get('name', d)}: 当前均分 {scores[d]:.1f}/10")
+            lines.append("")
+
+        # 审稿人分歧提示
+        if consensus and consensus.get('disagreement_dims'):
+            lines.append("⚡ 审稿人分歧提示:")
+            for flag in consensus['disagreement_dims']:
+                dim_name = REVIEW_DIMENSIONS.get(flag['dimension'], {}).get('name', flag['dimension'])
+                scores_str = ", ".join(f"{rid[-1]}: {s:.1f}" for rid, s in flag['scores'].items())
+                lines.append(f"  - {dim_name}: 审稿人评分 [{scores_str}] (分差: {flag['max_diff']:.1f})")
+            lines.append("  EIC已采用专家加权评分以协调分歧。")
+            lines.append("")
+
+        # 趋势分析
+        if trajectory and trajectory.get('trend') != 'insufficient_data':
+            trend_label = {
+                'strong_improvement': '显著提升', 'moderate_improvement': '稳步提升',
+                'slight_improvement': '略有提升', 'stagnant': '趋于停滞',
+                'declining': '质量下降'
+            }.get(trajectory['trend'], trajectory['trend'])
+            lines.append(f"📊 质量趋势: {trend_label} (每轮变化: {trajectory['improvement_rate']:+.2f})")
+            if trajectory['projected_rounds_to_accept'] < float('inf'):
+                lines.append(f"   预计 ~{trajectory['projected_rounds_to_accept']:.0f} 轮后可达接受标准")
 
         return "\n".join(lines)
 
@@ -678,27 +942,28 @@ class ReviewerAgent:
 
         审稿逻辑：
         - 对专长领域更严格/更有见地
-        - 考虑审稿人性格特征
-        - 再审时考虑作者回复质量
+        - 再审时验证前轮意见是否被解决
+        - 基于解决情况调整评分
         """
         version = self.store.get_latest_version(manuscript.manuscript_id)
-
-        # 生成维度评分
         scores = {}
         base_quality = random.uniform(4.5, 8.5)
 
-        # 再审时，基于前一轮提升
+        # 再审时，基于前一轮评分 + 实际解决情况调整
+        addressed_ratio = 0.0
         if is_re_review and manuscript.current_round > 1:
             prev_reviews = self.store.get_reviews(manuscript.manuscript_id, manuscript.current_round - 1)
             my_prev = next((r for r in prev_reviews if r.get('reviewer_id') == self.id), None)
             if my_prev:
                 prev_avg = my_prev.get('overall_score', base_quality)
-                # 作者修改后通常会有提升
-                improvement = random.uniform(0.5, 2.0)
+                # 验证前轮意见解决情况
+                prev_comments = my_prev.get('comments', [])
+                addressed_ratio = self._check_addressed_ratio(prev_comments, manuscript)
+                # 改善幅度与解决率成正比
+                improvement = addressed_ratio * random.uniform(1.0, 2.5) + random.uniform(0.0, 0.5)
                 base_quality = min(prev_avg + improvement, 9.5)
 
         for dim, info in REVIEW_DIMENSIONS.items():
-            # 专长领域评分更精准
             if dim in self.expertise:
                 score = base_quality + random.uniform(-1.0, 0.5) - (self.strictness * 0.5)
             else:
@@ -707,10 +972,11 @@ class ReviewerAgent:
 
         overall_score = sum(scores[d] * REVIEW_DIMENSIONS[d]['weight'] for d in scores)
 
-        # 生成审稿意见
+        # 生成审稿意见 (含前轮验证)
         comments = self._generate_comments(scores, is_re_review, manuscript)
+        # 评分-意见一致性检查
+        comments = self._enforce_consistency(scores, comments, manuscript.current_round)
 
-        # 确定审稿决定
         if overall_score >= 8.0:
             decision = ReviewDecision.ACCEPT.value
         elif overall_score >= 6.5:
@@ -720,6 +986,11 @@ class ReviewerAgent:
         else:
             decision = ReviewDecision.REJECT.value
 
+        # 基于专长计算信心
+        n_expert_dims = sum(1 for d in scores if d in self.expertise)
+        confidence = 0.6 + 0.1 * n_expert_dims + 0.05 * (1 if is_re_review else 0)
+        confidence = round(min(0.95, confidence + random.uniform(-0.05, 0.05)), 2)
+
         report = ReviewReport(
             reviewer_id=self.id,
             reviewer_name=self.name,
@@ -728,15 +999,14 @@ class ReviewerAgent:
             overall_score=round(overall_score, 2),
             scores=scores,
             comments=[asdict(c) if isinstance(c, ReviewComment) else c for c in comments],
-            summary=self._generate_summary(scores, decision),
-            confidence=round(random.uniform(0.7, 0.95), 2)
+            summary=self._generate_summary(scores, decision, addressed_ratio if is_re_review else None),
+            confidence=confidence
         )
 
         report_dict = asdict(report)
         self.store.store_review(manuscript.manuscript_id, report_dict)
         manuscript.review_reports.append(report_dict)
 
-        # 发送审稿消息
         msg = AgentMessage(
             sender=self.id, sender_role="reviewer",
             receiver="eic_001", receiver_role="eic",
@@ -747,15 +1017,40 @@ class ReviewerAgent:
         )
         self.store.send_message(msg)
         manuscript.message_log.append(asdict(msg))
-
         return report
 
+    def _check_addressed_ratio(self, prev_comments: list, manuscript: ManuscriptState) -> float:
+        """检查前轮意见中被作者回复的比例"""
+        if not prev_comments:
+            return 0.5
+        revision_history = st.session_state.get('revision_history', [])
+        if not revision_history:
+            return 0.3
+        latest_revision = revision_history[-1]
+        author_responses = latest_revision.get('response', {}).get('responses', [])
+        addressed = 0
+        for pc in prev_comments:
+            pc_text = pc.get('comment', '') if isinstance(pc, dict) else getattr(pc, 'comment', '')
+            pc_cat = pc.get('category', '') if isinstance(pc, dict) else getattr(pc, 'category', '')
+            for resp in author_responses:
+                if resp.get('original_comment', '') == pc_text or resp.get('category', '') == pc_cat:
+                    if resp.get('addressed', False):
+                        addressed += 1
+                    break
+        return addressed / len(prev_comments)
+
     def _generate_comments(self, scores: dict, is_re_review: bool, manuscript: ManuscriptState) -> list:
-        """生成审稿意见"""
+        """生成审稿意见 (再审时验证前轮)"""
         comments = []
+
+        # 再审时先验证前轮意见
+        if is_re_review and manuscript.current_round > 1:
+            verified = self._verify_previous_comments(manuscript)
+            comments.extend(verified)
+
+        # 基于当前评分生成新意见
         for dim, score in scores.items():
             templates = REVIEW_TEMPLATES.get(dim, {})
-
             if score < 4.5 and templates.get('critical'):
                 severity = 'critical'
                 pool = templates['critical']
@@ -768,25 +1063,109 @@ class ReviewerAgent:
             else:
                 continue
 
-            # 专长领域给出更多意见
             n_comments = 2 if dim in self.expertise else 1
             selected = random.sample(pool, min(n_comments, len(pool)))
 
             for text in selected:
-                # 再审时标注是否已解决
-                addressed = is_re_review and random.random() > self.strictness
+                # 避免与验证携带的意见重复
+                if any((getattr(c, 'comment', '') if isinstance(c, ReviewComment) else c.get('comment', '')) == text for c in comments):
+                    continue
                 comment = ReviewComment(
-                    reviewer_id=self.id,
-                    category=dim,
-                    severity=severity,
-                    comment=text,
-                    addressed=addressed
+                    reviewer_id=self.id, category=dim, severity=severity,
+                    comment=text, addressed=False,
+                    resolution=CommentResolution.PENDING.value,
+                    round_created=manuscript.current_round
                 )
                 comments.append(comment)
-
         return comments
 
-    def _generate_summary(self, scores: dict, decision: str) -> str:
+    def _verify_previous_comments(self, manuscript: ManuscriptState) -> list:
+        """验证前轮意见是否被作者解决"""
+        prev_reviews = self.store.get_reviews(manuscript.manuscript_id, manuscript.current_round - 1)
+        my_prev = next((r for r in prev_reviews if r.get('reviewer_id') == self.id), None)
+        if not my_prev:
+            return []
+
+        prev_comments = my_prev.get('comments', [])
+        revision_history = st.session_state.get('revision_history', [])
+        author_responses = []
+        if revision_history:
+            author_responses = revision_history[-1].get('response', {}).get('responses', [])
+
+        verified = []
+        for pc in prev_comments:
+            pc_text = pc.get('comment', '')
+            pc_cat = pc.get('category', '')
+            pc_sev = pc.get('severity', '')
+
+            # 查找匹配的作者回复
+            match = None
+            for resp in author_responses:
+                if resp.get('original_comment', '') == pc_text or (
+                        resp.get('category') == pc_cat and resp.get('severity') == pc_sev):
+                    match = resp
+                    break
+
+            # 基于审稿人严格度判定解决状态
+            if match and match.get('addressed', False):
+                resolve_prob = 1.0 - (self.strictness * 0.5)
+                roll = random.random()
+                if roll < resolve_prob * 0.7:
+                    resolution = CommentResolution.ADDRESSED.value
+                elif roll < resolve_prob:
+                    resolution = CommentResolution.PARTIALLY_ADDRESSED.value
+                else:
+                    resolution = CommentResolution.NOT_ADDRESSED.value
+            else:
+                resolution = CommentResolution.NOT_ADDRESSED.value
+
+            # 未完全解决的意见携带到新轮
+            if resolution != CommentResolution.ADDRESSED.value:
+                carried = ReviewComment(
+                    reviewer_id=self.id, category=pc_cat, severity=pc_sev,
+                    comment=pc_text, addressed=False,
+                    resolution=resolution,
+                    verification_note=f"来自第{manuscript.current_round - 1}轮",
+                    round_created=pc.get('round_created', manuscript.current_round - 1)
+                )
+                verified.append(carried)
+            else:
+                # 已解决的也记录 (标记为addressed)
+                resolved = ReviewComment(
+                    reviewer_id=self.id, category=pc_cat, severity=pc_sev,
+                    comment=pc_text, addressed=True,
+                    resolution=CommentResolution.ADDRESSED.value,
+                    round_resolved=manuscript.current_round,
+                    round_created=pc.get('round_created', manuscript.current_round - 1)
+                )
+                verified.append(resolved)
+
+        return verified
+
+    def _enforce_consistency(self, scores: dict, comments: list, current_round: int) -> list:
+        """确保评分与意见严重度一致"""
+        comment_dims = set()
+        for c in comments:
+            cat = getattr(c, 'category', '') if isinstance(c, ReviewComment) else c.get('category', '')
+            sev = getattr(c, 'severity', '') if isinstance(c, ReviewComment) else c.get('severity', '')
+            comment_dims.add((cat, sev))
+
+        for dim, score in scores.items():
+            if score < 5.0:
+                has_severe = any(cat == dim and sev in ('critical', 'major') for cat, sev in comment_dims)
+                if not has_severe:
+                    templates = REVIEW_TEMPLATES.get(dim, {})
+                    pool = templates.get('major', templates.get('critical', []))
+                    if pool:
+                        text = random.choice(pool)
+                        if not any((getattr(c, 'comment', '') if isinstance(c, ReviewComment) else c.get('comment', '')) == text for c in comments):
+                            comments.append(ReviewComment(
+                                reviewer_id=self.id, category=dim, severity='major',
+                                comment=text, round_created=current_round
+                            ))
+        return comments
+
+    def _generate_summary(self, scores: dict, decision: str, addressed_ratio: float = None) -> str:
         """生成审稿总结"""
         strong = [REVIEW_DIMENSIONS[d]['name'] for d, s in scores.items() if s >= 7.0]
         weak = [REVIEW_DIMENSIONS[d]['name'] for d, s in scores.items() if s < 6.0]
@@ -796,12 +1175,12 @@ class ReviewerAgent:
             lines.append(f"优势方面: {', '.join(strong)}")
         if weak:
             lines.append(f"待改进方面: {', '.join(weak)}")
+        if addressed_ratio is not None:
+            lines.append(f"前轮意见解决率: {addressed_ratio:.0%}")
 
         decision_text = {
-            'accept': '建议接受',
-            'minor_revision': '建议小修后接受',
-            'major_revision': '建议大修后重审',
-            'reject': '建议拒稿'
+            'accept': '建议接受', 'minor_revision': '建议小修后接受',
+            'major_revision': '建议大修后重审', 'reject': '建议拒稿'
         }
         lines.append(f"审稿建议: {decision_text.get(decision, decision)}")
         return "\n".join(lines)
@@ -831,62 +1210,149 @@ class AuthorAgent:
         """
         处理EIC综合反馈，生成逐条回复
 
-        回复策略:
-        - 关键问题: 详细说明修改方案
-        - 重要问题: 说明修改内容或合理解释
-        - 小问题: 简短确认
+        策略：
+        1. 关键问题优先 (必须全部回复)
+        2. 检测审稿人冲突意见 → 生成rebuttal
+        3. 重要问题认真处理
+        4. 小问题简短回复
         """
         responses = []
+        conflicts = self._detect_conflicts(synthesis)
 
-        all_issues = (
-            [(c, 'critical') for c in synthesis.get('critical_issues', [])] +
-            [(c, 'major') for c in synthesis.get('major_issues', [])] +
-            [(c, 'minor') for c in synthesis.get('minor_issues', [])]
-        )
+        # 按优先级排序
+        priority_groups = [
+            ('critical', synthesis.get('critical_issues', [])),
+            ('major', synthesis.get('major_issues', [])),
+            ('minor', synthesis.get('minor_issues', []))
+        ]
 
-        for comment, severity in all_issues:
-            category = comment.get('category', 'general')
-            actions = REVISION_ACTIONS.get(category, ["进行了相应修改"])
-            action = random.choice(actions)
-            templates = AUTHOR_RESPONSE_TEMPLATES.get(severity, AUTHOR_RESPONSE_TEMPLATES['minor'])
-            template = random.choice(templates)
+        for severity, issues in priority_groups:
+            for comment in issues:
+                category = comment.get('category', 'general')
 
-            response = template.format(
-                action=action,
-                detail=f"已在修改稿中进行标注（见{category}相关章节）",
-                result="改进效果显著",
-                section=random.choice(["2", "3", "4", "5"])
-            )
+                # 检测是否属于冲突意见
+                is_conflict = any(
+                    c['comment_a'].get('comment') == comment.get('comment') or
+                    c['comment_b'].get('comment') == comment.get('comment')
+                    for c in conflicts
+                )
 
-            responses.append({
-                'original_comment': comment.get('comment', ''),
-                'category': category,
-                'severity': severity,
-                'response': response,
-                'addressed': True
-            })
+                if is_conflict:
+                    resp_text = self._generate_rebuttal(comment, conflicts)
+                    addressed = False
+                    resolution = CommentResolution.PARTIALLY_ADDRESSED.value
+                elif severity == 'minor' and random.random() < 0.1:
+                    resp_text = "感谢审稿人的建议，我们认同此观点并计划在后续工作中进一步完善。"
+                    addressed = False
+                    resolution = CommentResolution.PARTIALLY_ADDRESSED.value
+                else:
+                    actions = REVISION_ACTIONS.get(category, ["进行了相应修改"])
+                    action = random.choice(actions)
+                    templates = AUTHOR_RESPONSE_TEMPLATES.get(severity, AUTHOR_RESPONSE_TEMPLATES['minor'])
+                    template = random.choice(templates)
+                    resp_text = template.format(
+                        action=action,
+                        detail=f"已在修改稿中进行标注（见{category}相关章节）",
+                        result="改进效果显著",
+                        section=random.choice(["2", "3", "4", "5"])
+                    )
+                    addressed = True
+                    resolution = CommentResolution.ADDRESSED.value
 
+                responses.append({
+                    'original_comment': comment.get('comment', ''),
+                    'category': category,
+                    'severity': severity,
+                    'response': resp_text,
+                    'addressed': addressed,
+                    'resolution': resolution,
+                    'is_conflict': is_conflict
+                })
+
+        addressed_count = sum(1 for r in responses if r['addressed'])
+        total = sum(len(issues) for _, issues in priority_groups)
         return {
             'round': manuscript.current_round,
-            'total_issues': len(all_issues),
-            'responses': responses
+            'total_issues': total,
+            'addressed_count': addressed_count,
+            'conflict_count': len(conflicts),
+            'responses': responses,
+            'strategy_summary': f"回复 {total} 条意见: {addressed_count} 已解决, "
+                                f"{len(conflicts)} 冲突处理"
         }
 
+    def _detect_conflicts(self, synthesis: dict) -> list:
+        """检测不同审稿人对同一维度的冲突意见"""
+        conflicts = []
+        all_issues = (
+            synthesis.get('critical_issues', []) +
+            synthesis.get('major_issues', []) +
+            synthesis.get('minor_issues', [])
+        )
+
+        by_category = {}
+        for issue in all_issues:
+            cat = issue.get('category', '')
+            if cat not in by_category:
+                by_category[cat] = []
+            by_category[cat].append(issue)
+
+        for cat, issues in by_category.items():
+            if len(issues) < 2:
+                continue
+            severities = set(i.get('severity', '') for i in issues)
+            if 'critical' in severities and 'minor' in severities:
+                critical_items = [i for i in issues if i.get('severity') == 'critical']
+                minor_items = [i for i in issues if i.get('severity') == 'minor']
+                if critical_items and minor_items:
+                    conflicts.append({
+                        'category': cat,
+                        'comment_a': critical_items[0],
+                        'comment_b': minor_items[0],
+                        'type': 'severity_mismatch'
+                    })
+        return conflicts
+
+    def _generate_rebuttal(self, comment: dict, conflicts: list) -> str:
+        """生成礼貌的反驳回复"""
+        category = comment.get('category', '')
+        dim_name = REVIEW_DIMENSIONS.get(category, {}).get('name', category)
+        return (f"我们注意到审稿人对{dim_name}方面的评价存在分歧。"
+                f"我们已仔细考虑各方意见，在保持原有方法优势的基础上进行了针对性改进，"
+                f"并补充了额外的论证。恳请编辑综合裁量。")
+
     def revise_manuscript(self, manuscript: ManuscriptState, feedback_response: dict) -> ManuscriptVersion:
-        """
-        修改稿件，生成新版本
-        """
+        """修改稿件，基于反馈类别针对性修改对应章节"""
         prev_version = self.store.get_latest_version(manuscript.manuscript_id)
         new_version_num = manuscript.current_version + 1
-
-        # 生成修改说明
         revision_notes = self._generate_revision_notes(feedback_response)
 
-        # 模拟内容修改
+        # 确定哪些章节需要修改
+        modified_categories = set()
+        for resp in feedback_response.get('responses', []):
+            if resp.get('addressed', False):
+                modified_categories.add(resp.get('category', ''))
+
+        # 类别到章节的映射
+        category_to_section = {
+            'novelty': 'introduction',
+            'methodology': 'methodology',
+            'data_analysis': 'results',
+            'significance': 'discussion',
+            'writing': 'conclusion'
+        }
+
         new_sections = {}
         if prev_version and prev_version.get('content_sections'):
             for sec, content in prev_version['content_sections'].items():
-                new_sections[sec] = content + f"\n[第{new_version_num}版修改]"
+                # 只修改与反馈类别相关的章节
+                modified_by = [cat for cat, s in category_to_section.items()
+                               if s == sec and cat in modified_categories]
+                if modified_by:
+                    cats_label = ','.join(modified_by)
+                    new_sections[sec] = content + f"\n[v{new_version_num} 修改: 回应{cats_label}意见]"
+                else:
+                    new_sections[sec] = content
         else:
             new_sections = {
                 "introduction": f"引言部分 [第{new_version_num}版]",
@@ -902,36 +1368,39 @@ class AuthorAgent:
             abstract=prev_version.get('abstract', '') if prev_version else '',
             content_sections=new_sections,
             revision_notes=revision_notes,
-            content_hash=hashlib.md5(json.dumps(new_sections).encode()).hexdigest()[:12]
+            content_hash=hashlib.md5(json.dumps(new_sections, sort_keys=True).encode()).hexdigest()[:12]
         )
 
         manuscript.current_version = new_version_num
         self.store.store_manuscript(manuscript.manuscript_id, asdict(new_version))
         manuscript.versions.append(asdict(new_version))
 
-        # 发送修改消息
+        addressed = feedback_response.get('addressed_count', 0)
+        total = feedback_response.get('total_issues', 0)
         msg = AgentMessage(
             sender=self.id, sender_role="author",
             receiver="eic_001", receiver_role="eic",
             msg_type=MessageType.REVISION.value,
-            content=f"已提交第{new_version_num}版修改稿，共处理{feedback_response.get('total_issues', 0)}条审稿意见。",
+            content=f"已提交第{new_version_num}版修改稿，解决{addressed}/{total}条审稿意见。",
             metadata={'version': new_version_num, 'response': feedback_response},
             round_number=manuscript.current_round
         )
         self.store.send_message(msg)
         manuscript.message_log.append(asdict(msg))
-
         return new_version
 
     def _generate_revision_notes(self, feedback_response: dict) -> str:
         """生成修改说明文档"""
         lines = [f"=== 修改说明 (Revision Notes) ===\n"]
-        lines.append(f"本次修改共回复 {feedback_response.get('total_issues', 0)} 条审稿意见。\n")
+        lines.append(f"本次修改共回复 {feedback_response.get('total_issues', 0)} 条审稿意见。")
+        lines.append(f"策略: {feedback_response.get('strategy_summary', '')}\n")
 
         for i, resp in enumerate(feedback_response.get('responses', []), 1):
-            lines.append(f"--- 问题 {i} [{resp['severity'].upper()}] [{resp['category']}] ---")
+            conflict_tag = " [冲突]" if resp.get('is_conflict') else ""
+            lines.append(f"--- 问题 {i} [{resp['severity'].upper()}] [{resp['category']}]{conflict_tag} ---")
             lines.append(f"审稿意见: {resp['original_comment']}")
             lines.append(f"作者回复: {resp['response']}")
+            lines.append(f"解决状态: {resp.get('resolution', 'pending')}")
             lines.append("")
 
         return "\n".join(lines)
@@ -955,6 +1424,7 @@ class ReviewCoordinator:
         self.eic = EICAgent(self.store)
         self.reviewers = [ReviewerAgent(p, self.store) for p in REVIEWER_PROFILES]
         self.author = AuthorAgent(self.store)
+        self.score_history = []
 
     def init_manuscript(self, title: str, abstract: str) -> ManuscriptState:
         """初始化稿件"""
@@ -993,6 +1463,9 @@ class ReviewCoordinator:
         # Step 3: EIC综合反馈
         synthesis = self.eic.synthesize_feedback(manuscript)
 
+        # 记录评分历史
+        self.score_history.append(synthesis.get('overall_avg', 0))
+
         return {
             'round': manuscript.current_round,
             'reports': reports,
@@ -1002,11 +1475,8 @@ class ReviewCoordinator:
 
     def author_revise(self, manuscript: ManuscriptState, synthesis: dict) -> dict:
         """作者修改流程"""
-        # Author处理反馈
         response = self.author.process_feedback(manuscript, synthesis)
-        # Author修改稿件
         new_version = self.author.revise_manuscript(manuscript, response)
-
         return {
             'response': response,
             'new_version': asdict(new_version),
@@ -1018,10 +1488,43 @@ class ReviewCoordinator:
         manuscript.current_round += 1
         manuscript.status = "under_review"
 
-    def is_process_complete(self, synthesis: dict) -> bool:
-        """判断审稿流程是否结束"""
+    def is_process_complete(self, manuscript: ManuscriptState, synthesis: dict) -> tuple:
+        """
+        判断审稿流程是否结束
+
+        终止条件:
+        1. ACCEPT 或 REJECT
+        2. 达到最大轮数
+        3. 小修且无关键问题 (round > 1)
+        4. 评分持续收敛 (连续两轮改善 < 0.5)
+
+        Returns: (is_complete: bool, reason: str)
+        """
         rec = synthesis.get('eic_recommendation', '')
-        return rec in [ReviewDecision.ACCEPT.value, ReviewDecision.REJECT.value]
+
+        if rec == ReviewDecision.ACCEPT.value:
+            return True, "accepted"
+        if rec == ReviewDecision.REJECT.value:
+            return True, "rejected"
+
+        # 最大轮数
+        if manuscript.current_round >= manuscript.max_rounds:
+            return True, "max_rounds_reached"
+
+        # 小修 + 无关键问题 + 已经过至少1轮修改
+        if (rec == ReviewDecision.MINOR_REVISION.value and
+                manuscript.current_round > 1 and
+                synthesis.get('critical_count', 0) == 0):
+            return True, "minor_revision_accepted"
+
+        # 收敛检测
+        if len(self.score_history) >= 3:
+            d1 = self.score_history[-1] - self.score_history[-2]
+            d2 = self.score_history[-2] - self.score_history[-3]
+            if d1 < 0.5 and d2 < 0.5:
+                return True, "diminishing_returns"
+
+        return False, ""
 
 
 # ============================================================
@@ -1366,6 +1869,186 @@ def render_score_trend():
         st.altair_chart(chart, use_container_width=True)
 
 
+def render_comment_tracker():
+    """渲染意见追踪面板"""
+    review_history = st.session_state.get('review_history', [])
+    if not review_history:
+        st.info("暂无审稿意见")
+        return
+
+    summary = CommentTracker.get_resolution_summary(review_history)
+    total = summary['total']
+    addressed = summary['addressed']
+    partial = summary['partially_addressed']
+    unresolved = summary['not_addressed'] + summary['pending']
+
+    st.markdown("#### 意见解决状态追踪")
+
+    cols = st.columns(4)
+    with cols[0]:
+        st.metric("总意见数", total)
+    with cols[1]:
+        st.metric("已解决", addressed)
+    with cols[2]:
+        st.metric("部分解决", partial)
+    with cols[3]:
+        st.metric("未解决", unresolved)
+
+    if total > 0:
+        st.progress(addressed / total, text=f"{addressed}/{total} 意见已解决 ({addressed / total:.0%})")
+
+    # 详细列表
+    all_comments = CommentTracker.get_all_comments(review_history)
+    if all_comments:
+        rows = []
+        for c in all_comments:
+            resolution = c.get('resolution', c.get('resolution_status', 'pending'))
+            icon = {
+                'addressed': '✅', 'partially_addressed': '🟡',
+                'not_addressed': '❌', 'pending': '⏳'
+            }.get(resolution, '⏳')
+            rows.append({
+                '状态': icon,
+                '审稿人': c.get('reviewer_id', '')[-1:] if c.get('reviewer_id') else '?',
+                '严重度': c.get('severity', ''),
+                '维度': REVIEW_DIMENSIONS.get(c.get('category', ''), {}).get('name', c.get('category', '')),
+                '意见': c.get('comment', '')[:60] + '...' if len(c.get('comment', '')) > 60 else c.get('comment', ''),
+                '解决状态': resolution
+            })
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def render_version_diff():
+    """渲染版本对比视图"""
+    ms_state = st.session_state.get('ms_state')
+    coordinator = st.session_state.get('coordinator')
+    if not ms_state or not coordinator:
+        return
+
+    versions = coordinator.store.get_manuscript_versions(ms_state.manuscript_id)
+    if len(versions) < 2:
+        st.info("至少需要2个版本才能对比")
+        return
+
+    st.markdown("#### 版本对比")
+    version_labels = [f"v{v.get('version', i + 1)}" for i, v in enumerate(versions)]
+
+    col1, col2 = st.columns(2)
+    with col1:
+        v1_idx = st.selectbox("基准版本", range(len(versions)),
+                              format_func=lambda i: version_labels[i], key="diff_v1")
+    with col2:
+        v2_idx = st.selectbox("对比版本", range(len(versions)),
+                              index=min(v1_idx + 1, len(versions) - 1),
+                              format_func=lambda i: version_labels[i], key="diff_v2")
+
+    if v1_idx != v2_idx:
+        diff = VersionDiffer.diff_versions(versions[v1_idx], versions[v2_idx])
+        modified = diff['modified_sections']
+        total = diff['total_sections']
+        st.markdown(f"**{version_labels[v1_idx]} → {version_labels[v2_idx]}** | "
+                    f"修改了 {len(modified)}/{total} 个章节")
+
+        for sec, info in diff['section_diffs'].items():
+            status = info['status']
+            icon = {'added': '🟢', 'removed': '🔴', 'modified': '🟠', 'unchanged': '⚪'}.get(status, '?')
+            if status != 'unchanged':
+                with st.expander(f"{icon} {sec} ({status})"):
+                    if status == 'modified':
+                        st.text(f"旧版: {info['old']}")
+                        st.text(f"新版: {info['new']}")
+                    elif status == 'added':
+                        st.text(f"新增: {info['new']}")
+            else:
+                st.markdown(f"{icon} {sec} (未修改)")
+
+
+def render_convergence_chart():
+    """渲染收敛趋势图"""
+    reviews = st.session_state.get('review_history', [])
+    if len(reviews) < 1:
+        return
+
+    import altair as alt
+    round_data = []
+    for rh in reviews:
+        round_num = rh.get('round', 1)
+        scores = [r.get('overall_score', 0) for r in rh.get('reports', [])]
+        avg = sum(scores) / len(scores) if scores else 0
+        round_data.append({'Round': f"第{round_num}轮", 'round_num': round_num, 'Score': avg})
+
+    if not round_data:
+        return
+
+    df = pd.DataFrame(round_data)
+
+    # 评分线
+    line = alt.Chart(df).mark_line(point=True, color='#0d6efd', strokeWidth=3).encode(
+        x=alt.X('round_num:Q', title='审稿轮次', axis=alt.Axis(tickMinStep=1)),
+        y=alt.Y('Score:Q', title='综合评分', scale=alt.Scale(domain=[0, 10])),
+        tooltip=['Round', 'Score']
+    )
+
+    # 接受阈值线
+    threshold = alt.Chart(pd.DataFrame({'y': [7.5]})).mark_rule(
+        color='#198754', strokeDash=[5, 5], strokeWidth=2
+    ).encode(y='y:Q')
+
+    # 拒稿阈值线
+    reject_line = alt.Chart(pd.DataFrame({'y': [4.5]})).mark_rule(
+        color='#dc3545', strokeDash=[5, 5], strokeWidth=2
+    ).encode(y='y:Q')
+
+    chart = (line + threshold + reject_line).properties(
+        title='评分收敛趋势 (绿线=接受阈值, 红线=拒稿阈值)',
+        height=250
+    ).interactive()
+
+    st.altair_chart(chart, use_container_width=True)
+
+
+def render_disagreement_heatmap():
+    """渲染审稿人分歧热力图"""
+    reviews = st.session_state.get('review_history', [])
+    if not reviews:
+        return
+
+    latest = reviews[-1]
+    reports = latest.get('reports', [])
+    if not reports:
+        return
+
+    import altair as alt
+    heatmap_data = []
+    for report in reports:
+        reviewer = report.get('reviewer_name', '?')
+        for dim, score in report.get('scores', {}).items():
+            dim_name = REVIEW_DIMENSIONS.get(dim, {}).get('name', dim)
+            heatmap_data.append({
+                'Reviewer': reviewer,
+                'Dimension': dim_name,
+                'Score': score
+            })
+
+    if not heatmap_data:
+        return
+
+    df = pd.DataFrame(heatmap_data)
+
+    chart = alt.Chart(df).mark_rect().encode(
+        x=alt.X('Dimension:N', title='评审维度'),
+        y=alt.Y('Reviewer:N', title='审稿人'),
+        color=alt.Color('Score:Q', scale=alt.Scale(scheme='redyellowgreen', domain=[1, 10]),
+                         title='评分'),
+        tooltip=['Reviewer', 'Dimension', 'Score']
+    ).properties(
+        title='审稿人评分矩阵',
+        height=200
+    )
+
+    st.altair_chart(chart, use_container_width=True)
+
+
 def render_message_flow():
     """渲染消息流"""
     store = st.session_state.get('store_messages', [])
@@ -1420,12 +2103,15 @@ def render_workflow_diagram(current_phase: str):
         ("最终决定", "complete")
     ]
 
+    PHASE_ORDER = {"init": 0, "reviewing": 1, "feedback": 3, "revising": 4, "complete": 5}
+    current_idx = PHASE_ORDER.get(current_phase, 0)
+
     cols = st.columns(len(phases))
     for i, (label, phase) in enumerate(phases):
         with cols[i]:
-            if phase == current_phase:
+            if i == current_idx or (i == current_idx + 1 and phase == current_phase):
                 st.markdown(f"**▶ {label}**")
-            elif phases.index((label, phase)) < [p[1] for p in phases].index(current_phase) if current_phase in [p[1] for p in phases] else 0:
+            elif i < current_idx:
                 st.markdown(f"~~{label}~~ ✅")
             else:
                 st.markdown(f"○ {label}")
@@ -1509,8 +2195,10 @@ def main():
 
             st.markdown(f"### 📊 第 {ms_state.current_round} 轮审稿结果")
 
-            # 审稿报告
-            tab_reports, tab_synthesis, tab_trend = st.tabs(["📋 审稿报告", "📝 EIC综合意见", "📈 评分趋势"])
+            # 审稿报告 (含新增的意见追踪、分歧分析标签页)
+            tab_reports, tab_synthesis, tab_tracker, tab_trend, tab_heatmap = st.tabs([
+                "📋 审稿报告", "📝 EIC综合意见", "🔍 意见追踪", "📈 评分趋势", "🗺 分歧分析"
+            ])
 
             with tab_reports:
                 for report in latest.get('reports', []):
@@ -1526,20 +2214,43 @@ def main():
                 }
                 rec_label, rec_css = rec_labels.get(rec, ('?', ''))
                 st.markdown(f'<span class="{rec_css}">{rec_label}</span>', unsafe_allow_html=True)
-                st.markdown(f"**综合评分:** {synthesis.get('overall_avg', 0):.1f}/10")
+                st.markdown(f"**综合评分 (专家加权):** {synthesis.get('overall_avg', 0):.1f}/10")
+                consensus_level = synthesis.get('consensus_level', 1.0)
+                st.markdown(f"**共识度:** {consensus_level:.0%}")
                 st.markdown(f"**关键问题:** {synthesis.get('critical_count', 0)} | "
                             f"**重要问题:** {synthesis.get('major_count', 0)} | "
                             f"**小问题:** {synthesis.get('minor_count', 0)}")
+
+                # 分歧警告
+                disagreements = synthesis.get('disagreement_dims', [])
+                if disagreements:
+                    st.warning(f"检测到 {len(disagreements)} 个维度存在审稿人分歧")
 
                 guidance = synthesis.get('guidance', '')
                 if guidance:
                     st.text_area("EIC指导意见", guidance, height=300, disabled=True)
 
+            with tab_tracker:
+                render_comment_tracker()
+
             with tab_trend:
                 render_score_trend()
+                render_convergence_chart()
 
-            # 判断流程是否结束
-            if coordinator.is_process_complete(synthesis):
+            with tab_heatmap:
+                render_disagreement_heatmap()
+
+            # 判断流程是否结束 (新签名: 传入manuscript)
+            is_complete, reason = coordinator.is_process_complete(ms_state, synthesis)
+            if is_complete:
+                # 调用正式最终决定
+                final = coordinator.eic.make_final_decision(ms_state)
+                st.session_state.final_decision = final
+                st.session_state.termination_reason = reason
+                if final['decision'] in [ReviewDecision.ACCEPT.value, ReviewDecision.MINOR_REVISION.value]:
+                    ms_state.status = "accepted"
+                else:
+                    ms_state.status = "rejected"
                 st.session_state.current_phase = "complete"
                 st.session_state.process_complete = True
                 st.rerun()
@@ -1593,39 +2304,73 @@ def main():
         reviews = st.session_state.review_history
         latest = reviews[-1] if reviews else {}
         synthesis = latest.get('synthesis', {})
-        rec = synthesis.get('eic_recommendation', 'pending')
+
+        # 使用正式最终决定 (如果有)
+        final_decision = st.session_state.get('final_decision', {})
+        rec = final_decision.get('decision', synthesis.get('eic_recommendation', 'pending'))
+        reason = st.session_state.get('termination_reason', '')
 
         st.markdown("### 🏁 审稿流程完成")
 
-        if rec == ReviewDecision.ACCEPT.value:
+        reason_labels = {
+            'accepted': '审稿人共识接受',
+            'rejected': '审稿人建议拒稿',
+            'max_rounds_reached': f'达到最大轮数 ({ms_state.max_rounds})',
+            'minor_revision_accepted': '小修后无关键问题，予以接受',
+            'diminishing_returns': '评分收敛，不再有显著提升'
+        }
+        reason_text = reason_labels.get(reason, '')
+
+        if rec in [ReviewDecision.ACCEPT.value, ReviewDecision.MINOR_REVISION.value]:
             st.success(f"🎉 恭喜！稿件经过 {ms_state.current_round} 轮审稿后被接受！")
+            if reason_text:
+                st.info(f"终止原因: {reason_text}")
             st.balloons()
         else:
             st.error(f"稿件在第 {ms_state.current_round} 轮后被拒稿。")
+            if reason_text:
+                st.info(f"终止原因: {reason_text}")
 
-        # 完整历史
-        st.markdown("### 📜 审稿历史回顾")
-        for i, rh in enumerate(reviews, 1):
-            with st.expander(f"第 {i} 轮审稿", expanded=(i == len(reviews))):
-                for report in rh.get('reports', []):
-                    render_review_report(report, i)
+        if final_decision.get('reason'):
+            st.markdown(f"**EIC最终意见:** {final_decision['reason']}")
 
-                syn = rh.get('synthesis', {})
-                if syn:
-                    st.markdown(f"**EIC建议:** {syn.get('eic_recommendation', '')} | "
-                                f"**综合评分:** {syn.get('overall_avg', 0):.1f}")
+        # 完整历史 (多标签页)
+        tab_history, tab_revisions, tab_tracker, tab_diff, tab_convergence = st.tabs([
+            "📜 审稿历史", "📝 修改历史", "🔍 意见追踪", "📄 版本对比", "📈 收敛趋势"
+        ])
 
-        if st.session_state.revision_history:
-            st.markdown("### 📝 修改历史")
-            for i, rev in enumerate(st.session_state.revision_history, 1):
-                with st.expander(f"第 {i} 次修改 (版本 {rev.get('version_number', '?')})"):
-                    render_revision_response(rev)
+        with tab_history:
+            for i, rh in enumerate(reviews, 1):
+                with st.expander(f"第 {i} 轮审稿", expanded=(i == len(reviews))):
+                    for report in rh.get('reports', []):
+                        render_review_report(report, i)
+                    syn = rh.get('synthesis', {})
+                    if syn:
+                        st.markdown(f"**EIC建议:** {syn.get('eic_recommendation', '')} | "
+                                    f"**综合评分:** {syn.get('overall_avg', 0):.1f} | "
+                                    f"**共识度:** {syn.get('consensus_level', 1.0):.0%}")
 
-        render_score_trend()
+        with tab_revisions:
+            if st.session_state.revision_history:
+                for i, rev in enumerate(st.session_state.revision_history, 1):
+                    with st.expander(f"第 {i} 次修改 (版本 {rev.get('version_number', '?')})"):
+                        render_revision_response(rev)
+            else:
+                st.info("无修改记录")
+
+        with tab_tracker:
+            render_comment_tracker()
+
+        with tab_diff:
+            render_version_diff()
+
+        with tab_convergence:
+            render_convergence_chart()
+            render_score_trend()
 
     # ---- 底部面板 ----
     st.divider()
-    tab_msg, tab_log, tab_store = st.tabs(["💬 消息流", "📋 事件日志", "🗄 存储状态"])
+    tab_msg, tab_log, tab_store, tab_vdiff = st.tabs(["💬 消息流", "📋 事件日志", "🗄 存储状态", "📄 版本对比"])
 
     with tab_msg:
         render_message_flow()
@@ -1646,6 +2391,9 @@ def main():
             agent_count = len(st.session_state.get('store_agent_states', {}))
             st.metric("消息队列", f"{msg_count} 条")
             st.metric("代理状态分区", f"{agent_count} 个")
+
+    with tab_vdiff:
+        render_version_diff()
 
 
 if __name__ == "__main__":
