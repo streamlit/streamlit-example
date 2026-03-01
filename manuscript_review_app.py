@@ -24,6 +24,13 @@ from typing import List, Dict, Optional, Literal
 from enum import Enum
 import pandas as pd
 
+# Claude API (可选 - 用于AI审稿模式)
+try:
+    import anthropic
+    HAS_ANTHROPIC = True
+except ImportError:
+    HAS_ANTHROPIC = False
+
 
 # ============================================================
 # 1. 数据模型 (Data Models)
@@ -232,6 +239,170 @@ class VersionDiffer:
                 entry['sections_modified'] = diff['modified_sections']
             timeline.append(entry)
         return timeline
+
+
+# ============================================================
+# 1.6 AI 审稿引擎 (Claude API - 可选)
+# ============================================================
+
+class AIReviewEngine:
+    """
+    基于 Claude API 的真实审稿引擎
+    当用户提供 API Key 时启用，替代模拟逻辑
+    """
+
+    EIC_PROMPT = """你是学术期刊主编(EIC)。综合审稿意见做出决策。
+输出严格JSON格式(无多余文字):
+{
+    "recommendation": "accept/minor_revision/major_revision/reject",
+    "overall_score": 1-10,
+    "consensus_level": 0-1,
+    "key_issues": ["问题1", "问题2"],
+    "guidance": "给作者的修改指导(200字内)",
+    "reasoning": "决策理由(100字内)"
+}"""
+
+    REVIEWER_PROMPT = """你是学术审稿人，专长: {expertise}，风格: {personality}。
+对以下稿件进行专业审稿。输出严格JSON格式(无多余文字):
+{{
+    "scores": {{"novelty": 1-10, "methodology": 1-10, "writing": 1-10, "significance": 1-10, "data_analysis": 1-10}},
+    "overall_score": 加权总分,
+    "decision": "accept/minor_revision/major_revision/reject",
+    "comments": [
+        {{"category": "维度名", "severity": "critical/major/minor", "comment": "具体意见"}}
+    ],
+    "summary": "50字内审稿总结",
+    "confidence": 0-1
+}}"""
+
+    AUTHOR_PROMPT = """你是论文作者，需逐条回复审稿意见。
+输出严格JSON格式(无多余文字):
+{
+    "responses": [
+        {
+            "original_comment": "原始意见",
+            "category": "维度",
+            "severity": "严重度",
+            "response": "你的回复",
+            "addressed": true/false
+        }
+    ],
+    "revision_summary": "修改概述(100字内)",
+    "sections_modified": ["修改的章节"]
+}"""
+
+    def __init__(self, api_key: str, model: str = "claude-haiku-4-5-20251001"):
+        self.client = anthropic.Anthropic(api_key=api_key)
+        self.model = model
+
+    def _call(self, system: str, user_msg: str, max_tokens: int = 2048) -> str:
+        """调用 Claude API"""
+        try:
+            resp = self.client.messages.create(
+                model=self.model,
+                max_tokens=max_tokens,
+                temperature=0.7,
+                system=system,
+                messages=[{"role": "user", "content": user_msg}],
+            )
+            return resp.content[0].text
+        except Exception as e:
+            return json.dumps({"error": str(e)})
+
+    def _parse_json(self, text: str) -> dict:
+        """从响应中提取JSON"""
+        if "```json" in text:
+            start = text.index("```json") + 7
+            end = text.index("```", start)
+            text = text[start:end].strip()
+        elif "```" in text:
+            start = text.index("```") + 3
+            end = text.index("```", start)
+            text = text[start:end].strip()
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            first = text.find("{")
+            last = text.rfind("}")
+            if first >= 0 and last > first:
+                try:
+                    return json.loads(text[first:last + 1])
+                except json.JSONDecodeError:
+                    pass
+            return {"error": "JSON解析失败", "raw": text[:500]}
+
+    def ai_review(self, profile: dict, title: str, abstract: str,
+                  round_num: int, prev_comments: list = None,
+                  author_response: str = None) -> dict:
+        """AI 审稿"""
+        expertise = ", ".join(profile.get("expertise", []))
+        system = self.REVIEWER_PROMPT.format(
+            expertise=expertise, personality=profile.get("personality", "")
+        )
+        user_msg = f"标题: {title}\n摘要: {abstract}\n轮次: 第{round_num}轮"
+        if prev_comments and author_response:
+            user_msg += f"\n\n你上轮意见:\n{json.dumps(prev_comments, ensure_ascii=False)}"
+            user_msg += f"\n\n作者回复:\n{author_response}"
+
+        raw = self._call(system, user_msg)
+        result = self._parse_json(raw)
+
+        # 补全字段
+        result.setdefault("reviewer_id", profile["id"])
+        result.setdefault("reviewer_name", profile["name"])
+        result.setdefault("round_number", round_num)
+        result.setdefault("scores", {})
+        result.setdefault("overall_score", 5.0)
+        result.setdefault("decision", "major_revision")
+        result.setdefault("confidence", 0.7)
+        result.setdefault("summary", "")
+
+        # 确保 comments 有必要字段
+        for c in result.get("comments", []):
+            c.setdefault("id", str(uuid.uuid4())[:8])
+            c.setdefault("reviewer_id", profile["id"])
+            c.setdefault("resolution", CommentResolution.PENDING.value)
+            c.setdefault("round_created", round_num)
+            c.setdefault("severity", "minor")
+            c.setdefault("category", "general")
+
+        return result
+
+    def ai_synthesize(self, reviews: list, title: str, abstract: str,
+                      round_num: int) -> dict:
+        """AI EIC 综合"""
+        user_msg = (
+            f"稿件: {title}\n摘要: {abstract}\n轮次: 第{round_num}轮\n\n"
+            f"审稿报告:\n{json.dumps(reviews, ensure_ascii=False, indent=2)}"
+        )
+        raw = self._call(self.EIC_PROMPT, user_msg)
+        result = self._parse_json(raw)
+        result.setdefault("recommendation", "major_revision")
+        result.setdefault("overall_score", 5.0)
+        result.setdefault("consensus_level", 0.5)
+        result.setdefault("key_issues", [])
+        result.setdefault("guidance", "")
+        return result
+
+    def ai_author_respond(self, synthesis_guidance: str, reviews: list,
+                          title: str, round_num: int) -> dict:
+        """AI 作者回复"""
+        user_msg = (
+            f"你的论文: {title}\nEIC指导: {synthesis_guidance}\n轮次: 第{round_num}轮\n\n"
+            f"审稿意见:\n{json.dumps(reviews, ensure_ascii=False, indent=2)}"
+        )
+        raw = self._call(self.AUTHOR_PROMPT, user_msg)
+        result = self._parse_json(raw)
+        result.setdefault("responses", [])
+        result.setdefault("revision_summary", "")
+        result.setdefault("sections_modified", [])
+
+        for r in result.get("responses", []):
+            r.setdefault("addressed", True)
+            r.setdefault("resolution", CommentResolution.ADDRESSED.value)
+            r.setdefault("severity", "minor")
+            r.setdefault("category", "general")
+        return result
 
 
 # ============================================================
@@ -1413,18 +1584,20 @@ class AuthorAgent:
 class ReviewCoordinator:
     """
     审稿流程协调器 - 管理完整的多轮审稿循环
+    支持双模式: 模拟模式 / AI模式 (Claude API)
 
     流程:
     Author提交 → EIC分配 → Reviewer审稿 → EIC综合 → Author修改
     → EIC再分配 → Reviewer再审 → ... → EIC最终决定
     """
 
-    def __init__(self):
+    def __init__(self, ai_engine: 'AIReviewEngine' = None):
         self.store = DistributedStore()
         self.eic = EICAgent(self.store)
         self.reviewers = [ReviewerAgent(p, self.store) for p in REVIEWER_PROFILES]
         self.author = AuthorAgent(self.store)
         self.score_history = []
+        self.ai_engine = ai_engine  # None = 模拟模式
 
     def init_manuscript(self, title: str, abstract: str) -> ManuscriptState:
         """初始化稿件"""
@@ -1447,36 +1620,172 @@ class ReviewCoordinator:
         return ms
 
     def run_review_round(self, manuscript: ManuscriptState) -> dict:
-        """执行一轮完整审稿"""
+        """执行一轮完整审稿 (自动选择模拟/AI模式)"""
+        if self.ai_engine:
+            return self._run_ai_review(manuscript)
+        return self._run_simulated_review(manuscript)
 
-        # Step 1: EIC分配审稿人
+    def _run_simulated_review(self, manuscript: ManuscriptState) -> dict:
+        """模拟审稿 (原逻辑)"""
         reviewer_ids = [r.id for r in self.reviewers]
         manuscript = self.eic.assign_reviewers(manuscript, reviewer_ids)
 
-        # Step 2: 各审稿人审稿
         is_re_review = manuscript.current_round > 1
         reports = []
         for reviewer in self.reviewers:
             report = reviewer.review_manuscript(manuscript, is_re_review=is_re_review)
             reports.append(asdict(report))
 
-        # Step 3: EIC综合反馈
         synthesis = self.eic.synthesize_feedback(manuscript)
-
-        # 记录评分历史
         self.score_history.append(synthesis.get('overall_avg', 0))
 
         return {
             'round': manuscript.current_round,
             'reports': reports,
             'synthesis': synthesis,
-            'recommendation': synthesis.get('eic_recommendation', 'pending')
+            'recommendation': synthesis.get('eic_recommendation', 'pending'),
+            'mode': 'simulated'
+        }
+
+    def _run_ai_review(self, manuscript: ManuscriptState) -> dict:
+        """AI 审稿 (Claude API)"""
+        title = manuscript.versions[0].get('title', '') if manuscript.versions else ''
+        abstract = manuscript.versions[0].get('abstract', '') if manuscript.versions else ''
+
+        # 获取前轮信息
+        prev_author_response = None
+        revision_history = st.session_state.get('revision_history', [])
+        if revision_history:
+            prev_author_response = json.dumps(
+                revision_history[-1].get('response', {}), ensure_ascii=False
+            )
+
+        # AI 审稿
+        reports = []
+        for profile in REVIEWER_PROFILES:
+            prev_comments = None
+            review_history = st.session_state.get('review_history', [])
+            if review_history:
+                prev_round = review_history[-1]
+                for r in prev_round.get('reports', []):
+                    if r.get('reviewer_id') == profile['id']:
+                        prev_comments = r.get('comments', [])
+                        break
+
+            ai_report = self.ai_engine.ai_review(
+                profile, title, abstract, manuscript.current_round,
+                prev_comments, prev_author_response
+            )
+            reports.append(ai_report)
+
+            # 同步到存储
+            self.store.store_review(manuscript.manuscript_id, ai_report)
+            manuscript.review_reports.append(ai_report)
+
+        # AI EIC 综合
+        ai_synthesis = self.ai_engine.ai_synthesize(
+            reports, title, abstract, manuscript.current_round
+        )
+
+        # 转换为标准 synthesis 格式
+        all_comments = []
+        for r in reports:
+            all_comments.extend(r.get('comments', []))
+
+        critical = [c for c in all_comments if c.get('severity') == 'critical']
+        major = [c for c in all_comments if c.get('severity') == 'major']
+        minor = [c for c in all_comments if c.get('severity') == 'minor']
+
+        # 构建维度平均分
+        score_data = {}
+        for r in reports:
+            for dim, score in r.get('scores', {}).items():
+                if dim not in score_data:
+                    score_data[dim] = []
+                score_data[dim].append(score)
+        avg_scores = {d: round(sum(s) / len(s), 2) for d, s in score_data.items() if s}
+
+        overall_avg = ai_synthesis.get('overall_score', 5.0)
+        if isinstance(overall_avg, str):
+            try:
+                overall_avg = float(overall_avg)
+            except ValueError:
+                overall_avg = 5.0
+        self.score_history.append(overall_avg)
+
+        rec = ai_synthesis.get('recommendation', 'major_revision')
+
+        synthesis = {
+            "round": manuscript.current_round,
+            "reviewer_count": len(reports),
+            "avg_scores": avg_scores,
+            "simple_avg_scores": avg_scores,
+            "overall_avg": round(overall_avg, 2),
+            "critical_count": len(critical),
+            "major_count": len(major),
+            "minor_count": len(minor),
+            "critical_issues": critical,
+            "major_issues": major,
+            "minor_issues": minor,
+            "reviewer_decisions": [r.get('decision', 'pending') for r in reports],
+            "eic_recommendation": rec,
+            "consensus_level": ai_synthesis.get('consensus_level', 0.5),
+            "disagreement_dims": [],
+            "outlier_reviewers": [],
+            "score_variance": {},
+            "trajectory": {},
+            "guidance": ai_synthesis.get('guidance', ''),
+            "ai_reasoning": ai_synthesis.get('reasoning', ''),
+            "ai_key_issues": ai_synthesis.get('key_issues', []),
+        }
+
+        manuscript.eic_decisions.append(synthesis)
+
+        return {
+            'round': manuscript.current_round,
+            'reports': reports,
+            'synthesis': synthesis,
+            'recommendation': rec,
+            'mode': 'ai'
         }
 
     def author_revise(self, manuscript: ManuscriptState, synthesis: dict) -> dict:
-        """作者修改流程"""
+        """作者修改流程 (自动选择模拟/AI模式)"""
+        if self.ai_engine:
+            return self._ai_author_revise(manuscript, synthesis)
         response = self.author.process_feedback(manuscript, synthesis)
         new_version = self.author.revise_manuscript(manuscript, response)
+        return {
+            'response': response,
+            'new_version': asdict(new_version),
+            'version_number': new_version.version
+        }
+
+    def _ai_author_revise(self, manuscript: ManuscriptState, synthesis: dict) -> dict:
+        """AI 作者修改"""
+        title = manuscript.versions[0].get('title', '') if manuscript.versions else ''
+        guidance = synthesis.get('guidance', '')
+        reviews = st.session_state.get('review_history', [])
+        latest_reports = reviews[-1].get('reports', []) if reviews else []
+
+        ai_response = self.ai_engine.ai_author_respond(
+            guidance, latest_reports, title, manuscript.current_round
+        )
+
+        # 转换为标准 response 格式
+        responses = ai_response.get('responses', [])
+        response = {
+            'round': manuscript.current_round,
+            'total_issues': len(responses),
+            'addressed_count': sum(1 for r in responses if r.get('addressed', False)),
+            'conflict_count': 0,
+            'responses': responses,
+            'strategy_summary': ai_response.get('revision_summary', ''),
+        }
+
+        # 生成新版本
+        new_version = self.author.revise_manuscript(manuscript, response)
+
         return {
             'response': response,
             'new_version': asdict(new_version),
@@ -1642,6 +1951,39 @@ def render_sidebar():
     with st.sidebar:
         st.markdown("### ⚙ 系统配置")
 
+        # AI 模式切换
+        st.markdown("**审稿模式**")
+        ai_available = HAS_ANTHROPIC
+        if not ai_available:
+            st.caption("安装 `pip install anthropic` 可启用 AI 模式")
+
+        use_ai = False
+        if ai_available:
+            use_ai = st.toggle("🤖 AI 审稿模式", value=st.session_state.get('use_ai', False),
+                                help="启用后使用 Claude API 生成真实审稿意见")
+            st.session_state.use_ai = use_ai
+
+            if use_ai:
+                api_key = st.text_input("Anthropic API Key", type="password",
+                                        value=st.session_state.get('api_key', ''),
+                                        placeholder="sk-ant-...")
+                st.session_state.api_key = api_key
+
+                ai_model = st.selectbox("模型", [
+                    "claude-haiku-4-5-20251001",
+                    "claude-sonnet-4-6",
+                ], help="Haiku 最快最便宜，Sonnet 质量更高")
+                st.session_state.ai_model = ai_model
+
+                if api_key:
+                    st.success("AI 模式已启用")
+                else:
+                    st.warning("请输入 API Key")
+                    use_ai = False
+        else:
+            st.info("当前: 模拟模式 (模板生成)")
+
+        st.divider()
         st.markdown("**稿件信息**")
         title = st.text_input("论文标题", value="基于多代理协调的分布式审稿系统研究")
         abstract = st.text_area("摘要", value="本文提出了一种基于多代理协调的分布式审稿系统，"
@@ -1666,7 +2008,8 @@ def render_sidebar():
             for key in list(st.session_state.keys()):
                 if key.startswith('store_') or key in [
                     'coordinator', 'ms_state', 'review_history',
-                    'revision_history', 'process_complete', 'current_phase', 'auto_running'
+                    'revision_history', 'process_complete', 'current_phase',
+                    'auto_running', 'ai_engine', 'final_decision', 'termination_reason'
                 ]:
                     del st.session_state[key]
             st.rerun()
@@ -2345,15 +2688,24 @@ def main():
 
     ms_state = st.session_state.get('ms_state', None)
 
+    # 创建协调器 (根据模式选择是否注入AI引擎)
+    def _create_coordinator():
+        ai_engine = None
+        if st.session_state.get('use_ai') and st.session_state.get('api_key'):
+            model = st.session_state.get('ai_model', 'claude-haiku-4-5-20251001')
+            ai_engine = AIReviewEngine(st.session_state.api_key, model)
+        return ReviewCoordinator(ai_engine=ai_engine)
+
     # ---- 稿件提交阶段 ----
     if current_phase == "init":
         st.markdown("### 📤 步骤 1: 提交稿件")
-        st.info(f"**标题:** {title}\n\n**摘要:** {abstract[:100]}...")
+        mode_label = "🤖 AI 模式" if st.session_state.get('use_ai') and st.session_state.get('api_key') else "📋 模拟模式"
+        st.info(f"**标题:** {title}\n\n**摘要:** {abstract[:100]}...\n\n**当前模式:** {mode_label}")
 
         col1, col2 = st.columns(2)
         with col1:
             if st.button("📨 提交稿件并开始审稿流程", type="primary", use_container_width=True):
-                coordinator = ReviewCoordinator()
+                coordinator = _create_coordinator()
                 ms = coordinator.init_manuscript(title, abstract)
                 ms.max_rounds = max_rounds
 
@@ -2363,7 +2715,7 @@ def main():
                 st.rerun()
         with col2:
             if st.button("🚀 自动运行完整流程", use_container_width=True):
-                coordinator = ReviewCoordinator()
+                coordinator = _create_coordinator()
                 ms = coordinator.init_manuscript(title, abstract)
                 ms.max_rounds = max_rounds
 
@@ -2379,11 +2731,14 @@ def main():
         coordinator = st.session_state.coordinator
         render_metrics(ms_state)
 
-        st.markdown(f"### 🔍 第 {ms_state.current_round} 轮审稿")
+        is_ai = coordinator.ai_engine is not None
+        mode_tag = "🤖 AI" if is_ai else "📋 模拟"
+        st.markdown(f"### 🔍 第 {ms_state.current_round} 轮审稿 ({mode_tag})")
 
         auto = st.session_state.get('auto_running', False)
+        spinner_msg = "🤖 Claude 正在生成审稿意见..." if is_ai else "审稿人正在审阅稿件..."
         if auto or st.button(f"▶ 执行第 {ms_state.current_round} 轮审稿", type="primary"):
-            with st.spinner("审稿人正在审阅稿件..."):
+            with st.spinner(spinner_msg):
                 result = coordinator.run_review_round(ms_state)
                 st.session_state.review_history.append(result)
                 st.session_state.current_phase = "feedback"
@@ -2436,6 +2791,17 @@ def main():
                 guidance = synthesis.get('guidance', '')
                 if guidance:
                     st.text_area("EIC指导意见", guidance, height=300, disabled=True)
+
+                # AI 模式额外信息
+                ai_reasoning = synthesis.get('ai_reasoning', '')
+                ai_issues = synthesis.get('ai_key_issues', [])
+                if ai_reasoning:
+                    st.markdown("**🤖 AI 决策推理:**")
+                    st.markdown(ai_reasoning)
+                if ai_issues:
+                    st.markdown("**🤖 AI 关键问题:**")
+                    for iss in ai_issues:
+                        st.markdown(f"- {iss}")
 
             with tab_tracker:
                 render_comment_tracker()
