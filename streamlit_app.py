@@ -4,13 +4,22 @@ import pandas as pd
 import streamlit as st
 
 """
-# Welcome to Streamlit!
+# Streamlit Demo - Sunny Lin
 
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
 If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
 forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
+"""
+
+"""
+## Career Goals
+
+I'm passionate about software engineering and artificial intelligence, and I love
+turning complex ideas into reliable, well-crafted code. My goal is to build products
+that solve real-world problems — applying AI and strong engineering fundamentals to
+create tools that make a genuine difference in people's lives.
 """
 
 num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
